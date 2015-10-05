@@ -53,26 +53,26 @@ In case of certain errors, the error message will be displayed in the error mess
 
 The classes that are required for the front-end are listed below:
 
--Main
--SlogoModelController
--SlogoView
--TurtleViewBox
--Abstract class Dropdown
--BackgroundColorDropdown
--PenColorDropdown
--LanguageSelectionDropdown
--TurtleImageSelectionDropdown
--Abstract class Tabs
--HelpTab
--ClearCommandPrompt
--SendUserInput
--Abstract classViewBox
--VariableListBox
--FunctionListBox
--CommandHistoryBox
--Abstract class DisplayBox
--CommandPromptDisplay
--MessageDisplayDialog
+- Main
+- SlogoModelController
+- SlogoView
+- TurtleViewBox
+- Abstract class Dropdown
+- BackgroundColorDropdown
+- PenColorDropdown
+- LanguageSelectionDropdown
+- TurtleImageSelectionDropdown
+- Abstract class Tabs
+- HelpTab
+- ClearCommandPrompt
+- SendUserInput
+- Abstract classViewBox
+- VariableListBox
+- FunctionListBox
+- CommandHistoryBox
+- Abstract class DisplayBox
+- CommandPromptDisplay
+- MessageDisplayDialog
 
 ![Diagram](https://i.imgur.com/C9VDDxG.png)
 
