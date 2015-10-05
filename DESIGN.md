@@ -9,17 +9,20 @@ The backend of the design is splitted into parser and executor. The inner logics
 There are three main components to the design ie. back-end, Shared Data Objects and the front-end. The back-end modifies the data in the shared data objects while the front-end uses the information from the shared data objects. This is illustrated in the figure below.
 
 ![Diagram](https://i.imgur.com/Iomn7rN.png)
+
 Figure: Overall data sharing and communication mechanism
 Note: The direction of the arrow shows that the part where the arrow originates has access to the part where the arrowhead points to
 
 ![Diagram](https://i.imgur.com/0CRwXOK.png)
+
 We have created the design in such a way that there needs to be communication between back-end to back-end, front-end to front-end, front-end to back-end, and back-end to front-end. Therefore we have APIs for all these four types of communication.
 
 ![Diagram](https://i.imgur.com/yHHeDsE.png)
+
 Figure: Design diagram of Backend
 
 ##Logic of the program
-When the program start, it will enter a loop of waiting for user’s input, executing the input and displaying the results. User’s input includes choosing items from the drop-down boxes on the screen, typing codes into the console, and selecting previous functions or commands from the drop-down boxes. After receiving the inputs, different event handlers will be triggered.
+When the program starts, it will enter a loop of waiting for user’s input, executing the input and displaying the results. User’s input includes choosing items from the drop-down boxes on the screen, typing codes into the console, and selecting previous functions or commands from the drop-down boxes. After receiving the inputs, different event handlers will be triggered.
 
 For events like user selects a new background color, or user selects a new type of language, the handler will directly call frontend-frontend API, without using the backend resources.
 
@@ -50,29 +53,29 @@ In case of certain errors, the error message will be displayed in the error mess
 
 The classes that are required for the front-end are listed below:
 
-Front End classes:
-Main
-SlogoModelController
-SlogoView
-TurtleViewBox
-Abstract class Dropdown
-BackgroundColorDropdown
-PenColorDropdown
-LanguageSelectionDropdown
-TurtleImageSelectionDropdown
-Abstract class Tabs
-HelpTab
-ClearCommandPrompt
-SendUserInput
-Abstract classViewBox
-VariableListBox
-FunctionListBox
-CommandHistoryBox
-Abstract class DisplayBox
-CommandPromptDisplay
-MessageDisplayDialog
+-Main
+-SlogoModelController
+-SlogoView
+-TurtleViewBox
+-Abstract class Dropdown
+-BackgroundColorDropdown
+-PenColorDropdown
+-LanguageSelectionDropdown
+-TurtleImageSelectionDropdown
+-Abstract class Tabs
+-HelpTab
+-ClearCommandPrompt
+-SendUserInput
+-Abstract classViewBox
+-VariableListBox
+-FunctionListBox
+-CommandHistoryBox
+-Abstract class DisplayBox
+-CommandPromptDisplay
+-MessageDisplayDialog
 
 ![Diagram](https://i.imgur.com/C9VDDxG.png)
+
 Figure: User Interface layout
 
 The functions of each of the dropdown menus, tabs and boxes in the above figure are described below:
