@@ -113,14 +113,14 @@ This API is designed for Executor to update the shared data objects. It can be e
 - Support adding multiple Pens of one Turtle, and each of them has different color or Thickness.
 - Support adding other type of data objects to the screen. We make SharedDataObj hold more instance variables and add the corresponding getters and setters. For example, if a fish (something like turtle) is added to the screen, we just make the SharedDataObj contain an instance variable of fish.
 
-####Response Parser.setCommandString(String s) // Frontend calls Backend
+#####Response Parser.setCommandString(String s) // Frontend calls Backend
 
 When the user click ‘run’ button, the mouse event is triggered. At this time the event handler will call this API. SlogoModelController will pass the string of commands that user enters to Parser. After the parsing and executing process in the Backend, the SlogoModelController will get the return value as a Response object. 
 This API can be extended for the following features:
 The user chooses a history command he ran previously in the drop-down box. Then the event handler will also call this API, pass the string of command to Parser and get the Response.
 The user chooses a history function he ran previously in the drop-down box. Then the event handler will let him to enter the necessary arguments. After that the event handler will also call this API, pass the string of function and command to Parser and get the Response.
 	
-####Response Executor.execute(Node n) //Parser (Backend) calls Executor (Backend)
+#####Response Executor.execute(Node n) //Parser (Backend) calls Executor (Backend)
 
 This API will support two features: let turtle act interactively when user enters text commands, and let user see errors that may result from entered commands in a user friendly way.
 
@@ -181,7 +181,10 @@ The back-end is also divided into two sections. One of the section looks after t
 
 
 #Team Responsibilities
-Front End: Abhishek Upadhyaya Ghimire, Inan Tainwala
-Back End: Logan Rooper, Wanning Jiang, Connor Usry
+#####Front End: 
+Abhishek Upadhyaya Ghimire, Inan Tainwala
+
+#####Back End: 
+Logan Rooper, Wanning Jiang, Connor Usry
 
 
