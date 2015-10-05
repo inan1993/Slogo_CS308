@@ -3,7 +3,7 @@ The assignment is to create a simple implementation of an integrated development
 
 In the project design, the most flexible part is that we are able to support more objects on the screen, and support modification to object properties. In our design, shared memory will hold all the objects. When the program need to be extended for more than one turtles, we can implement new object classes and add the corresponding instance variables to shared memory. As the shared memory can be expanded as desired, it can accommodate different changes for future extension.
 
-The backend of the design is splitted into parser and executor. The inner logics of parser and executor are closed. However, the APIs for calling parser and parsing user’s SLogo codes are open. Other programmers can use our parser and executor by passing strings to the API and get the execution results as the return value. 
+The backend of the design is split into parser and executor. The inner logics of parser and executor are closed. However, the APIs for calling parser and parsing user’s SLogo codes are open. Other programmers can use our parser and executor by passing strings to the API and get the execution results as the return value. 
 
 #Overview
 There are three main components to the design ie. back-end, Shared Data Objects and the front-end. The back-end modifies the data in the shared data objects while the front-end uses the information from the shared data objects. This is illustrated in the figure below.
@@ -11,7 +11,7 @@ There are three main components to the design ie. back-end, Shared Data Objects 
 ![Diagram](https://i.imgur.com/Iomn7rN.png)
 
 Figure: Overall data sharing and communication mechanism
-Note: The direction of the arrow shows that the part where the arrow originates has access to the part where the arrowhead points to
+Note: The direction of the arrow shows that the part where the arrow originates has access to the part where the arrowhead points to.
 
 ![Diagram](https://i.imgur.com/0CRwXOK.png)
 
@@ -47,7 +47,7 @@ See User Interface, below.
 #User Interface
 The diagram shows the simple layout of how the user interface will look like. It includes the display box for turtle’s movement as well the view boxes for variables, functions and command history. 
 
-Currently, there are three ways to input ie. . The first one is inputPrompt where the user types the commands and presses the enter tab to send the command. the second way to input is to click the dropdown menu to access the resource folder to select the image for turtle. the third way to input is click the dropdown to select the color choice for either prn or background from the lists available in the dropdown.
+Currently, there are three ways to input. The first one is inputPrompt where the user types the commands and presses the enter tab to send the command. the second way to input is to click the dropdown menu to access the resource folder to select the image for turtle. The third way to input is click the dropdown to select the color choice for either pen or background from the lists available in the dropdown.
 
 In case of certain errors, the error message will be displayed in the error message box. this will coordinate with the SlogoModelController and get the response from the parser.
 
@@ -118,7 +118,7 @@ This API is designed for Executor to update the shared data objects. It can be e
 When the user click ‘run’ button, the mouse event is triggered. At this time the event handler will call this API. SlogoModelController will pass the string of commands that user enters to Parser. After the parsing and executing process in the Backend, the SlogoModelController will get the return value as a Response object. 
 This API can be extended for the following features:
 The user chooses a history command he ran previously in the drop-down box. Then the event handler will also call this API, pass the string of command to Parser and get the Response.
-The user chooses a history function he ran previously in the drop-down box. Then the event handler will let him to enter the necessary arguments. After that the event handler will also call this API, pass the string of function and command to Parser and get the Response.
+The user chooses a history function he ran previously in the drop-down box. Then the event handler will let him enter the necessary arguments. After that the event handler will also call this API, pass the string of function and command to Parser and get the Response.
 	
 #####Response Executor.execute(Node n) //Parser (Backend) calls Executor (Backend)
 
@@ -163,11 +163,13 @@ Executor:
 SlogoModelController:
 	display(myParser.getResponse());
 
+//If succes response
 SlogoModelController:
 	turtle.draw();
 	pen.draw();
 SlogoModel
 	updateView();
+// Else handle response appropriately
 ```
 
 #Design Considerations
