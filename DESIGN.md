@@ -130,10 +130,10 @@ If there are any runtime error, the Executor will create an Error Response and i
 
 
 #API Example Code
-It should be clear from this code which objects are responsible for completing each part of the task, but you do not have to implement the called functions.
-Show actual "sequence of code" that implements the following use case: 
-The user types 'fd 50' in the command window, and sees the turtle move in the display window leaving a trail, and has the command added to the environment's history.
-Note, clearly show the flow of calls to public methods needed to complete this example, indicating which class contains each method called. It is not necessary to understand exactly how parsing works in order to complete this example, just what the result of parsing the command will be.
+The following "sequence of code" shows how the given use case is implemented using our program:
+
+<i>The user types 'fd 50' in the command window, and sees the turtle move in the display window leaving a trail, and has the command added to the environment's history.</i>
+
 ```java
 SlogoModelController:
 	myParser.setCommandString(“fd 50”);
@@ -169,15 +169,13 @@ SlogoModelController:
 SlogoModel
 	updateView();
 ```
-(unfinished, please add methods that frontend will call)
 
-
-#Team Responsibilities
+#Design Considerations
 We spent a considerable amount of time discussing the APIs we would be implementing and how we would be using them. To better understand the control flow we sketched it out on the white-board. We realized then that we might have a problem, which led us to reconsider our original design.
 
 We decided to use three main components for design ie. back-end, Shared Data Objects and the front-end. This was thought to be a good design because Shared Data Objects (turtle and pen) would be shared among both front and back end, and would be populated by back-end. This will then be used by the front-end to draw the necessary movements of turtle. Hence, this design makes the back-end and front-end flexible as well as independent of each other.
 
-The back-end is also divided into two sections. One of the section looks after the parsing the command that the user enters. It then assigns those parsed objects to the node or leaf of the tree. We are using tree structure to analyse the data in the back-end as it is easier traversing through it. Other section of the tree uses those objects in the tree to generate specific functions and generate response for the turtle and pen object depending on the command. Hence, the back-end is completely independent of the front-end and there is a communication mechanism between the sections in back-end too.
+The back-end is also divided into two sections. One of the section looks after the parsing the command that the user enters. It then assigns those parsed objects to the node or leaf of the tree. We are using tree structure to analyse the data in the back-end as it is easier traversing through it. Other section of the back-end uses those objects in the tree to generate specific functions and generate response for the turtle and pen object depending on the command. Hence, the back-end is completely independent of the front-end and there is a communication mechanism between the sections in back-end too.
 
 
 #Team Responsibilities
