@@ -1,7 +1,6 @@
-/**
- * 
- */
 package backend;
+
+import responses.*;
 
 /**
  * @author loganrooper
@@ -15,18 +14,16 @@ public class Parser {
 		exec = new Executor();
 	}
 	
-	public String run(String[] input) {
-		String result = "";
+	public Response run(String[] input) {
+		Response ret = null;
 		for (String line : input) {
-			result = parse(line);
+			ret = parse(line);
 		}
-		return result;
+		return ret;
 	}
 	
-	private String parse(String line) {
+	private Response parse(String line) {
 		Command root = new Command();
-		exec.execute(root);
-		
-		return "";
+		return exec.execute(root);
 	}
 }

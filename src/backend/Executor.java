@@ -3,6 +3,8 @@
  */
 package backend;
 
+import responses.Response;
+
 /**
  * @author loganrooper
  *
@@ -11,10 +13,13 @@ public class Executor {
 
 	/**
 	 * @param root
+	 * @return 
 	 */
-	public void execute(Node root) {
+	public Response execute(Node root) {
+		 
 		
 		
+		return null;
 	}
 
 }
