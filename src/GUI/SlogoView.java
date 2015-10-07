@@ -3,6 +3,7 @@ package GUI;
 import java.awt.Dimension;
 import java.util.ResourceBundle;
 
+import GUI.SlogoModel;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
