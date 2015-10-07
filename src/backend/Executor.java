@@ -9,4 +9,12 @@ package backend;
  */
 public class Executor {
 
+	/**
+	 * @param root
+	 */
+	public void execute(Node root) {
+		
+		
+	}
+
 }
