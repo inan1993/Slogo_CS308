@@ -1,4 +1,4 @@
-package src.GUI.ViewBox;
+package GUI.ViewBox;
 
 public abstract class ViewPane {
 

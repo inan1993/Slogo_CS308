@@ -1,6 +1,8 @@
-package src.GUI.TextBox;
+package GUI.TextBox;
 
-public abstract class TextDisplayBox {
+import javafx.scene.control.TextArea;
+
+public abstract class TextDisplayBox extends TextArea{
 
     public TextDisplayBox () {
         // TODO Auto-generated constructor stub

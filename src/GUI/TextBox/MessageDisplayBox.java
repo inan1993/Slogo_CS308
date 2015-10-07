@@ -1,4 +1,4 @@
-package src.GUI.TextBox;
+package GUI.TextBox;
 
 public class MessageDisplayBox extends TextDisplayBox {
 
