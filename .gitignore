@@ -18,6 +18,8 @@ gen/
 *.apk
 *.ap_
 
+.classpath
+
 # Files for the dex VM
 ###########################
 *.dex
