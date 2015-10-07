@@ -22,38 +22,40 @@ public class SlogoView {
     private Button clearButton;
     private Button helpButton;
     
-    public SlogoView(SlogoModel model, String language, String classname) {
+    public SlogoView(String language){//, String classname) {
         // classname: passed to the 
     	
-		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
+		//myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
 
     	BorderPane root = new BorderPane();
-    	
-    	enableButtons(classname);
+    	String classname = null;
+    	//enableButtons(classname);
     	
     	root.setRight(variableBox(classname)); // variable, function, history
     	root.setCenter(turtleScreen(classname)); // turtle movement screen
     	root.setTop(menuBars(classname)); // menu bars
     	root.setBottom(commandBox(classname)); // command entry, enter, clear, message box
+        scene = new Scene(root, DEFAULT_SIZE.width, DEFAULT_SIZE.height);
 
-    
-    
     }
     
     public Scene getScene(){
     	return scene;
     }
     
-    
+/*    
     private void enableButtons (String classname) {
         clearButton.setDisable(false);//((!myModel).clear());
         enterButton.setDisable(false);
         helpButton.setDisable(true);
         
     }
-  
-    private Node variableBox(String classname){
-		return null;
+  */
+    private TextArea variableBox(String classname){
+		TextArea textArea = new TextArea();
+		textArea.setText("hello world");
+    	
+    	return textArea;
     	
     }
     
