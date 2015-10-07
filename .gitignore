@@ -24,6 +24,8 @@ gen/
 ###########################
 *.dex
 
+.classpath
+
 # Compiled source #
 ###################
 *.com
