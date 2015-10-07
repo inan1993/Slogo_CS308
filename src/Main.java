@@ -1,10 +1,8 @@
-package src;
-
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import src.GUI.SlogoModel;
-import src.GUI.SlogoView;
+import GUI.SlogoModel;
+import GUI.SlogoView;
 
 public class Main extends Application{
     public static final String TITLE = "Slogo";
