@@ -14,6 +14,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 public class SlogoView {
 
@@ -132,10 +134,13 @@ public class SlogoView {
 
 
 	private Node turtleScreen(){
-		TextArea textArea = new TextArea();
-		textArea.setText("turtle world");
+		Rectangle turtleBox = new Rectangle(100, 30, 750, 580);
+		turtleBox.toBack();
+		turtleBox.setFill(Color.LIGHTGREEN);
+		turtleBox.setStroke(Color.BLACK);
+		turtleBox.setStrokeWidth(2);
 
-		return textArea;		
+		return turtleBox;		
 
 	}
 
@@ -148,14 +153,12 @@ public class SlogoView {
 	}
 	
 	private Node messageBox(){
-		Label label = new Label("hello");
+		Label label = new Label("Message will be displayed here");
 		return label;
 	}
 
 	private Node clearBox(){
-		clearButton = new Button("Clear");//"FileCommand", new EventHandler<ActionEvent>() {
-//		result.getChildren().add(clearButton);
-
+		clearButton = new Button("Clear");
 		return clearButton;
 	}
 
@@ -166,7 +169,7 @@ public class SlogoView {
 		result.getChildren().add(enterBox());
 		return result;	}
 
-	private Node commandBox(){//String classname){
+	private Node commandBox(){
 		TextArea textArea = new TextArea();
 		textArea.setText("Enter command here");
 		return textArea;
