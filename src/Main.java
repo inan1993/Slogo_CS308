@@ -13,6 +13,7 @@ public class Main extends Application{
         SlogoView display = new SlogoView("English");
         stage.setTitle(TITLE);
         stage.setScene(display.getScene()); 
+        stage.setResizable(false);
         stage.sizeToScene(); 
         stage.show();
 
