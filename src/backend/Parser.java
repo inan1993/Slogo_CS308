@@ -59,6 +59,10 @@ public class Parser {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		for(Node each:myRoots)
+		{
+			myResponse=exec.execute(each);
+		}
 		return myResponse;
 	}
 	
@@ -74,6 +78,7 @@ public class Parser {
         }
         return patterns;
     }
+	
 	//how to reduce redundancy? enum can't be extended
 	public static List<Entry<SyntaxType, Pattern>> makeSyntaxPatterns (String fileName) {
         ResourceBundle resources = ResourceBundle.getBundle(fileName);
