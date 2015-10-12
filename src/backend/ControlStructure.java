@@ -9,6 +9,11 @@ package backend;
  */
 public class ControlStructure extends Node{
 
+	protected ControlStructure(String name, int num) {
+		super(name, num);
+		// TODO Auto-generated constructor stub
+	}
+
 	/* (non-Javadoc)
 	 * @see backend.Node#run()
 	 */

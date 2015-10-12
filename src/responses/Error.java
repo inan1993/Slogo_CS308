@@ -9,6 +9,11 @@ package responses;
  */
 public class Error extends Response {
 
+	public Error(String msg) {
+		super(msg);
+		// TODO Auto-generated constructor stub
+	}
+
 	/* (non-Javadoc)
 	 * @see responses.Response#toString()
 	 */

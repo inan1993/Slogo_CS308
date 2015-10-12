@@ -9,6 +9,11 @@ package responses;
  */
 public class Success extends Response{
 
+	public Success(String msg) {
+		super(msg);
+		// TODO Auto-generated constructor stub
+	}
+
 	/* (non-Javadoc)
 	 * @see responses.Response#toString()
 	 */
