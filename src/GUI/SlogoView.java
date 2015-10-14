@@ -157,13 +157,7 @@ public class SlogoView {
 
 
 
-    private Node turtleScreen(){
-//        Rectangle turtleBox = new Rectangle(100, 30, 800, 580);
-//        turtleBox.toBack();
-//        turtleBox.setFill(Color.LIGHTGREEN);
-//        turtleBox.setStroke(Color.BLACK);
-//        turtleBox.setStrokeWidth(2);
-//        return turtleBox;	
+    private Node turtleScreen(){	
         return new TurtlePane(800, 580, mySlogoModel);
 
     }
