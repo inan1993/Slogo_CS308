@@ -2,6 +2,7 @@ package GUI;
 
 import java.awt.Dimension;
 import java.util.ResourceBundle;
+
 import GUI.Button.ClearCommandButton;
 import GUI.Button.EnterCommandButton;
 import GUI.Button.HelpButton;
@@ -24,14 +25,18 @@ import javafx.scene.layout.VBox;
 public class SlogoView {
 
     private static final Dimension DEFAULT_SIZE = new Dimension(1200, 700);
-    private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/";
+    public static Dimension getDefaultSize() {
+		return DEFAULT_SIZE;
+	}
+
+
+	private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/";
     private Scene scene;
+    
     SlogoModel mySlogoModel;
 
-    
     private TextArea commandBox, messageBox;;
-    
-    
+        
     public SlogoView(String language){//, String classname) {
 
         ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
@@ -155,9 +160,7 @@ public class SlogoView {
         return result;
     }
 
-
-
-    private Node turtleScreen(){	
+    private Node turtleScreen(){
         return new TurtlePane(800, 580, mySlogoModel);
 
     }
