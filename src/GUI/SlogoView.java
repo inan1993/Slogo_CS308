@@ -10,16 +10,15 @@ import GUI.Dropdown.LanguageListDropdown;
 import GUI.Dropdown.PenColorDropdown;
 import GUI.TextBox.CommandPromptDisplayBox;
 import GUI.TextBox.MessageDisplayBox;
+import GUI.TextBox.TextDisplayBox;
 import GUI.TurtlePane.TurtlePane;
 import GUI.ViewBox.CommandHistoryBox;
 import GUI.ViewBox.FunctionListBox;
 import GUI.ViewBox.VariableListBox;
 import GUI.ViewBox.ViewBox;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -28,11 +27,9 @@ public class SlogoView {
 
     private static final Dimension DEFAULT_SIZE = new Dimension(1200, 700);
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/";
-    private Scene scene;
-    SlogoModel mySlogoModel;
+    private SlogoModel mySlogoModel;
 
-
-    private TextArea commandBox, messageBox;;
+    private TextDisplayBox commandBox, messageBox;
 
 
     public SlogoView(String language){//, String classname) {
@@ -41,28 +38,22 @@ public class SlogoView {
         mySlogoModel = new SlogoModel();
 
         BorderPane root = new BorderPane();
-        root.setMaxSize(1200, 700);
+        root.setMaxSize(DEFAULT_SIZE.getHeight(), DEFAULT_SIZE.getWidth());
 
         root.setTop(menu()); // dropdowns, file, help
         root.setCenter(centerBox()); // turtle movement screen & boxes below it
         root.setRight(rightBox()); // variable, function, history
         root.setBottom(bottomBox());
 
-        scene = new Scene(root, DEFAULT_SIZE.width, DEFAULT_SIZE.height);
 
     }
 
     private Node bottomBox () {
-        // TODO Auto-generated method stub
         VBox result = new VBox();
         result.getChildren().add(messageAndClearBoxes());
         result.getChildren().add(commandAndEnterBoxes());
 
         return result;
-    }
-
-    public Scene getScene(){
-        return scene;
     }
 
     private Node menu() {
@@ -72,7 +63,6 @@ public class SlogoView {
         result.getChildren().add(bgColorDropDown());
         result.getChildren().add(penColorDropDown());
         result.getChildren().add(helpMenu());
-
         return result;
     }
 
@@ -83,7 +73,6 @@ public class SlogoView {
         myComboBox.promptTextProperty();
         myComboBox.setValue("File");
         return myComboBox;  
-
     }
 
     private Node helpMenu() {
@@ -91,29 +80,43 @@ public class SlogoView {
     }
 
     private Node languageDropDown(){
-        return new LanguageListDropdown("Languages");  
+        ComboBox<String> language = new LanguageListDropdown("Languages");
+        language.setOnAction(event->{
+            String lang = language.getValue();
+            mySlogoModel.setLanguage(lang);
+            messageBox.setMessage("Language Set to "+lang);
+        });
+        return language;  
     }
 
     private Node bgColorDropDown(){
-        return new BackgroundColorDropdown("Background Color");  
+        ComboBox<String> bgColor = new BackgroundColorDropdown("Background Color");
+        bgColor.setOnAction(event->{
+            String color = bgColor.getValue();
+            mySlogoModel.setBackgroundColor(color);
+            messageBox.setMessage("Background Color Set to "+color);
+        });
+        return bgColor;  
     }
 
     private Node penColorDropDown(){
-        return new PenColorDropdown("Pen Color");  
+        ComboBox<String> penColor = new PenColorDropdown("Pen Color");
+        penColor.setOnAction(event->{
+            String color = penColor.getValue();
+            mySlogoModel.setPenColor(color);
+            messageBox.setMessage("Pen Color Set to "+color);
+        });
+        return penColor;  
     }
 
 
     private VBox rightBox(){
         VBox result = new VBox();
-
         ViewBox v = new VariableListBox("variableList");
-        v.addText("v1=4");
         ViewBox c = new CommandHistoryBox("commandHistoryList");
         ViewBox f = new FunctionListBox("functionList");
-
         result.getChildren().addAll(v,c,f);
         return result;
-
     }
 
     private Node centerBox() {
@@ -128,7 +131,9 @@ public class SlogoView {
         result.getChildren().add(messageBox);
 
         Button clearButton = new ClearCommandButton();
-        clearButton.setOnAction(event->commandBox.clear());
+        clearButton.setOnAction(event->{
+            commandBox.clear();
+        });
         result.getChildren().add(clearButton);
         return result;
     }
@@ -140,7 +145,9 @@ public class SlogoView {
         result.getChildren().add(commandBox);
 
         Button enterButton =  new EnterCommandButton();
-        enterButton.setOnAction(event->mySlogoModel.addHistory(commandBox.getText()));
+        enterButton.setOnAction(event->{
+            mySlogoModel.addHistory(commandBox.getText());
+        });
         result.getChildren().add(enterButton);
         return result;	
     }

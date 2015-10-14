@@ -7,6 +7,9 @@ public abstract class TextDisplayBox extends TextArea{
     public TextDisplayBox () {
         // TODO Auto-generated constructor stub
     }
-
     
+    public void setMessage(String message){
+        this.clear();
+        this.setText(message);
+    }
 }
