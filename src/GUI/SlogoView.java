@@ -17,6 +17,7 @@ import GUI.ViewBox.FunctionListBox;
 import GUI.ViewBox.VariableListBox;
 import GUI.ViewBox.ViewBox;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.BorderPane;
@@ -27,6 +28,7 @@ public class SlogoView {
 
     private static final Dimension DEFAULT_SIZE = new Dimension(1200, 700);
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/";
+    private Scene scene;
     private SlogoModel mySlogoModel;
 
     private TextDisplayBox commandBox, messageBox;
@@ -38,14 +40,14 @@ public class SlogoView {
         mySlogoModel = new SlogoModel();
 
         BorderPane root = new BorderPane();
-        root.setMaxSize(DEFAULT_SIZE.getHeight(), DEFAULT_SIZE.getWidth());
+        root.setMaxSize(1200, 700);
 
         root.setTop(menu()); // dropdowns, file, help
         root.setCenter(centerBox()); // turtle movement screen & boxes below it
         root.setRight(rightBox()); // variable, function, history
         root.setBottom(bottomBox());
 
-
+        scene = new Scene(root, DEFAULT_SIZE.width, DEFAULT_SIZE.height);
     }
 
     private Node bottomBox () {
@@ -54,6 +56,10 @@ public class SlogoView {
         result.getChildren().add(commandAndEnterBoxes());
 
         return result;
+    }
+
+    public Scene getScene(){
+        return scene;
     }
 
     private Node menu() {
