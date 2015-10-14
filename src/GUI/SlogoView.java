@@ -5,6 +5,9 @@ import java.util.ResourceBundle;
 import GUI.Button.ClearCommandButton;
 import GUI.Button.EnterCommandButton;
 import GUI.Button.HelpButton;
+import GUI.Dropdown.BackgroundColorDropdown;
+import GUI.Dropdown.LanguageListDropdown;
+import GUI.Dropdown.PenColorDropdown;
 import GUI.TextBox.CommandPromptDisplayBox;
 import GUI.TextBox.MessageDisplayBox;
 import GUI.TurtlePane.TurtlePane;
@@ -28,15 +31,15 @@ public class SlogoView {
     private Scene scene;
     SlogoModel mySlogoModel;
 
-    
+
     private TextArea commandBox, messageBox;;
-    
-    
+
+
     public SlogoView(String language){//, String classname) {
 
         ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
         mySlogoModel = new SlogoModel();
-        
+
         BorderPane root = new BorderPane();
         root.setMaxSize(1200, 700);
 
@@ -88,51 +91,15 @@ public class SlogoView {
     }
 
     private Node languageDropDown(){
-        ComboBox<String> myComboBox = new ComboBox<String>();
-        myComboBox.getItems().addAll(
-                                     "Chinese",
-                                     "English",
-                                     "French",
-                                     "German",
-                                     "Italian",
-                                     "Portugese",
-                                     "Russian",
-                                     "Spanish");
-        myComboBox.setEditable(false);        
-        myComboBox.promptTextProperty();
-        myComboBox.setValue("Language");
-
-        return myComboBox;  
+        return new LanguageListDropdown("Languages");  
     }
 
     private Node bgColorDropDown(){
-        ComboBox<String> myComboBox = new ComboBox<String>();
-        myComboBox.getItems().addAll(
-                                     "White",
-                                     "Black",
-                                     "Green",
-                                     "Yellow",
-                                     "Red");
-        myComboBox.setEditable(false);        
-        myComboBox.promptTextProperty();
-        myComboBox.setValue("Background Color");
-
-        return myComboBox;  
+        return new BackgroundColorDropdown("Background Color");  
     }
 
     private Node penColorDropDown(){
-        ComboBox<String> myComboBox = new ComboBox<String>();
-        myComboBox.getItems().addAll(
-                                     "White",
-                                     "Black",
-                                     "Green",
-                                     "Yellow",
-                                     "Red");
-        myComboBox.setEditable(false);        
-        myComboBox.promptTextProperty();
-        myComboBox.setValue("Pen Color");
-
-        return myComboBox;  
+        return new PenColorDropdown("Pen Color");  
     }
 
 
@@ -150,24 +117,16 @@ public class SlogoView {
     }
 
     private Node centerBox() {
-        VBox result = new VBox();
-        result.getChildren().add(turtleScreen());
-        return result;
-    }
-
-
-
-    private Node turtleScreen(){	
         return new TurtlePane(800, 580, mySlogoModel);
-
     }
+
 
 
     private Node messageAndClearBoxes(){
         HBox result = new HBox();
         messageBox = new MessageDisplayBox();
         result.getChildren().add(messageBox);
-        
+
         Button clearButton = new ClearCommandButton();
         clearButton.setOnAction(event->commandBox.clear());
         result.getChildren().add(clearButton);
