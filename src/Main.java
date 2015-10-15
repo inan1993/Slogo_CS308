@@ -1,21 +1,23 @@
+
+import GUI.SlogoView;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import GUI.SlogoModel;
-import GUI.SlogoView;
 
 public class Main extends Application{
     public static final String TITLE = "Slogo";
     Scene scene;
 	
 	public  void start (Stage stage) throws Exception {
-        SlogoModel model = new SlogoModel();
-        SlogoView display = new SlogoView(model, "English");
+        //SlogoModel model = new SlogoModel();
+        SlogoView display = new SlogoView("English");
         stage.setTitle(TITLE);
-        stage.setScene(scene); 
+        stage.setScene(display.getScene()); 
+        stage.setResizable(false);
         stage.sizeToScene(); 
         stage.show();
-       
+
+        
     }
 	
     public static void main (String[] args) {
