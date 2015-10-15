@@ -1,24 +1,24 @@
 /**
  * 
  */
-package responses;
+package backend;
 
 /**
  * @author loganrooper
  *
  */
-public class Success extends Response{
+public class Variable extends Node{
 
-	public Success(String msg) {
-		super(msg);
+	protected Variable(String name, int num) {
+		super(name, num);
 		// TODO Auto-generated constructor stub
 	}
 
 	/* (non-Javadoc)
-	 * @see responses.Response#toString()
+	 * @see backend.Node#run()
 	 */
 	@Override
-	public String toString() {
+	protected Node run() {
 		// TODO Auto-generated method stub
 		return null;
 	}
