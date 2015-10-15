@@ -8,10 +8,10 @@ package backend;
  *
  */
 public class Variable extends Node{
-
-	protected Variable(String name, int num) {
-		super(name, num);
-		// TODO Auto-generated constructor stub
+	
+	protected Variable()
+	{
+		super("Variable", 1);
 	}
 
 	/* (non-Javadoc)

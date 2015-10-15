@@ -14,7 +14,8 @@ public abstract class Node {
 	private List<Node> myChildren;
 	private int myNumOfChildren;
 	
-	protected Node(String name, int num) {
+	
+	public Node(String name, int num) {
 		myName=name;
 		myNumOfChildren=num;
 	}
