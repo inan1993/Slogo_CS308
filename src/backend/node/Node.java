@@ -1,7 +1,7 @@
 /**
  * 
  */
-package backend;
+package backend.node;
 
 import java.util.List;
 
@@ -14,18 +14,19 @@ public abstract class Node {
 	private List<Node> myChildren;
 	private int myNumOfChildren;
 	
-	protected Node(String name, int num) {
+	
+	public Node(String name, int num) {
 		myName=name;
 		myNumOfChildren=num;
 	}
 	
 	protected abstract Node run();
 	
-	protected void addChildren(Node node) {
+	public void addChildren(Node node) {
 		myChildren.add(node);
 	}
 	
-	protected int getChildrenNum(){
+	public int getChildrenNum(){
 		return myNumOfChildren;
 	}
 }
