@@ -1,8 +1,11 @@
 package GUI.Button;
 
-public class EnterCommandButton extends Buttons{
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 
-    public EnterCommandButton () {
-        super("Enter");
+public class EnterCommandButton extends AButton{
+
+    public EnterCommandButton (EventHandler<ActionEvent> event) {
+        super("Enter", event);
     }
 }

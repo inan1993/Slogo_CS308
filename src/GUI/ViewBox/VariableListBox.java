@@ -1,6 +1,6 @@
 package GUI.ViewBox;
 
-public class VariableListBox extends ViewBox {
+public class VariableListBox extends AViewBox {
 
     public VariableListBox (String text){
         super(text);
