@@ -15,21 +15,23 @@ public class SlogoModel {
     
     public SlogoModel(){
         commandHistory = new ArrayList<String>();
-        turtlePaneBackgroundColor = Color.LIGHTGREEN;
+        setBackgroundColor("BLACK");
+        //turtlePaneBackgroundColor = Color.LIGHTGREEN;
         myTurtle = new Turtle();
     }
     
     public void addHistory(String command){
         System.out.println("new command:"+command);
         commandHistory.add(command);
+       
     }
     
     public Color getBackgroundColor(){
         return turtlePaneBackgroundColor;
     }
     
-    public void setBackgroundColor(Color color){
-        turtlePaneBackgroundColor = color;
+    public void setBackgroundColor(String color){    
+        turtlePaneBackgroundColor = Color.WHITE;
     }
     
     public Turtle getTurtle(){

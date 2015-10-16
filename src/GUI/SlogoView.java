@@ -113,15 +113,20 @@ public class SlogoView {
     private Node bgColorDropDown(){
         ComboBox<String> myComboBox = new ComboBox<String>();
         myComboBox.getItems().addAll(
-                                     "White",
-                                     "Black",
-                                     "Green",
-                                     "Yellow",
-                                     "Red");
+                                     "WHITE",
+                                     "BLACK",
+                                     "GREEN",
+                                     "YELLOW",
+                                     "RED");
         myComboBox.setEditable(false);        
         myComboBox.promptTextProperty();
         myComboBox.setValue("Background Color");
 
+        myComboBox.setOnAction((event) -> {
+            myComboBox.getSelectionModel().getSelectedItem();
+            mySlogoModel.setBackgroundColor("BLACK");
+            System.out.println("ComboBox Action (selected: " );
+        });
         return myComboBox;  
     }
 
