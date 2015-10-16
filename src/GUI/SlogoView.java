@@ -2,20 +2,11 @@ package GUI;
 
 import java.awt.Dimension;
 import java.util.ResourceBundle;
-import GUI.Button.ClearCommandButton;
-import GUI.Button.EnterCommandButton;
-import GUI.Button.HelpButton;
-import GUI.Dropdown.BackgroundColorDropdown;
-import GUI.Dropdown.LanguageListDropdown;
-import GUI.Dropdown.PenColorDropdown;
-import GUI.TextBox.ATextDisplayBox;
-import GUI.TextBox.CommandPromptDisplayBox;
-import GUI.TextBox.MessageDisplayBox;
-import GUI.TurtlePane.TurtlePane;
-import GUI.ViewBox.AViewBox;
-import GUI.ViewBox.CommandHistoryBox;
-import GUI.ViewBox.FunctionListBox;
-import GUI.ViewBox.VariableListBox;
+import GUI.button.*;
+import GUI.dropdown.*;
+import GUI.textBox.*;
+import GUI.turtlepane.*;
+import GUI.viewbox.*;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -31,7 +22,8 @@ public class SlogoView {
     private Scene scene;
     private SlogoModel mySlogoModel;
 
-    private ATextDisplayBox commandBox, messageBox;
+    private CommandPromptDisplayBox commandBox; 
+    private MessageDisplayBox messageBox;
 
 
     public SlogoView(String language){//, String classname) {

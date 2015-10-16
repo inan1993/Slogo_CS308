@@ -1,6 +1,8 @@
-package GUI.TextBox;
+package GUI.textBox;
 
-public class MessageDisplayBox extends ATextDisplayBox {
+import javafx.scene.control.TextArea;
+
+public class MessageDisplayBox extends TextArea {
 
     public MessageDisplayBox () {
         super();
@@ -10,4 +12,8 @@ public class MessageDisplayBox extends ATextDisplayBox {
         this.setWrapText(true);
     }
 
+    public void setMessage(String message){
+        this.clear();
+        this.setText(message);
+    }
 }

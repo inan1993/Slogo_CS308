@@ -1,4 +1,4 @@
-package GUI.Dropdown;
+package GUI.dropdown;
 
 import java.util.ResourceBundle;
 import javafx.scene.control.ComboBox;

@@ -1,4 +1,4 @@
-package GUI.Dropdown;
+package GUI.dropdown;
 
 public class LanguageListDropdown extends ADropdownBox {
 

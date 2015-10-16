@@ -1,4 +1,4 @@
-package GUI.ViewBox;
+package GUI.viewbox;
 
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TitledPane;

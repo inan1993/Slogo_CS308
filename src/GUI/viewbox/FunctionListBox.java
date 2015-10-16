@@ -1,4 +1,4 @@
-package GUI.ViewBox;
+package GUI.viewbox;
 
 public class FunctionListBox extends AViewBox {
 

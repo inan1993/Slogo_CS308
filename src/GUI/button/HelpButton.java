@@ -1,4 +1,4 @@
-package GUI.Button;
+package GUI.button;
 
 import java.awt.Desktop;
 import java.net.URL;

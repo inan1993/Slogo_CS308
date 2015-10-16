@@ -1,4 +1,4 @@
-package GUI.ViewBox;
+package GUI.viewbox;
 
 public class CommandHistoryBox extends AViewBox {
 
