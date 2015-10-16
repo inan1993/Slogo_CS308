@@ -1,4 +1,4 @@
-package SharedObjects;
+package sharedobjects;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -7,11 +7,11 @@ import responses.Response;
 
 public class ManipulateController implements IWorkSpaceController{
 
-	private SharedDataObjects currWorkspace;
-	private List<SharedDataObjects> workspaceList = new LinkedList<SharedDataObjects>();
+	private Workspace currWorkspace;
+	private List<Workspace> workspaceList = new LinkedList<Workspace>();
 	
 	public ManipulateController() {
-		currWorkspace = new SharedDataObjects();
+		currWorkspace = new Workspace();
 		workspaceList.add(currWorkspace);
 	}
 

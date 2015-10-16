@@ -1,4 +1,4 @@
-package SharedObjects;
+package sharedobjects;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -8,14 +8,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Shape;
 
-public class SharedDataObjects {
+public class Workspace {
 
 	List<Turtle> turtleList;
 	List<Pen> penList;
 	List<Object> variableList;
 	Turtle currTurtle;
 	
-	public SharedDataObjects() {
+	public Workspace() {
 		turtleList = new LinkedList<Turtle>();
 		penList = new LinkedList<Pen>();
 		variableList = new LinkedList<Object>();
