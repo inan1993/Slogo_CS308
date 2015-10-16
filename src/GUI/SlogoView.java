@@ -100,6 +100,7 @@ public class SlogoView {
         bgColor.setOnAction(event->{
             String color = bgColor.getValue();
             mySlogoModel.setBackgroundColor(color);
+            //draw();
             messageBox.setMessage("Background Color Set to "+color);
         });
         return bgColor;  
@@ -126,7 +127,7 @@ public class SlogoView {
     }
 
     private Node centerBox() {
-        return new TurtlePane(800, 580, mySlogoModel);
+        return new TurtlePane(800, 580);
     }
 
 
