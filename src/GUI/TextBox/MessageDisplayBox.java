@@ -1,6 +1,6 @@
 package GUI.TextBox;
 
-public class MessageDisplayBox extends TextDisplayBox {
+public class MessageDisplayBox extends ATextDisplayBox {
 
     public MessageDisplayBox () {
         super();
