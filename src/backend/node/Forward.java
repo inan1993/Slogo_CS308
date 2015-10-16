@@ -1,4 +1,6 @@
-package backend;
+package backend.node;
+
+import backend.factory.NodeFactory;
 
 public class Forward extends Command {
 	protected Forward(String name, int num) {
