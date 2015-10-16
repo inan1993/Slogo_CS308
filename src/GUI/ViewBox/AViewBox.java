@@ -3,11 +3,11 @@ package GUI.ViewBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TitledPane;
 
-public abstract class ViewBox extends TitledPane{
+public abstract class AViewBox extends TitledPane{
     
     TextArea textArea;
     
-    public ViewBox (String text) {
+    public AViewBox (String text) {
         this.setText(text);
         textArea = new TextArea();
         setSize();

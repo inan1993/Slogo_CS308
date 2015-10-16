@@ -1,6 +1,6 @@
 package GUI.ViewBox;
 
-public class FunctionListBox extends ViewBox {
+public class FunctionListBox extends AViewBox {
 
     public FunctionListBox (String text) {
         super(text);
