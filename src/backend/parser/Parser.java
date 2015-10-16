@@ -145,7 +145,7 @@ public class Parser {
 		for(int i=0;i<numOfChildren;i++)
 		{
 			index++;
-			root.addChildren(factory.createNode(tokenList.get(index).getValue()));
+			root.addChild(factory.createNode(tokenList.get(index).getValue()));
 		}
 		return root;
 	}
