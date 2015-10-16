@@ -13,6 +13,7 @@ public class SharedDataObjects {
 	List<Turtle> turtleList;
 	List<Pen> penList;
 	List<Object> variableList;
+	Turtle currTurtle;
 	
 	public SharedDataObjects() {
 		turtleList = new LinkedList<Turtle>();
@@ -28,47 +29,41 @@ public class SharedDataObjects {
 		//...etc
 	}
 	
-	public void setColor(Turtle t, Paint p){
-		
+	public void setImage(Image i){
+		currTurtle.setImage(i);
 	}
 	
-	public void setShape(Turtle t, Shape s){
-		
+	public void setHeading(double angle){
+		currTurtle.setHeading(angle);
 	}
 	
-	public void setImage(Turtle t, Image i){
-		
+	public double getHeading(){
+		return currTurtle.getHeading();
 	}
 	
-	public void setAngle(Turtle t, double angle){
-		
+	public void setPosition(int[] pos){
+		currTurtle.setPosition(pos);
 	}
 	
-	public void setPosition(Turtle t, int[] pos){
-		
+	public int[] getPosition(){
+		return currTurtle.getPosition();
+	}
+	
+	public void showTurtle(){
+		currTurtle.show();
+	}
+	
+	public void hideTurtle(){
+		currTurtle.hide();
 	}
 	
  	//****Pen Manipulation********
-	public void removePen(Pen p){
-		
+	public void penUp(){
+		currTurtle.penUp();
 	}
 	
-	public void addPen(Turtle t, Pen p){
-		
+	public void penDown(){
+		currTurtle.penDown();
 	}
-	
-	public void addLine(Pen p, int[] pairs){
-		//line 1 = (x1,y1),(x2,y2)
-		//(pairs[0],pairs[1]), (pairs[3],pairs[4])
-
-	}
-	
-	public void setColor(Pen p, Color c){
-		
-	}
-	
-	public void clearPen(Pen p){
-		
-	}	
 	
 }

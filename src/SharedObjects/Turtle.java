@@ -45,21 +45,28 @@ public class Turtle extends ImageView {
 		return heading;
 	}
 	
-	public void changePenDown(){
-		penDown = !penDown;
+	public void penUp(){
+		penDown = false;
+	}
+	
+	public void penDown(){
+		penDown = true;
 	}
 	
 	public boolean isPenDown(){
 		return penDown;
 	}
 	
-	public void changeIsShowing(){
-		showing = !showing;
+	public void show(){
+		showing = true;
+	}
+	
+	public void hide(){
+		showing = false;
 	}
 	
 	public boolean isShowing(){
 		return showing;
 	}
-	
 	
 }
