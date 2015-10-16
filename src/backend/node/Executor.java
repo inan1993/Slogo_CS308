@@ -1,9 +1,10 @@
-package backend.executor;
+package backend.node;
 
 import java.awt.List;
 import java.util.ArrayList;
 import backend.node.Node;
-import responses.Response;
+import responses.*;
+import responses.Error;
 import SharedObjects.*;
 import exceptions.*;
 
@@ -23,20 +24,12 @@ public class Executor {
 	public Response execute(Node root) {
 		if (root.hasChildren()) {
 			for (Node n : root.getChildren()) {
-				switch (n.getClass().getName()) {
-				case "backend.node.Command":
-					//do command stuff
-					System.out.println(n.getName());
-				case "backend.node.ControlStructure":
-					throw new NotImplementedException();
-				case "backend.node.Variable":
-					throw new NotImplementedException();
-				}		
+				execute(n);
 			}
+		} else {
+			//leaf
+			return root.run();
 		}
-		
-
-		return null;
+		return new Error("Unreachable code was... reached");
 	}
-
 }

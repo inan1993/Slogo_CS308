@@ -5,6 +5,8 @@ package backend.node;
 
 import java.util.List;
 
+import responses.Response;
+
 /**
  * @author loganrooper
  *
@@ -19,7 +21,7 @@ public abstract class Node {
 		myNumOfChildren = num;
 	}
 
-	protected abstract Node run();
+	protected abstract Response run();
 
 	public void addChild(Node node) {
 		myChildren.add(node);
