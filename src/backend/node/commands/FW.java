@@ -4,6 +4,8 @@
 package backend.node.commands;
 
 import backend.node.Node;
+import responses.Response;
+import responses.Success;
 
 /**
  * @author loganrooper
@@ -18,8 +20,8 @@ public class FW extends Node{
 	 * @see backend.node.Node#run()
 	 */
 	@Override
-	protected Node run() {
+	protected Response run() {
 		// TODO Auto-generated method stub
-		return null;
+		return new Success("Did nothing! :)");
 	}
 }

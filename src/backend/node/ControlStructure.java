@@ -7,7 +7,7 @@ package backend.node;
  * @author loganrooper
  *
  */
-public class ControlStructure extends Node{
+public abstract class ControlStructure extends Node{
 
 	protected ControlStructure(String string, int num) {
 		super(string,num);

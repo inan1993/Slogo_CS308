@@ -3,22 +3,19 @@
  */
 package backend.node;
 
+import responses.Response;
+
 /**
  * @author loganrooper
  *
  */
-public class Command extends Node{
+public abstract class Command extends Node{
 	
 	protected Command(String name, int num) {
 		super(name, num);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	protected Node run() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	protected abstract Response run();
 	
 }
