@@ -1,7 +1,7 @@
 /**
  * 
  */
-package backend;
+package backend.node;
 
 /**
  * @author loganrooper
@@ -9,8 +9,8 @@ package backend;
  */
 public class ControlStructure extends Node{
 
-	protected ControlStructure(String name, int num) {
-		super(name, num);
+	protected ControlStructure(String string, int num) {
+		super(string,num);
 		// TODO Auto-generated constructor stub
 	}
 
