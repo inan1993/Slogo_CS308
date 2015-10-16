@@ -1,6 +1,6 @@
 package GUI.ViewBox;
 
-public class CommandHistoryBox extends ViewBox {
+public class CommandHistoryBox extends AViewBox {
 
     public CommandHistoryBox (String text) {
         super(text);

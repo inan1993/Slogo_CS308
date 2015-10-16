@@ -20,6 +20,7 @@ public class SlogoModel {
     }
     
     public void addHistory(String command){
+//        System.out.println(command);
         commandHistory.add(command);
     }
     

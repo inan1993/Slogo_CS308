@@ -1,6 +1,6 @@
 package GUI.Dropdown;
 
-public class BackgroundColorDropdown extends DropdownBox {
+public class BackgroundColorDropdown extends ADropdownBox {
     
     
     public BackgroundColorDropdown (String value) {

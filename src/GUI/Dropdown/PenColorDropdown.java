@@ -1,6 +1,6 @@
 package GUI.Dropdown;
 
-public class PenColorDropdown extends DropdownBox {
+public class PenColorDropdown extends ADropdownBox {
 
     public PenColorDropdown (String value) {
         super(value);

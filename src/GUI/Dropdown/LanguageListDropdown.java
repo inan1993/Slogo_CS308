@@ -1,6 +1,6 @@
 package GUI.Dropdown;
 
-public class LanguageListDropdown extends DropdownBox {
+public class LanguageListDropdown extends ADropdownBox {
 
     public LanguageListDropdown (String value) {
         super(value);

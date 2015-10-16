@@ -2,9 +2,9 @@ package GUI.TextBox;
 
 import javafx.scene.control.TextArea;
 
-public abstract class TextDisplayBox extends TextArea{
+public abstract class ATextDisplayBox extends TextArea{
 
-    public TextDisplayBox () {
+    public ATextDisplayBox () {
         // TODO Auto-generated constructor stub
     }
     

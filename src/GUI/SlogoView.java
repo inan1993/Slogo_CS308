@@ -8,14 +8,14 @@ import GUI.Button.HelpButton;
 import GUI.Dropdown.BackgroundColorDropdown;
 import GUI.Dropdown.LanguageListDropdown;
 import GUI.Dropdown.PenColorDropdown;
+import GUI.TextBox.ATextDisplayBox;
 import GUI.TextBox.CommandPromptDisplayBox;
 import GUI.TextBox.MessageDisplayBox;
-import GUI.TextBox.TextDisplayBox;
 import GUI.TurtlePane.TurtlePane;
+import GUI.ViewBox.AViewBox;
 import GUI.ViewBox.CommandHistoryBox;
 import GUI.ViewBox.FunctionListBox;
 import GUI.ViewBox.VariableListBox;
-import GUI.ViewBox.ViewBox;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -31,7 +31,7 @@ public class SlogoView {
     private Scene scene;
     private SlogoModel mySlogoModel;
 
-    private TextDisplayBox commandBox, messageBox;
+    private ATextDisplayBox commandBox, messageBox;
 
 
     public SlogoView(String language){//, String classname) {
@@ -82,7 +82,7 @@ public class SlogoView {
     }
 
     private Node helpMenu() {
-        return new HelpButton("Help");
+        return new HelpButton();
     }
 
     private Node languageDropDown(){
@@ -118,9 +118,9 @@ public class SlogoView {
 
     private VBox rightBox(){
         VBox result = new VBox();
-        ViewBox v = new VariableListBox("variableList");
-        ViewBox c = new CommandHistoryBox("commandHistoryList");
-        ViewBox f = new FunctionListBox("functionList");
+        AViewBox v = new VariableListBox("variableList");
+        AViewBox c = new CommandHistoryBox("commandHistoryList");
+        AViewBox f = new FunctionListBox("functionList");
         result.getChildren().addAll(v,c,f);
         return result;
     }
@@ -136,8 +136,7 @@ public class SlogoView {
         messageBox = new MessageDisplayBox();
         result.getChildren().add(messageBox);
 
-        Button clearButton = new ClearCommandButton();
-        clearButton.setOnAction(event->{
+        Button clearButton = new ClearCommandButton(event->{
             commandBox.clear();
         });
         result.getChildren().add(clearButton);
@@ -150,10 +149,10 @@ public class SlogoView {
         commandBox = new CommandPromptDisplayBox();
         result.getChildren().add(commandBox);
 
-        Button enterButton =  new EnterCommandButton();
-        enterButton.setOnAction(event->{
+        Button enterButton =  new EnterCommandButton(event->{
             mySlogoModel.addHistory(commandBox.getText());
         });
+        
         result.getChildren().add(enterButton);
         return result;	
     }
