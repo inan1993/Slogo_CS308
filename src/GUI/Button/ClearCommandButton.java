@@ -1,8 +1,11 @@
 package GUI.Button;
 
-public class ClearCommandButton extends Buttons{
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 
-    public ClearCommandButton () {
-        super("Clear");
+public class ClearCommandButton extends AButton{
+
+    public ClearCommandButton (EventHandler<ActionEvent> event) {
+        super("Clear", event);
     }
 }

@@ -4,10 +4,10 @@ import java.awt.Desktop;
 import java.net.URL;
 import javafx.event.ActionEvent;
 
-public class HelpButton extends Buttons{
+public class HelpButton extends AButton{
 
-    public HelpButton (String text) {
-        super(text);
+    public HelpButton () {
+        super("Help");
         this.addEventHandler(ActionEvent.ACTION, event -> help());
     }
     private void help() {
