@@ -1,6 +1,6 @@
 package GUI.TextBox;
 
-public class CommandPromptDisplayBox extends TextDisplayBox {
+public class CommandPromptDisplayBox extends ATextDisplayBox {
 
     public CommandPromptDisplayBox () {
         super();
