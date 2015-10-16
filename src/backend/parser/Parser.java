@@ -140,12 +140,13 @@ public class Parser {
 	
 	private Node growTree(List<Entry<TokenType, String>> tokenList, Integer index){
 		NodeFactory factory = new NodeFactory();
-		Node root = factory.createNode(tokenList.get(index).getValue());
+//		Node root = factory.createNode(tokenList.get(index).getValue());
+		Node root = factory.createNode(tokenList.get(index));
 		int numOfChildren=root.getChildrenNum();
 		for(int i=0;i<numOfChildren;i++)
 		{
 			index++;
-			root.addChildren(factory.createNode(tokenList.get(index).getValue()));
+			root.addChildren(factory.createNode(tokenList.get(index)));
 		}
 		return root;
 	}

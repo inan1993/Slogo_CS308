@@ -9,9 +9,9 @@ package backend.node;
  */
 public class Variable extends Node{
 	
-	protected Variable()
+	public Variable(String varName)
 	{
-		super("Variable", 0);
+		super(varName, 0);
 	}
 
 	/* (non-Javadoc)

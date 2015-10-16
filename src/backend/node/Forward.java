@@ -3,8 +3,8 @@ package backend.node;
 import backend.factory.NodeFactory;
 
 public class Forward extends Command {
-	protected Forward(String name, int num) {
-		super(name, num);
+	protected Forward() {
+		super("Forward", 1);
 		// TODO Auto-generated constructor stub
 	}
 
