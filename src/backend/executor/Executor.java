@@ -19,7 +19,7 @@ public class Executor {
 	public Response execute(Node root) {
 
 		while (root.hasChildren()) {
-			
+			root.ch
 		}
 
 		return null;

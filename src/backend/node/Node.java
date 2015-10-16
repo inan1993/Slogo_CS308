@@ -21,7 +21,7 @@ public abstract class Node {
 
 	protected abstract Node run();
 
-	public void addChildren(Node node) {
+	public void addChild(Node node) {
 		myChildren.add(node);
 	}
 
@@ -31,5 +31,9 @@ public abstract class Node {
 
 	public Boolean hasChildren() {
 		return (getChildrenNum() > 0);
+	}
+	
+	public List<Node> getChildren() {
+		return myChildren;
 	}
 }
