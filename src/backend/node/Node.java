@@ -36,4 +36,11 @@ public abstract class Node {
 	public List<Node> getChildren() {
 		return myChildren;
 	}
+
+	/**
+	 * @return the myName
+	 */
+	public String getName() {
+		return myName;
+	}
 }

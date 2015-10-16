@@ -26,7 +26,7 @@ public class Executor {
 				switch (n.getClass().getName()) {
 				case "backend.node.Command":
 					//do command stuff
-					System.out.println("Command");
+					System.out.println(n.getName());
 				case "backend.node.ControlStructure":
 					throw new NotImplementedException();
 				case "backend.node.Variable":
