@@ -1,17 +1,17 @@
 /**
  * 
  */
-package backend;
+package backend.node;
 
 /**
  * @author loganrooper
  *
  */
-public class Variable extends Node{
-	
-	protected Variable()
-	{
-		super("Variable", 1);
+public class ControlStructure extends Node{
+
+	protected ControlStructure(String string, int num) {
+		super(string,num);
+		// TODO Auto-generated constructor stub
 	}
 
 	/* (non-Javadoc)

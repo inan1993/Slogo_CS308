@@ -1,8 +1,10 @@
-package backend;
+package backend.factory;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
+
+import backend.node.Node;
 
 public class NodeFactory {
 	private static HashMap<String,Class> myRegisteredNodes = new HashMap<String,Class>();

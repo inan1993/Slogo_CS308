@@ -1,7 +1,7 @@
 /**
  * 
  */
-package backend;
+package backend.node;
 
 import java.util.List;
 
@@ -22,11 +22,11 @@ public abstract class Node {
 	
 	protected abstract Node run();
 	
-	protected void addChildren(Node node) {
+	public void addChildren(Node node) {
 		myChildren.add(node);
 	}
 	
-	protected int getChildrenNum(){
+	public int getChildrenNum(){
 		return myNumOfChildren;
 	}
 }
