@@ -28,6 +28,10 @@ public abstract class Node {
 	public int getChildrenNum() {
 		return myNumOfChildren;
 	}
+	
+	public void setName(String name){
+		myName=name;
+	}
 
 	public Boolean hasChildren() {
 		return (getChildrenNum() > 0);

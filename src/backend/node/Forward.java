@@ -1,15 +1,16 @@
 package backend.node;
 
-import backend.factory.NodeFactory;
+import backend.factory.CommandFactory;
+import backend.parser.SyntaxType;
 
 public class Forward extends Command {
-	protected Forward() {
-		super("Forward", 1);
+	protected Forward(String s) {
+		super(s, 1);
 		// TODO Auto-generated constructor stub
 	}
 
 	static {
-		NodeFactory factory = new NodeFactory();
-		factory.registerNode("Forward",Forward.class);
+		CommandFactory factory = new CommandFactory();
+		factory.registerNode(SyntaxType.FORWARD, Forward.class);
 	}
 }

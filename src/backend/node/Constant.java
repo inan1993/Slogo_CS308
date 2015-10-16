@@ -1,11 +1,9 @@
 package backend.node;
 
 public class Constant extends Node {
-	private double myValue;
 	
-	public Constant(double value) {
-		super(null, 0);
-		myValue=value;
+	public Constant(String s) {
+		super(s, 0);
 		// TODO Auto-generated constructor stub
 	}
 

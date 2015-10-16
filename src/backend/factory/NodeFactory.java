@@ -3,39 +3,37 @@ package backend.factory;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.Map.Entry;
+import java.util.regex.Pattern;
 
 import backend.parser.*;
 
 import backend.node.*;
 
 public class NodeFactory {
-	private static HashMap<String,Class> myRegisteredNodes = new HashMap<String,Class>();
-
-	public void registerNode (String nodeText, Class nodeClass)
-	{
-		myRegisteredNodes.put(nodeText, nodeClass);
-	}
-
-//	public Node createNode(String nodeText)
-	public Node createNode(Entry<TokenType, String> token)
+	public Node createNode(Entry<TokenType, String> entry, LangType language)
 	{
 		Node result=null;
-		switch(token.getKey()){
+		switch(entry.getKey()){
 		case COMMENT:
+			System.out.println("did not detected comment successfully in token parsing");
+			break;
 		case CONSTANT:
+			result = new Constant(entry.getValue());
+			break;
 		case VARIABLE:
-			result = new Variable(token.getValue().substring(1));
+			result = new Variable(entry.getValue().substring(1));
+			break;
 		case COMMAND:
-			Class nodeClass = (Class)myRegisteredNodes.get(token.getValue());
-			Constructor nodeConstructor;
-			try {
-				nodeConstructor = nodeClass.getDeclaredConstructor(new Class[] { String.class });
-				result = (Node) nodeConstructor.newInstance(new Object[] { });
-			} catch (NoSuchMethodException | SecurityException e) {
-				e.printStackTrace();
-			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-				e.printStackTrace();
+			CommandFactory factory = new CommandFactory();
+			for(Entry<SyntaxType, Pattern> p:Parser.mySyntaxPatterns.get(language))
+			{
+				if(Parser.match(entry.getValue(), p.getValue()))
+				{
+					result = factory.createNode(p.getKey());
+					result.setName(entry.getValue());
+				}
 			}
 			break;
 		case LISTSTART:
