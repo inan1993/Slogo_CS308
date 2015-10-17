@@ -41,6 +41,7 @@ public class SlogoView {
     private static final Dimension DEFAULT_SIZE = new Dimension(1200, 700);
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/";
     private static final String DEFAULT_TURTLE_IMAGE = "turtle1.png";
+    private static final String DEFAULT_LANGUAGE = "English";
 
     private Scene scene;
 
@@ -55,9 +56,9 @@ public class SlogoView {
     
     private List<Observer> myObservers;
 
-    public SlogoView(String language){
+    public SlogoView(){
 
-        ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
+        ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_LANGUAGE);
 //        mySlogoModel = new SlogoModel();
 
         //TODO Put default image in properties file.
@@ -67,7 +68,7 @@ public class SlogoView {
 
         BorderPane root = new BorderPane();
         //TODO Put default image in properties file.
-        root.setMaxSize(1200, 700);
+        root.setMaxSize(DEFAULT_SIZE.getWidth(),DEFAULT_SIZE.getHeight());
 
         root.setTop(menu()); // dropdowns, file, help
         root.setCenter(centerBox()); // turtle movement screen & boxes below it
