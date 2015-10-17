@@ -6,12 +6,8 @@ import java.util.HashMap;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.Map.Entry;
 import java.util.regex.Pattern;
-
-
 import backend.parser.*;
-import backend.node.Constant;
-import backend.node.Node;
-import backend.node.Variable;
+import backend.node.*;
 
 public class NodeFactory {
 	public Node createNode(Entry<TokenType, String> entry, LangType language)
@@ -41,8 +37,9 @@ public class NodeFactory {
 		case LISTSTART:
 		case LISTEND:
 		case GROUPSTART:
-		case GROUPEND:			
+		case GROUPEND:
+			
 		}
-		return result;
+		return null;
 	}
 }

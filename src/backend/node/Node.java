@@ -16,9 +16,9 @@ public abstract class Node {
 	private int myNumOfChildren;
 	private double myValue;
 
-	
-	public Node(){
-		myChildren=new ArrayList<Node>();
+	public Node(String name, int num) {
+		myName = name;
+		myNumOfChildren = num;
 		myChildren = new ArrayList<Node>();
 	}
 	
@@ -30,11 +30,6 @@ public abstract class Node {
 
 	public int getChildrenNum() {
 		return myNumOfChildren;
-	}
-	
-	public Node setChildrenNum(int n){
-		myNumOfChildren=n;
-		return this;
 	}
 	
 	public Node setName(String name){
@@ -78,10 +73,5 @@ public abstract class Node {
 	public Node setValue(double myValue) {
 		this.myValue = myValue;
 		return this;
-	}
-
-	protected Node run(WorkSpaceController sharedHandle, List<Node> ln) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

@@ -18,7 +18,7 @@ public class Forward extends Command {
 
 	static {
 		CommandFactory factory = new CommandFactory();
-		factory.registerCmd(SyntaxType.FORWARD, Forward.class);
+		factory.registerNode(SyntaxType.FORWARD, Forward.class);
 	}
 
 	@Override

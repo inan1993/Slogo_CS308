@@ -10,7 +10,7 @@ import junit.framework.*;
  * @author loganrooper
  *
  */
-public class ExecutorTester extends TestCase {
+public class BackendTester extends TestCase {
 	
 	private Executor f;
 	
