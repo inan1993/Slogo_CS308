@@ -1,88 +1,136 @@
-package SharedObjects;
+package sharedobjects;
+
+import java.util.LinkedList;
+import java.util.List;
 
 import responses.Response;
 
 public class ManipulateController implements IWorkSpaceController{
 
-	public ManipulateController() {
-		// TODO Auto-generated constructor stub
+	private Workspace currWorkspace;
+	private List<Workspace> workspaceList = new LinkedList<Workspace>();
+	
+	public ManipulateController(Workspace w) {
+		currWorkspace = w;
+		workspaceList.add(currWorkspace);
 	}
 
 	@Override
 	public Response foward(int pixels) {
-		// TODO Auto-generated method stub
+		int[] currPosition = currWorkspace.getPosition();
+		double heading = currWorkspace.getHeading();
+		
+		double xDiff = Math.cos(heading)/pixels; //adjacent 
+		double yDiff = Math.sin(heading)/pixels; //opposite
+		
+		int xBack = (int) (currPosition[0] + xDiff);
+		int yBack = (int) (currPosition[1] + yDiff);
+
+		currWorkspace.setPosition(new int[]{xBack, yBack});
 		return null;
 	}
 
 	@Override
 	public Response back(int pixels) {
-		// TODO Auto-generated method stub
+		int[] currPosition = currWorkspace.getPosition();
+		double heading = currWorkspace.getHeading();
+		
+		double xDiff = Math.cos(heading)/pixels; //adjacent 
+		double yDiff = Math.sin(heading)/pixels; //opposite
+		
+		int xBack = (int) (currPosition[0] - xDiff);
+		int yBack = (int) (currPosition[1] - yDiff);
+
+		currWorkspace.setPosition(new int[]{xBack, yBack});
+		
 		return null;
 	}
 
 	@Override
 	public Response left(double degrees) {
-		// TODO Auto-generated method stub
+		double currHeading = currWorkspace.getHeading();
+		currHeading -= degrees;
+		if(currHeading < 0){
+			currHeading += 360;
+		}
+		currWorkspace.setHeading(currHeading);
+		
 		return null;
 	}
 
 	@Override
 	public Response right(double degrees) {
-		// TODO Auto-generated method stub
+		double currHeading = currWorkspace.getHeading();
+		currHeading += degrees;
+		if(currHeading > 360){
+			currHeading -= 360;
+		}
+		currWorkspace.setHeading(currHeading);
+		
 		return null;
 	}
 
 	@Override
 	public Response setHeading(double degrees) {
-		// TODO Auto-generated method stub
+		currWorkspace.setHeading(degrees);
+		
 		return null;
 	}
 
 	@Override
-	public Response towards(int x, int y) {
-		// TODO Auto-generated method stub
+	public Response towards(int targetX, int targetY) {
+		int[] currPos = currWorkspace.getPosition();
+	
+		double theta = Math.atan2(targetY - currPos[1], targetX - currPos[0]);
+		double angle = Math.toDegrees(theta);
+		angle = 360 - angle;
+		
+		if(angle >= 360){
+		 	angle = angle - 360;
+		}
+		currWorkspace.setHeading(angle);
 		return null;
 	}
 
 	@Override
 	public Response setXY(int x, int y) {
-		// TODO Auto-generated method stub
+		currWorkspace.setPosition(new int[]{x,y});
 		return null;
 	}
 
 	@Override
 	public Response penDown() {
-		// TODO Auto-generated method stub
+		currWorkspace.penDown();
 		return null;
 	}
 
 	@Override
 	public Response penUp() {
-		// TODO Auto-generated method stub
+		currWorkspace.penUp();
 		return null;
 	}
 
 	@Override
 	public Response showTurtle() {
-		// TODO Auto-generated method stub
+		currWorkspace.showTurtle();
 		return null;
 	}
 
 	@Override
 	public Response hideTurtle() {
-		// TODO Auto-generated method stub
+		currWorkspace.hideTurtle();
 		return null;
 	}
 
 	@Override
 	public Response home() {
-		// TODO Auto-generated method stub
+		currWorkspace.setPosition(new int[]{0,0});
 		return null;
 	}
 
 	@Override
 	public Response clearScreen() {
-		// TODO Auto-generated method stub
+		home();
 		return null;
 	}
 
