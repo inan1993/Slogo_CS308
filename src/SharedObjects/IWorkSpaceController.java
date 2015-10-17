@@ -50,5 +50,5 @@ public interface IWorkSpaceController {
 	
 	//erases turtle's trails and sends it to the home position
 	Response clearScreen();
-s	
+	
 }

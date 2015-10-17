@@ -11,6 +11,11 @@ import backend.node.Node;
 import responses.Response;
 
 public class FW extends Command {
+	public FW()
+	{
+		super(null,1);
+	}
+	
 	protected FW(String s) {
 		super(s, 1);
 		// TODO Auto-generated constructor stub
@@ -18,7 +23,7 @@ public class FW extends Command {
 
 	static {
 		CommandFactory factory = new CommandFactory();
-		factory.registerNode(SyntaxType.FORWARD, Forward.class);
+		factory.registerCmd(SyntaxType.FORWARD, FW.class);
 	}
 
 	@Override

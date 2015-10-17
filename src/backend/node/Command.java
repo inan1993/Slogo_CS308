@@ -15,7 +15,9 @@ import responses.Response;
 public abstract class Command extends Node{
 	
 	protected Command(String name, int num) {
-		super(name, num);
+		super();
+		super.setChildrenNum(num);
+		super.setName(name);
 	}
 
 	@Override

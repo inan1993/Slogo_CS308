@@ -4,17 +4,17 @@ import java.util.List;
 
 import SharedObjects.WorkSpaceController;
 
-public class Constant extends Node {
-	
-	public Constant(String s) {
+public class Variable extends Node{
+
+	public Variable(String name) {
 		super();
+		super.setName(name);
 		super.setChildrenNum(0);
-		super.setName(s);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	protected Node run(WorkSpaceController sharedHandle, List<Node> ln) {
+	protected Node run(WorkSpaceController sharedHandle, List<Node> returnedNodes) {
 		// TODO Auto-generated method stub
 		return null;
 	}

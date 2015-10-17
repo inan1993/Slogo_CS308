@@ -9,8 +9,10 @@ package backend.node;
  */
 public abstract class ControlStructure extends Node{
 
-	protected ControlStructure(String string, int num) {
-		super(string,num);
+	protected ControlStructure(String name, int num) {
+		super();
+		super.setName(name);
+		super.setChildrenNum(num);
 		// TODO Auto-generated constructor stub
 	}
 

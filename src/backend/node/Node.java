@@ -3,6 +3,7 @@
  */
 package backend.node;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import SharedObjects.WorkSpaceController;
@@ -18,9 +19,13 @@ public abstract class Node {
 	private int myNumOfChildren;
 	private double myValue;
 
-	public Node(String name, int num) {
-		myName = name;
-		myNumOfChildren = num;
+//	public Node(String name, int num) {
+//		myName = name;
+//		myNumOfChildren = num;
+//	}
+	
+	public Node(){
+		myChildren=new ArrayList<Node>();
 	}
 
 
@@ -32,6 +37,10 @@ public abstract class Node {
 
 	public int getChildrenNum() {
 		return myNumOfChildren;
+	}
+	
+	public void setChildrenNum(int n){
+		myNumOfChildren=n;
 	}
 	
 	public void setName(String name){
@@ -65,5 +74,11 @@ public abstract class Node {
 	 */
 	public void setValue(double myValue) {
 		this.myValue = myValue;
+	}
+
+
+	protected Node run() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
