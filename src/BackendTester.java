@@ -11,7 +11,7 @@ public class BackendTester {
 	public static void main(String[] args) {
 		//Parser p = new Parser();
 		//p.parse("fw 50");
-		Node root = new FW("FW", 50);
+		Node root = new FW("FW");
 		//should I put nodes in here^? 
 	}
 }

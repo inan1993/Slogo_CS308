@@ -3,28 +3,44 @@ package backend.factory;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
+import java.util.AbstractMap.SimpleEntry;
+import java.util.Map.Entry;
+import java.util.regex.Pattern;
 
-import backend.node.Node;
+import backend.parser.*;
+
+import backend.node.*;
 
 public class NodeFactory {
-	private static HashMap<String,Class> myRegisteredNodes = new HashMap<String,Class>();
-
-	public void registerNode (String nodeText, Class nodeClass)
+	public Node createNode(Entry<TokenType, String> entry, LangType language)
 	{
-		myRegisteredNodes.put(nodeText, nodeClass);
-	}
-
-	public Node createNode(String nodeText)
-	{
-		Class nodeClass = (Class)myRegisteredNodes.get(nodeText);
-		Constructor nodeConstructor;
-		try {
-			nodeConstructor = nodeClass.getDeclaredConstructor(new Class[] { String.class });
-			return (Node) nodeConstructor.newInstance(new Object[] { });
-		} catch (NoSuchMethodException | SecurityException e) {
-			e.printStackTrace();
-		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			e.printStackTrace();
+		Node result=null;
+		switch(entry.getKey()){
+		case COMMENT:
+			System.out.println("did not detected comment successfully in token parsing");
+			break;
+		case CONSTANT:
+			result = new Constant(entry.getValue());
+			break;
+		case VARIABLE:
+			result = new Variable(entry.getValue().substring(1));
+			break;
+		case COMMAND:
+			CommandFactory factory = new CommandFactory();
+			for(Entry<SyntaxType, Pattern> p:Parser.mySyntaxPatterns.get(language))
+			{
+				if(Parser.match(entry.getValue(), p.getValue()))
+				{
+					result = factory.createNode(p.getKey());
+					result.setName(entry.getValue());
+				}
+			}
+			break;
+		case LISTSTART:
+		case LISTEND:
+		case GROUPSTART:
+		case GROUPEND:
+			
 		}
 		return null;
 	}

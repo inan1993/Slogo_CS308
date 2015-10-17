@@ -1,27 +1,31 @@
 package backend.node.commands;
 
+import java.util.List;
+
+import SharedObjects.WorkSpaceController;
+import backend.factory.CommandFactory;
+import backend.parser.SyntaxType;
 import backend.factory.NodeFactory;
 import backend.node.Command;
 import backend.node.Node;
 import responses.Response;
 
 public class Forward extends Command {
-	protected Forward(String name, int num) {
-		super(name, num);
+	protected Forward(String s) {
+		super(s, 1);
 		// TODO Auto-generated constructor stub
 	}
 
 	static {
-		NodeFactory factory = new NodeFactory();
-		factory.registerNode("Forward",Forward.class);
+		CommandFactory factory = new CommandFactory();
+		factory.registerNode(SyntaxType.FORWARD, Forward.class);
 	}
 
-	/* (non-Javadoc)
-	 * @see backend.node.Command#run()
-	 */
 	@Override
-	protected Node run() {
-		// TODO Auto-generated method stub
-		return null;
+	protected Node run(WorkSpaceController sharedHandle, List<Node> ln) {
+	     //move forward using argument 1 pixels
+		 sharedHandle.foward(ln.get(0).getValue());
+		 //return argument 1 value
+		 return ln.get(0);
 	}
 }
