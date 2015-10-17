@@ -3,6 +3,7 @@ package sharedobjects;
 import java.util.LinkedList;
 import java.util.List;
 
+import datatransferobjects.TurtleTransferObject;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -29,10 +30,6 @@ public class Workspace {
 		//...etc
 	}
 	
-	public void setImage(Image i){
-		currTurtle.setImage(i);
-	}
-	
 	public void setHeading(double angle){
 		currTurtle.setHeading(angle);
 	}
@@ -42,7 +39,10 @@ public class Workspace {
 	}
 	
 	public void setPosition(int[] pos){
+		TurtleTransferObject dto = new TurtleTransferObject(false, currTurtle.getID(), false, currTurtle.isPenDown(), currTurtle.getPosition(), pos);
 		currTurtle.setPosition(pos);
+		currTurtle.notifyObservers(dto);
+		
 	}
 	
 	public int[] getPosition(){
@@ -51,10 +51,14 @@ public class Workspace {
 	
 	public void showTurtle(){
 		currTurtle.show();
+		TurtleTransferObject dto = new TurtleTransferObject(false, currTurtle.getID(), true, currTurtle.isPenDown(), currTurtle.getPosition(), currTurtle.getPosition());
+		currTurtle.notifyObservers(dto);
 	}
 	
 	public void hideTurtle(){
 		currTurtle.hide();
+		TurtleTransferObject dto = new TurtleTransferObject(false, currTurtle.getID(), false, currTurtle.isPenDown(), currTurtle.getPosition(), currTurtle.getPosition());
+		currTurtle.notifyObservers(dto);
 	}
 	
  	//****Pen Manipulation********

@@ -130,7 +130,6 @@ public class ManipulateController implements IWorkSpaceController{
 
 	@Override
 	public Response clearScreen() {
-		// TODO: NEED TO MAKE DECISION ABOUT PENS
 		home();
 		return null;
 	}

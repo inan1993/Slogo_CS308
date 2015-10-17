@@ -1,24 +1,27 @@
 package sharedobjects;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import java.util.Observable;
+import java.util.Random;
 
-public class Turtle extends ImageView {
-	private Image turtleImage;
+public class Turtle extends Observable{
 	private int ID;
 	private int[] position;
 	private double heading;
 	private boolean penDown;
 	private boolean showing;
 	
-
+	private Random rand = new Random();
+	
 	public Turtle(){
-		Image turtle = new Image(getClass().getClassLoader().getResourceAsStream("turtle1.png"));
-		turtleImage = turtle;
+		ID = rand.nextInt(100000) + 1;
+		position = new int[]{0,0};
+		heading = 90;
+		penDown = false;
+		showing = true;
 	}
 	
-	public Image getTurtleImage() {
-		return turtleImage;
+	public Turtle(int[] pos){
+		position = pos;
 	}
 
 	public void setID(int i){
@@ -68,5 +71,4 @@ public class Turtle extends ImageView {
 	public boolean isShowing(){
 		return showing;
 	}
-	
 }
