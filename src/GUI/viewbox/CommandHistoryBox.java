@@ -18,7 +18,7 @@ public class CommandHistoryBox extends AViewBox {
 
     @Override
     void setSize () {
-        listView.setPrefSize(400, 200);        
+        listView.setPrefSize(400,200);        
     }
 
 }

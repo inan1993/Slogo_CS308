@@ -12,6 +12,7 @@ public abstract class AViewBox extends TitledPane{
     protected ObservableList<String> data;
     protected ListView<String> listView;
     private CommandPromptDisplayBox myDisplay;
+    
 
     public AViewBox (CommandPromptDisplayBox display){
         this.data = FXCollections.observableArrayList();

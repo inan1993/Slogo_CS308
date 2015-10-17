@@ -16,7 +16,7 @@ public class FunctionListBox extends AViewBox {
 
     @Override
     void setSize () {
-        listView.setPrefSize(400, 200);        
+        listView.setPrefSize(400,200);        
     }
 
 }

@@ -37,10 +37,10 @@ import observers.FrontEndObserver;
 
 public class SlogoView {
 
-    //TODO Put default size in properties file.
-    private static final Dimension DEFAULT_SIZE = new Dimension(1200, 700);
+	private static final Dimension DEFAULT_SIZE = new Dimension(1200, 700);
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/";
-    private static final String DEFAULT_TURTLE_IMAGE = "turtle1.png";
+    private static final String DEFAULT_TURTLE_IMAGE = "GUI.view";
+    private static ResourceBundle myResource;
 
     private Scene scene;
 
@@ -59,15 +59,14 @@ public class SlogoView {
 
         ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
 //        mySlogoModel = new SlogoModel();
+        myResource = ResourceBundle.getBundle(DEFAULT_TURTLE_IMAGE);
 
-        //TODO Put default image in properties file.
-        myTurtleImage = new Image(getClass().getClassLoader().getResourceAsStream(DEFAULT_TURTLE_IMAGE));
+        myTurtleImage = new Image(getClass().getClassLoader().getResourceAsStream(myResource.getString("defaultTurtle")));
         myTurtleIDs = new ArrayList<Double>();
         myObservers = new ArrayList<Observer>();
 
         BorderPane root = new BorderPane();
-        //TODO Put default image in properties file.
-        root.setMaxSize(1200, 700);
+        root.setMaxSize(DEFAULT_SIZE.width, DEFAULT_SIZE.height);
 
         root.setTop(menu()); // dropdowns, file, help
         root.setCenter(centerBox()); // turtle movement screen & boxes below it
@@ -161,8 +160,7 @@ public class SlogoView {
     private Node centerBox() {
         StackPane mainBox = new StackPane();//AnchorPane mainBox = new AnchorPane();
 
-// TODO add to properties
-        myTurtleCanvas = new TurtleCanvas(800, 580);
+        myTurtleCanvas = new TurtleCanvas(Integer.parseInt(myResource.getString("canvasWidth")), Integer.parseInt(myResource.getString("canvasHeight")));
         myTurtleGroup = new TurtleGroup(myTurtleImage, myTurtleIDs);
         myObservers.add(new FrontEndObserver(myTurtleGroup, myTurtleCanvas));
         
