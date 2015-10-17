@@ -1,26 +1,21 @@
-/**
- * 
- */
 package backend.node;
 
-/**
- * @author loganrooper
- *
- */
+import java.util.List;
+
+import SharedObjects.WorkSpaceController;
+
 public class Variable extends Node{
-	
-	public Variable(String varName)
-	{
-		super(varName, 0);
+
+	public Variable(String name) {
+		super();
+		super.setName(name);
+		super.setChildrenNum(0);
+		// TODO Auto-generated constructor stub
 	}
 
-	/* (non-Javadoc)
-	 * @see backend.Node#run()
-	 */
 	@Override
-	protected Node run() {
+	protected Node run(WorkSpaceController sharedHandle, List<Node> returnedNodes) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-}
+};

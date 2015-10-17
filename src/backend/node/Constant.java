@@ -7,16 +7,17 @@ import SharedObjects.WorkSpaceController;
 public class Constant extends Node {
 	
 	public Constant(String s) {
-		super(s, 0);
+		super();
+		super.setChildrenNum(0);
+		super.setName(s);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	protected Node run(WorkSpaceController sharedHandle, List<Node> returnedNodes) {
-		// Nothing to do.
-		return this;
+	protected Node run(WorkSpaceController sharedHandle, List<Node> ln) {
+		// TODO Auto-generated method stub
+		return null;
 	}
-	
-	
+};
 
-}
+

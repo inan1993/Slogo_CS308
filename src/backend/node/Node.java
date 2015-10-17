@@ -16,15 +16,12 @@ public abstract class Node {
 	private int myNumOfChildren;
 	private double myValue;
 
-	public Node(String name, int num) {
-		myName = name;
-		myNumOfChildren = num;
+	
+	public Node(){
+		myChildren=new ArrayList<Node>();
 		myChildren = new ArrayList<Node>();
 	}
-
-
-	protected abstract Node run(WorkSpaceController sharedHandle, List<Node> returnedNodes);
-
+	
 	public Node addChild(Node node) {
 		myChildren.add(node);
 		myNumOfChildren = myChildren.size();
@@ -35,8 +32,17 @@ public abstract class Node {
 		return myNumOfChildren;
 	}
 	
+<<<<<<< HEAD
+	public void setChildrenNum(int n){
+		myNumOfChildren=n;
+	}
+	
 	public void setName(String name){
+=======
+	public Node setName(String name){
+>>>>>>> backend
 		myName=name;
+		return this;
 	}
 
 	public Boolean hasChildren() {
@@ -57,14 +63,32 @@ public abstract class Node {
 	/**
 	 * @return the myValue
 	 */
-	public double getValue() {
+	public double getDoubleValue() {
 		return myValue;
+	}
+	
+	/**
+	 * @return
+	 */
+	public int getIntegerValue() {
+		return (int) myValue;
 	}
 
 	/**
 	 * @param myValue the myValue to set
+	 * @return 
 	 */
-	public void setValue(double myValue) {
+	public Node setValue(double myValue) {
 		this.myValue = myValue;
+		return this;
 	}
+<<<<<<< HEAD
+
+
+	protected Node run(WorkSpaceController sharedHandle, List<Node> ln) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+=======
+>>>>>>> backend
 }

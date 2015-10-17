@@ -1,6 +1,3 @@
-/**
- * 
- */
 package SharedObjects;
 
 import responses.Response;
@@ -15,7 +12,7 @@ public class WorkSpaceController implements IWorkSpaceController {
 	 * @see SharedObjects.IWorkSpaceController#foward(int)
 	 */
 	@Override
-	public Response foward(double d) {
+	public Response foward(int d) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -24,7 +21,7 @@ public class WorkSpaceController implements IWorkSpaceController {
 	 * @see SharedObjects.IWorkSpaceController#back(int)
 	 */
 	@Override
-	public Response back(int pixels) {
+	public Response back(int d) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -128,4 +125,11 @@ public class WorkSpaceController implements IWorkSpaceController {
 		return null;
 	}
 
+	/**
+	 * @return
+	 */
+	public double getHeading() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

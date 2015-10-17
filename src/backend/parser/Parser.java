@@ -6,6 +6,7 @@ import backend.*;
 import backend.node.Executor;
 import backend.factory.NodeFactory;
 import backend.node.Node;
+import resources.languages.*;
 
 import java.util.List;
 import java.util.Map;
@@ -29,34 +30,36 @@ import java.util.AbstractMap.SimpleEntry;
 public class Parser {
 	private Executor myExec;
 	private List<Node> myRoots;
+	private int myIndex;
 	private String myLanguage = "English";
-	private List<Entry<TokenType, String>> myTokenList;
-	private static final List<Entry<TokenType, Pattern>> myTokenPatterns = makeTokenPatterns("Syntax.properties");
-	public static final Map<LangType,List<Entry<SyntaxType, Pattern>>> mySyntaxPatterns = makeSyntaxPatterns(); 
+	private List<Entry<TokenType, String>> myTokenList; 
 	private static final HashMap<String, TokenType> tokenMap = new HashMap<String, TokenType>(){{
 		for(TokenType each:TokenType.values())
 		{
-			tokenMap.put(each.name().toUpperCase(), each);
+			put(each.name(), each);
 		}
 	}};
 	private static final HashMap<String, SyntaxType> syntaxMap = new HashMap<String, SyntaxType>(){{
 		for(SyntaxType each:SyntaxType.values())
 		{
-			syntaxMap.put(each.name().toUpperCase(), each);
+			put(each.name(), each);
 		}
 	}};
 	private static final HashMap<String, LangType> languageMap = new HashMap<String, LangType>(){{
 		for(LangType each:LangType.values())
 		{
-			languageMap.put(each.name().toUpperCase(), each);
+			put(each.name(), each);
 		}
 	}};
+
+	private static final List<Entry<TokenType, Pattern>> myTokenPatterns = makeTokenPatterns("resources/languages/Syntax");
+	public static final Map<LangType,List<Entry<SyntaxType, Pattern>>> mySyntaxPatterns = makeSyntaxPatterns();
 	
 	public Parser() {
 		//Call run to start.
 		myExec = new Executor();
 		myRoots = new ArrayList<Node>();
-//		myResponse = new Error("Haven't begin parsing");
+		myIndex=0;
 	}
 	
 	public Response parse(String userInput) {
@@ -75,7 +78,6 @@ public class Parser {
 				}
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
@@ -103,6 +105,7 @@ public class Parser {
 		StringTokenizer st=new StringTokenizer(line," ");
 		String nodeName;
 		boolean matchFlag=false;
+		boolean commentFlag=false;
 		while (st.hasMoreTokens())
 		{
 			nodeName=st.nextToken();
@@ -112,9 +115,14 @@ public class Parser {
 				{
 					result.add(new SimpleEntry<TokenType, String>(p.getKey(), nodeName));
 					matchFlag=true;
+					if(p.getKey()==TokenType.COMMENT)
+					{
+						commentFlag=true;
+					}
 					break;
 				}
 			}
+			if(commentFlag) break;
 			if(!matchFlag) throw new LexiconException("Ilegal Input: Cannot find a matching token!");
 		}
 		return result;	
@@ -125,24 +133,27 @@ public class Parser {
 	}
 	
 	private void buildSyntaxTree() throws SyntaxException{
-		Integer index=0;
-		while(index<myTokenList.size()){
+		while(myIndex<myTokenList.size()){
 			Node root=null;
-			root=growTree(myTokenList,index); 
+			root=growTree(myTokenList); 
 			if(root!=null){
 				myRoots.add(root);
 			}
+			myIndex++;
 		}
 	}
 	
-	private Node growTree(List<Entry<TokenType, String>> tokenList, Integer index) throws SyntaxException{
+	private Node growTree(List<Entry<TokenType, String>> tokenList) throws SyntaxException{
 		NodeFactory factory = new NodeFactory();
-		Node root = factory.createNode(tokenList.get(index), languageMap.get(myLanguage));
+		Node root = factory.createNode(tokenList.get(myIndex), languageMap.get(myLanguage.toUpperCase()));
 		int numOfChildren=root.getChildrenNum();
-		for(int i=0;i<numOfChildren;i++)
+		int i=0;
+		while(i<numOfChildren)
 		{
-			index++;
-			root.addChild(factory.createNode(tokenList.get(index), languageMap.get(myLanguage)));
+			myIndex++;
+			Node c = growTree(tokenList);
+			root.addChild(c);
+			i++;
 		}
 		return root;
 	}
@@ -154,8 +165,6 @@ public class Parser {
         Enumeration<String> iter = resources.getKeys();
         while (iter.hasMoreElements()) {
             String key = iter.nextElement();
-            if(tokenMap.get(key.toUpperCase())==TokenType.COMMENT)
-            	break;
             String regex = resources.getString(key);
             patterns.add(new SimpleEntry<TokenType, Pattern>(tokenMap.get(key.toUpperCase()),
                     Pattern.compile(regex, Pattern.CASE_INSENSITIVE)));
@@ -169,7 +178,7 @@ public class Parser {
 		String fileName;
 		for(LangType each:LangType.values())
 		{
-			fileName=each.name().toLowerCase().concat(".properties");
+			fileName="resources/languages/"+each.name().toLowerCase();
 			ResourceBundle resources = ResourceBundle.getBundle(fileName);
 	        List<Entry<SyntaxType, Pattern>> patterns = new ArrayList<Entry<SyntaxType, Pattern>>();
 	        Enumeration<String> iter = resources.getKeys();
@@ -182,5 +191,11 @@ public class Parser {
 	        result.put(each, patterns);
 		}
         return result;
+    }
+	
+	public static void main (String[] args) {
+        Parser parser = new Parser();
+        parser.parse("forward 50");
+        System.out.println("11");
     }
 }

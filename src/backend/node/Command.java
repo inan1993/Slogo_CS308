@@ -14,10 +14,17 @@ import responses.Response;
  */
 public abstract class Command extends Node{
 	
-	protected Command(String name, int numChildrem) {
-		super(name, numChildrem);
+	protected Command(String name, int num) {
+		super();
+		super.setChildrenNum(num);
+		super.setName(name);
 	}
-
-	@Override
+	
+	/**
+	 * A command requires two arguments
+	 * @param wsc
+	 * @param returnedNodes
+	 * @return
+	 */
 	protected abstract Node run(WorkSpaceController wsc, List<Node> returnedNodes);
 }
