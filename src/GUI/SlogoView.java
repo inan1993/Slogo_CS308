@@ -6,21 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observer;
 import java.util.ResourceBundle;
-import GUI.button.ClearCommandButton;
-import GUI.button.EnterCommandButton;
-import GUI.button.HelpButton;
-import GUI.button.UploadButton;
-import GUI.dropdown.BackgroundColorDropdown;
-import GUI.dropdown.LanguageListDropdown;
-import GUI.dropdown.PenColorDropdown;
-import GUI.textBox.CommandPromptDisplayBox;
-import GUI.textBox.MessageDisplayBox;
-import GUI.turtlepane.TurtleCanvas;
-import GUI.turtlepane.TurtleGroup;
-import GUI.viewbox.AViewBox;
-import GUI.viewbox.CommandHistoryBox;
-import GUI.viewbox.FunctionListBox;
-import GUI.viewbox.VariableListBox;
+import GUI.button.*;
+import GUI.dropdown.*;
+import GUI.textBox.*;
+import GUI.turtlepane.*;
+import GUI.viewbox.*;
+import observers.*;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -33,7 +24,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
-import observers.FrontEndObserver;
 
 public class SlogoView {
 
@@ -59,21 +49,21 @@ public class SlogoView {
     public SlogoView(){
 
         ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_LANGUAGE);
-//        mySlogoModel = new SlogoModel();
 
-        //TODO Put default image in properties file.
+//TODO Put default image in properties file.
         myTurtleImage = new Image(getClass().getClassLoader().getResourceAsStream(DEFAULT_TURTLE_IMAGE));
         myTurtleIDs = new ArrayList<Double>();
         myObservers = new ArrayList<Observer>();
 
         BorderPane root = new BorderPane();
-        //TODO Put default image in properties file.
+
+//TODO Put default image in properties file.
         root.setMaxSize(DEFAULT_SIZE.getWidth(),DEFAULT_SIZE.getHeight());
 
-        root.setTop(menu()); // dropdowns, file, help
-        root.setCenter(centerBox()); // turtle movement screen & boxes below it
+        root.setTop(menu());
+        root.setCenter(centerBox());
         root.setBottom(bottomBox());
-        root.setRight(rightBox()); // variable, function, history
+        root.setRight(rightBox());
 
         scene = new Scene(root, DEFAULT_SIZE.width, DEFAULT_SIZE.height);
     }
@@ -132,7 +122,6 @@ public class SlogoView {
         ComboBox<String> languageDropDown = new LanguageListDropdown("Languages");
         languageDropDown.setOnAction(event->{
             String lang = languageDropDown.getValue();
-//            mySlogoModel.setLanguage(lang);
             messageBox.setMessage("Language Set to "+lang);
         });
         return languageDropDown;  
@@ -192,7 +181,6 @@ public class SlogoView {
 
         Button enterButton =  new EnterCommandButton(event->{
             String str = commandBox.getText();
-//            mySlogoModel.addHistory(str);
             messageBox.setMessage(str);
             historyDisplayBox.setMessage(str);
         });
