@@ -32,15 +32,12 @@ public abstract class Node {
 		return myNumOfChildren;
 	}
 	
-<<<<<<< HEAD
-	public void setChildrenNum(int n){
+	public Node setChildrenNum(int n){
 		myNumOfChildren=n;
+		return this;
 	}
 	
-	public void setName(String name){
-=======
 	public Node setName(String name){
->>>>>>> backend
 		myName=name;
 		return this;
 	}
@@ -82,13 +79,9 @@ public abstract class Node {
 		this.myValue = myValue;
 		return this;
 	}
-<<<<<<< HEAD
-
 
 	protected Node run(WorkSpaceController sharedHandle, List<Node> ln) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-=======
->>>>>>> backend
 }
