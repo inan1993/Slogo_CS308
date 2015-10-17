@@ -3,6 +3,9 @@
  */
 package backend.node;
 
+import java.util.List;
+
+import SharedObjects.WorkSpaceController;
 import responses.Response;
 
 /**
@@ -16,6 +19,5 @@ public abstract class Command extends Node{
 	}
 
 	@Override
-	protected abstract Node run();
-	
+	protected abstract Node run(WorkSpaceController wsc, List<Node> returnedNodes);
 }

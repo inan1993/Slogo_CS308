@@ -5,6 +5,7 @@ package backend.node;
 
 import java.util.List;
 
+import SharedObjects.WorkSpaceController;
 import responses.Response;
 
 /**
@@ -15,13 +16,15 @@ public abstract class Node {
 	private String myName;
 	private List<Node> myChildren;
 	private int myNumOfChildren;
+	private double myValue;
 
 	public Node(String name, int num) {
 		myName = name;
 		myNumOfChildren = num;
 	}
 
-	protected abstract Node run();
+
+	protected abstract Node run(WorkSpaceController sharedHandle, List<Node> returnedNodes);
 
 	public void addChild(Node node) {
 		myChildren.add(node);
@@ -48,5 +51,19 @@ public abstract class Node {
 	 */
 	public String getName() {
 		return myName;
+	}
+
+	/**
+	 * @return the myValue
+	 */
+	public double getValue() {
+		return myValue;
+	}
+
+	/**
+	 * @param myValue the myValue to set
+	 */
+	public void setValue(double myValue) {
+		this.myValue = myValue;
 	}
 }
