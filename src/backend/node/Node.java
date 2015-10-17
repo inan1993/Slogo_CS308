@@ -1,6 +1,3 @@
-/**
- * 
- */
 package backend.node;
 
 import java.util.ArrayList;
@@ -30,6 +27,7 @@ public abstract class Node {
 
 	public Node addChild(Node node) {
 		myChildren.add(node);
+		myNumOfChildren = myChildren.size();
 		return node;
 	}
 

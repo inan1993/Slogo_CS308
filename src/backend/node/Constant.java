@@ -1,5 +1,9 @@
 package backend.node;
 
+import java.util.List;
+
+import SharedObjects.WorkSpaceController;
+
 public class Constant extends Node {
 	
 	public Constant(String s) {
@@ -8,9 +12,11 @@ public class Constant extends Node {
 	}
 
 	@Override
-	protected Node run() {
-		// TODO Auto-generated method stub
-		return null;
+	protected Node run(WorkSpaceController sharedHandle, List<Node> returnedNodes) {
+		// Nothing to do.
+		return this;
 	}
+	
+	
 
 }
