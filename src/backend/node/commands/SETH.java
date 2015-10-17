@@ -21,14 +21,13 @@ public class SETH extends Command {
 		 //If no children but FW, it's wrong!
 		 if (ln == null)
 			 throw new RuntimeException("Missing parameter.");
-		 //get current heading
+		 //get headings
 		 double prevHeading = sharedHandle.getHeading();
 		 double newHeading = ln.get(0).getDoubleValue();
-	     //turn using argument 1
+	     //turn
 		 sharedHandle.setHeading(newHeading);
 		 
-		 
-		 //return argument 1 value
-		 return new Constant().setValue(prevHeading-newHeading);
+		 //return the delta
+		 return new Constant("Heading").setValue(prevHeading-newHeading);
 	}
 }
