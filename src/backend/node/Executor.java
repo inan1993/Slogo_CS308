@@ -1,6 +1,6 @@
 package backend.node;
 
-import java.awt.List;
+import java.util.List;
 import java.util.ArrayList;
 import backend.node.Node;
 import responses.*;
@@ -13,7 +13,11 @@ import exceptions.*;
  *
  */
 public class Executor {
-
+	WorkSpaceController sharedHandle;
+	
+	public Executor() {
+		sharedHandle = new WorkSpaceController();		
+	}
 	/**
 	 * This is called multiple times if there are multiple roots in the syntax
 	 * string.
@@ -21,15 +25,18 @@ public class Executor {
 	 * @param root syntax tree node
 	 * @return
 	 */
-	public Response execute(Node root) {
+	public Node execute(Node root) {
 		if (root.hasChildren()) {
+			List<Node> returnedNodes = new ArrayList<Node>();
 			for (Node n : root.getChildren()) {
-				execute(n);
+				returnedNodes.add(execute(n));
 			}
+			//Now, run this with recieved parameters
+			root.run(sharedHandle, returnedNodes);
 		} else {
 			//leaf
-			return root.run();
+			return root.run(sharedHandle, null);
 		}
-		return new Error("Unreachable code was... reached");
+		return null;//todo: throw error
 	}
 }

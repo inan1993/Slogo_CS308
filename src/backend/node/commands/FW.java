@@ -3,6 +3,9 @@
  */
 package backend.node.commands;
 
+import java.util.List;
+
+import SharedObjects.WorkSpaceController;
 import backend.node.Node;
 import responses.Response;
 import responses.Success;
@@ -17,11 +20,13 @@ public class FW extends Node{
 	}
 
 	/* (non-Javadoc)
-	 * @see backend.node.Node#run()
+	 * @see backend.node.Node#run(SharedObjects.WorkSpaceController)
 	 */
 	@Override
-	protected Response run() {
-		// TODO Auto-generated method stub
-		return new Success("Did nothing! :)");
+	protected Node run(WorkSpaceController sharedHandle, List<Node> ln) {
+	     //move forward using argument 1 pixels
+		 sharedHandle.foward(ln.get(0).getValue());
+		 //return argument 1 value
+		 return ln.get(0);
 	}
 }
