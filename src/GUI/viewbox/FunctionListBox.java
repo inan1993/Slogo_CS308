@@ -2,18 +2,19 @@ package GUI.viewbox;
 
 public class FunctionListBox extends AViewBox {
 
-    public FunctionListBox (String text) {
-        super(text);
+    public FunctionListBox (){//String text) {
+        super();//text);
+        this.setText("Function List");
     }
 
     @Override
     void setStyle () {
-        textArea.setStyle("-fx-border-color: black;");        
+        listView.setStyle("-fx-border-color: black;");        
     }
 
     @Override
     void setSize () {
-        textArea.setPrefSize(400, 200);        
+        listView.setPrefSize(400, 200);        
     }
 
 }

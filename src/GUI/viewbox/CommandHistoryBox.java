@@ -2,18 +2,21 @@ package GUI.viewbox;
 
 public class CommandHistoryBox extends AViewBox {
 
-    public CommandHistoryBox (String text) {
-        super(text);
+    public CommandHistoryBox (){//String text) {
+        super();//text);
+        //this.setText(text);
+        this.setText("Command History List");
+
     }
 
     @Override
     void setStyle () {
-        textArea.setStyle("-fx-border-color: black;");        
+        listView.setStyle("-fx-border-color: black;");        
     }
 
     @Override
     void setSize () {
-        textArea.setPrefSize(400, 200);        
+        listView.setPrefSize(400, 200);        
     }
 
 }

@@ -1,6 +1,7 @@
 package GUI;
 
 import java.awt.Dimension;
+import java.io.File;
 import java.util.ResourceBundle;
 import GUI.button.*;
 import GUI.dropdown.*;
@@ -9,11 +10,14 @@ import GUI.turtlepane.*;
 import GUI.viewbox.*;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 
 public class SlogoView {
 
@@ -22,8 +26,13 @@ public class SlogoView {
     private Scene scene;
     private SlogoModel mySlogoModel;
 
+    
+	private String fileName;
     private CommandPromptDisplayBox commandBox; 
     private MessageDisplayBox messageBox;
+	private AViewBox variableDisplayBox, historyDisplayBox, functionDisplayBox;
+	private static Turtle turtle;
+
 
 
     public SlogoView(String language){//, String classname) {
@@ -54,24 +63,49 @@ public class SlogoView {
         return scene;
     }
 
-    private Node menu() {
-        HBox result = new HBox();
-        result.getChildren().add(fileMenu());
-        result.getChildren().add(languageDropDown());
-        result.getChildren().add(bgColorDropDown());
-        result.getChildren().add(penColorDropDown());
-        result.getChildren().add(helpMenu());
-        return result;
-    }
+	private Node menu() {
+		HBox result = new HBox();
+		result.getChildren().add(imageButton());
+		result.getChildren().add(languageDropDown());
+		result.getChildren().add(bgColorDropDown());
+		result.getChildren().add(penColorDropDown());
+		result.getChildren().add(helpMenu());
+		return result;
+	}
 
-    private Node fileMenu(){
-        ComboBox<String> myComboBox = new ComboBox<String>();
-        myComboBox.getItems().addAll("Get Image","Set Grid");
-        myComboBox.setEditable(false);        
-        myComboBox.promptTextProperty();
-        myComboBox.setValue("File");
-        return myComboBox;  
-    }
+	private Node imageButton(){
+		return new UploadButton(event->ButtonClicked());  
+	}
+
+	public void ButtonClicked() {
+
+		FileChooser fileChooser = new FileChooser();
+		File selectedFile = fileChooser.showOpenDialog(null);
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Information");
+		String label = null;
+
+		if (selectedFile != null) {
+			setFileName(selectedFile.getName());
+			imageUpload(getFileName());
+			System.out.println(getFileName());
+		}
+
+		else {
+			if (selectedFile == null) {
+				label = ("UploadCanceled");
+				alert.setContentText(label);
+				alert.showAndWait();
+			}
+		}
+	}
+
+
+	private void imageUpload(String name) {
+		//
+
+		//		new Turtle(name);
+	}
 
     private Node helpMenu() {
         return new HelpButton();
@@ -108,15 +142,15 @@ public class SlogoView {
         return penColor;  
     }
 
+	private VBox rightBox(){
+		VBox result = new VBox();
+		variableDisplayBox = new VariableListBox();
+		historyDisplayBox = new CommandHistoryBox();
+		functionDisplayBox = new FunctionListBox();
 
-    private VBox rightBox(){
-        VBox result = new VBox();
-        AViewBox v = new VariableListBox("variableList");
-        AViewBox c = new CommandHistoryBox("commandHistoryList");
-        AViewBox f = new FunctionListBox("functionList");
-        result.getChildren().addAll(v,c,f);
-        return result;
-    }
+		result.getChildren().addAll(variableDisplayBox,historyDisplayBox,functionDisplayBox);
+		return result;
+	}
 
     private Node centerBox() {
         return new TurtlePane(800, 580);
@@ -137,16 +171,39 @@ public class SlogoView {
     }
 
 
-    private Node commandAndEnterBoxes() {
-        HBox result = new HBox();
-        commandBox = new CommandPromptDisplayBox();
-        result.getChildren().add(commandBox);
+	private Node commandAndEnterBoxes() {
+		HBox result = new HBox();
+		commandBox = new CommandPromptDisplayBox();
+		result.getChildren().add(commandBox);
 
-        Button enterButton =  new EnterCommandButton(event->{
-            mySlogoModel.addHistory(commandBox.getText());
-        });
-        
-        result.getChildren().add(enterButton);
-        return result;	
-    }
+		Button enterButton =  new EnterCommandButton(event->{
+			mySlogoModel.addHistory(commandBox.getText());
+			String str = commandBox.getText();
+			messageBox.setMessage(str);
+			historyDisplayBox.setMessage(str);
+			//turtleMove();
+		});
+
+		result.getChildren().add(enterButton);
+		return result;	
+	}
+
+//	public void turtleMove(){
+//		//mainBox.setTranslateX(mainBox.getTranslateX()-40);
+//		//mainBox.setTranslateY(0);
+////		turtle.getMyTurtle().setVisible(false);
+//		turtle.getMyTurtle().setX(20);
+//		turtle.getMyTurtle().setY(10);
+//		turtle.drawTurtle();
+//		System.out.println("turtle moved");
+//
+//	}
+
+    public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
 }
