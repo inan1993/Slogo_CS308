@@ -30,36 +30,33 @@ import java.util.AbstractMap.SimpleEntry;
 public class Parser {
 	private Executor myExec;
 	private List<Node> myRoots;
-	private int myIndex;
 	private String myLanguage = "English";
-	private List<Entry<TokenType, String>> myTokenList; 
+	private List<Entry<TokenType, String>> myTokenList;
+	private static final List<Entry<TokenType, Pattern>> myTokenPatterns = makeTokenPatterns("resources/languages/Syntax");
+	public static final Map<LangType,List<Entry<SyntaxType, Pattern>>> mySyntaxPatterns = makeSyntaxPatterns(); 
 	private static final HashMap<String, TokenType> tokenMap = new HashMap<String, TokenType>(){{
 		for(TokenType each:TokenType.values())
 		{
-			put(each.name(), each);
+			tokenMap.put(each.name().toUpperCase(), each);
 		}
 	}};
 	private static final HashMap<String, SyntaxType> syntaxMap = new HashMap<String, SyntaxType>(){{
 		for(SyntaxType each:SyntaxType.values())
 		{
-			put(each.name(), each);
+			syntaxMap.put(each.name().toUpperCase(), each);
 		}
 	}};
 	private static final HashMap<String, LangType> languageMap = new HashMap<String, LangType>(){{
 		for(LangType each:LangType.values())
 		{
-			put(each.name(), each);
+			languageMap.put(each.name().toUpperCase(), each);
 		}
 	}};
-
-	private static final List<Entry<TokenType, Pattern>> myTokenPatterns = makeTokenPatterns("resources/languages/Syntax");
-	public static final Map<LangType,List<Entry<SyntaxType, Pattern>>> mySyntaxPatterns = makeSyntaxPatterns();
 	
 	public Parser() {
 		//Call run to start.
 		myExec = new Executor();
 		myRoots = new ArrayList<Node>();
-		myIndex=0;
 	}
 	
 	public Response parse(String userInput) {
@@ -78,6 +75,7 @@ public class Parser {
 				}
 			}
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
@@ -105,7 +103,6 @@ public class Parser {
 		StringTokenizer st=new StringTokenizer(line," ");
 		String nodeName;
 		boolean matchFlag=false;
-		boolean commentFlag=false;
 		while (st.hasMoreTokens())
 		{
 			nodeName=st.nextToken();
@@ -115,14 +112,9 @@ public class Parser {
 				{
 					result.add(new SimpleEntry<TokenType, String>(p.getKey(), nodeName));
 					matchFlag=true;
-					if(p.getKey()==TokenType.COMMENT)
-					{
-						commentFlag=true;
-					}
 					break;
 				}
 			}
-			if(commentFlag) break;
 			if(!matchFlag) throw new LexiconException("Ilegal Input: Cannot find a matching token!");
 		}
 		return result;	
@@ -133,27 +125,24 @@ public class Parser {
 	}
 	
 	private void buildSyntaxTree() throws SyntaxException{
-		while(myIndex<myTokenList.size()){
+		Integer index=0;
+		while(index<myTokenList.size()){
 			Node root=null;
-			root=growTree(myTokenList); 
+			root=growTree(myTokenList,index); 
 			if(root!=null){
 				myRoots.add(root);
 			}
-			myIndex++;
 		}
 	}
 	
-	private Node growTree(List<Entry<TokenType, String>> tokenList) throws SyntaxException{
+	private Node growTree(List<Entry<TokenType, String>> tokenList, Integer index) throws SyntaxException{
 		NodeFactory factory = new NodeFactory();
-		Node root = factory.createNode(tokenList.get(myIndex), languageMap.get(myLanguage.toUpperCase()));
+		Node root = factory.createNode(tokenList.get(index), languageMap.get(myLanguage));
 		int numOfChildren=root.getChildrenNum();
-		int i=0;
-		while(i<numOfChildren)
+		for(int i=0;i<numOfChildren;i++)
 		{
-			myIndex++;
-			Node c = growTree(tokenList);
-			root.addChild(c);
-			i++;
+			index++;
+			root.addChild(factory.createNode(tokenList.get(index), languageMap.get(myLanguage)));
 		}
 		return root;
 	}
@@ -165,6 +154,8 @@ public class Parser {
         Enumeration<String> iter = resources.getKeys();
         while (iter.hasMoreElements()) {
             String key = iter.nextElement();
+            if(tokenMap.get(key.toUpperCase())==TokenType.COMMENT)
+            	break;
             String regex = resources.getString(key);
             patterns.add(new SimpleEntry<TokenType, Pattern>(tokenMap.get(key.toUpperCase()),
                     Pattern.compile(regex, Pattern.CASE_INSENSITIVE)));
@@ -196,6 +187,5 @@ public class Parser {
 	public static void main (String[] args) {
         Parser parser = new Parser();
         parser.parse("forward 50");
-        System.out.println("11");
     }
 }

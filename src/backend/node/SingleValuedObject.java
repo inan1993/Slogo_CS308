@@ -13,8 +13,6 @@ import SharedObjects.WorkSpaceController;
  */
 public abstract class SingleValuedObject extends Node{
 	public SingleValuedObject(String name, int num) {
-		super();
-		super.setName(name);
-		super.setChildrenNum(num);
+		super(name, 0);
 	}
 }
