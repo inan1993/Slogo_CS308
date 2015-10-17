@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 package backend.node.commands;
 
 import java.util.List;
@@ -12,18 +15,23 @@ import responses.Response;
  * @author loganrooper
  *
  */
-public class HOME extends Command {
-	public HOME(String name, int children) {
+public class CS extends Command {
+	public CS(String name, int children) {
 		super(name, children);
 	}
 
 	@Override
 	public Node run(WorkSpaceController sharedHandle, List<Node> ln) {
-		if (ln == null)
-			throw new RuntimeException("Missing parameter.");
-		
+		sharedHandle.showTurtle();
+
+		//First home
 		Response s = sharedHandle.home();
 		double distanceMoved = Double.parseDouble(s.toString());
+		
+		//Now clear
+		sharedHandle.clearScreen();
+		
+		//Return the distance moved
 		return new Constant("Moved").setValue(distanceMoved);
 	}
 }
