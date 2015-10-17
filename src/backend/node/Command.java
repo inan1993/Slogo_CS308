@@ -3,6 +3,7 @@
  */
 package backend.node;
 
+import SharedObjects.WorkSpaceController;
 import responses.Response;
 
 /**
@@ -16,6 +17,6 @@ public abstract class Command extends Node{
 	}
 
 	@Override
-	protected abstract Response run();
+	protected abstract Node run(WorkSpaceController wsc);
 	
 }
