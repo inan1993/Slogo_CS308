@@ -10,8 +10,8 @@ import backend.node.Command;
 import backend.node.Node;
 import responses.Response;
 
-public class FW extends Command {
-	protected FW(String s) {
+public class Forward extends Command {
+	protected Forward(String s) {
 		super(s, 1);
 		// TODO Auto-generated constructor stub
 	}

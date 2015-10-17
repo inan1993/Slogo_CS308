@@ -1,4 +1,6 @@
 import backend.*;
+import backend.node.Node;
+import backend.node.commands.FW;
 import backend.parser.*;
 
 /**
@@ -7,7 +9,9 @@ import backend.parser.*;
  */
 public class BackendTester {
 	public static void main(String[] args) {
-		Parser p = new Parser();
-		p.parse("fw 50");
+		//Parser p = new Parser();
+		//p.parse("fw 50");
+		Node root = new FW("FW");
+		//should I put nodes in here^? 
 	}
 }
