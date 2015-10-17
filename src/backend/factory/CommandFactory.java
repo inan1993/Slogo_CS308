@@ -4,15 +4,18 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
-import backend.node.Constant;
 import backend.node.Node;
-import backend.node.Variable;
+import backend.node.commands.FW;
 import backend.parser.SyntaxType;
 
 public class CommandFactory {
 	private static HashMap<SyntaxType,Class> myRegisteredCommands = new HashMap<SyntaxType,Class>();
+	
+	static{
+		registerCmd(SyntaxType.FORWARD, FW.class);
+	}
 
-	public void registerNode (SyntaxType type, Class nodeClass)
+	public static void registerCmd (SyntaxType type, Class nodeClass)
 	{
 		myRegisteredCommands.put(type, nodeClass);
 	}
@@ -23,13 +26,13 @@ public class CommandFactory {
 		Class nodeClass = (Class)myRegisteredCommands.get(type);
 		Constructor nodeConstructor;
 		try {
-			nodeConstructor = nodeClass.getDeclaredConstructor(new Class[] { String.class });
-			result = (Node) nodeConstructor.newInstance(new Object[] { });
+			nodeConstructor = nodeClass.getDeclaredConstructor(new Class[]{});
+			result = (Node) nodeConstructor.newInstance();
 		} catch (NoSuchMethodException | SecurityException e) {
 			e.printStackTrace();
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return result;
 	}
 }
