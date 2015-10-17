@@ -35,9 +35,9 @@ public class TurtleGroup extends Group{
         }
         myTurtleIDs.add(turtleDTO.getID());
         ImageView turtleImage = new ImageView(myTurtleImage);
-        turtleImage.setX(turtleDTO.getNextLoc()[0]);
-        turtleImage.setY(turtleDTO.getNextLoc()[1]);
-        turtleImage.setVisible(turtleDTO.isVisible());
+        turtleImage.setX(200);//turtleDTO.getNextLoc()[0]);
+        turtleImage.setY(250);//turtleDTO.getNextLoc()[1]);
+        turtleImage.setVisible(true);//turtleDTO.isVisible());
         this.getChildren().add(turtleImage);
     }
 

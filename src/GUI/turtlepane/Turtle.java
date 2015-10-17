@@ -62,8 +62,8 @@ public class Turtle extends Observable{
 
     public void drawTurtle(){
         myTurtleImage.setVisible(true);
-        //              myTurtleImage.setX(200);
-        //              myTurtleImage.setY(100);
+        myTurtleImage.setX(200);
+        myTurtleImage.setY(100);
         System.out.println("turtle");
     }
 

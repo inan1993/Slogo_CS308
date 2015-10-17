@@ -37,7 +37,8 @@ public class TurtleCanvas extends Canvas{
     public void setBackgroundColor(String backgroundColor){
         this.bgColor = Color.valueOf(backgroundColor);
         gc.setFill(bgColor);
-        //        gc.fillRect(0,0,width,height);
+        System.out.println(backgroundColor);
+        gc.fillRect(0,0,800,580);
     }
 
     public void setPenColor(String penColor){
