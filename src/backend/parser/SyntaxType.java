@@ -82,4 +82,9 @@ public enum SyntaxType {
 	TELL,
 	ASK,
 	ASKWITH;
+////	#
+////	# Non-Command
+////	#
+//	VARIABLE,
+//	CONSTANT;
 }

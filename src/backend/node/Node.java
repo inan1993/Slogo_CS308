@@ -25,6 +25,7 @@ public abstract class Node {
 		myChildren = new ArrayList<Node>();
 	}
 
+
 	protected abstract Node run(WorkSpaceController sharedHandle, List<Node> returnedNodes);
 
 	public Node addChild(Node node) {
@@ -34,6 +35,10 @@ public abstract class Node {
 
 	public int getChildrenNum() {
 		return myNumOfChildren;
+	}
+	
+	public void setName(String name){
+		myName=name;
 	}
 
 	public Boolean hasChildren() {

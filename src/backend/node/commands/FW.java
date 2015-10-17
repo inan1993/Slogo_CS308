@@ -1,27 +1,26 @@
-/**
- * 
- */
 package backend.node.commands;
 
 import java.util.List;
 
 import SharedObjects.WorkSpaceController;
+import backend.factory.CommandFactory;
+import backend.parser.SyntaxType;
+import backend.factory.NodeFactory;
+import backend.node.Command;
 import backend.node.Node;
 import responses.Response;
-import responses.Success;
 
-/**
- * @author loganrooper
- *
- */
-public class FW extends Node{
-	public FW(String name, int children) {
-		super(name, children);
+public class FW extends Command {
+	protected FW(String s) {
+		super(s, 1);
+		// TODO Auto-generated constructor stub
 	}
 
-	/* (non-Javadoc)
-	 * @see backend.node.Node#run(SharedObjects.WorkSpaceController)
-	 */
+	static {
+		CommandFactory factory = new CommandFactory();
+		factory.registerNode(SyntaxType.FORWARD, Forward.class);
+	}
+
 	@Override
 	protected Node run(WorkSpaceController sharedHandle, List<Node> ln) {
 		 //If no children but FW, it's wrong!
