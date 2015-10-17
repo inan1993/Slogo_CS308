@@ -13,7 +13,7 @@ public class TurtlePane extends Canvas{
     //private SlogoModel mySlogoModel;
     private Turtle myTurtle;
     private GraphicsContext gc;
-    private static final String TURTLE_RESOURCE_PACKAGE = "GUI.TurtlePane/default";
+    private static final String TURTLE_RESOURCE_PACKAGE = "GUI.turtlepane/default";
     protected static ResourceBundle myResource;
     
     private TurtleObserver obs;
@@ -23,9 +23,8 @@ public class TurtlePane extends Canvas{
         myResource = ResourceBundle.getBundle(TURTLE_RESOURCE_PACKAGE);
 
         gc = this.getGraphicsContext2D(); 
-        gc.setFill(Color.valueOf(myResource.getString("backgroundColors")));
+        gc.setFill(Color.BLUE);//valueOf(myResource.getString("backgroundColors")));
         gc.fillRect(0,0,width,height);
-        
         
         obs = new TurtleObserver(gc);
         List<Observer> ob = new ArrayList<Observer>();
@@ -47,6 +46,11 @@ public class TurtlePane extends Canvas{
 //        myTurtle.changeImage();
     }
 
+    public void changeBackground(){
+    	gc.setFill(Color.AZURE);
+    }
+    
+    
 //    private void drawTurtle(){
 //    	gc.drawImage(myTurtle.getMyTurtle(), getWidth()/2, getHeight()/2);
 //    }

@@ -2,6 +2,7 @@ package GUI.turtlepane;
 
 import java.util.Observable;
 import java.util.Observer;
+
 import javafx.scene.canvas.GraphicsContext;
 
 public class TurtleObserver implements Observer{
@@ -18,9 +19,9 @@ public class TurtleObserver implements Observer{
     
     @Override
     public void update (Observable o, Object arg) {
-        if(myTurtle == o){
+    	
+    	if(myTurtle == o){
             System.out.println("match");
-           // myGc.drawImage(myTurtle.getMyTurtle(), 30.2, 32.2);
         }
     }
 }

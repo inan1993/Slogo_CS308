@@ -2,6 +2,7 @@ package GUI;
 
 import java.awt.Dimension;
 import java.io.File;
+import java.util.Map;
 import java.util.ResourceBundle;
 import GUI.button.*;
 import GUI.dropdown.*;
@@ -15,6 +16,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -34,6 +36,7 @@ public class SlogoView {
 	private MessageDisplayBox messageBox;
 	private AViewBox variableDisplayBox, historyDisplayBox, functionDisplayBox;
 	private static Turtle turtle;
+	private Map<String, ImageView> map;
 
 
 
@@ -160,6 +163,8 @@ public class SlogoView {
 		//mainBox = new StackPane();
 		TurtlePane canvas = new TurtlePane(800, 580);
 		Group turtles = new Group();
+	
+		//turtles.getChildren().remove(index)
 		turtle = new Turtle();
 		turtle.drawTurtle();
 		//turtle.drawLine();
