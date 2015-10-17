@@ -9,7 +9,7 @@ public interface IWorkSpaceController {
 	//methods signatures
 	
 	//moves turtle forward in its current heading by 'pixels' distance
-	Response foward(double pixels);
+	Response foward(int pixels);
 	
 	//moves turtle backwards in its current heading by 'pixels' distance
 	Response back(int pixels);
@@ -50,5 +50,9 @@ public interface IWorkSpaceController {
 	
 	//erases turtle's trails and sends it to the home position
 	Response clearScreen();
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> a8a9a010ea1ff70da94a2cff94ff015e4beca48b
 }

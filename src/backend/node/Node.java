@@ -1,6 +1,3 @@
-/**
- * 
- */
 package backend.node;
 
 import java.util.ArrayList;
@@ -19,20 +16,16 @@ public abstract class Node {
 	private int myNumOfChildren;
 	private double myValue;
 
-//	public Node(String name, int num) {
-//		myName = name;
-//		myNumOfChildren = num;
-//	}
 	
 	public Node(){
 		myChildren=new ArrayList<Node>();
+		myChildren = new ArrayList<Node>();
 	}
-
-
-	protected abstract Node run(WorkSpaceController sharedHandle, List<Node> returnedNodes);
-
-	public void addChild(Node node) {
+	
+	public Node addChild(Node node) {
 		myChildren.add(node);
+		myNumOfChildren = myChildren.size();
+		return node;
 	}
 
 	public int getChildrenNum() {
@@ -65,8 +58,15 @@ public abstract class Node {
 	/**
 	 * @return the myValue
 	 */
-	public double getValue() {
+	public double getDoubleValue() {
 		return myValue;
+	}
+	
+	/**
+	 * @return
+	 */
+	public int getIntegerValue() {
+		return (int) myValue;
 	}
 
 	/**
@@ -77,7 +77,7 @@ public abstract class Node {
 	}
 
 
-	protected Node run() {
+	protected Node run(WorkSpaceController sharedHandle, List<Node> ln) {
 		// TODO Auto-generated method stub
 		return null;
 	}

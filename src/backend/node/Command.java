@@ -19,7 +19,12 @@ public abstract class Command extends Node{
 		super.setChildrenNum(num);
 		super.setName(name);
 	}
-
-	@Override
+	
+	/**
+	 * A command requires two arguments
+	 * @param wsc
+	 * @param returnedNodes
+	 * @return
+	 */
 	protected abstract Node run(WorkSpaceController wsc, List<Node> returnedNodes);
 }

@@ -18,5 +18,4 @@ public class Variable extends Node{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-}
+};
