@@ -46,9 +46,10 @@ public interface IWorkSpaceController {
 	Response hideTurtle();
 	
 	//moves turtle to the center of the screen (0,0)
+	//from logan: please include the amount moved by the turtle in this response object!
 	Response home();
 	
 	//erases turtle's trails and sends it to the home position
 	Response clearScreen();
-	
+
 }

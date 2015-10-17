@@ -9,13 +9,13 @@ package responses;
  */
 public class Success extends Response{
 
-	/* (non-Javadoc)
-	 * @see responses.Response#toString()
-	 */
+	public Success(String msg) {
+		super(msg);
+	}
+
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return null;
+		return message;
 	}
 
 }

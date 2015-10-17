@@ -27,7 +27,11 @@ public class Main extends Application{
         stage.setResizable(false);
         stage.sizeToScene(); 
         stage.show();
+<<<<<<< HEAD
     }
+=======
+	}
+>>>>>>> abhishek
 	
     public static void main (String[] args) {
     	/*1*/Workspace currWorkspace = new Workspace(); //TODO: workspace must create an observables list
@@ -43,4 +47,8 @@ public class Main extends Application{
         launch(args);
         
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> abhishek
 }
