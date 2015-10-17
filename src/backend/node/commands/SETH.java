@@ -18,17 +18,19 @@ public class SETH extends Command {
 
 	@Override
 	public Node run(WorkSpaceController sharedHandle, List<Node> ln) {
-		 //If no children but FW, it's wrong!
 		 if (ln == null)
 			 throw new RuntimeException("Missing parameter.");
-		 //get current heading
+		 if (ln.size() < 1)
+			 throw new RuntimeException(String.format("Expected 1 parameter, got: %d", ln.size()));
+		 
+		 //get headings
 		 double prevHeading = sharedHandle.getHeading();
 		 double newHeading = ln.get(0).getDoubleValue();
-	     //turn using argument 1
+		 
+	     //turn
 		 sharedHandle.setHeading(newHeading);
 		 
-		 
-		 //return argument 1 value
-		 return new Constant().setValue(prevHeading-newHeading);
+		 //return the delta
+		 return new Constant("Heading").setValue(prevHeading-newHeading);
 	}
 }
