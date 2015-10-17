@@ -9,11 +9,6 @@ import backend.node.Command;
 import backend.node.Node;
 
 public class FW extends Command {
-	public FW()
-	{
-		super(null,1);
-	}
-	
 	public FW(String s) {
 		super(s, 1);
 		// TODO Auto-generated constructor stub
@@ -21,7 +16,7 @@ public class FW extends Command {
 
 	static {
 		CommandFactory factory = new CommandFactory();
-		factory.registerCmd(SyntaxType.FORWARD, FW.class);
+		factory.registerNode(SyntaxType.FORWARD, Forward.class);
 	}
 
 	@Override
