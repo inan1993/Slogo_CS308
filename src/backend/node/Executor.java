@@ -7,7 +7,7 @@ import backend.node.Node;
 import backend.node.SingleValuedObject;
 import responses.*;
 import responses.Error;
-import SharedObjects.*;
+import sharedobjects.*;
 import exceptions.*;
 
 /**
