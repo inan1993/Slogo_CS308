@@ -5,6 +5,8 @@ package backend.node;
 
 import java.util.List;
 
+import responses.Response;
+
 /**
  * @author loganrooper
  *
@@ -39,5 +41,12 @@ public abstract class Node {
 	
 	public List<Node> getChildren() {
 		return myChildren;
+	}
+
+	/**
+	 * @return the myName
+	 */
+	public String getName() {
+		return myName;
 	}
 }

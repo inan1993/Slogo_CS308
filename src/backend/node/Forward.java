@@ -2,6 +2,7 @@ package backend.node;
 
 import backend.factory.CommandFactory;
 import backend.parser.SyntaxType;
+import responses.Response;
 
 public class Forward extends Command {
 	protected Forward(String s) {
@@ -12,5 +13,11 @@ public class Forward extends Command {
 	static {
 		CommandFactory factory = new CommandFactory();
 		factory.registerNode(SyntaxType.FORWARD, Forward.class);
+	}
+
+	@Override
+	protected Node run() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
