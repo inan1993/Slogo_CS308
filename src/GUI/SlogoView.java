@@ -6,12 +6,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observer;
 import java.util.ResourceBundle;
-import GUI.button.*;
-import GUI.dropdown.*;
-import GUI.textBox.*;
-import GUI.turtlepane.*;
-import GUI.viewbox.*;
-import observers.*;
+import GUI.button.ClearCommandButton;
+import GUI.button.EnterCommandButton;
+import GUI.button.HelpButton;
+import GUI.button.UploadButton;
+import GUI.dropdown.BackgroundColorDropdown;
+import GUI.dropdown.LanguageListDropdown;
+import GUI.dropdown.PenColorDropdown;
+import GUI.textBox.CommandPromptDisplayBox;
+import GUI.textBox.MessageDisplayBox;
+import GUI.turtlepane.TurtleCanvas;
+import GUI.turtlepane.TurtleGroup;
+import GUI.viewbox.AViewBox;
+import GUI.viewbox.CommandHistoryBox;
+import GUI.viewbox.FunctionListBox;
+import GUI.viewbox.VariableListBox;
+import datatransferobjects.TurtleTransferObject;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -24,6 +34,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import observers.FrontEndObserver;
 
 public class SlogoView {
 
@@ -64,7 +75,9 @@ public class SlogoView {
         root.setCenter(centerBox());
         root.setBottom(bottomBox());
         root.setRight(rightBox());
-
+        
+        
+        myObservers.get(0).update(null, (Object)createDTO());
         scene = new Scene(root, DEFAULT_SIZE.width, DEFAULT_SIZE.height);
     }
 
@@ -206,6 +219,12 @@ public class SlogoView {
     
     public void addObservers(Observer obs){
         myObservers.add(obs);
+    }
+    
+    
+    public TurtleTransferObject createDTO(){
+        TurtleTransferObject turtle = new TurtleTransferObject(false, 1, true, true, new int[]{0,0}, new int[]{20,20});
+        return turtle;
     }
     
 }
