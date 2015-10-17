@@ -8,7 +8,8 @@ import junit.framework.*;
 public class BackendTestSuite {
 	public static Test suite() {
         final TestSuite s = new TestSuite();
-        s.addTestSuite(BackendTester.class);
+        s.addTestSuite(ExecutorTester.class);
+        s.addTestSuite(IntegrationTester.class);
         return s;
     }
 }
