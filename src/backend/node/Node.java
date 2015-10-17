@@ -21,10 +21,7 @@ public abstract class Node {
 		myNumOfChildren = num;
 		myChildren = new ArrayList<Node>();
 	}
-
-
-	protected abstract Node run(WorkSpaceController sharedHandle, List<Node> returnedNodes);
-
+	
 	public Node addChild(Node node) {
 		myChildren.add(node);
 		myNumOfChildren = myChildren.size();
@@ -57,8 +54,15 @@ public abstract class Node {
 	/**
 	 * @return the myValue
 	 */
-	public double getValue() {
+	public double getDoubleValue() {
 		return myValue;
+	}
+	
+	/**
+	 * @return
+	 */
+	public int getIntegerValue() {
+		return (int) myValue;
 	}
 
 	/**
@@ -67,4 +71,5 @@ public abstract class Node {
 	public void setValue(double myValue) {
 		this.myValue = myValue;
 	}
+	
 }

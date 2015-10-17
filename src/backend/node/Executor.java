@@ -2,7 +2,9 @@ package backend.node;
 
 import java.util.List;
 import java.util.ArrayList;
+import backend.node.Command;
 import backend.node.Node;
+import backend.node.SingleValuedObject;
 import responses.*;
 import responses.Error;
 import SharedObjects.*;
@@ -28,7 +30,7 @@ public class Executor {
 	 */
 	public Response execute(Node root) {
 		Node finished = recurse(root);
-		return new Success(String.format("%f", finished.getValue()));
+		return new Success(String.format("%f", finished.getDoubleValue()));
 	}
 	
 	private Node recurse(Node root) {
@@ -37,11 +39,21 @@ public class Executor {
 			for (Node n : root.getChildren()) {
 				returnedNodes.add(recurse(n));
 			}
-			// Now, run this with recieved parameters
-			return root.run(sharedHandle, returnedNodes);
+			
+			// Now, run this with our received parameters
+			if (root instanceof Command) {
+				return ((Command) root).run(sharedHandle, returnedNodes);
+			} else { 
+				//We've got a SVO here, that wasn't a leaf...
+				throw new RuntimeException("Invalid number of children for this node!");
+			}
 		} else {
-			// leaf
-			return root.run(sharedHandle, new ArrayList<Node>());
+			// leaf - make sure it's a SVO not a command
+			if (root.getClass().isAssignableFrom(SingleValuedObject.class))
+				return root;
+			else 
+				//We've got a command here, that was a leaf...
+				throw new RuntimeException("Invalid number of children for this node!");
 		}
 	}
 }

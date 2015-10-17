@@ -4,19 +4,8 @@ import java.util.List;
 
 import SharedObjects.WorkSpaceController;
 
-public class Constant extends Node {
-	
+public class Constant extends SingleValuedObject {
 	public Constant(String s) {
 		super(s, 0);
-		// TODO Auto-generated constructor stub
 	}
-
-	@Override
-	protected Node run(WorkSpaceController sharedHandle, List<Node> returnedNodes) {
-		// Nothing to do.
-		return this;
-	}
-	
-	
-
 }
