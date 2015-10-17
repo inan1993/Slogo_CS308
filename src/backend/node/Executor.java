@@ -15,10 +15,10 @@ import exceptions.*;
  *
  */
 public class Executor {
-	WorkSpaceController sharedHandle;
+	ManipulateController sharedHandle;
 
-	public Executor() {
-		sharedHandle = new WorkSpaceController();
+	public Executor(ManipulateController manipulateController) {
+		sharedHandle = manipulateController;
 	}
 
 	/**

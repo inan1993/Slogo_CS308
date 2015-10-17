@@ -1,5 +1,6 @@
 package sharedobjects;
 
+import backend.node.Node;
 import responses.Response;
 
 public interface IWorkSpaceController {
@@ -51,5 +52,17 @@ public interface IWorkSpaceController {
 	
 	//erases turtle's trails and sends it to the home position
 	Response clearScreen();
-
+	
+	//add userDefinedCommand to Map
+	Response setCommand(String s, Node n);
+	
+	//get userDefinedCommand from Map
+	Node getCommand(String commandName);
+		
+	//add to Variables Map
+	Response setVariable(String variableName, Node var);
+	
+	//get previously set Variables from Map
+	String getVariable(String variableName);
+	
 }

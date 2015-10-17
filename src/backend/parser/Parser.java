@@ -1,6 +1,7 @@
 package backend.parser;
 
 import responses.Response;
+import sharedobjects.ManipulateController;
 import responses.Error;
 import backend.*;
 import backend.node.Executor;
@@ -53,9 +54,9 @@ public class Parser {
 		}
 	}};
 	
-	public Parser() {
+	public Parser(Executor executor, ManipulateController manipulateController) {
 		//Call run to start.
-		myExec = new Executor();
+		myExec = new Executor(null);
 		myRoots = new ArrayList<Node>();
 	}
 	
@@ -185,7 +186,7 @@ public class Parser {
     }
 	
 	public static void main (String[] args) {
-        Parser parser = new Parser();
+        Parser parser = new Parser(null, null);
         parser.parse("forward 50");
     }
 }

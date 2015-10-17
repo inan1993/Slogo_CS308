@@ -17,7 +17,7 @@ public class IntegrationTester extends TestCase{
 	private Parser p;
 	
 	public void setUp() {
-		p = new Parser();
+		//p = new Parser();
 	}
 	
 	public void testIntegration() {

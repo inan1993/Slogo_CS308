@@ -3,6 +3,7 @@ package sharedobjects;
 import java.util.LinkedList;
 import java.util.List;
 
+import backend.node.Node;
 import responses.Response;
 
 public class ManipulateController implements IWorkSpaceController{
@@ -133,5 +134,34 @@ public class ManipulateController implements IWorkSpaceController{
 		home();
 		return null;
 	}
+
+	@Override
+	public Response setCommand(String s, Node n) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Node getCommand(String commandName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Response setVariable(String variableName, Node var) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getVariable(String variableName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public double getHeading() {
+		return currWorkspace.getHeading();
+	}
+
 
 }

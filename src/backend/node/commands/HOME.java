@@ -6,7 +6,7 @@ import backend.node.Command;
 import backend.node.Constant;
 import backend.node.Node;
 import responses.Response;
-import sharedobjects.WorkSpaceController;
+import sharedobjects.ManipulateController;
 
 /**
  * @author loganrooper
@@ -18,7 +18,7 @@ public class HOME extends Command {
 	}
 
 	@Override
-	public Node run(WorkSpaceController sharedHandle, List<Node> ln) {
+	public Node run(ManipulateController sharedHandle, List<Node> ln) {
 		if (ln == null)
 			throw new RuntimeException("Missing parameter.");
 		
