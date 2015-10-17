@@ -6,6 +6,7 @@ import backend.*;
 import backend.node.Executor;
 import backend.factory.NodeFactory;
 import backend.node.Node;
+import resources.languages.*;
 
 import java.util.List;
 import java.util.Map;
@@ -31,7 +32,7 @@ public class Parser {
 	private List<Node> myRoots;
 	private String myLanguage = "English";
 	private List<Entry<TokenType, String>> myTokenList;
-	private static final List<Entry<TokenType, Pattern>> myTokenPatterns = makeTokenPatterns("Syntax.properties");
+	private static final List<Entry<TokenType, Pattern>> myTokenPatterns = makeTokenPatterns("resources/languages/Syntax");
 	public static final Map<LangType,List<Entry<SyntaxType, Pattern>>> mySyntaxPatterns = makeSyntaxPatterns(); 
 	private static final HashMap<String, TokenType> tokenMap = new HashMap<String, TokenType>(){{
 		for(TokenType each:TokenType.values())
@@ -56,7 +57,6 @@ public class Parser {
 		//Call run to start.
 		myExec = new Executor();
 		myRoots = new ArrayList<Node>();
-//		myResponse = new Error("Haven't begin parsing");
 	}
 	
 	public Response parse(String userInput) {
@@ -169,7 +169,7 @@ public class Parser {
 		String fileName;
 		for(LangType each:LangType.values())
 		{
-			fileName=each.name().toLowerCase().concat(".properties");
+			fileName="resources/languages/"+each.name().toLowerCase();
 			ResourceBundle resources = ResourceBundle.getBundle(fileName);
 	        List<Entry<SyntaxType, Pattern>> patterns = new ArrayList<Entry<SyntaxType, Pattern>>();
 	        Enumeration<String> iter = resources.getKeys();
@@ -182,5 +182,10 @@ public class Parser {
 	        result.put(each, patterns);
 		}
         return result;
+    }
+	
+	public static void main (String[] args) {
+        Parser parser = new Parser();
+        parser.parse("forward 50");
     }
 }
