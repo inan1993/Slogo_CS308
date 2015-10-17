@@ -22,9 +22,12 @@ public class Forward extends Command {
 	}
 
 	@Override
-	protected Node run(WorkSpaceController sharedHandle, List<Node> ln) {
-	     //move forward using argument 1 pixels
-		 sharedHandle.foward(ln.get(0).getValue());
+	public Node run(WorkSpaceController sharedHandle, List<Node> ln) {
+		 //If no children but FW, it's wrong!
+		 if (ln == null)
+			 throw new RuntimeException("Missing parameter.");
+	     //move forward using argument 1
+		 sharedHandle.foward(ln.get(0).getIntegerValue());
 		 //return argument 1 value
 		 return ln.get(0);
 	}
