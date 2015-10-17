@@ -21,6 +21,9 @@ public class SETH extends Command {
 		 //If no children but FW, it's wrong!
 		 if (ln == null)
 			 throw new RuntimeException("Missing parameter.");
+		 if (ln.size() < 1)
+			 throw new RuntimeException(String.format("Expected 1 parameter, got: %d", ln.size()));
+		 
 		 //get headings
 		 double prevHeading = sharedHandle.getHeading();
 		 double newHeading = ln.get(0).getDoubleValue();
