@@ -6,10 +6,9 @@ import SharedObjects.WorkSpaceController;
 
 public class Constant extends Node {
 	
-	public Constant(String s) {
+	public Constant() {
 		super();
 		super.setChildrenNum(0);
-		super.setName(s);
 		// TODO Auto-generated constructor stub
 	}
 

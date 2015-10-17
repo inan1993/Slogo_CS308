@@ -3,9 +3,12 @@ package backend.parser;
 import responses.Response;
 import responses.Error;
 import backend.*;
+import backend.node.Constant;
 import backend.node.Executor;
 import backend.factory.NodeFactory;
+import backend.factory.NodeFactory;
 import backend.node.Node;
+import backend.node.Variable;
 import resources.languages.*;
 
 import java.util.List;
@@ -31,8 +34,11 @@ public class Parser {
 	private Executor myExec;
 	private List<Node> myRoots;
 	private int myIndex;
-	private String myLanguage = "English";
+	private String myLanguage;
 	private List<Entry<TokenType, String>> myTokenList; 
+	private List<Entry<SyntaxType, String>> mySyntaxList; 
+	private boolean myListLegal;
+	
 	private static final HashMap<String, TokenType> tokenMap = new HashMap<String, TokenType>(){{
 		for(TokenType each:TokenType.values())
 		{
@@ -60,6 +66,8 @@ public class Parser {
 		myExec = new Executor();
 		myRoots = new ArrayList<Node>();
 		myIndex=0;
+		myListLegal=false;
+		myLanguage="English";
 	}
 	
 	public Response parse(String userInput) {
@@ -94,7 +102,8 @@ public class Parser {
 		}
 		return response;
 	}
-		
+	
+	//a helper function to match regex
 	public static boolean match (String input, Pattern regex) {
         return regex.matcher(input).matches();
     }
@@ -123,40 +132,243 @@ public class Parser {
 				}
 			}
 			if(commentFlag) break;
-			if(!matchFlag) throw new LexiconException("Ilegal Input: Cannot find a matching token!");
+			if(!matchFlag) throw new LexiconException("Ilegal Input: Cannot find a matched token!");
 		}
 		return result;	
 	}
+
 	
 	private void buildTokenList(String line) throws LexiconException{
 		myTokenList.addAll(generateToken(line));
 	}
 	
 	private void buildSyntaxTree() throws SyntaxException{
-		while(myIndex<myTokenList.size()){
+		//gengerate a syntax list
+		mySyntaxList = new ArrayList<Entry<SyntaxType, String>>();
+		for(Entry<TokenType, String> entry:myTokenList){
+			switch(entry.getKey()){
+			case CONSTANT:
+				mySyntaxList.add(new SimpleEntry<SyntaxType, String>(SyntaxType.CONSTANT, entry.getValue()));
+				break;
+			case VARIABLE:
+				mySyntaxList.add(new SimpleEntry<SyntaxType, String>(SyntaxType.VARIABLE, entry.getValue()));
+				break;
+			case LISTSTART:
+				mySyntaxList.add(new SimpleEntry<SyntaxType, String>(SyntaxType.LISTSTART, entry.getValue()));
+				break;
+			case LISTEND:
+				mySyntaxList.add(new SimpleEntry<SyntaxType, String>(SyntaxType.LISTEND, entry.getValue()));
+				break;
+//			case GROUPSTART:
+//			case GROUPEND:
+			case COMMAND:
+				boolean matchFlag=false;
+				for(Entry<SyntaxType, Pattern> p:mySyntaxPatterns.get(languageMap.get(myLanguage.toUpperCase())))
+				{
+					if(Parser.match(entry.getValue(), p.getValue()))
+					{
+						mySyntaxList.add(new SimpleEntry<SyntaxType, String>(p.getKey(), entry.getValue()));
+						matchFlag=true;
+						break;
+					}
+				}
+				if(!matchFlag){
+					throw new SyntaxException("Ilegal Input: Cannot find a matched command!");
+				}
+				break;
+			default:
+				throw new SyntaxException("Something is wrong.");
+			}
+			
+		}
+		//build syntax tree in a recursive way 
+		while(myIndex<mySyntaxList.size()){
 			Node root=null;
-			root=growTree(myTokenList); 
+			root=growTree(); 
 			if(root!=null){
 				myRoots.add(root);
 			}
-			myIndex++;
 		}
 	}
 	
-	private Node growTree(List<Entry<TokenType, String>> tokenList) throws SyntaxException{
+	//index after growTree will indicate a token that hasn't been parsed
+	//growTree will only generate one root or subroot in the tree
+	private Node growTree() throws SyntaxException{
+		if(myIndex>=mySyntaxList.size())
+			throw new SyntaxException("Uncompleted arguments list!");
+		//create the node using factory design pattern
 		NodeFactory factory = new NodeFactory();
-		Node root = factory.createNode(tokenList.get(myIndex), languageMap.get(myLanguage.toUpperCase()));
+		SyntaxType type = mySyntaxList.get(myIndex).getKey();
+		Node root = factory.createNode(type);
+		root.setName(mySyntaxList.get(myIndex).getValue());
+		myIndex++;
+		//check the syntax and move on
+		switch(type){
+		//with 0 para
+		case CONSTANT:case VARIABLE:case PENDOWN:case PENUP: case SHOWTURTLE :case HIDETURTLE:
+		case HOME:case CLEARSCREEN:case XCOORDINATE:case YCOORDINATE:
+		case HEADING: case ISPENDOWN: case ISSHOWING: case PI:
+		//with 1 para
+		case FORWARD:case BACKWARD:case LEFT: case RIGHT: case SETHEADING:
+		case MINUS: case RANDOM:case SINE:case COSINE:case TANGENT:
+		case ARCTANGENT:case NATURALLOG:case NOT:
+		//with 2 paras	
+		case SETTOWARDS:case SETPOSITION:case SUM:case DIFFERENCE:
+		case PRODUCT:case QUOTIENT:case REMAINDER:case POWER:
+		case LESSTHAN:case GREATERTHAN:case EQUAL:case NOTEQUAL:
+		case AND:case OR:
+			parseExpression(root);
+		    break;
+		case LISTSTART:
+			if(myListLegal){
+				parseListStart(root);
+				myListLegal=false;
+			}
+			else{
+				throw new SyntaxException("Use " + root.getName() + "in illegal condition");
+			}
+			break;
+		case LISTEND:
+			throw new SyntaxException("Miss a left [ for" + root.getName());
+		case MAKEVARIABLE:
+			parseMakeVar(root);
+			break;
+		case REPEAT:
+			parseRepeat(root);
+			break;
+		case DOTIMES:
+			parseDoTimes(root);
+			break;
+		case FOR:
+			parseFor(root);
+			break;
+		case IF:
+			parseIf(root);
+			break;
+		case IFELSE:
+			parseIfelse(root);
+			break;
+		case MAKEUSERINSTRUCTION:
+			parseMakeCmd(root);
+			break;
+		}
+		return root;
+	}
+	
+	private void parseExpression(Node root) throws SyntaxException	{
 		int numOfChildren=root.getChildrenNum();
 		int i=0;
 		while(i<numOfChildren)
 		{
-			myIndex++;
-			Node c = growTree(tokenList);
+			if(myIndex>=mySyntaxList.size())
+				throw new SyntaxException("Uncompleted argument list in" + root.getName());
+			Node c = growTree();
 			root.addChild(c);
 			i++;
 		}
-		return root;
 	}
+	
+	private void parseMakeVar(Node root) throws SyntaxException{
+		//make variable should be followed by variable and another expression
+		if(myIndex>=mySyntaxList.size()){
+			throw new SyntaxException("Uncompleted argument list in " + root.getName());
+		}
+		else if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.VARIABLE){
+			throw new SyntaxException("Incompatible argument list in " + root.getName());
+		}
+		else{
+			Node c = growTree();
+			root.addChild(c);
+		}
+	}
+	
+	private void parseRepeat(Node root) throws SyntaxException{
+		//-----------------
+		//might use parseExpression to support using a list as repeating times
+		Node c = growTree();
+		root.addChild(c);
+		//-----------------
+		if(myIndex>=mySyntaxList.size()){
+			throw new SyntaxException("Uncompleted argument list in " + root.getName());
+		}
+		else if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.LISTSTART){
+			throw new SyntaxException("Incompatible argument list in " + root.getName());
+		}
+		else{
+			//clist must be a LISTSTART syntax type
+			myListLegal=true;
+			Node clist = growTree();
+			root.addChild(clist);
+		}
+	}
+	
+	private void parseListStart(Node root) throws SyntaxException{
+		while(myIndex<mySyntaxList.size()){
+			Node c = growTree();
+			root.addChild(c);
+			if(mySyntaxList.get(myIndex).getKey()==SyntaxType.LISTEND){
+				return;
+			}
+		}
+		throw new SyntaxException("Miss a right brace ] in "+root.getName()); 
+	}
+	
+	private void parseDoTimes(Node root) throws SyntaxException{
+		if(myIndex>=mySyntaxList.size()){
+			throw new SyntaxException("Uncompleted argument list in " + root.getName());
+		}
+		else if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.LISTSTART){
+			throw new SyntaxException("Miss a left brace [ in " + root.getName());
+		}
+		else {
+			myIndex++;
+			if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.VARIABLE){
+				throw new SyntaxException("Incompatible argument list in " + root.getName());
+			}
+			else{
+				Node c=growTree();
+				root.addChild(c);
+				c=growTree();
+				root.addChild(c);
+				if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.LISTEND){
+					throw new SyntaxException("Miss a right brace ] in " + root.getName());
+				}
+			}	
+		}		
+		if(myIndex>=mySyntaxList.size()){
+			throw new SyntaxException("Uncompleted argument list in " + root.getName());
+		}
+		else if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.LISTSTART){
+			throw new SyntaxException("Incompatible argument list in " + root.getName());
+		}
+		else {
+			myListLegal=true;
+			Node c=growTree();
+			root.addChild(c);
+		}
+	}
+	
+	private void parseFor(Node root) throws SyntaxException{
+		
+	}
+	
+	private void parseIf(Node root) throws SyntaxException{
+		
+	}
+
+	private void parseIfelse(Node root) throws SyntaxException{
+		
+	}
+	
+	private void parseMakeCmd(Node root) throws SyntaxException{
+		
+	}
+	
+	
+	
+	
+	
+	
 		
 	//The following two methods are only used when we first create a parser. They will generate myTokenPatterns, mySyntaxPatterns
 	public static List<Entry<TokenType, Pattern>> makeTokenPatterns (String fileName) {
@@ -195,7 +407,7 @@ public class Parser {
 	
 	public static void main (String[] args) {
         Parser parser = new Parser();
-        parser.parse("forward 50");
+        parser.parse("repeat 2 [ forward 50 fd 3 ]");
         System.out.println("11");
     }
 }

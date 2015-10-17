@@ -3,7 +3,7 @@ package backend.node.commands;
 import java.util.List;
 
 import SharedObjects.WorkSpaceController;
-import backend.factory.CommandFactory;
+import backend.factory.NodeFactory;
 import backend.parser.SyntaxType;
 import backend.node.Command;
 import backend.node.Node;
@@ -17,11 +17,6 @@ public class FW extends Command {
 	public FW(String s) {
 		super(s, 1);
 		// TODO Auto-generated constructor stub
-	}
-
-	static {
-		CommandFactory factory = new CommandFactory();
-		factory.registerCmd(SyntaxType.FORWARD, FW.class);
 	}
 
 	@Override

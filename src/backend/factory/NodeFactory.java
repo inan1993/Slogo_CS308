@@ -3,45 +3,43 @@ package backend.factory;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
-import java.util.AbstractMap.SimpleEntry;
-import java.util.Map.Entry;
-import java.util.regex.Pattern;
 
-
-import backend.parser.*;
 import backend.node.Constant;
+import backend.node.ListStart;
 import backend.node.Node;
-import backend.node.Variable;
+import backend.node.commands.FW;
+import backend.node.control.DoTimes;
+import backend.node.control.Repeat;
+import backend.parser.SyntaxType;
 
 public class NodeFactory {
-	public Node createNode(Entry<TokenType, String> entry, LangType language)
+	private static HashMap<SyntaxType,Class> myRegisteredCommands = new HashMap<SyntaxType,Class>();
+	
+	static{
+		registerCmd(SyntaxType.FORWARD, FW.class);
+		registerCmd(SyntaxType.DOTIMES, DoTimes.class);
+		registerCmd(SyntaxType.CONSTANT,Constant.class);
+		registerCmd(SyntaxType.REPEAT, Repeat.class);
+		registerCmd(SyntaxType.LISTSTART, ListStart.class);
+	}
+
+	public static void registerCmd (SyntaxType type, Class nodeClass)
+	{
+		myRegisteredCommands.put(type, nodeClass);
+	}
+
+	public Node createNode(SyntaxType type)
 	{
 		Node result=null;
-		switch(entry.getKey()){
-		case COMMENT:
-			System.out.println("did not detected comment successfully in token parsing");
-			break;
-		case CONSTANT:
-			result = new Constant(entry.getValue());
-			break;
-		case VARIABLE:
-			result = new Variable(entry.getValue().substring(1));
-			break;
-		case COMMAND:
-			CommandFactory factory = new CommandFactory();
-			for(Entry<SyntaxType, Pattern> p:Parser.mySyntaxPatterns.get(language))
-			{
-				if(Parser.match(entry.getValue(), p.getValue()))
-				{
-					result = factory.createNode(p.getKey());
-					result.setName(entry.getValue());
-				}
-			}
-			break;
-		case LISTSTART:
-		case LISTEND:
-		case GROUPSTART:
-		case GROUPEND:			
+		Class nodeClass = (Class)myRegisteredCommands.get(type);
+		Constructor nodeConstructor;
+		try {
+			nodeConstructor = nodeClass.getDeclaredConstructor(new Class[]{});
+			result = (Node) nodeConstructor.newInstance();
+		} catch (NoSuchMethodException | SecurityException e) {
+			e.printStackTrace();
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+			e.printStackTrace();
 		}
 		return result;
 	}

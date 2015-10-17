@@ -86,5 +86,10 @@ public enum SyntaxType {
 //	# Non-Command
 //	#
 	VARIABLE,
-	CONSTANT;
+	CONSTANT,
+	LISTSTART,
+	LISTEND,
+	GROUPSTART,
+	GROUPEND;
 }
+

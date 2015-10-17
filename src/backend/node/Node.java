@@ -19,7 +19,6 @@ public abstract class Node {
 	
 	public Node(){
 		myChildren=new ArrayList<Node>();
-		myChildren = new ArrayList<Node>();
 	}
 	
 	public Node addChild(Node node) {
