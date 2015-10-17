@@ -14,8 +14,10 @@ import responses.Response;
  */
 public abstract class Command extends Node{
 	
-	public Command(String name, int num) {
-		super(name, num);
+	protected Command(String name, int num) {
+		super();
+		super.setChildrenNum(num);
+		super.setName(name);
 	}
 	
 	/**
