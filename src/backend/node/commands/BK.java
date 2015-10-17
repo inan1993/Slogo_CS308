@@ -3,6 +3,9 @@
  */
 package backend.node.commands;
 
+import java.util.List;
+
+import SharedObjects.WorkSpaceController;
 import backend.node.Node;
 
 /**
@@ -15,10 +18,10 @@ public class BK extends Node {
 	}
 
 	/* (non-Javadoc)
-	 * @see backend.node.Node#run()
+	 * @see backend.node.Node#run(SharedObjects.WorkSpaceController, java.util.List)
 	 */
 	@Override
-	protected Node run() {
+	protected Node run(WorkSpaceController sharedHandle, List<Node> returnedNodes) {
 		// TODO Auto-generated method stub
 		return null;
 	}

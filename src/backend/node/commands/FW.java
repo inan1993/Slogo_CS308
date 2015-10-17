@@ -11,7 +11,7 @@ import backend.node.Node;
 import responses.Response;
 
 public class FW extends Command {
-	protected FW(String s) {
+	public FW(String s) {
 		super(s, 1);
 		// TODO Auto-generated constructor stub
 	}
