@@ -3,22 +3,21 @@
  */
 package backend.node;
 
+import java.util.List;
+
+import SharedObjects.WorkSpaceController;
+import responses.Response;
+
 /**
  * @author loganrooper
  *
  */
-public class Command extends Node{
+public abstract class Command extends Node{
 	
-	protected Command(String name, int num) {
-		super(name, num);
-		// TODO Auto-generated constructor stub
+	protected Command(String name, int numChildrem) {
+		super(name, numChildrem);
 	}
 
 	@Override
-	protected Node run() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
+	protected abstract Node run(WorkSpaceController wsc, List<Node> returnedNodes);
 }
