@@ -23,7 +23,10 @@ public class FW extends Command {
 
 	@Override
 	protected Node run(WorkSpaceController sharedHandle, List<Node> ln) {
-	     //move forward using argument 1 pixels
+		 //If no children but FW, it's wrong!
+		 if (ln == null)
+			 throw new RuntimeException("Missing parameter.");
+	     //move forward using argument 1
 		 sharedHandle.foward(ln.get(0).getValue());
 		 //return argument 1 value
 		 return ln.get(0);

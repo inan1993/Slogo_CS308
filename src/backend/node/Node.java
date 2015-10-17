@@ -3,6 +3,7 @@
  */
 package backend.node;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import SharedObjects.WorkSpaceController;
@@ -21,13 +22,15 @@ public abstract class Node {
 	public Node(String name, int num) {
 		myName = name;
 		myNumOfChildren = num;
+		myChildren = new ArrayList<Node>();
 	}
 
 
 	protected abstract Node run(WorkSpaceController sharedHandle, List<Node> returnedNodes);
 
-	public void addChild(Node node) {
+	public Node addChild(Node node) {
 		myChildren.add(node);
+		return node;
 	}
 
 	public int getChildrenNum() {
