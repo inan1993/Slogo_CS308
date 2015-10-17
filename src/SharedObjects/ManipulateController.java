@@ -10,8 +10,8 @@ public class ManipulateController implements IWorkSpaceController{
 	private Workspace currWorkspace;
 	private List<Workspace> workspaceList = new LinkedList<Workspace>();
 	
-	public ManipulateController() {
-		currWorkspace = new Workspace();
+	public ManipulateController(Workspace w) {
+		currWorkspace = w;
 		workspaceList.add(currWorkspace);
 	}
 
