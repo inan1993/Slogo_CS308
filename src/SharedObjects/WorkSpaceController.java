@@ -1,6 +1,3 @@
-/**
- * 
- */
 package SharedObjects;
 
 import responses.Response;
@@ -135,5 +132,4 @@ public class WorkSpaceController implements IWorkSpaceController {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
 }
