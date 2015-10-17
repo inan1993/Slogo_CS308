@@ -2,7 +2,7 @@ package backend.node;
 
 import java.util.List;
 
-import SharedObjects.WorkSpaceController;
+import sharedobjects.WorkSpaceController;
 
 public class Constant extends SingleValuedObject {
 	public Constant(String s) {
