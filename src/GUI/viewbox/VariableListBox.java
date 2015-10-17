@@ -2,18 +2,20 @@ package GUI.viewbox;
 
 public class VariableListBox extends AViewBox {
 
-    public VariableListBox (String text){
-        super(text);
+    public VariableListBox (){//String text){
+        super();//text);
+        this.setText("Variables List");
+
     }
 
     @Override
     void setSize () {
-        textArea.setPrefSize(400, 200);
+        listView.setPrefSize(400, 200);
     }
 
     @Override
     void setStyle () {
-        textArea.setStyle("-fx-border-color: black;");
+        listView.setStyle("-fx-border-color: black;");
     }
 
 }

@@ -23,6 +23,7 @@ public class TurtleObserver implements Observer{
         if(myTurtleIDs.contains((String)arg)){
             System.out.println("match");
             Turtle turtle = (Turtle) o;
+           // myGc.drawImage(myTurtle.getMyTurtle(), 30.2, 32.2);
         }
     }
 }

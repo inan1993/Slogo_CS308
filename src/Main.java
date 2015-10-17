@@ -7,8 +7,8 @@ import javafx.stage.Stage;
 public class Main extends Application{
     public static final String TITLE = "Slogo";
     Scene scene;
-	
-	public  void start (Stage stage) throws Exception {
+
+    public  void start (Stage stage) throws Exception {
         //SlogoModel model = new SlogoModel();
         SlogoView display = new SlogoView("English");
         stage.setTitle(TITLE);
@@ -16,8 +16,8 @@ public class Main extends Application{
         stage.setResizable(false);
         stage.sizeToScene(); 
         stage.show();
-	}
-	
+    }
+
     public static void main (String[] args) {
         launch(args);
     }
