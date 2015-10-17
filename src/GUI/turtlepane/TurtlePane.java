@@ -10,8 +10,7 @@ import javafx.scene.paint.Color;
 
 public class TurtlePane extends Canvas{
     
-    //private SlogoModel mySlogoModel;
-    private Turtle myTurtle;
+    private TurtleObservable myTurtle;
     private GraphicsContext gc;
     private static final String TURTLE_RESOURCE_PACKAGE = "GUI.TurtlePane/default";
     protected static ResourceBundle myResource;
@@ -32,7 +31,7 @@ public class TurtlePane extends Canvas{
         ob.add(obs);
         
         
-        myTurtle = new Turtle(ob);
+        myTurtle = new TurtleObservable(ob);
         obs.addSubject(myTurtle);
         drawTurtle();
 //        gc.strokeLine(1, 1, 20, 20);

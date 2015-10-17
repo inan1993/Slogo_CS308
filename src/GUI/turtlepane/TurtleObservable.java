@@ -5,21 +5,27 @@ import java.util.Observable;
 import java.util.Observer;
 import javafx.scene.image.Image;
 
-public class Turtle extends Observable{
+public class TurtleObservable extends Observable{
     private Image myTurtleImage;	
     private List<Observer> myObserver;
-    public Turtle(List<Observer> observers){
+    private String ID;
+    
+    public TurtleObservable(List<Observer> observers){
         Image turtle = new Image(getClass().getClassLoader().getResourceAsStream("turtle1.png"));
         myTurtleImage = turtle;
         myObserver = observers;
     }
 
-    public Turtle(){
+    public TurtleObservable(){
         Image turtle = new Image(getClass().getClassLoader().getResourceAsStream("turtle1.png"));
         myTurtleImage = turtle;
     }
     public Image getMyTurtle() {
         return myTurtleImage;
+    }
+    
+    public String getID() {
+        return ID;
     }
 
     public void addObserver(Observer observer){
