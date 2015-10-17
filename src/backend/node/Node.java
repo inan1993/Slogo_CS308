@@ -32,8 +32,9 @@ public abstract class Node {
 		return myNumOfChildren;
 	}
 	
-	public void setName(String name){
+	public Node setName(String name){
 		myName=name;
+		return this;
 	}
 
 	public Boolean hasChildren() {
@@ -67,9 +68,10 @@ public abstract class Node {
 
 	/**
 	 * @param myValue the myValue to set
+	 * @return 
 	 */
-	public void setValue(double myValue) {
+	public Node setValue(double myValue) {
 		this.myValue = myValue;
+		return this;
 	}
-	
 }
