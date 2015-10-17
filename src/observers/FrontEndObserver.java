@@ -19,6 +19,7 @@ public class FrontEndObserver implements Observer{
     @Override
     public void update (Observable o, Object arg) {
         TurtleTransferObject turtleDTO = (TurtleTransferObject) arg;
+        
 
         if(turtleDTO.isClearScreen()){
             myTurtleGroup.clear();

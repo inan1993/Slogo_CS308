@@ -10,7 +10,7 @@ public class Main extends Application{
 
     public  void start (Stage stage) throws Exception {
         //SlogoModel model = new SlogoModel();
-        SlogoView display = new SlogoView("English");
+        SlogoView display = new SlogoView();
         stage.setTitle(TITLE);
         stage.setScene(display.getScene()); 
         stage.setResizable(false);

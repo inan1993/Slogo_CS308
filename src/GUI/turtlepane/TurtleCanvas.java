@@ -8,7 +8,7 @@ import javafx.scene.paint.Color;
 public class TurtleCanvas extends Canvas{
 
     private GraphicsContext gc;
-    private static final String TURTLE_RESOURCE_PACKAGE = "GUI.TurtlePane/default";
+    private static final String TURTLE_RESOURCE_PACKAGE = "GUI.turtlepane/default";
     protected static ResourceBundle myResource;
 
     private Color penColor;
@@ -31,7 +31,7 @@ public class TurtleCanvas extends Canvas{
     public void clear(){
         this.clear();
         gc.setFill(bgColor);
-//        gc.fillRect(0,0,width,height);
+        gc.fillRect(0,0,800,580);
     }
 
     public void setBackgroundColor(String backgroundColor){
