@@ -49,7 +49,7 @@ public class Executor {
 			}
 		} else {
 			// leaf - make sure it's a SVO not a command
-			if (root.getClass().isAssignableFrom(SingleValuedObject.class))
+			if (root.getClass().getSuperclass().equals(SingleValuedObject.class))
 				return root;
 			else 
 				//We've got a command here, that was a leaf...

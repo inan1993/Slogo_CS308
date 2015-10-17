@@ -128,4 +128,12 @@ public class WorkSpaceController implements IWorkSpaceController {
 		return null;
 	}
 
+	/**
+	 * @return
+	 */
+	public double getHeading() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }
