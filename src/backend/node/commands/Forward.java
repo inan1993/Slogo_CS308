@@ -5,11 +5,13 @@ import java.util.List;
 import SharedObjects.WorkSpaceController;
 import backend.factory.CommandFactory;
 import backend.parser.SyntaxType;
+import backend.factory.NodeFactory;
 import backend.node.Command;
 import backend.node.Node;
+import responses.Response;
 
-public class FW extends Command {
-	public FW(String s) {
+public class Forward extends Command {
+	protected Forward(String s) {
 		super(s, 1);
 		// TODO Auto-generated constructor stub
 	}
