@@ -20,7 +20,7 @@ public class TurtleObserver implements Observer{
     public void update (Observable o, Object arg) {
         if(myTurtle == o){
             System.out.println("match");
-            myGc.drawImage(myTurtle.getMyTurtle(), 30.2, 32.2);
+           // myGc.drawImage(myTurtle.getMyTurtle(), 30.2, 32.2);
         }
     }
 }

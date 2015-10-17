@@ -23,12 +23,12 @@ public abstract class AViewBox extends TitledPane{
 	public void setMessage(String message){
 		data.add(message);
 		listView.setItems(data);
-	    listView.getSelectionModel().selectedItemProperty().addListener(
-	        (ObservableValue<? extends String> ov, String old_val, 
-	            String new_val) -> {
-	                System.out.println(new_val);
-	                
-	    });
+		listView.getSelectionModel().selectedItemProperty().addListener(
+				(ObservableValue<? extends String> ov, String old_val, 
+						String new_val) -> {
+							System.out.println(new_val);
+
+						});
 	}
 
 	abstract void setStyle();        

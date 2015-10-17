@@ -34,7 +34,7 @@ public class TurtlePane extends Canvas{
         
         myTurtle = new Turtle(ob);
         obs.addSubject(myTurtle);
-        drawTurtle();
+        myTurtle.drawTurtle();
 //        gc.strokeLine(1, 1, 20, 20);
 //        
 //        gc.setFill(Color.GREEN);
@@ -47,7 +47,7 @@ public class TurtlePane extends Canvas{
 //        myTurtle.changeImage();
     }
 
-    private void drawTurtle(){
-    	gc.drawImage(myTurtle.getMyTurtle(), getWidth()/2, getHeight()/2);
-    }
+//    private void drawTurtle(){
+//    	gc.drawImage(myTurtle.getMyTurtle(), getWidth()/2, getHeight()/2);
+//    }
 }
