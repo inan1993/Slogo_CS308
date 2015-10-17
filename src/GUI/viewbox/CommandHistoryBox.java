@@ -1,9 +1,11 @@
 package GUI.viewbox;
 
+import GUI.textBox.CommandPromptDisplayBox;
+
 public class CommandHistoryBox extends AViewBox {
 
-    public CommandHistoryBox (){//String text) {
-        super();//text);
+    public CommandHistoryBox (CommandPromptDisplayBox display){
+        super(display);
         //this.setText(text);
         this.setText("Command History List");
 

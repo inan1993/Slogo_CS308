@@ -1,9 +1,11 @@
 package GUI.viewbox;
 
+import GUI.textBox.CommandPromptDisplayBox;
+
 public class VariableListBox extends AViewBox {
 
-    public VariableListBox (){//String text){
-        super();//text);
+    public VariableListBox (CommandPromptDisplayBox display){
+        super(display);
         this.setText("Variables List");
 
     }
