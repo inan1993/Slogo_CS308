@@ -23,7 +23,6 @@ public class Forward extends Command {
 
 	@Override
 	public Node run(WorkSpaceController sharedHandle, List<Node> ln) {
-		// If no children but FW, it's wrong!
 		if (ln == null)
 			throw new RuntimeException("Missing parameter.");
 		if (ln.size() < 1)
@@ -31,6 +30,7 @@ public class Forward extends Command {
 
 		// move forward using argument 1
 		sharedHandle.foward(ln.get(0).getIntegerValue());
+		
 		// return argument 1 value
 		return ln.get(0);
 	}

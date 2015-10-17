@@ -18,7 +18,6 @@ public class SETH extends Command {
 
 	@Override
 	public Node run(WorkSpaceController sharedHandle, List<Node> ln) {
-		 //If no children but FW, it's wrong!
 		 if (ln == null)
 			 throw new RuntimeException("Missing parameter.");
 		 if (ln.size() < 1)
@@ -27,6 +26,7 @@ public class SETH extends Command {
 		 //get headings
 		 double prevHeading = sharedHandle.getHeading();
 		 double newHeading = ln.get(0).getDoubleValue();
+		 
 	     //turn
 		 sharedHandle.setHeading(newHeading);
 		 

@@ -17,7 +17,6 @@ public class BK extends Command {
 
 	@Override
 	public Node run(WorkSpaceController sharedHandle, List<Node> ln) {
-		// If no children but FW, it's wrong!
 		if (ln == null)
 			throw new RuntimeException("Missing parameter.");
 		if (ln.size() < 1)
