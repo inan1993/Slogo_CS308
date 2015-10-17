@@ -1,9 +1,11 @@
 package GUI.viewbox;
 
+import GUI.textBox.CommandPromptDisplayBox;
+
 public class FunctionListBox extends AViewBox {
 
-    public FunctionListBox (){//String text) {
-        super();//text);
+    public FunctionListBox (CommandPromptDisplayBox display){
+        super(display);
         this.setText("Function List");
     }
 
