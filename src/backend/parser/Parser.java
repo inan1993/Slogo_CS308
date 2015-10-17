@@ -180,7 +180,6 @@ public class Parser {
 	                    Pattern.compile(regex, Pattern.CASE_INSENSITIVE)));
 	        }
 	        result.put(each, patterns);
-//	        result.add(new SimpleEntry<LangType, List<Entry<SyntaxType, Pattern>>>(each,patterns));
 		}
         return result;
     }
