@@ -5,8 +5,8 @@ import backend.node.Command;
 import backend.node.Node;
 import sharedobjects.ManipulateController;
 
-public class FW extends Command {
-	public FW() {
+public class FD extends Command {
+	public FD() {
 		super();
 		super.setChildrenNum(1);
 		// TODO Auto-generated constructor stub
@@ -22,6 +22,7 @@ public class FW extends Command {
 		sharedHandle.foward(ln.get(0).getIntegerValue());
 		
 		// return argument 1 value
+		System.out.println("FD " + ln.get(0).getIntegerValue());
 		return ln.get(0);
 	}
 }

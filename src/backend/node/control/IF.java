@@ -2,10 +2,9 @@ package backend.node.control;
 
 import backend.node.ControlStructure;
 
-public class Repeat extends ControlStructure {
-	public Repeat() {
+public class IF extends ControlStructure {
+	public IF(){
 		super();
 		super.setChildrenNum(2);
-		// TODO Auto-generated constructor stub
 	}
 }
