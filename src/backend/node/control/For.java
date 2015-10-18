@@ -1,6 +1,6 @@
 package backend.node.control;
 
-import backend.control.ControlStructure;
+import backend.node.ControlStructure;
 
 public class For extends ControlStructure{
 	public For()

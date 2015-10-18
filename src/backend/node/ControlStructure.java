@@ -1,9 +1,7 @@
 /**
  * 
  */
-package backend.control;
-
-import backend.node.Node;
+package backend.node;
 
 /**
  * @author loganrooper
