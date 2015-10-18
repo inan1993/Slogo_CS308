@@ -3,7 +3,10 @@ import backend.node.Constant;
 import backend.node.Executor;
 import backend.node.Node;
 import backend.node.commands.FW;
+import backend.parser.Parser;
 import responses.Response;
+import sharedobjects.ManipulateController;
+import sharedobjects.Workspace;
 import junit.framework.*;
 
 /**
@@ -13,9 +16,13 @@ import junit.framework.*;
 public class ExecutorTester extends TestCase {
 	
 	private Executor f;
+	private ManipulateController mc;
+	private Workspace ws;
 	
 	public void setUp() {
-	//	f = new Executor();
+		ws = new Workspace();
+		mc = new ManipulateController(ws);
+		f = new Executor(mc);
 	}
 	
 	// "fw fw 10"
@@ -45,5 +52,20 @@ public class ExecutorTester extends TestCase {
 		
 		Response a = f.execute(root);
 		assertEquals(Double.parseDouble(a.toString()), 50.0);
+	}
+	
+	public void testAddition() {
+		Node root = new FW("SUM");
+		Node child = new FW("5").setValue(5);
+		Node child2 = new FW("5").setValue(5);
+		//add both
+		root.addChild(child).addChild(child);
+	}
+	
+	//  "fw 50"
+	public void testSoftparse() {
+		Parser p = new Parser(f, mc);
+		Response s = p.parse("fw 50", "English");
+		System.out.println(s.toString());
 	}
 }
