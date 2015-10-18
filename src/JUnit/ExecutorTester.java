@@ -143,10 +143,18 @@ public class ExecutorTester extends TestCase {
 		assertEquals(Double.parseDouble(s.toString()), 50.0);
 	}
 
-	// "dotimes [ v 5 ] [ fd 50 ]"
+	// "dotimes [ v 5 ] [ fd 500 ]"
 	public void testDoTimes() {
-		Response s = p.parse("dotimes [ v 5 ] [ fd 50 ]", "English");
+		Response s = p.parse("dotimes [ :v 5 ] [ fd 50 ]", "English");
 		System.out.println(s.toString());
 		assertEquals(Double.parseDouble(s.toString()), 50.0);
 	}
+
+	public void testVariable() {
+		Response s = p.parse("make :a 50", "English");
+		System.out.println(f.getManipulateController().getVariable("a").toString());
+		s = p.parse("forward :a", "English");
+		System.out.println(s.toString());
+	}
+
 }
