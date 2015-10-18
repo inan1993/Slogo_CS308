@@ -1,7 +1,9 @@
 package backend.parser;
 
 import responses.Response;
+import responses.Success;
 import sharedobjects.ManipulateController;
+import sharedobjects.Workspace;
 import responses.Error;
 import backend.*;
 import backend.node.Constant;
@@ -104,7 +106,8 @@ public class Parser implements Observer {
 		for(Node each:myRoots)
 		{
 //			should add a try catch, and make executor throws execute exception
-			myExec.execute(each);
+			response = myExec.execute(each);
+//			response = new Success("good");
 		}
 		return response;
 	}
@@ -431,6 +434,7 @@ public class Parser implements Observer {
 	}
 	
 	private void parseMakeCmd(Node root) throws SyntaxException{
+		int beginIndex=myIndex;
 		root.setName(mySyntaxList.get(myIndex).getValue());
 		myIndex++;
 		try{
@@ -499,10 +503,10 @@ public class Parser implements Observer {
     }
 	
 	public static void main (String[] args) {
-		Executor exec = new Executor(null);
-		ManipulateController mani = new ManipulateController(null);
+		ManipulateController mani = new ManipulateController(new Workspace());
+		Executor exec = new Executor(mani);
         Parser parser = new Parser(exec, mani);
-        parser.parse("repeat 2 [ forward 50 fd 3 ]", "English");
+        parser.parse("forward 30", "English");
         System.out.println("11");
     }
 
