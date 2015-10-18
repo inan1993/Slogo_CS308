@@ -2,6 +2,7 @@ package observers;
 
 import java.util.Observable;
 import java.util.Observer;
+
 import GUI.turtlepane.TurtleCanvas;
 import GUI.turtlepane.TurtleGroup;
 import datatransferobjects.TurtleTransferObject;

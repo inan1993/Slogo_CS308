@@ -13,7 +13,7 @@ import sharedobjects.ManipulateController;
  *
  */
 public class BK extends Command {
-	public BK(String name, int children) {
+	public BK() {
 		super();
 	}
 

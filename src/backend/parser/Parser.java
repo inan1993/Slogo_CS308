@@ -2,6 +2,7 @@ package backend.parser;
 
 import responses.Response;
 import sharedobjects.ManipulateController;
+import sharedobjects.Workspace;
 import responses.Error;
 import backend.*;
 import backend.node.Constant;
@@ -44,26 +45,26 @@ public class Parser implements Observer {
 	private List<Entry<TokenType, String>> myTokenList; 
 	private List<Entry<SyntaxType, String>> mySyntaxList; 
 	private boolean myListLegal;
-	private static final List<Entry<TokenType, Pattern>> myTokenPatterns = makeTokenPatterns("resources/languages/Syntax");
-	public static final Map<LangType,List<Entry<SyntaxType, Pattern>>> mySyntaxPatterns = makeSyntaxPatterns(); 
 	private static final HashMap<String, TokenType> tokenMap = new HashMap<String, TokenType>(){{
 		for(TokenType each:TokenType.values())
 		{
-			tokenMap.put(each.name().toUpperCase(), each);
+			put(each.name().toUpperCase(), each);
 		}
 	}};
 	private static final HashMap<String, SyntaxType> syntaxMap = new HashMap<String, SyntaxType>(){{
 		for(SyntaxType each:SyntaxType.values())
 		{
-			syntaxMap.put(each.name().toUpperCase(), each);
+			put(each.name().toUpperCase(), each);
 		}
 	}};
 	private static final HashMap<String, LangType> languageMap = new HashMap<String, LangType>(){{
 		for(LangType each:LangType.values())
 		{
-			languageMap.put(each.name().toUpperCase(), each);
+			put(each.name().toUpperCase(), each);
 		}
 	}};
+	private static final List<Entry<TokenType, Pattern>> myTokenPatterns = makeTokenPatterns("resources/languages/Syntax");
+	public static final Map<LangType,List<Entry<SyntaxType, Pattern>>> mySyntaxPatterns = makeSyntaxPatterns(); 
 	
 	public Parser(Executor exec, ManipulateController mc) {
 		//Call run to start.
@@ -104,7 +105,7 @@ public class Parser implements Observer {
 		for(Node each:myRoots)
 		{
 //			should add a try catch, and make executor throws execute exception
-			myExec.execute(each);
+			response = myExec.execute(each);
 		}
 		return response;
 	}
@@ -214,7 +215,7 @@ public class Parser implements Observer {
 		switch(type){
 		//with 0 para
 		case CONSTANT:
-			root.setValue(Double.parseDouble(mySyntaxList.get(myIndex).getValue()));
+			root.setValue(Double.parseDouble(mySyntaxList.get(myIndex-1).getValue()));
 		case VARIABLE:case PENDOWN:case PENUP: case SHOWTURTLE :case HIDETURTLE:
 		case HOME:case CLEARSCREEN:case XCOORDINATE:case YCOORDINATE:
 		case HEADING: case ISPENDOWN: case ISSHOWING: case PI:
@@ -324,6 +325,7 @@ public class Parser implements Observer {
 			Node c = growTree();
 			root.addChild(c);
 			if(mySyntaxList.get(myIndex).getKey()==SyntaxType.LISTEND){
+				myIndex++;
 				return;
 			}
 		}
@@ -346,7 +348,8 @@ public class Parser implements Observer {
 				root.addChild(c);
 				if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.LISTEND){
 					throw new SyntaxException("Miss a right brace ] in " + root.getName());
-				}	
+				}
+				myIndex++;
 			}	
 			if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.LISTSTART){
 				throw new SyntaxException("Incompatible argument list in " + root.getName());
@@ -378,7 +381,8 @@ public class Parser implements Observer {
 				}
 				if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.LISTEND){
 					throw new SyntaxException("Miss a right brace ] in " + root.getName());
-				}	
+				}
+				myIndex++;
 			}	
 			if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.LISTSTART){
 				throw new SyntaxException("Incompatible argument list in " + root.getName());
@@ -458,12 +462,6 @@ public class Parser implements Observer {
 		}
 	}
 	
-	
-	
-	
-	
-	
-		
 	//The following two methods are only used when we first create a parser. They will generate myTokenPatterns, mySyntaxPatterns
 	public static List<Entry<TokenType, Pattern>> makeTokenPatterns (String fileName) {
         ResourceBundle resources = ResourceBundle.getBundle(fileName);
@@ -502,10 +500,10 @@ public class Parser implements Observer {
     }
 	
 	public static void main (String[] args) {
-		Executor exec = new Executor(null);
-		ManipulateController mani = new ManipulateController(null);
+		ManipulateController mani = new ManipulateController(new Workspace());
+		Executor exec = new Executor(mani);
         Parser parser = new Parser(exec, mani);
-        parser.parse("repeat 2 [ forward 50 fd 3 ]", "English");
+        parser.parse("forward 50", "English");
         System.out.println("11");
     }
 
