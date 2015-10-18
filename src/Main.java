@@ -41,6 +41,5 @@ public class Main extends Application{
     	HandleObservers handleObservers = new HandleObservers();   
     	/*6*/ //HandleObservers.handleObservers(currWorspace.getObservables(), frontEnd.getObservers());
         launch(args);
-        
     }
 }
