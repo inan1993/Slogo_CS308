@@ -3,11 +3,9 @@ package observers;
 import java.util.Observable;
 import java.util.Observer;
 
-import GUI.turtlepane.TurtleCanvas;
-import GUI.turtlepane.TurtleGroup;
 import GUI.viewbox.FunctionListBox;
 import GUI.viewbox.VariableListBox;
-import datatransferobjects.TurtleTransferObject;
+import datatransferobjects.UserInputsTransferObject;
 
 public class UserInputObserver implements Observer{
 
@@ -21,16 +19,16 @@ public class UserInputObserver implements Observer{
 
 	@Override
 	public void update (Observable o, Object arg) {
-		//SomeTransferObject functionVariableDTO = (SomeTransferObject) arg;
+		UserInputsTransferObject functionVariableDTO = (UserInputsTransferObject) arg;
 
 
-//		if(functionVariableDTO.isFunction()){
-//			myFunctionList.setMessage(functionVariableDTO.passedString()); 
-//		}
-//		else{
-//			myVariableList.setMessage(functionVariableDTO.passedString()); 
-//          
-//		}
+		if(functionVariableDTO.isFunction()){
+			myFunctionList.setMessage(functionVariableDTO.getUserInput()); 
+		}
+		else{
+			myVariableList.setMessage(functionVariableDTO.getUserInput()); 
+          
+		}
 	}
 }
 

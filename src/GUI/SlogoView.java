@@ -35,6 +35,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import observers.FrontEndObserver;
+import observers.UserInputObserver;
 
 public class SlogoView {
 
@@ -50,7 +51,9 @@ public class SlogoView {
 
     private CommandPromptDisplayBox commandBox; 
     private MessageDisplayBox messageBox;
-    private AViewBox variableDisplayBox, historyDisplayBox, functionDisplayBox;
+    private VariableListBox variableDisplayBox;
+    private CommandHistoryBox historyDisplayBox;
+    private FunctionListBox functionDisplayBox;
     
     private Image myTurtleImage;
     private List<Double> myTurtleIDs;
@@ -207,7 +210,7 @@ public class SlogoView {
         variableDisplayBox = new VariableListBox(commandBox);
         historyDisplayBox = new CommandHistoryBox(commandBox);
         functionDisplayBox = new FunctionListBox(commandBox);
-
+        myObservers.add(new UserInputObserver(functionDisplayBox, variableDisplayBox));
         result.getChildren().addAll(variableDisplayBox,historyDisplayBox,functionDisplayBox);
         return result;
     }
