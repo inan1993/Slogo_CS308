@@ -15,7 +15,7 @@ public class ExecutorTester extends TestCase {
 	private Executor f;
 	
 	public void setUp() {
-		f = new Executor();
+	//	f = new Executor();
 	}
 	
 	// "fw fw 10"

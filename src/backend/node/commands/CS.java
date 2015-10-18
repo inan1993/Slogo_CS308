@@ -9,7 +9,7 @@ import backend.node.Command;
 import backend.node.Constant;
 import backend.node.Node;
 import responses.Response;
-import sharedobjects.WorkSpaceController;
+import sharedobjects.ManipulateController;
 
 /**
  * @author loganrooper
@@ -21,7 +21,7 @@ public class CS extends Command {
 	}
 
 	@Override
-	public Node run(WorkSpaceController sharedHandle, List<Node> ln) {
+	public Node run(ManipulateController sharedHandle, List<Node> ln) {
 		sharedHandle.showTurtle();
 
 		//First home
@@ -34,4 +34,5 @@ public class CS extends Command {
 		//Return the distance moved
 		return new Constant("Moved").setValue(distanceMoved);
 	}
+
 }
