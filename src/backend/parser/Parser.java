@@ -262,11 +262,13 @@ public class Parser implements Observer {
 			parseMakeCmd(root);
 			break;
 		default:
-//			Node toCmd = myManiControl.getCommand(mySyntaxList.get(myIndex).getValue());
-			Node toCmd =null;//////////////
+			//root is USERCOMMAND
+			Node toCmd = myManiControl.getCommand(mySyntaxList.get(myIndex).getValue());
 			if(toCmd==null)
 				throw new SyntaxException("Undefied command!");
 			int numOfArg=toCmd.getChildrenNum()-1;
+			root.setChildrenNum(numOfArg);
+			parseExpression(root);
 		}
 		return root;
 	}
@@ -329,54 +331,131 @@ public class Parser implements Observer {
 	}
 	
 	private void parseDoTimes(Node root) throws SyntaxException{
-		if(myIndex>=mySyntaxList.size()){
-			throw new SyntaxException("Uncompleted argument list in " + root.getName());
-		}
-		else if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.LISTSTART){
-			throw new SyntaxException("Miss a left brace [ in " + root.getName());
-		}
-		else {
-			myIndex++;
-			if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.VARIABLE){
-				throw new SyntaxException("Incompatible argument list in " + root.getName());
+		try{
+			if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.LISTSTART){
+				throw new SyntaxException("Miss a left brace [ in " + root.getName());
 			}
-			else{
+			else {
+				myIndex++;
+				if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.VARIABLE){
+					throw new SyntaxException("Incompatible argument list in " + root.getName() + ", should be variable");
+				}
 				Node c=growTree();
 				root.addChild(c);
 				c=growTree();
 				root.addChild(c);
 				if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.LISTEND){
 					throw new SyntaxException("Miss a right brace ] in " + root.getName());
-				}
+				}	
 			}	
-		}		
-		if(myIndex>=mySyntaxList.size()){
+			if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.LISTSTART){
+				throw new SyntaxException("Incompatible argument list in " + root.getName());
+			}
+			else {
+				myListLegal=true;
+				Node c=growTree();
+				root.addChild(c);
+			}
+		}catch(ArrayIndexOutOfBoundsException e){
 			throw new SyntaxException("Uncompleted argument list in " + root.getName());
-		}
-		else if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.LISTSTART){
-			throw new SyntaxException("Incompatible argument list in " + root.getName());
-		}
-		else {
-			myListLegal=true;
-			Node c=growTree();
-			root.addChild(c);
 		}
 	}
 	
 	private void parseFor(Node root) throws SyntaxException{
-		
+		try{
+			if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.LISTSTART){
+				throw new SyntaxException("Miss a left brace [ in " + root.getName());
+			}
+			else {
+				myIndex++;
+				if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.VARIABLE){
+					throw new SyntaxException("Incompatible argument list in " + root.getName() + ", should be variable");
+				}
+				Node c=null;
+				for(int i=0;i<4;i++){
+					c=growTree();
+					root.addChild(c);
+				}
+				if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.LISTEND){
+					throw new SyntaxException("Miss a right brace ] in " + root.getName());
+				}	
+			}	
+			if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.LISTSTART){
+				throw new SyntaxException("Incompatible argument list in " + root.getName());
+			}
+			else {
+				myListLegal=true;
+				Node c=growTree();
+				root.addChild(c);
+			}
+		}catch(ArrayIndexOutOfBoundsException e){
+			throw new SyntaxException("Uncompleted argument list in " + root.getName());
+		}
 	}
 	
-	private void parseIf(Node root) throws SyntaxException{
-		
+	private void parseIfelse(Node root) throws SyntaxException{
+		try {
+			Node c = growTree();
+			for (int i=0;i<2;i++) {
+				if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.LISTSTART){
+					throw new SyntaxException("Incompatible argument list in " + root.getName());
+				}
+				else {
+					myListLegal=true;
+					c=growTree();
+					root.addChild(c);
+				}
+			}
+		}catch(ArrayIndexOutOfBoundsException e){
+			throw new SyntaxException("Uncompleted argument list in " + root.getName());
+		}
 	}
 
-	private void parseIfelse(Node root) throws SyntaxException{
-		
+	private void parseIf(Node root) throws SyntaxException{
+		try {
+			Node c = growTree();
+			if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.LISTSTART){
+				throw new SyntaxException("Incompatible argument list in " + root.getName());
+			}
+			else {
+				myListLegal=true;
+				c=growTree();
+				root.addChild(c);
+			}
+		}catch(ArrayIndexOutOfBoundsException e){
+			throw new SyntaxException("Uncompleted argument list in " + root.getName());
+		}
 	}
 	
 	private void parseMakeCmd(Node root) throws SyntaxException{
-		
+		root.setName(mySyntaxList.get(myIndex).getValue());
+		myIndex++;
+		try{
+			if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.LISTSTART){
+				throw new SyntaxException("Miss a left brace [ in " + root.getName());
+			}
+			else {
+				myIndex++;
+				while(mySyntaxList.get(myIndex).getKey()==SyntaxType.VARIABLE){
+					Node c = growTree();
+					root.addChild(c);
+				}
+				if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.LISTEND){
+					throw new SyntaxException("Miss a right brace ] in " + root.getName());
+				}
+				myIndex++;
+			}	
+			if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.LISTSTART){
+				throw new SyntaxException("Incompatible argument list in " + root.getName());
+			}
+			else {
+				myListLegal=true;
+				Node c=growTree();
+				root.addChild(c);
+			}
+		}catch(ArrayIndexOutOfBoundsException e){
+			throw new SyntaxException("Uncompleted argument list in " + root.getName());
+		}
 	}
 	
 	

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observer;
 import java.util.ResourceBundle;
+
 import GUI.button.ClearCommandButton;
 import GUI.button.EnterCommandButton;
 import GUI.button.HelpButton;
@@ -28,6 +29,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -161,7 +163,7 @@ public class SlogoView {
 
 
     private Node centerBox() {
-        StackPane mainBox = new StackPane();//AnchorPane mainBox = new AnchorPane();
+        AnchorPane mainBox = new AnchorPane();
 
         myBackgroundRectangle = new BackgroundRectangle(Integer.parseInt(myResource.getString("canvasWidth")), Integer.parseInt(myResource.getString("canvasHeight")));
         myTurtleCanvas = new TurtleCanvas(Integer.parseInt(myResource.getString("canvasWidth")), Integer.parseInt(myResource.getString("canvasHeight")));
