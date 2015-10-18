@@ -29,9 +29,8 @@ public class TurtleCanvas extends Canvas{
     }
 
     public void clear(){
-        this.clear();
-//        gc.setFill(bgColor);
-//        gc.fillRect(0,0,800,580);
+//TODO put in properties
+        gc.clearRect(0,0,800,580);
     }
 
 //    public void setBackgroundColor(String backgroundColor){
