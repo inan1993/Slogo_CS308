@@ -7,7 +7,7 @@ import backend.node.Node;
 import backend.node.SingleValuedObject;
 import responses.*;
 import responses.Error;
-import SharedObjects.*;
+import sharedobjects.*;
 import exceptions.*;
 
 /**
@@ -15,10 +15,10 @@ import exceptions.*;
  *
  */
 public class Executor {
-	WorkSpaceController sharedHandle;
+	ManipulateController sharedHandle;
 
-	public Executor() {
-		sharedHandle = new WorkSpaceController();
+	public Executor(ManipulateController manipulateController) {
+		sharedHandle = manipulateController;
 	}
 
 	/**

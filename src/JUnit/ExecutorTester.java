@@ -10,12 +10,12 @@ import junit.framework.*;
  * @author loganrooper
  *
  */
-public class BackendTester extends TestCase {
+public class ExecutorTester extends TestCase {
 	
 	private Executor f;
 	
 	public void setUp() {
-		f = new Executor();
+	//	f = new Executor();
 	}
 	
 	// "fw fw 10"
@@ -23,7 +23,8 @@ public class BackendTester extends TestCase {
 		//This is to 'build' the syntax tree manually!
 		Node root = new FW("FW");
 		Node child = new FW("FW");
-		Node leaf = new Constant("10");
+		Node leaf = new Constant();
+		leaf.setName("10");
 		leaf.setValue(10);
 		root.addChild(child);
 		child.addChild(leaf);
@@ -37,7 +38,7 @@ public class BackendTester extends TestCase {
 		//This is to 'build' the syntax tree manually!
 		Node root = new FW("FW");
 		Node child = new FW("FW");
-		Node leaf = new Constant("50");
+		Node leaf = new Constant();
 		leaf.setValue(50.0);
 		root.addChild(child);
 		child.addChild(leaf);

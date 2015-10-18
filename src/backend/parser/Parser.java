@@ -1,12 +1,12 @@
 package backend.parser;
 
 import responses.Response;
+import sharedobjects.ManipulateController;
 import responses.Error;
 import backend.*;
 import backend.node.Constant;
 import backend.node.Executor;
-import backend.factory.NodeFactory;
-import backend.factory.NodeFactory;
+import backend.factory.CommandFactory;
 import backend.node.Node;
 import backend.node.Variable;
 import resources.languages.*;
@@ -23,7 +23,7 @@ import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 import java.util.regex.Pattern;
 
-import SharedObjects.ManipulateController;
+import sharedobjects.ManipulateController;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -44,28 +44,26 @@ public class Parser implements Observer {
 	private List<Entry<TokenType, String>> myTokenList; 
 	private List<Entry<SyntaxType, String>> mySyntaxList; 
 	private boolean myListLegal;
-	
+	private static final List<Entry<TokenType, Pattern>> myTokenPatterns = makeTokenPatterns("resources/languages/Syntax");
+	public static final Map<LangType,List<Entry<SyntaxType, Pattern>>> mySyntaxPatterns = makeSyntaxPatterns(); 
 	private static final HashMap<String, TokenType> tokenMap = new HashMap<String, TokenType>(){{
 		for(TokenType each:TokenType.values())
 		{
-			put(each.name(), each);
+			tokenMap.put(each.name().toUpperCase(), each);
 		}
 	}};
 	private static final HashMap<String, SyntaxType> syntaxMap = new HashMap<String, SyntaxType>(){{
 		for(SyntaxType each:SyntaxType.values())
 		{
-			put(each.name(), each);
+			syntaxMap.put(each.name().toUpperCase(), each);
 		}
 	}};
 	private static final HashMap<String, LangType> languageMap = new HashMap<String, LangType>(){{
 		for(LangType each:LangType.values())
 		{
-			put(each.name(), each);
+			languageMap.put(each.name().toUpperCase(), each);
 		}
 	}};
-
-	private static final List<Entry<TokenType, Pattern>> myTokenPatterns = makeTokenPatterns("resources/languages/Syntax");
-	public static final Map<LangType,List<Entry<SyntaxType, Pattern>>> mySyntaxPatterns = makeSyntaxPatterns();
 	
 	public Parser(Executor exec, ManipulateController mc) {
 		//Call run to start.
@@ -93,6 +91,7 @@ public class Parser implements Observer {
 				}
 			}
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
@@ -129,17 +128,18 @@ public class Parser implements Observer {
 			{
 				if(match(nodeName, p.getValue()))
 				{
+					if(p.getKey()==TokenType.COMMENT){
+						commentFlag=true;
+					
+		            	break;
+					}
 					result.add(new SimpleEntry<TokenType, String>(p.getKey(), nodeName));
 					matchFlag=true;
-					if(p.getKey()==TokenType.COMMENT)
-					{
-						commentFlag=true;
-					}
 					break;
 				}
 			}
 			if(commentFlag) break;
-			if(!matchFlag) throw new LexiconException("Ilegal Input: Cannot find a matched token!");
+			if(!matchFlag) throw new LexiconException("Ilegal Input: Cannot find a matching token!");
 		}
 		return result;	
 	}
@@ -205,7 +205,7 @@ public class Parser implements Observer {
 		if(myIndex>=mySyntaxList.size())
 			throw new SyntaxException("Uncompleted arguments list!");
 		//create the node using factory design pattern
-		NodeFactory factory = new NodeFactory();
+		CommandFactory factory = new CommandFactory();
 		SyntaxType type = mySyntaxList.get(myIndex).getKey();
 		Node root = factory.createNode(type);
 		root.setName(mySyntaxList.get(myIndex).getValue());
@@ -213,7 +213,9 @@ public class Parser implements Observer {
 		//check the syntax and move on
 		switch(type){
 		//with 0 para
-		case CONSTANT:case VARIABLE:case PENDOWN:case PENUP: case SHOWTURTLE :case HIDETURTLE:
+		case CONSTANT:
+			root.setValue(Double.parseDouble(mySyntaxList.get(myIndex).getValue()));
+		case VARIABLE:case PENDOWN:case PENUP: case SHOWTURTLE :case HIDETURTLE:
 		case HOME:case CLEARSCREEN:case XCOORDINATE:case YCOORDINATE:
 		case HEADING: case ISPENDOWN: case ISSHOWING: case PI:
 		//with 1 para
@@ -271,8 +273,7 @@ public class Parser implements Observer {
 	
 	private void parseExpression(Node root) throws SyntaxException	{
 		int numOfChildren=root.getChildrenNum();
-		int i=0;
-		while(i<numOfChildren)
+		for(int i=0;i<numOfChildren;i++)
 		{
 			if(myIndex>=mySyntaxList.size())
 				throw new SyntaxException("Uncompleted argument list in" + root.getName());
@@ -391,6 +392,8 @@ public class Parser implements Observer {
         Enumeration<String> iter = resources.getKeys();
         while (iter.hasMoreElements()) {
             String key = iter.nextElement();
+//            if(tokenMap.get(key.toUpperCase())==TokenType.COMMENT)
+//            	break;
             String regex = resources.getString(key);
             patterns.add(new SimpleEntry<TokenType, Pattern>(tokenMap.get(key.toUpperCase()),
                     Pattern.compile(regex, Pattern.CASE_INSENSITIVE)));
@@ -420,8 +423,8 @@ public class Parser implements Observer {
     }
 	
 	public static void main (String[] args) {
-		Executor exec = new Executor();
-		ManipulateController mani = new ManipulateController();
+		Executor exec = new Executor(null);
+		ManipulateController mani = new ManipulateController(null);
         Parser parser = new Parser(exec, mani);
         parser.parse("repeat 2 [ forward 50 fd 3 ]", "English");
         System.out.println("11");

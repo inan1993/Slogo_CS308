@@ -1,4 +1,4 @@
-package SharedObjects;
+package sharedobjects;
 
 import javafx.scene.paint.Color;
 

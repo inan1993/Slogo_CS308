@@ -3,7 +3,6 @@ package backend.node;
 import java.util.ArrayList;
 import java.util.List;
 
-import SharedObjects.WorkSpaceController;
 import responses.Response;
 
 /**
@@ -15,7 +14,6 @@ public abstract class Node {
 	private List<Node> myChildren;
 	private int myNumOfChildren;
 	private double myValue;
-
 	
 	public Node(){
 		myChildren=new ArrayList<Node>();
@@ -30,6 +28,7 @@ public abstract class Node {
 	public int getChildrenNum() {
 		return myNumOfChildren;
 	}
+
 	public void setChildrenNum(int n){
 		myNumOfChildren=n;
 	}
@@ -76,9 +75,4 @@ public abstract class Node {
 		return this;
 	}
 
-
-	protected Node run(WorkSpaceController sharedHandle, List<Node> ln) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
