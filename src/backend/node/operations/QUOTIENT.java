@@ -13,14 +13,14 @@ import backend.node.Operation;
  * @author loganrooper
  *
  */
-public class DIFFERENCE extends Operation{
-	public DIFFERENCE() {
+public class QUOTIENT extends Operation{
+	public QUOTIENT() {
 		super();
 	}
 
 	@Override
 	public Node run(List<Node> nl) {	
-		Double result = nl.get(0).getDoubleValue()-nl.get(1).getDoubleValue();
+		Double result = nl.get(0).getDoubleValue()/nl.get(1).getDoubleValue();
 		return new Constant().setValue(result);
 	}
 }

@@ -10,7 +10,7 @@ import java.util.List;
  *
  */
 public abstract class Operation extends Node{
-	public Operation(String name, int num) {
+	public Operation() {
 		super();
 	}
 	
