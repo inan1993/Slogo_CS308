@@ -7,6 +7,7 @@ import backend.node.ControlStructure;
 import backend.node.Executor;
 import backend.node.Node;
 import responses.Response;
+import sharedobjects.ManipulateController;
 
 public class REPEAT extends ControlStructure {
 	public REPEAT() {
@@ -26,7 +27,7 @@ public class REPEAT extends ControlStructure {
 			try {
 				s = exec.execute(n.clone());
 			} catch (CloneNotSupportedException e) {
-				throw new RuntimeException("Internal object manipulation error");
+				throw new RuntimeException("Internal object manipulation error!");
 			}
 		}
 		if (s == null)
