@@ -1,4 +1,4 @@
-package SharedObjects;
+package sharedobjects;
 
 import java.util.LinkedList;
 import java.util.List;

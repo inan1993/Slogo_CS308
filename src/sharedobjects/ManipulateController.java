@@ -1,4 +1,4 @@
-package SharedObjects;
+package sharedobjects;
 
 import responses.Response;
 

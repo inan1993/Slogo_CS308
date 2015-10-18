@@ -4,8 +4,7 @@
 package backend.node;
 
 import java.util.List;
-
-import SharedObjects.WorkSpaceController;
+import sharedobjects.WorkSpaceController;
 
 /**
  * @author loganrooper
