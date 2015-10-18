@@ -472,7 +472,7 @@ public class Parser implements Observer {
 			display.concat(mySyntaxList.get(i).getValue());
 			display=display+" ";
 		}
-//		myManiControl.setFunction(display, root.getName(), root);
+		myManiControl.setCommand(display, root.getName(), root);
 	}
 	
 	//The following two methods are only used when we first create a parser. They will generate myTokenPatterns, mySyntaxPatterns
