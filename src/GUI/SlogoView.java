@@ -80,7 +80,7 @@ public class SlogoView {
         root.setRight(rightBox());    
         
         myObservers.get(0).update(null, (Object)createDTO());
-        myObservers.get(0).update(null, (Object)createDTO2());
+        //myObservers.get(0).update(null, (Object)createDTO2());
         scene = new Scene(root, DEFAULT_SIZE.width, DEFAULT_SIZE.height);
     }
 
@@ -119,6 +119,7 @@ public class SlogoView {
             fileName = selectedFile.getName();
             myTurtleGroup.setImage(new Image(getClass().getClassLoader().getResourceAsStream(fileName)));
             System.out.println(fileName);
+            myObservers.get(0).update(null, (Object)createDTO2());
         }
         else {
             if (selectedFile == null) {
@@ -223,11 +224,11 @@ public class SlogoView {
     
     
     public TurtleTransferObject createDTO(){
-        TurtleTransferObject turtle = new TurtleTransferObject(false, 1, true, true, new int[]{0,0}, new int[]{20,20});
+        TurtleTransferObject turtle = new TurtleTransferObject(false, 1, true, true, new int[]{10,50}, new int[]{200,200});
         return turtle;
     }
     public TurtleTransferObject createDTO2(){
-        TurtleTransferObject turtle = new TurtleTransferObject(true, 1, true, true, new int[]{0,0}, new int[]{20,20});
+        TurtleTransferObject turtle = new TurtleTransferObject(false, 1, true, true, new int[]{50,55}, new int[]{20,20});
         return turtle;
     }
     

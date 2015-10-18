@@ -33,10 +33,14 @@ public class TurtleGroup extends Group{
 			this.getChildren().remove(myTurtleIDs.indexOf(turtleDTO.getID()));
 			myTurtleIDs.remove(turtleDTO.getID());
 		}
+		drawTurtle(turtleDTO);
+	}
+
+	private void drawTurtle(TurtleTransferObject turtleDTO) {
 		myTurtleIDs.add(turtleDTO.getID());
 		ImageView turtleImage = new ImageView(myTurtleImage);
-		turtleImage.setX(200);//turtleDTO.getNextLoc()[0]);
-		turtleImage.setY(250);//turtleDTO.getNextLoc()[1]);
+		turtleImage.setX(turtleDTO.getNextLoc()[0]);
+		turtleImage.setY(turtleDTO.getNextLoc()[1]);
 		turtleImage.setVisible(true);//turtleDTO.isVisible());
 		this.getChildren().add(turtleImage);
 	}

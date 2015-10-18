@@ -33,8 +33,11 @@ public class TurtleCanvas extends Canvas{
 		gc.clearRect(0,0,width,height);
 	}
 
-	public void setPenColor(String penColor){
-		this.penColor = Color.valueOf(penColor);
+	public void setPenColor(String newPenColor){
+		this.penColor = Color.valueOf(newPenColor);
+		gc.setStroke(penColor);
+		System.out.println(newPenColor);
+
 	}
 
 	public void drawLine(int[]startLoc, int[] endLoc, boolean draw){
