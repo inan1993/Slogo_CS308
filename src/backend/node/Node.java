@@ -3,7 +3,6 @@ package backend.node;
 import java.util.ArrayList;
 import java.util.List;
 
-import SharedObjects.WorkSpaceController;
 import responses.Response;
 
 /**
@@ -15,11 +14,9 @@ public abstract class Node {
 	private List<Node> myChildren;
 	private int myNumOfChildren;
 	private double myValue;
-
-	public Node(String name, int num) {
-		myName = name;
-		myNumOfChildren = num;
-		myChildren = new ArrayList<Node>();
+	
+	public Node(){
+		myChildren=new ArrayList<Node>();
 	}
 	
 	public Node addChild(Node node) {
@@ -31,10 +28,13 @@ public abstract class Node {
 	public int getChildrenNum() {
 		return myNumOfChildren;
 	}
+
+	public void setChildrenNum(int n){
+		myNumOfChildren=n;
+	}
 	
-	public Node setName(String name){
+	public void setName(String name){
 		myName=name;
-		return this;
 	}
 
 	public Boolean hasChildren() {
@@ -74,4 +74,5 @@ public abstract class Node {
 		this.myValue = myValue;
 		return this;
 	}
+
 }
