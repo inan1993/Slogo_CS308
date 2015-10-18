@@ -18,6 +18,7 @@ public class Turtle extends Observable{
 		heading = 90;
 		penDown = true;
 		showing = true;
+		this.setChanged();
 	}
 	
 	public Turtle(int[] pos){
@@ -26,6 +27,7 @@ public class Turtle extends Observable{
 
 	public void setID(int i){
 		ID = i;
+		this.setChanged();
 	}
 	
 	public int getID(){
@@ -34,6 +36,7 @@ public class Turtle extends Observable{
 	
 	public void setPosition(int[] p){
 		position = p;
+		this.setChanged();
 	}
 	
 	public int[] getPosition(){
@@ -50,9 +53,11 @@ public class Turtle extends Observable{
 	
 	public void penUp(){
 		penDown = false;
+		this.setChanged();
 	}
 	
 	public void penDown(){
+		this.setChanged();
 		penDown = true;
 	}
 	
@@ -61,10 +66,12 @@ public class Turtle extends Observable{
 	}
 	
 	public void show(){
+		this.setChanged();
 		showing = true;
 	}
 	
 	public void hide(){
+		this.setChanged();
 		showing = false;
 	}
 	
