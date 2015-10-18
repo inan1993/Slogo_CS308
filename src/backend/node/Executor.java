@@ -43,6 +43,8 @@ public class Executor {
 			// Now, run this with our received parameters
 			if (root instanceof Command) {
 				return ((Command) root).run(sharedHandle, returnedNodes);
+			} else if (root instanceof Operation) {
+				return ((Operation) root).run(returnedNodes);
 			} else { 
 				//We've got a SVO here, that wasn't a leaf...
 				throw new RuntimeException("Invalid number of children for this node!");
