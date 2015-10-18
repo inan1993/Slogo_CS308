@@ -90,6 +90,7 @@ public enum SyntaxType {
 	LISTSTART,
 	LISTEND,
 	GROUPSTART,
-	GROUPEND;
+	GROUPEND,
+	USERCOMMAND;
 }
 

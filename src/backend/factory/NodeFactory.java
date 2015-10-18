@@ -5,17 +5,16 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
 import backend.node.Constant;
-import backend.node.ListStart;
 import backend.node.Node;
-import backend.node.commands.FW;
-import backend.node.control.DoTimes;
-import backend.node.control.Repeat;
+import backend.node.commands.*;
+import backend.node.control.*;
 import backend.parser.SyntaxType;
 
 public class NodeFactory {
 	private static HashMap<SyntaxType,Class> myRegisteredCommands = new HashMap<SyntaxType,Class>();
 	
 	static{
+		registerCmd(SyntaxType.BACKWARD, BK.class);
 		registerCmd(SyntaxType.FORWARD, FW.class);
 		registerCmd(SyntaxType.DOTIMES, DoTimes.class);
 		registerCmd(SyntaxType.CONSTANT,Constant.class);

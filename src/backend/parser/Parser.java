@@ -17,9 +17,14 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map.Entry;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 import java.util.regex.Pattern;
+
+import SharedObjects.ManipulateController;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
@@ -30,8 +35,9 @@ import java.util.AbstractMap.SimpleEntry;
  * @author wanning
  *
  */
-public class Parser {
+public class Parser implements Observer {
 	private Executor myExec;
+	private ManipulateController myManiControl;
 	private List<Node> myRoots;
 	private int myIndex;
 	private String myLanguage;
@@ -61,16 +67,17 @@ public class Parser {
 	private static final List<Entry<TokenType, Pattern>> myTokenPatterns = makeTokenPatterns("resources/languages/Syntax");
 	public static final Map<LangType,List<Entry<SyntaxType, Pattern>>> mySyntaxPatterns = makeSyntaxPatterns();
 	
-	public Parser() {
+	public Parser(Executor exec, ManipulateController mc) {
 		//Call run to start.
-		myExec = new Executor();
+		myExec = exec;
+		myManiControl=mc;
 		myRoots = new ArrayList<Node>();
 		myIndex=0;
 		myListLegal=false;
-		myLanguage="English";
 	}
 	
-	public Response parse(String userInput) {
+	public Response parse(String userInput, String lang) {
+		myLanguage=lang;
 		myTokenList=new ArrayList<Entry<TokenType, String>>();
 		Response response = new Error("Haven't begin parsing");
 		BufferedReader reader=new BufferedReader(new StringReader(userInput));
@@ -173,7 +180,8 @@ public class Parser {
 					}
 				}
 				if(!matchFlag){
-					throw new SyntaxException("Ilegal Input: Cannot find a matched command!");
+					mySyntaxList.add(new SimpleEntry<SyntaxType, String>(SyntaxType.USERCOMMAND, entry.getValue()));
+//					throw new SyntaxException("Ilegal Input: Cannot find a matched command!");
 				}
 				break;
 			default:
@@ -251,6 +259,11 @@ public class Parser {
 		case MAKEUSERINSTRUCTION:
 			parseMakeCmd(root);
 			break;
+		default:
+			Node toCmd = myManiControl.getCommand(mySyntaxList.get(myIndex).getValue());
+			if(toCmd==null)
+				throw new SyntaxException("Undefied command!");
+			int numOfArg=toCmd.getChildrenNum()-1;
 		}
 		return root;
 	}
@@ -406,8 +419,18 @@ public class Parser {
     }
 	
 	public static void main (String[] args) {
-        Parser parser = new Parser();
-        parser.parse("repeat 2 [ forward 50 fd 3 ]");
+		Executor exec = new Executor();
+		ManipulateController mani = new ManipulateController();
+        Parser parser = new Parser(exec, mani);
+        parser.parse("repeat 2 [ forward 50 fd 3 ]", "English");
         System.out.println("11");
     }
+
+	@Override
+	public void update(Observable o, Object arg) {
+		String args = (String) arg;
+		String input = args.split(",")[0];
+		String lang = args.split(",")[1];
+		parse(input, lang);
+	}
 }
