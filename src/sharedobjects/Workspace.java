@@ -8,22 +8,20 @@ import java.util.Observable;
 
 import backend.node.Node;
 import datatransferobjects.TurtleTransferObject;
+import datatransferobjects.UserInputsTransferObject;
 
 public class Workspace {
 
 	List<Turtle> turtleList;
 	List<Pen> penList;
-	Map<String, Node> commandMap;
-	Map<String, Node> variableMap;
 	Turtle currTurtle;
+	UserInputs userInputsObservable = new UserInputs();
 	
 	public Workspace() {
 		turtleList = new LinkedList<Turtle>();
 		penList = new LinkedList<Pen>();
 		currTurtle = new Turtle();
 		turtleList.add(currTurtle);
-		commandMap = new HashMap<String, Node>();
-		variableMap = new HashMap<String, Node>();
 	}
 	
 	public void setHeading(double angle){
@@ -67,19 +65,23 @@ public class Workspace {
 	
 	//****Commands and Variables Manipulation*****//
 	public void addVariable(String v, Node n){
-		variableMap.put(v, n);
+		userInputsObservable.addVariable(v, n);
+		UserInputsTransferObject uito = new UserInputsTransferObject(false, v + " = " + n.getDoubleValue());
+		userInputsObservable.notifyObservers(uito);
 	}
 	
 	public Node getVariable(String v){
-		return variableMap.get(v);
+		return userInputsObservable.getVariable(v);
 	}
 	
-	public void addCommand(String c, Node n){
-		commandMap.put(c, n);
+	public void addCommand(String userInput, String c, Node n){
+		userInputsObservable.addCommand(c, n);
+		UserInputsTransferObject uito = new UserInputsTransferObject(true, userInput);
+		userInputsObservable.notifyObservers(uito);
 	}
 	
 	public Node getCommand(String c){
-		return commandMap.get(c);
+		return userInputsObservable.getCommand(c);
 	}
 	
 	public List<Observable> getObservables(){
@@ -87,6 +89,7 @@ public class Workspace {
 		for(Turtle t: turtleList){
 			observables.add((Observable) t);
 		}
+		observables.add(userInputsObservable);
 		return observables;
 	}
 	
