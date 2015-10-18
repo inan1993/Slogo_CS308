@@ -21,8 +21,8 @@ public class ManipulateController implements IWorkSpaceController{
 		int[] currPosition = currWorkspace.getPosition();
 		double heading = currWorkspace.getHeading();
 		
-		double xDiff = Math.cos(heading)/pixels; //adjacent 
-		double yDiff = Math.sin(heading)/pixels; //opposite
+		double xDiff = Math.cos(Math.toRadians(heading))*pixels; //adjacent 
+		double yDiff = Math.sin(Math.toRadians(heading))*pixels; //opposite
 		
 		int xBack = (int) (currPosition[0] + xDiff);
 		int yBack = (int) (currPosition[1] + yDiff);
@@ -36,8 +36,8 @@ public class ManipulateController implements IWorkSpaceController{
 		int[] currPosition = currWorkspace.getPosition();
 		double heading = currWorkspace.getHeading();
 		
-		double xDiff = Math.cos(heading)/pixels; //adjacent 
-		double yDiff = Math.sin(heading)/pixels; //opposite
+		double xDiff = Math.cos(Math.toRadians(heading))*pixels; //adjacent 
+		double yDiff = Math.sin(Math.toRadians(heading))*pixels; //opposite
 		
 		int xBack = (int) (currPosition[0] - xDiff);
 		int yBack = (int) (currPosition[1] - yDiff);

@@ -3,7 +3,7 @@ package JUnit;
 import backend.node.Constant;
 import backend.node.Executor;
 import backend.node.Node;
-import backend.node.commands.FW;
+import backend.node.commands.FD;
 import backend.node.operations.*;
 import backend.parser.Parser;
 import responses.Response;
@@ -29,11 +29,11 @@ public class ExecutorTester extends TestCase {
 		p = new Parser(f, mc);
 	}
 
-	// "fw fw 10"
-	public void testDoubleFW() {
+	// "fd fd 10"
+	public void testDoublefd() {
 		// This is to 'build' the syntax tree manually!
-		Node root = new FW();
-		Node child = new FW();
+		Node root = new FD();
+		Node child = new FD();
 		Node leaf = new Constant();
 		leaf.setName("10");
 		leaf.setValue(10);
@@ -44,11 +44,11 @@ public class ExecutorTester extends TestCase {
 		assertEquals(Double.parseDouble(a.toString()), 10.0);
 	}
 
-	// "fw fw 50"
-	public void testDoubleFW2() {
+	// "fd fd 50"
+	public void testDoublefd2() {
 		// This is to 'build' the syntax tree manually!
-		Node root = new FW();
-		Node child = new FW();
+		Node root = new FD();
+		Node child = new FD();
 		Node leaf = new Constant();
 		leaf.setValue(50.0);
 		root.addChild(child);
@@ -125,9 +125,27 @@ public class ExecutorTester extends TestCase {
 		assertEquals(Double.parseDouble(a.toString()) + 0.0, 0.0);
 	}
 
-	// "fw 50"
+	// "fd 50"
 	public void testSoftparse() {
 		Response s = p.parse("fd 50", "English");
+		assertEquals(Double.parseDouble(s.toString()), 50.0);
+	}
+
+	// "repeat 5 [fd 50]"
+	public void testHardparse() {
+		Response s = p.parse("repeat 5 [ fd 50 ]", "English");
+		assertEquals(Double.parseDouble(s.toString()), 50.0);
+	}
+
+	// "repeat 5 [fd 50]"
+	public void testHardparse2() {
+		Response s = p.parse("repeat 5 [ repeat 2 [ fd 50 ] ]", "English");
+		assertEquals(Double.parseDouble(s.toString()), 50.0);
+	}
+
+	// "dotimes [ v 5 ] [ fd 50 ]"
+	public void testDoTimes() {
+		Response s = p.parse("dotimes [ v 5 ] [ fd 50 ]", "English");
 		System.out.println(s.toString());
 		assertEquals(Double.parseDouble(s.toString()), 50.0);
 	}
