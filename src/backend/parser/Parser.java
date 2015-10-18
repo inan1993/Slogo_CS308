@@ -283,7 +283,6 @@ public class Parser implements Observer {
 				throw new SyntaxException("Uncompleted argument list in" + root.getName());
 			Node c = growTree();
 			root.addChild(c);
-			i++;
 		}
 	}
 	
@@ -515,7 +514,7 @@ public class Parser implements Observer {
 		ManipulateController mani = new ManipulateController(new Workspace());
 		Executor exec = new Executor(mani);
         Parser parser = new Parser(exec, mani);
-        parser.parse("IF EQUALP 20 20 [ fd 50 ]", "English");
+        parser.parse("make :r 4", "English");
         System.out.println("11");
     }
 
@@ -527,3 +526,4 @@ public class Parser implements Observer {
 		parse(input, lang);
 	}
 }
+
