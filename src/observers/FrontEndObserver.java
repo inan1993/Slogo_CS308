@@ -21,7 +21,7 @@ public class FrontEndObserver implements Observer{
     public void update (Observable o, Object arg) {
         TurtleTransferObject turtleDTO = (TurtleTransferObject) arg;
         
-
+        System.out.println("gothim");
         if(turtleDTO.isClearScreen()){
             myTurtleGroup.clear();
             myTurtleCanvas.clear(); 
