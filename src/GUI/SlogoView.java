@@ -15,6 +15,7 @@ import GUI.dropdown.LanguageListDropdown;
 import GUI.dropdown.PenColorDropdown;
 import GUI.textBox.CommandPromptDisplayBox;
 import GUI.textBox.MessageDisplayBox;
+import GUI.turtlepane.BackgroundRectangle;
 import GUI.turtlepane.TurtleCanvas;
 import GUI.turtlepane.TurtleGroup;
 import GUI.viewbox.AViewBox;
@@ -50,10 +51,12 @@ public class SlogoView {
     private CommandPromptDisplayBox commandBox; 
     private MessageDisplayBox messageBox;
     private AViewBox variableDisplayBox, historyDisplayBox, functionDisplayBox;
+    
     private Image myTurtleImage;
     private List<Double> myTurtleIDs;
     private TurtleCanvas myTurtleCanvas;
     private TurtleGroup myTurtleGroup;
+    private BackgroundRectangle myBackgroundRectangle;
     
     private List<Observer> myObservers;
 
@@ -144,7 +147,7 @@ public class SlogoView {
         ComboBox<String> bgColor = new BackgroundColorDropdown("Background Color");
         bgColor.setOnAction(event->{
             String color = bgColor.getValue();
-            myTurtleCanvas.setBackgroundColor(color);
+            myBackgroundRectangle.setBackgroundColor(color);
             messageBox.setMessage("Background Color Set to "+color);
         });
         return bgColor;  
@@ -165,11 +168,12 @@ public class SlogoView {
         StackPane mainBox = new StackPane();//AnchorPane mainBox = new AnchorPane();
 
 // TODO add to properties
+        myBackgroundRectangle = new BackgroundRectangle(800, 580);
         myTurtleCanvas = new TurtleCanvas(800, 580);
         myTurtleGroup = new TurtleGroup(myTurtleImage, myTurtleIDs);
         myObservers.add(new FrontEndObserver(myTurtleGroup, myTurtleCanvas));
         
-        mainBox.getChildren().addAll(myTurtleCanvas, myTurtleGroup);
+        mainBox.getChildren().addAll(myBackgroundRectangle, myTurtleCanvas, myTurtleGroup);
         return mainBox;
     }
 

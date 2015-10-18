@@ -12,15 +12,15 @@ public class TurtleCanvas extends Canvas{
     protected static ResourceBundle myResource;
 
     private Color penColor;
-    private Color bgColor;
+//    private Color bgColor;
 
     public TurtleCanvas (int width, int height) {
         super(width, height);
         myResource = ResourceBundle.getBundle(TURTLE_RESOURCE_PACKAGE);
 
-        this.bgColor = Color.valueOf(myResource.getString("backgroundColors"));
+//        this.bgColor = Color.valueOf(myResource.getString("backgroundColors"));
         gc = this.getGraphicsContext2D(); 
-        gc.setFill(bgColor);
+        gc.setFill(Color.TRANSPARENT);
         gc.fillRect(0,0,width,height);
 
         this.penColor = Color.valueOf(myResource.getString("penColors"));
@@ -30,15 +30,15 @@ public class TurtleCanvas extends Canvas{
 
     public void clear(){
         this.clear();
-        gc.setFill(bgColor);
-        gc.fillRect(0,0,800,580);
+//        gc.setFill(bgColor);
+//        gc.fillRect(0,0,800,580);
     }
 
-    public void setBackgroundColor(String backgroundColor){
-        this.bgColor = Color.valueOf(backgroundColor);
-        gc.setFill(bgColor);
-        gc.fillRect(0,0,800,580);
-    }
+//    public void setBackgroundColor(String backgroundColor){
+//        this.bgColor = Color.valueOf(backgroundColor);
+//        gc.setFill(bgColor);
+//        gc.fillRect(0,0,800,580);
+//    }
 
     public void setPenColor(String penColor){
         this.penColor = Color.valueOf(penColor);
