@@ -110,8 +110,8 @@ public class SlogoView {
     public void ButtonClicked() {
         FileChooser fileChooser = new FileChooser();
         File selectedFile = fileChooser.showOpenDialog(null);
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Information");
+        //Alert alert = new Alert(AlertType.INFORMATION);
+        //alert.setTitle("Information");
         String fileName;
 
         if (selectedFile != null) {
@@ -121,8 +121,7 @@ public class SlogoView {
         }
         else {
             if (selectedFile == null) {
-                alert.setContentText("Upload Canceled");
-                alert.showAndWait();
+                messageBox.setMessage("Upload Cancelled");
             }
         }
     }
