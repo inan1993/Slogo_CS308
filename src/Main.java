@@ -16,6 +16,25 @@ import sharedobjects.ManipulateController;
 import sharedobjects.Workspace;
 
 public class Main extends Application{
+//<<<<<<< HEAD
+//	public static final String TITLE = "Slogo";
+//	Scene scene;
+//
+//	public  void start (Stage stage) throws Exception {
+//		//SlogoModel model = new SlogoModel();
+//		SlogoView display = new SlogoView();
+//		stage.setTitle(TITLE);
+//		stage.setScene(display.getScene()); 
+//		stage.setResizable(false);
+//		stage.sizeToScene(); 
+//		stage.show();
+//	}
+//
+//	public static void main (String[] args) {
+//		launch(args);
+//	}
+//
+//=======
     public static final String TITLE = "Slogo";
     //private Map<Observable, Observer> observingMap;
     private static SlogoView frontEnd;
@@ -36,7 +55,7 @@ public class Main extends Application{
     	/*3*/ //Executor executor = new Executor(manipulateController);
     	/*4*/ //Parser parser = new Parser(executor);
     	
-    	/*5*/ frontEnd = new SlogoView("SEND PARSER HERE"); //TODO: frontEnd must create an observers list
+    	/*5*/ frontEnd = new SlogoView(); //TODO: frontEnd must create an observers list
         
     	HandleObservers handleObservers = new HandleObservers();   
     	/*6*/ //HandleObservers.handleObservers(currWorspace.getObservables(), frontEnd.getObservers());
