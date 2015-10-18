@@ -16,7 +16,7 @@ import exceptions.*;
  *
  */
 public class Executor {
-	ManipulateController sharedHandle;
+	private ManipulateController sharedHandle;
 
 	public Executor(ManipulateController manipulateController) {
 		sharedHandle = manipulateController;
@@ -60,5 +60,9 @@ public class Executor {
 				//We've got a command here, that was a leaf...
 				throw new RuntimeException("Invalid number of children for this node!");
 		}
+	}
+	
+	public ManipulateController getManipulateController() {
+		return sharedHandle;
 	}
 }

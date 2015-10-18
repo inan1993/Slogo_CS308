@@ -142,4 +142,11 @@ public class ExecutorTester extends TestCase {
 		Response s = p.parse("repeat 5 [ repeat 2 [ fd 50 ] ]", "English");
 		assertEquals(Double.parseDouble(s.toString()), 50.0);
 	}
+
+	// "dotimes [ v 5 ] [ fd 50 ]"
+	public void testDoTimes() {
+		Response s = p.parse("dotimes [ v 5 ] [ fd 50 ]", "English");
+		System.out.println(s.toString());
+		assertEquals(Double.parseDouble(s.toString()), 50.0);
+	}
 }
