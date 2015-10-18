@@ -16,7 +16,7 @@ public class Turtle extends Observable{
 		ID = rand.nextInt(100000) + 1;
 		position = new int[]{0,0};
 		heading = 90;
-		penDown = false;
+		penDown = true;
 		showing = true;
 	}
 	
