@@ -1,10 +1,29 @@
 package backend.node.control;
 
-import backend.node.Node;
+import java.util.List;
 
-public class ListStart extends Node {
-	public ListStart(){
+import backend.node.Constant;
+import backend.node.ControlStructure;
+import backend.node.Executor;
+import backend.node.Node;
+import responses.Response;
+
+public class ListStart extends ControlStructure {
+	public ListStart() {
 		super();
 		super.setChildrenNum(0);
+	}
+
+	@Override
+	protected Node run(List<Node> nl, Executor executor) {
+		// Just run each node and return the last value
+		Response s = null;
+		for (Node n : nl) {
+			s = executor.execute(n);
+		}
+		if (s == null)
+			this.setValue(0.0);
+		this.setValue(Double.parseDouble(s.toString()));
+		return this;
 	}
 }

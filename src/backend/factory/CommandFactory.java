@@ -17,7 +17,7 @@ public class CommandFactory {
 ////		#
 ////		# Turtle Commands
 ////		#
-		registerNode(SyntaxType.FORWARD, FW.class);
+		registerNode(SyntaxType.FORWARD, FD.class);
 //		BACKWARD,
 //		LEFT,
 //		RIGHT,

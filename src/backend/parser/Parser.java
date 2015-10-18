@@ -99,7 +99,7 @@ public class Parser implements Observer {
 			buildSyntaxTree();
 		} catch (SyntaxException e)
 		{
-			response=new Error(e.getMessage());
+			response = new Error(e.getMessage());
 			return response;
 		}
 		for(Node each:myRoots)
