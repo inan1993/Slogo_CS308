@@ -1,4 +1,4 @@
-package GUI.turtlepane;
+package GUI.turtlePane;
 
 import java.util.List;
 import datatransferobjects.TurtleTransferObject;
