@@ -99,7 +99,7 @@ public class CommandFactory {
 ////		#
 ////		# Non-Command
 ////		#
-//		VARIABLE,
+		registerNode(SyntaxType.VARIABLE,Variable.class);
 		registerNode(SyntaxType.CONSTANT,Constant.class);
 		registerNode(SyntaxType.LISTSTART, LISTSTART.class);
 //		LISTEND,

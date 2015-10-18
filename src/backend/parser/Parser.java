@@ -423,6 +423,7 @@ public class Parser implements Observer {
 	private void parseIf(Node root) throws SyntaxException{
 		try {
 			Node c = growTree();
+			root.addChild(c);
 			if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.LISTSTART){
 				throw new SyntaxException("Incompatible argument list in " + root.getName());
 			}
@@ -514,7 +515,7 @@ public class Parser implements Observer {
 		ManipulateController mani = new ManipulateController(new Workspace());
 		Executor exec = new Executor(mani);
         Parser parser = new Parser(exec, mani);
-        parser.parse("forward 30", "English");
+        parser.parse("IF EQUALP 20 20 [ fd 50 ]", "English");
         System.out.println("11");
     }
 
