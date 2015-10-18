@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import backend.node.Command;
 import backend.node.Node;
 import backend.node.SingleValuedObject;
-import backend.node.commands.FW;
+import backend.node.commands.FD;
 import responses.*;
 import responses.Error;
 import sharedobjects.*;
@@ -47,8 +47,7 @@ public class Executor {
 			} else if (root instanceof Operation) {
 				return ((Operation) root).run(returnedNodes);
 			} else if (root instanceof ControlStructure) {
-				//Controls
-				return null;
+				return ((ControlStructure) root).run(returnedNodes, this);
 			}else { 
 				//We've got a SVO here, that wasn't a leaf...
 				throw new RuntimeException("Invalid number of children for this node!");

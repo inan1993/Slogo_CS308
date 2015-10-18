@@ -18,7 +18,20 @@ public class CommandFactory {
 ////		#
 ////		# Turtle Commands
 ////		#
-		registerNode(SyntaxType.FORWARD, FW.class);
+		registerNode(SyntaxType.FORWARD, FD.class);
+//		BACKWARD,
+//		LEFT,
+//		RIGHT,
+//		SETHEADING,
+//		SETTOWARDS,
+//		SETPOSITION,
+//		PENDOWN,
+//		PENUP,
+//		SHOWTURTLE,
+//		HIDETURTLE,
+//		HOME,
+//		CLEARSCREEN,
+		registerNode(SyntaxType.FORWARD, FD.class);
 		registerNode(SyntaxType.BACKWARD, BK.class);
 		registerNode(SyntaxType.LEFT, BK.class);
 		registerNode(SyntaxType.RIGHT, RT.class);
