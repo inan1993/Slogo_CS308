@@ -1,11 +1,8 @@
 package sharedobjects;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Observable;
-
 import backend.node.Node;
 import datatransferobjects.TurtleTransferObject;
 import datatransferobjects.UserInputsTransferObject;
@@ -87,6 +84,7 @@ public class Workspace {
 	public List<Observable> getObservables(){
 		List<Observable> observables = new LinkedList<Observable>();
 		for(Turtle t: turtleList){
+		        System.out.println("here2");
 			observables.add((Observable) t);
 		}
 		observables.add(userInputsObservable);
@@ -94,8 +92,9 @@ public class Workspace {
 	}
 	
 	public void startWorkspace(){
-		TurtleTransferObject dto = new TurtleTransferObject(false, currTurtle.getID(), false, true, new int[]{0,0}, new int[]{0,0});
+		TurtleTransferObject dto = new TurtleTransferObject(false, currTurtle.getID(), false, true, new int[]{12,12}, new int[]{12,12});
 		currTurtle.notifyObservers(dto);
+		System.out.println("here1");
 	}
 	
 }
