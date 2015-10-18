@@ -15,7 +15,6 @@ public class BackgroundRectangle extends Rectangle{
         super(width, height);
         myResource = ResourceBundle.getBundle(TURTLE_RESOURCE_PACKAGE);
         myBackgroundColor = Color.valueOf(myResource.getString("backgroundColors"));
-        //System.out.println(myResource.getString("backgroundColors"));
         this.setFill(myBackgroundColor);
     }
     
