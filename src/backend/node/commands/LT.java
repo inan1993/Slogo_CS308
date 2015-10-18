@@ -7,7 +7,7 @@ import java.util.List;
 
 import backend.node.Command;
 import backend.node.Node;
-import sharedobjects.WorkSpaceController;
+import sharedobjects.ManipulateController;
 
 /**
  * @author loganrooper
@@ -19,7 +19,7 @@ public class LT extends Command {
 	}
 
 	@Override
-	public Node run(WorkSpaceController sharedHandle, List<Node> ln) {
+	public Node run(ManipulateController sharedHandle, List<Node> ln) {
 		if (ln == null)
 			throw new RuntimeException("Missing parameter.");
 		if (ln.size() < 1)

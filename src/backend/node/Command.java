@@ -6,7 +6,8 @@ package backend.node;
 import java.util.List;
 
 import responses.Response;
-import sharedobjects.WorkSpaceController;
+import sharedobjects.ManipulateController;
+
 
 /**
  * @author loganrooper
@@ -24,5 +25,5 @@ public abstract class Command extends Node{
 	 * @param returnedNodes
 	 * @return
 	 */
-	protected abstract Node run(WorkSpaceController wsc, List<Node> returnedNodes);
+	protected abstract Node run(ManipulateController wsc, List<Node> returnedNodes);
 }
