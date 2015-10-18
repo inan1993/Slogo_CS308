@@ -2,10 +2,10 @@ package backend.node.commands;
 
 import java.util.List;
 
-import SharedObjects.WorkSpaceController;
 import backend.node.Command;
 import backend.node.Constant;
 import backend.node.Node;
+import sharedobjects.ManipulateController;
 
 /**
  * @author loganrooper
@@ -13,11 +13,11 @@ import backend.node.Node;
  */
 public class GOTO extends Command {
 	public GOTO(String name, int children) {
-		super(name, children);
+		super();
 	}
 
 	@Override
-	public Node run(WorkSpaceController sharedHandle, List<Node> ln) {
+	public Node run(ManipulateController sharedHandle, List<Node> ln) {
 		if (ln == null)
 			throw new RuntimeException("Missing parameter.");
 		if (ln.size() < 2)
@@ -37,6 +37,6 @@ public class GOTO extends Command {
 		double newHeading = ln.get(0).getDoubleValue();
 
 		// return the delta
-		return new Constant("Heading").setValue(prevHeading - newHeading);
+		return new Constant().setValue(prevHeading - newHeading);
 	}
 }
