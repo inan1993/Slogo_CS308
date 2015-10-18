@@ -7,7 +7,7 @@ import java.util.List;
 import backend.node.Command;
 import backend.node.Constant;
 import backend.node.Node;
-import sharedobjects.WorkSpaceController;
+import sharedobjects.ManipulateController;
 
 /**
  * @author loganrooper
@@ -15,14 +15,14 @@ import sharedobjects.WorkSpaceController;
  */
 public class HT extends Command {
 	public HT(String name, int children) {
-		super(name, children);
+		super();
 	}
 
 	@Override
-	public Node run(WorkSpaceController sharedHandle, List<Node> ln) {
+	public Node run(ManipulateController sharedHandle, List<Node> ln) {
 		sharedHandle.showTurtle();
 
 		// return 1
-		return new Constant("0").setValue(1);
+		return new Constant().setValue(1);
 	}
 }

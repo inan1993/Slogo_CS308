@@ -8,6 +8,5 @@ public enum LangType {
 	ITALIAN,
 	PORTUGUESE,
 	RUSSIAN,
-	SPANISH,
-	SYNTAX;
+	SPANISH;
 }

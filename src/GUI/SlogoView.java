@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observer;
 import java.util.ResourceBundle;
+
 import GUI.button.ClearCommandButton;
 import GUI.button.EnterCommandButton;
 import GUI.button.HelpButton;
@@ -25,24 +26,24 @@ import GUI.viewbox.VariableListBox;
 import datatransferobjects.TurtleTransferObject;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import observers.FrontEndObserver;
+import observers.UserInputObserver;
 
 public class SlogoView {
 
-    //TODO Put default size in properties file.
     private static final Dimension DEFAULT_SIZE = new Dimension(1200, 700);
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/";
-    private static final String DEFAULT_TURTLE_IMAGE = "turtle1.png";
+    private static final String DEFAULT_RESOURCE_VIEW = "GUI.view";
+    protected static ResourceBundle myResource;
+
     private static final String DEFAULT_LANGUAGE = "English";
 
     private Scene scene;
@@ -50,7 +51,9 @@ public class SlogoView {
 
     private CommandPromptDisplayBox commandBox; 
     private MessageDisplayBox messageBox;
-    private AViewBox variableDisplayBox, historyDisplayBox, functionDisplayBox;
+    private VariableListBox variableDisplayBox;
+    private CommandHistoryBox historyDisplayBox;
+    private FunctionListBox functionDisplayBox;
     
     private Image myTurtleImage;
     private List<Double> myTurtleIDs;
@@ -63,25 +66,23 @@ public class SlogoView {
     public SlogoView(){
 
         ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_LANGUAGE);
+        myResource = ResourceBundle.getBundle(DEFAULT_RESOURCE_VIEW);
 
-//TODO Put default image in properties file.
-        myTurtleImage = new Image(getClass().getClassLoader().getResourceAsStream(DEFAULT_TURTLE_IMAGE));
+        myTurtleImage = new Image(getClass().getClassLoader().getResourceAsStream(myResource.getString("defaultTurtle")));
         myTurtleIDs = new ArrayList<Double>();
         myObservers = new ArrayList<Observer>();
 
         BorderPane root = new BorderPane();
 
-//TODO Put default image in properties file.
         root.setMaxSize(DEFAULT_SIZE.getWidth(),DEFAULT_SIZE.getHeight());
 
         root.setTop(menu());
         root.setCenter(centerBox());
         root.setBottom(bottomBox());
-        root.setRight(rightBox());
-        
+        root.setRight(rightBox());    
         
         myObservers.get(0).update(null, (Object)createDTO());
-        myObservers.get(0).update(null, (Object)createDTO2());
+        //myObservers.get(0).update(null, (Object)createDTO2());
         scene = new Scene(root, DEFAULT_SIZE.width, DEFAULT_SIZE.height);
     }
 
@@ -114,19 +115,16 @@ public class SlogoView {
     public void ButtonClicked() {
         FileChooser fileChooser = new FileChooser();
         File selectedFile = fileChooser.showOpenDialog(null);
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Information");
         String fileName;
 
         if (selectedFile != null) {
             fileName = selectedFile.getName();
             myTurtleGroup.setImage(new Image(getClass().getClassLoader().getResourceAsStream(fileName)));
-            System.out.println(fileName);
+            myObservers.get(0).update(null, (Object)createDTO2());
         }
         else {
             if (selectedFile == null) {
-                alert.setContentText("Upload Canceled");
-                alert.showAndWait();
+                messageBox.setMessage("Upload Cancelled");
             }
         }
     }
@@ -166,11 +164,10 @@ public class SlogoView {
 
 
     private Node centerBox() {
-        StackPane mainBox = new StackPane();//AnchorPane mainBox = new AnchorPane();
+        AnchorPane mainBox = new AnchorPane();
 
-// TODO add to properties
-        myBackgroundRectangle = new BackgroundRectangle(800, 580);
-        myTurtleCanvas = new TurtleCanvas(800, 580);
+        myBackgroundRectangle = new BackgroundRectangle(Integer.parseInt(myResource.getString("canvasWidth")), Integer.parseInt(myResource.getString("canvasHeight")));
+        myTurtleCanvas = new TurtleCanvas(Integer.parseInt(myResource.getString("canvasWidth")), Integer.parseInt(myResource.getString("canvasHeight")));
         myTurtleGroup = new TurtleGroup(myTurtleImage, myTurtleIDs);
         myObservers.add(new FrontEndObserver(myTurtleGroup, myTurtleCanvas));
         
@@ -213,7 +210,7 @@ public class SlogoView {
         variableDisplayBox = new VariableListBox(commandBox);
         historyDisplayBox = new CommandHistoryBox(commandBox);
         functionDisplayBox = new FunctionListBox(commandBox);
-
+        myObservers.add(new UserInputObserver(functionDisplayBox, variableDisplayBox));
         result.getChildren().addAll(variableDisplayBox,historyDisplayBox,functionDisplayBox);
         return result;
     }
@@ -228,11 +225,11 @@ public class SlogoView {
     
     
     public TurtleTransferObject createDTO(){
-        TurtleTransferObject turtle = new TurtleTransferObject(false, 1, true, true, new int[]{0,0}, new int[]{20,20});
+        TurtleTransferObject turtle = new TurtleTransferObject(false, 1, true, true, new int[]{10,50}, new int[]{200,200});
         return turtle;
     }
     public TurtleTransferObject createDTO2(){
-        TurtleTransferObject turtle = new TurtleTransferObject(true, 1, true, true, new int[]{0,0}, new int[]{20,20});
+        TurtleTransferObject turtle = new TurtleTransferObject(false, 1, true, true, new int[]{50,55}, new int[]{20,20});
         return turtle;
     }
     

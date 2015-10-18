@@ -1,25 +1,19 @@
 package backend.node.commands;
 
 import java.util.List;
-import backend.factory.CommandFactory;
-import backend.parser.SyntaxType;
-import sharedobjects.WorkSpaceController;
 import backend.node.Command;
 import backend.node.Node;
+import sharedobjects.ManipulateController;
 
 public class FW extends Command {
-	public FW(String s) {
-		super(s, 1);
+	public FW() {
+		super();
+		super.setChildrenNum(1);
 		// TODO Auto-generated constructor stub
 	}
 
-	static {
-		CommandFactory factory = new CommandFactory();
-		factory.registerNode(SyntaxType.FORWARD, Forward.class);
-	}
-
 	@Override
-	public Node run(WorkSpaceController sharedHandle, List<Node> ln) {
+	public Node run(ManipulateController sharedHandle, List<Node> ln) {
 		if (ln == null)
 			throw new RuntimeException("Missing parameter.");
 		if (ln.size() < 1)

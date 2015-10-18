@@ -4,7 +4,7 @@ import java.util.List;
 import backend.node.Command;
 import backend.node.Constant;
 import backend.node.Node;
-import sharedobjects.WorkSpaceController;
+import sharedobjects.ManipulateController;
 
 /**
  * @author loganrooper
@@ -12,11 +12,11 @@ import sharedobjects.WorkSpaceController;
  */
 public class SETH extends Command {
 	public SETH(String name, int children) {
-		super(name, children);
+		super();
 	}
 
 	@Override
-	public Node run(WorkSpaceController sharedHandle, List<Node> ln) {
+	public Node run(ManipulateController sharedHandle, List<Node> ln) {
 		 if (ln == null)
 			 throw new RuntimeException("Missing parameter.");
 		 if (ln.size() < 1)
@@ -30,6 +30,6 @@ public class SETH extends Command {
 		 sharedHandle.setHeading(newHeading);
 		 
 		 //return the delta
-		 return new Constant("Heading").setValue(prevHeading-newHeading);
+		 return new Constant().setValue(prevHeading-newHeading);
 	}
 }

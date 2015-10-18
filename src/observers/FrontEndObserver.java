@@ -2,6 +2,7 @@ package observers;
 
 import java.util.Observable;
 import java.util.Observer;
+
 import GUI.turtlepane.TurtleCanvas;
 import GUI.turtlepane.TurtleGroup;
 import datatransferobjects.TurtleTransferObject;
@@ -15,7 +16,7 @@ public class FrontEndObserver implements Observer{
         this.myTurtleGroup = turtlePaneGroup;
         this.myTurtleCanvas = turtlePaneCanvas;
     }
-
+    
     @Override
     public void update (Observable o, Object arg) {
         TurtleTransferObject turtleDTO = (TurtleTransferObject) arg;

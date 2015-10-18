@@ -12,7 +12,7 @@ public class VariableListBox extends AViewBox {
 
     @Override
     void setSize () {
-        listView.setPrefSize(400, 200);
+        listView.setPrefSize(400,200);        
     }
 
     @Override

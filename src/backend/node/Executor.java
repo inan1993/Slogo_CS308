@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import backend.node.Command;
 import backend.node.Node;
 import backend.node.SingleValuedObject;
+import backend.node.commands.FW;
 import responses.*;
 import responses.Error;
 import sharedobjects.*;
@@ -15,10 +16,10 @@ import exceptions.*;
  *
  */
 public class Executor {
-	WorkSpaceController sharedHandle;
+	ManipulateController sharedHandle;
 
-	public Executor() {
-		sharedHandle = new WorkSpaceController();
+	public Executor(ManipulateController manipulateController) {
+		sharedHandle = manipulateController;
 	}
 
 	/**
@@ -43,7 +44,12 @@ public class Executor {
 			// Now, run this with our received parameters
 			if (root instanceof Command) {
 				return ((Command) root).run(sharedHandle, returnedNodes);
-			} else { 
+			} else if (root instanceof Operation) {
+				return ((Operation) root).run(returnedNodes);
+			} else if (root instanceof ControlStructure) {
+				//Controls
+				return null;
+			}else { 
 				//We've got a SVO here, that wasn't a leaf...
 				throw new RuntimeException("Invalid number of children for this node!");
 			}
@@ -51,7 +57,7 @@ public class Executor {
 			// leaf - make sure it's a SVO not a command
 			if (root.getClass().getSuperclass().equals(SingleValuedObject.class))
 				return root;
-			else 
+			else
 				//We've got a command here, that was a leaf...
 				throw new RuntimeException("Invalid number of children for this node!");
 		}
