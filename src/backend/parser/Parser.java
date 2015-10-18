@@ -1,36 +1,28 @@
 package backend.parser;
 
-import responses.Response;
-import responses.Success;
-import sharedobjects.ManipulateController;
-import sharedobjects.Workspace;
-import responses.Error;
-import backend.*;
-import backend.node.Constant;
-import backend.node.Executor;
-import backend.factory.CommandFactory;
-import backend.node.Node;
-import backend.node.Variable;
-import resources.languages.*;
-
-import java.util.List;
-import java.util.Map;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.StringReader;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 import java.util.regex.Pattern;
-
+import backend.factory.CommandFactory;
+import backend.node.Executor;
+import backend.node.Node;
+import datatransferobjects.UserInputTransferObject;
+import responses.Error;
+import responses.Response;
 import sharedobjects.ManipulateController;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.StringReader;
-import java.util.AbstractMap.SimpleEntry;
+import sharedobjects.Workspace;
 
 
 /**
@@ -521,9 +513,9 @@ public class Parser implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		String args = (String) arg;
-		String input = args.split(",")[0];
-		String lang = args.split(",")[1];
+		UserInputTransferObject userInput = (UserInputTransferObject) arg;
+		String input = userInput.getUserInput();
+		String lang = userInput.getLanguage();
 		parse(input, lang);
 	}
 }

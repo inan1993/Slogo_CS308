@@ -5,21 +5,21 @@ import java.util.Observer;
 
 import GUI.viewbox.FunctionListBox;
 import GUI.viewbox.VariableListBox;
-import datatransferobjects.UserInputsTransferObject;
+import datatransferobjects.ParsedCommandsTransferObject;
 
-public class UserInputObserver implements Observer{
+public class ParsedCommandsObserver implements Observer{
 
 	private FunctionListBox myFunctionList;
     private VariableListBox myVariableList;
 
-	public UserInputObserver (FunctionListBox functionList, VariableListBox variableList) {
+	public ParsedCommandsObserver (FunctionListBox functionList, VariableListBox variableList) {
 		this.myFunctionList = functionList;
 		this.myVariableList = variableList;
 	}
 
 	@Override
 	public void update (Observable o, Object arg) {
-		UserInputsTransferObject functionVariableDTO = (UserInputsTransferObject) arg;
+		ParsedCommandsTransferObject functionVariableDTO = (ParsedCommandsTransferObject) arg;
 
 
 		if(functionVariableDTO.isFunction()){

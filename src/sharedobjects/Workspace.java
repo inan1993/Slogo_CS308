@@ -5,14 +5,14 @@ import java.util.List;
 import java.util.Observable;
 import backend.node.Node;
 import datatransferobjects.TurtleTransferObject;
-import datatransferobjects.UserInputsTransferObject;
+import datatransferobjects.ParsedCommandsTransferObject;
 
 public class Workspace {
 
 	List<Turtle> turtleList;
 	List<Pen> penList;
 	Turtle currTurtle;
-	UserInputs userInputsObservable = new UserInputs();
+	ParsedCommands userInputsObservable = new ParsedCommands();
 	
 	public Workspace() {
 		turtleList = new LinkedList<Turtle>();
@@ -63,7 +63,7 @@ public class Workspace {
 	//****Commands and Variables Manipulation*****//
 	public void addVariable(String v, Node n){
 		userInputsObservable.addVariable(v, n);
-		UserInputsTransferObject uito = new UserInputsTransferObject(false, v + " = " + n.getDoubleValue());
+		ParsedCommandsTransferObject uito = new ParsedCommandsTransferObject(false, v + " = " + n.getDoubleValue());
 		userInputsObservable.notifyObservers(uito);
 	}
 	
@@ -73,7 +73,7 @@ public class Workspace {
 	
 	public void addCommand(String userInput, String c, Node n){
 		userInputsObservable.addCommand(c, n);
-		UserInputsTransferObject uito = new UserInputsTransferObject(true, userInput);
+		ParsedCommandsTransferObject uito = new ParsedCommandsTransferObject(true, userInput);
 		userInputsObservable.notifyObservers(uito);
 	}
 	
