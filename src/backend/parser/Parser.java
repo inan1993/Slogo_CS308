@@ -1,28 +1,36 @@
 package backend.parser;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.StringReader;
-import java.util.AbstractMap.SimpleEntry;
+import responses.Response;
+import responses.Success;
+import sharedobjects.ManipulateController;
+import sharedobjects.Workspace;
+import responses.Error;
+import backend.*;
+import backend.node.Constant;
+import backend.node.Executor;
+import backend.factory.CommandFactory;
+import backend.node.Node;
+import backend.node.Variable;
+import resources.languages.*;
+
+import java.util.List;
+import java.util.Map;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 import java.util.regex.Pattern;
-import backend.factory.CommandFactory;
-import backend.node.Executor;
-import backend.node.Node;
-import datatransferobjects.UserInputTransferObject;
-import responses.Error;
-import responses.Response;
+
 import sharedobjects.ManipulateController;
-import sharedobjects.Workspace;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.StringReader;
+import java.util.AbstractMap.SimpleEntry;
 
 
 /**
@@ -275,7 +283,6 @@ public class Parser implements Observer {
 				throw new SyntaxException("Uncompleted argument list in" + root.getName());
 			Node c = growTree();
 			root.addChild(c);
-			i++;
 		}
 	}
 	
@@ -507,15 +514,16 @@ public class Parser implements Observer {
 		ManipulateController mani = new ManipulateController(new Workspace());
 		Executor exec = new Executor(mani);
         Parser parser = new Parser(exec, mani);
-        parser.parse("IF EQUALP 20 20 [ fd 50 ]", "English");
+        parser.parse("make :r 4", "English");
         System.out.println("11");
     }
 
 	@Override
 	public void update(Observable o, Object arg) {
-		UserInputTransferObject userInput = (UserInputTransferObject) arg;
-		String input = userInput.getUserInput();
-		String lang = userInput.getLanguage();
+		String args = (String) arg;
+		String input = args.split(",")[0];
+		String lang = args.split(",")[1];
 		parse(input, lang);
 	}
 }
+
