@@ -32,10 +32,10 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import observers.FrontEndObserver;
+import observers.UserInputObserver;
 
 public class SlogoView {
 
@@ -51,7 +51,9 @@ public class SlogoView {
 
     private CommandPromptDisplayBox commandBox; 
     private MessageDisplayBox messageBox;
-    private AViewBox variableDisplayBox, historyDisplayBox, functionDisplayBox;
+    private VariableListBox variableDisplayBox;
+    private CommandHistoryBox historyDisplayBox;
+    private FunctionListBox functionDisplayBox;
     
     private Image myTurtleImage;
     private List<Double> myTurtleIDs;
@@ -78,8 +80,8 @@ public class SlogoView {
         root.setCenter(centerBox());
         root.setBottom(bottomBox());
         root.setRight(rightBox());    
-        
-        myObservers.get(0).update(null, (Object)createDTO());
+
+    //    myObservers.get(0).update(null, (Object)createDTO());
         //myObservers.get(0).update(null, (Object)createDTO2());
         scene = new Scene(root, DEFAULT_SIZE.width, DEFAULT_SIZE.height);
     }
@@ -118,8 +120,7 @@ public class SlogoView {
         if (selectedFile != null) {
             fileName = selectedFile.getName();
             myTurtleGroup.setImage(new Image(getClass().getClassLoader().getResourceAsStream(fileName)));
-            System.out.println(fileName);
-            myObservers.get(0).update(null, (Object)createDTO2());
+//            myObservers.get(0).update(null, (Object)createDTO2());
         }
         else {
             if (selectedFile == null) {
@@ -209,7 +210,7 @@ public class SlogoView {
         variableDisplayBox = new VariableListBox(commandBox);
         historyDisplayBox = new CommandHistoryBox(commandBox);
         functionDisplayBox = new FunctionListBox(commandBox);
-
+        myObservers.add(new UserInputObserver(functionDisplayBox, variableDisplayBox));
         result.getChildren().addAll(variableDisplayBox,historyDisplayBox,functionDisplayBox);
         return result;
     }
@@ -223,13 +224,13 @@ public class SlogoView {
     }
     
     
-    public TurtleTransferObject createDTO(){
-        TurtleTransferObject turtle = new TurtleTransferObject(false, 1, true, true, new int[]{10,50}, new int[]{200,200});
-        return turtle;
-    }
-    public TurtleTransferObject createDTO2(){
-        TurtleTransferObject turtle = new TurtleTransferObject(false, 1, true, true, new int[]{50,55}, new int[]{20,20});
-        return turtle;
-    }
+//    public TurtleTransferObject createDTO(){
+//        TurtleTransferObject turtle = new TurtleTransferObject(false, 1, true, true, new int[]{10,50}, new int[]{200,200});
+//        return turtle;
+//    }
+//    public TurtleTransferObject createDTO2(){
+//        TurtleTransferObject turtle = new TurtleTransferObject(false, 1, true, true, new int[]{50,55}, new int[]{20,20});
+//        return turtle;
+//    }
     
 }

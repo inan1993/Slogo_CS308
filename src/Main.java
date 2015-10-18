@@ -13,7 +13,7 @@ import backend.parser.Parser;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import observers.FrontEndObserver;
+import observers.UserInputObserver;
 import sharedobjects.HandleObservers;
 import sharedobjects.ManipulateController;
 import sharedobjects.Workspace;
@@ -37,12 +37,15 @@ public class Main extends Application{
     	/*1*/Workspace currWorkspace = new Workspace(); //TODO: workspace must create an observables list
     	/*2*/ManipulateController manipulateController = new ManipulateController(currWorkspace);
     	
-    	/*3*/Executor executor = new Executor(manipulateController);
-    	/*4*/Parser parser = new Parser(executor, manipulateController);
+    	///*3*/Executor executor = new Executor(manipulateController);
+    	///*4*/Parser parser = new Parser(executor, manipulateController);
     	
     	/*5*/ frontEnd = new SlogoView(); //TODO: frontEnd must create an observers list
       
     	/*6*/ HandleObservers.handleObservers(currWorkspace.getObservables(), frontEnd.getObservers());
+    	
+    	currWorkspace.startWorkspace();
         launch(args);
+        manipulateController.foward(10);
     }
 }

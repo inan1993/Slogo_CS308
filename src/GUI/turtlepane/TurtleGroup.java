@@ -29,7 +29,6 @@ public class TurtleGroup extends Group{
 
 	public void updateTurtles(TurtleTransferObject turtleDTO){
 		if(myTurtleIDs.contains(turtleDTO.getID())){
-			System.out.println("match");
 			this.getChildren().remove(myTurtleIDs.indexOf(turtleDTO.getID()));
 			myTurtleIDs.remove(turtleDTO.getID());
 		}

@@ -54,7 +54,7 @@ public interface IWorkSpaceController {
 	Response clearScreen();
 	
 	//add userDefinedCommand to Map
-	Response setCommand(String s, Node n);
+	Response setCommand(String userInput, String s, Node n);
 	
 	//get userDefinedCommand from Map
 	Node getCommand(String commandName);
