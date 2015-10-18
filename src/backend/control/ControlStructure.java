@@ -1,7 +1,7 @@
 /**
  * 
  */
-package backend.node.control;
+package backend.control;
 
 import backend.node.Node;
 
@@ -12,6 +12,5 @@ import backend.node.Node;
 public abstract class ControlStructure extends Node{
 	protected ControlStructure() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 }

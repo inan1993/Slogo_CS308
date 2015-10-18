@@ -129,5 +129,6 @@ public class ExecutorTester extends TestCase {
 	public void testSoftparse() {
 		Response s = p.parse("fd 50", "English");
 		System.out.println(s.toString());
+		assertEquals(Double.parseDouble(s.toString()), 50.0);
 	}
 }
