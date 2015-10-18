@@ -1,6 +1,8 @@
-package GUI.TextBox;
+package GUI.textBox;
 
-public class CommandPromptDisplayBox extends ATextDisplayBox {
+import javafx.scene.control.TextArea;
+
+public class CommandPromptDisplayBox extends TextArea {
 
     public CommandPromptDisplayBox () {
         super();

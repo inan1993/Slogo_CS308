@@ -3,7 +3,6 @@
  */
 package JUnit;
 
-import backend.node.Executor;
 import backend.parser.Parser;
 import junit.framework.TestCase;
 import responses.Response;
