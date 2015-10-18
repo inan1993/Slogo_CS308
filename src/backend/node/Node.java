@@ -9,26 +9,26 @@ import responses.Response;
  * @author loganrooper
  *
  */
-public abstract class Node {
+public abstract class Node implements Cloneable {
 	private String myName;
 	private List<Node> myChildren;
 	private int myNumOfChildren;
 	private double myValue;
-	
-	public Node(){
-		myChildren=new ArrayList<Node>();
+
+	public Node() {
+		myChildren = new ArrayList<Node>();
 	}
-	
+
 	public Node addChild(Node node) {
 		myChildren.add(node);
 		myNumOfChildren = myChildren.size();
 		return node;
 	}
-	
+
 	public Node addChildren(Node... nodes) {
-		for (Node n : nodes) 
+		for (Node n : nodes)
 			myChildren.add(n);
-		
+
 		myNumOfChildren = myChildren.size();
 		return nodes[0];
 	}
@@ -37,18 +37,18 @@ public abstract class Node {
 		return myNumOfChildren;
 	}
 
-	public void setChildrenNum(int n){
-		myNumOfChildren=n;
+	public void setChildrenNum(int n) {
+		myNumOfChildren = n;
 	}
-	
-	public void setName(String name){
-		myName=name;
+
+	public void setName(String name) {
+		myName = name;
 	}
 
 	public Boolean hasChildren() {
 		return (getChildrenNum() > 0);
 	}
-	
+
 	public List<Node> getChildren() {
 		return myChildren;
 	}
@@ -66,7 +66,7 @@ public abstract class Node {
 	public double getDoubleValue() {
 		return myValue;
 	}
-	
+
 	/**
 	 * @return
 	 */
@@ -75,12 +75,18 @@ public abstract class Node {
 	}
 
 	/**
-	 * @param myValue the myValue to set
-	 * @return 
+	 * @param myValue
+	 *            the myValue to set
+	 * @return
 	 */
 	public Node setValue(double myValue) {
 		this.myValue = myValue;
 		return this;
+	}
+
+	@Override
+	public Node clone() throws CloneNotSupportedException {
+		return (Node) super.clone();
 	}
 
 }

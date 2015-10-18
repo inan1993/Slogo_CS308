@@ -19,8 +19,7 @@ public class Error extends Response {
 	 */
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.message;
 	}
 
 }
