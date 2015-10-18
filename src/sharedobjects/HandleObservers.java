@@ -17,7 +17,7 @@ public class HandleObservers {
     
 	public HandleObservers() {}
 	
-	public void handleObservers(List<Observable> observablesOList, List<Observer> observersOList){
+	public static void handleObservers(List<Observable> observablesOList, List<Observer> observersOList){
     	for(Observable observableO: observablesOList){
     		String observableName = observableO.getClass().getName();
     		List<String> observersSList = observableMap.get(observableName);
@@ -32,7 +32,7 @@ public class HandleObservers {
     	}
     }
 	
-	private void linkObserverableObserver(Observable observableO, Observer observerO) {
+	private static void linkObserverableObserver(Observable observableO, Observer observerO) {
 		//Perform Observer/Observable Linking
 		observableO.addObserver(observerO);
 		

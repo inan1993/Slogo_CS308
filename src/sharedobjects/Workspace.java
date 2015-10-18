@@ -1,33 +1,29 @@
 package sharedobjects;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Observable;
 
+import backend.node.Node;
 import datatransferobjects.TurtleTransferObject;
-import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Shape;
 
 public class Workspace {
 
 	List<Turtle> turtleList;
 	List<Pen> penList;
-	List<Object> variableList;
+	Map<String, Node> commandMap;
+	Map<String, Node> variableMap;
 	Turtle currTurtle;
 	
 	public Workspace() {
 		turtleList = new LinkedList<Turtle>();
 		penList = new LinkedList<Pen>();
-		variableList = new LinkedList<Object>();
-	}
-	
-	
-	//****Turtle Manipulation********
-	public void addTurtle(Turtle T){
-		//set up different kinds of inputs to feed into Turtle constructor 
-		//if only sending position... or position + color... position + angle+color 
-		//...etc
+		currTurtle = new Turtle();
+		turtleList.add(currTurtle);
+		commandMap = new HashMap<String, Node>();
+		variableMap = new HashMap<String, Node>();
 	}
 	
 	public void setHeading(double angle){
@@ -42,7 +38,6 @@ public class Workspace {
 		TurtleTransferObject dto = new TurtleTransferObject(false, currTurtle.getID(), false, currTurtle.isPenDown(), currTurtle.getPosition(), pos);
 		currTurtle.setPosition(pos);
 		currTurtle.notifyObservers(dto);
-		
 	}
 	
 	public int[] getPosition(){
@@ -68,6 +63,31 @@ public class Workspace {
 	
 	public void penDown(){
 		currTurtle.penDown();
+	}
+	
+	//****Commands and Variables Manipulation*****//
+	public void addVariable(String v, Node n){
+		variableMap.put(v, n);
+	}
+	
+	public Node getVariable(String v){
+		return variableMap.get(v);
+	}
+	
+	public void addCommand(String c, Node n){
+		commandMap.put(c, n);
+	}
+	
+	public Node getCommand(String c){
+		return commandMap.get(c);
+	}
+	
+	public List<Observable> getObservables(){
+		List<Observable> observables = new LinkedList<Observable>();
+		for(Turtle t: turtleList){
+			observables.add((Observable) t);
+		}
+		return observables;
 	}
 	
 }
