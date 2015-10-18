@@ -24,6 +24,14 @@ public abstract class Node {
 		myNumOfChildren = myChildren.size();
 		return node;
 	}
+	
+	public Node addChildren(Node... nodes) {
+		for (Node n : nodes) 
+			myChildren.add(n);
+		
+		myNumOfChildren = myChildren.size();
+		return nodes[0];
+	}
 
 	public int getChildrenNum() {
 		return myNumOfChildren;
