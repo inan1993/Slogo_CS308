@@ -136,8 +136,8 @@ public class ManipulateController implements IWorkSpaceController{
 	}
 
 	@Override
-	public Response setCommand(String stringName, Node n) {
-		currWorkspace.addCommand(stringName, n);
+	public Response setCommand(String userInput, String stringName, Node n) {
+		currWorkspace.addCommand(userInput, stringName, n);
 		return null;
 	}
 

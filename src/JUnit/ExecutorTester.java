@@ -26,7 +26,7 @@ public class ExecutorTester extends TestCase {
 		ws = new Workspace();
 		mc = new ManipulateController(ws);
 		f = new Executor(mc);
-		//p = new Parser(f, mc);
+		p = new Parser(f, mc);
 	}
 
 	// "fw fw 10"
@@ -85,24 +85,18 @@ public class ExecutorTester extends TestCase {
 		Node root = new SUM();
 		Node child0 = new Constant().setValue(5);
 		root.addChild(child0);
-		
+
 		Node subroot = new SUM();
 		Node child = new Constant().setValue(5);
 		Node child2 = new Constant().setValue(5);
 		// add both
 		subroot.addChildren(child, child2);
 		root.addChild(subroot);
-		
+
 		Response a = f.execute(root);
 		assertEquals(Double.parseDouble(a.toString()), 15.0);
 	}
 
-	// "fw 50"
-	public void testSoftparse() {
-		Response s = p.parse("fw 50", "English");
-		System.out.println(s.toString());
-	}
-	
 	// sum sin pi sum cos pi tan pi
 	public void testsincostanpi() {
 		Node sin = new SIN();
@@ -112,22 +106,29 @@ public class ExecutorTester extends TestCase {
 		sin.addChild(pi);
 		cos.addChild(pi);
 		tan.addChild(pi);
-		
+
 		Node sum1 = new SUM();
 		sum1.addChildren(cos, tan);
 		Node sum2 = new SUM();
 		sum2.addChildren(sin, sum1);
-		
+
 		Response a = f.execute(sum2);
 		assertEquals(Double.parseDouble(a.toString()), 63.494436);
 	}
-	
+
 	// tan pi
-		public void testTan() {
-			Node tan = new TAN();
-			Node p = new Constant().setValue(360.0);		
-			tan.addChild(p);
-			Response a = f.execute(tan);
-			assertEquals(Double.parseDouble(a.toString()) + 0.0, 0.0);
-		}
+	public void testTan() {
+		Node tan = new TAN();
+		Node p = new Constant().setValue(360.0);
+		tan.addChild(p);
+		Response a = f.execute(tan);
+		assertEquals(Double.parseDouble(a.toString()) + 0.0, 0.0);
+	}
+
+	// "fw 50"
+	public void testSoftparse() {
+		Response s = p.parse("fd 50", "English");
+		System.out.println(s.toString());
+		assertEquals(Double.parseDouble(s.toString()), 50.0);
+	}
 }
