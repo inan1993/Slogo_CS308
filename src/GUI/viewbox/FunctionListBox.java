@@ -1,4 +1,4 @@
-package GUI.viewbox;
+package GUI.viewBox;
 
 import GUI.textBox.CommandPromptDisplayBox;
 
