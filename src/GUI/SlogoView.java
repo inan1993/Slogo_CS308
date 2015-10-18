@@ -15,6 +15,7 @@ import GUI.dropdown.LanguageListDropdown;
 import GUI.dropdown.PenColorDropdown;
 import GUI.textBox.CommandPromptDisplayBox;
 import GUI.textBox.MessageDisplayBox;
+import GUI.turtlepane.BackgroundRectangle;
 import GUI.turtlepane.TurtleCanvas;
 import GUI.turtlepane.TurtleGroup;
 import GUI.viewbox.AViewBox;
@@ -38,10 +39,11 @@ import observers.FrontEndObserver;
 
 public class SlogoView {
 
-    //TODO Put default size in properties file.
     private static final Dimension DEFAULT_SIZE = new Dimension(1200, 700);
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/";
-    private static final String DEFAULT_TURTLE_IMAGE = "turtle1.png";
+    private static final String DEFAULT_RESOURCE_VIEW = "GUI.view";
+    protected static ResourceBundle myResource;
+
     private static final String DEFAULT_LANGUAGE = "English";
 
     private Scene scene;
@@ -50,34 +52,35 @@ public class SlogoView {
     private CommandPromptDisplayBox commandBox; 
     private MessageDisplayBox messageBox;
     private AViewBox variableDisplayBox, historyDisplayBox, functionDisplayBox;
+    
     private Image myTurtleImage;
     private List<Double> myTurtleIDs;
     private TurtleCanvas myTurtleCanvas;
     private TurtleGroup myTurtleGroup;
+    private BackgroundRectangle myBackgroundRectangle;
     
     private List<Observer> myObservers;
 
     public SlogoView(){
 
         ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_LANGUAGE);
+        myResource = ResourceBundle.getBundle(DEFAULT_RESOURCE_VIEW);
 
-//TODO Put default image in properties file.
-        myTurtleImage = new Image(getClass().getClassLoader().getResourceAsStream(DEFAULT_TURTLE_IMAGE));
+        myTurtleImage = new Image(getClass().getClassLoader().getResourceAsStream(myResource.getString("defaultTurtle")));
         myTurtleIDs = new ArrayList<Double>();
         myObservers = new ArrayList<Observer>();
 
         BorderPane root = new BorderPane();
 
-//TODO Put default image in properties file.
         root.setMaxSize(DEFAULT_SIZE.getWidth(),DEFAULT_SIZE.getHeight());
 
         root.setTop(menu());
         root.setCenter(centerBox());
         root.setBottom(bottomBox());
-        root.setRight(rightBox());
-        
+        root.setRight(rightBox());    
         
         myObservers.get(0).update(null, (Object)createDTO());
+        myObservers.get(0).update(null, (Object)createDTO2());
         scene = new Scene(root, DEFAULT_SIZE.width, DEFAULT_SIZE.height);
     }
 
@@ -110,8 +113,6 @@ public class SlogoView {
     public void ButtonClicked() {
         FileChooser fileChooser = new FileChooser();
         File selectedFile = fileChooser.showOpenDialog(null);
-        //Alert alert = new Alert(AlertType.INFORMATION);
-        //alert.setTitle("Information");
         String fileName;
 
         if (selectedFile != null) {
@@ -143,7 +144,7 @@ public class SlogoView {
         ComboBox<String> bgColor = new BackgroundColorDropdown("Background Color");
         bgColor.setOnAction(event->{
             String color = bgColor.getValue();
-            myTurtleCanvas.setBackgroundColor(color);
+            myBackgroundRectangle.setBackgroundColor(color);
             messageBox.setMessage("Background Color Set to "+color);
         });
         return bgColor;  
@@ -163,12 +164,12 @@ public class SlogoView {
     private Node centerBox() {
         StackPane mainBox = new StackPane();//AnchorPane mainBox = new AnchorPane();
 
-// TODO add to properties
-        myTurtleCanvas = new TurtleCanvas(800, 580);
+        myBackgroundRectangle = new BackgroundRectangle(Integer.parseInt(myResource.getString("canvasWidth")), Integer.parseInt(myResource.getString("canvasHeight")));
+        myTurtleCanvas = new TurtleCanvas(Integer.parseInt(myResource.getString("canvasWidth")), Integer.parseInt(myResource.getString("canvasHeight")));
         myTurtleGroup = new TurtleGroup(myTurtleImage, myTurtleIDs);
         myObservers.add(new FrontEndObserver(myTurtleGroup, myTurtleCanvas));
         
-        mainBox.getChildren().addAll(myTurtleCanvas, myTurtleGroup);
+        mainBox.getChildren().addAll(myBackgroundRectangle, myTurtleCanvas, myTurtleGroup);
         return mainBox;
     }
 
@@ -223,6 +224,10 @@ public class SlogoView {
     
     public TurtleTransferObject createDTO(){
         TurtleTransferObject turtle = new TurtleTransferObject(false, 1, true, true, new int[]{0,0}, new int[]{20,20});
+        return turtle;
+    }
+    public TurtleTransferObject createDTO2(){
+        TurtleTransferObject turtle = new TurtleTransferObject(true, 1, true, true, new int[]{0,0}, new int[]{20,20});
         return turtle;
     }
     
