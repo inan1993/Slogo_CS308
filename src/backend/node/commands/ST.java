@@ -9,7 +9,6 @@ import backend.node.Command;
 import backend.node.Constant;
 import backend.node.Node;
 import sharedobjects.ManipulateController;
-
 /**
  * @author loganrooper
  *
