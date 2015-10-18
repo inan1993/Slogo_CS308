@@ -21,11 +21,11 @@ public class DOTIMES extends ControlStructure {
 	protected Node run(List<Node> nl, Executor exec) {
 		Double numExecutions = Double.parseDouble(exec.execute(nl.get(0)).toString());
 
-		// first node: [ var upperbound]
-		Node var = nl.get(0).getChildren().get(0);
-		Double upperBound = nl.get(0).getChildren().get(1).getDoubleValue();
+		// first node: [ var upperbound ]
+		Node var = nl.get(0);
+		Double upperBound = nl.get(1).getDoubleValue();
 		
-		Node listCommands = nl.get(1);
+		Node listCommands = nl.get(2);
 		Response s = null;
 		// loop n times updating their counter variable
 		for (int i = 1; i < upperBound; i++) {

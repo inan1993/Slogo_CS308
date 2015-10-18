@@ -2,6 +2,7 @@ package backend.node.control;
 
 import java.util.List;
 
+import backend.node.Constant;
 import backend.node.ControlStructure;
 import backend.node.Executor;
 import backend.node.Node;
@@ -14,7 +15,9 @@ public class MAKEVAR extends ControlStructure {
 
 	@Override
 	protected Node run(List<Node> nl, Executor executor) {
-		// TODO Auto-generated method stub
-		return null;
+		Node var = nl.get(0);
+		Node result = new Constant().setValue(Double.parseDouble(executor.execute(nl.get(0)).toString()));
+		executor.getManipulateController().setVariable(var.getName(), result);
+		return result;
 	}
 }
