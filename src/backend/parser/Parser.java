@@ -260,7 +260,8 @@ public class Parser implements Observer {
 			parseMakeCmd(root);
 			break;
 		default:
-			Node toCmd = myManiControl.getCommand(mySyntaxList.get(myIndex).getValue());
+//			Node toCmd = myManiControl.getCommand(mySyntaxList.get(myIndex).getValue());
+			Node toCmd =null;//////////////
 			if(toCmd==null)
 				throw new SyntaxException("Undefied command!");
 			int numOfArg=toCmd.getChildrenNum()-1;
