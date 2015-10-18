@@ -63,6 +63,6 @@ public interface IWorkSpaceController {
 	Response setVariable(String variableName, Node var);
 	
 	//get previously set Variables from Map
-	String getVariable(String variableName);
+	Node getVariable(String variableName);
 	
 }

@@ -8,9 +8,12 @@ import java.util.Observable;
 import java.util.Observer;
 
 import GUI.SlogoView;
+import backend.node.Executor;
+import backend.parser.Parser;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import observers.FrontEndObserver;
 import sharedobjects.HandleObservers;
 import sharedobjects.ManipulateController;
 import sharedobjects.Workspace;
@@ -52,13 +55,12 @@ public class Main extends Application{
     	/*1*/Workspace currWorkspace = new Workspace(); //TODO: workspace must create an observables list
     	/*2*/ManipulateController manipulateController = new ManipulateController(currWorkspace);
     	
-    	/*3*/ //Executor executor = new Executor(manipulateController);
-    	/*4*/ //Parser parser = new Parser(executor);
+    	/*3*/Executor executor = new Executor(manipulateController);
+    	/*4*/Parser parser = new Parser(executor, manipulateController);
     	
     	/*5*/ frontEnd = new SlogoView(); //TODO: frontEnd must create an observers list
-        
-    	HandleObservers handleObservers = new HandleObservers();   
-    	/*6*/ //HandleObservers.handleObservers(currWorspace.getObservables(), frontEnd.getObservers());
+      
+    	/*6*/ HandleObservers.handleObservers(currWorkspace.getObservables(), frontEnd.getObservers());
         launch(args);
     }
 }
