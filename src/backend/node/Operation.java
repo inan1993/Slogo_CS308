@@ -11,7 +11,7 @@ import java.util.List;
  */
 public abstract class Operation extends Node{
 	public Operation(String name, int num) {
-		super(name, num);
+		super();
 	}
 	
 	public abstract Node run(List<Node> list);
