@@ -2,8 +2,8 @@ package backend.node.control;
 
 import backend.node.ControlStructure;
 
-public class If extends ControlStructure {
-	public If(){
+public class IF extends ControlStructure {
+	public IF(){
 		super();
 		super.setChildrenNum(2);
 	}

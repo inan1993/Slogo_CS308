@@ -8,8 +8,8 @@ import backend.node.Executor;
 import backend.node.Node;
 import responses.Response;
 
-public class Repeat extends ControlStructure {
-	public Repeat() {
+public class REPEAT extends ControlStructure {
+	public REPEAT() {
 		super();
 		super.setChildrenNum(2);
 	}

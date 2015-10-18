@@ -8,8 +8,9 @@ import backend.node.Executor;
 import backend.node.Node;
 import responses.Response;
 
-public class ListStart extends ControlStructure {
-	public ListStart() {
+
+public class LISTSTART extends ControlStructure {
+	public LISTSTART(){
 		super();
 		super.setChildrenNum(0);
 	}

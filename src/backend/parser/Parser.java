@@ -1,6 +1,7 @@
 package backend.parser;
 
 import responses.Response;
+import responses.Success;
 import sharedobjects.ManipulateController;
 import sharedobjects.Workspace;
 import responses.Error;
@@ -264,7 +265,7 @@ public class Parser implements Observer {
 			break;
 		default:
 			//root is USERCOMMAND
-			Node toCmd = myManiControl.getCommand(mySyntaxList.get(myIndex).getValue());
+			Node toCmd = myManiControl.getCommand(mySyntaxList.get(myIndex).getValue());///////////maybe getFunction?
 			if(toCmd==null)
 				throw new SyntaxException("Undefied command!");
 			int numOfArg=toCmd.getChildrenNum()-1;
@@ -288,15 +289,18 @@ public class Parser implements Observer {
 	
 	private void parseMakeVar(Node root) throws SyntaxException{
 		//make variable should be followed by variable and another expression
-		if(myIndex>=mySyntaxList.size()){
+		try{
+			if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.VARIABLE){
+				throw new SyntaxException("Incompatible argument list in " + root.getName());
+			}
+			else{
+				for(int i=0;i<2;i++){
+					Node c = growTree();
+					root.addChild(c);
+				}
+			}
+		}catch(ArrayIndexOutOfBoundsException e){
 			throw new SyntaxException("Uncompleted argument list in " + root.getName());
-		}
-		else if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.VARIABLE){
-			throw new SyntaxException("Incompatible argument list in " + root.getName());
-		}
-		else{
-			Node c = growTree();
-			root.addChild(c);
 		}
 	}
 	
@@ -306,17 +310,18 @@ public class Parser implements Observer {
 		Node c = growTree();
 		root.addChild(c);
 		//-----------------
-		if(myIndex>=mySyntaxList.size()){
+		try{
+			if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.LISTSTART){
+				throw new SyntaxException("Incompatible argument list in " + root.getName());
+			}
+			else{
+				//clist must be a LISTSTART syntax type
+				myListLegal=true;
+				Node clist = growTree();
+				root.addChild(clist);
+			}
+		}catch(ArrayIndexOutOfBoundsException e){
 			throw new SyntaxException("Uncompleted argument list in " + root.getName());
-		}
-		else if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.LISTSTART){
-			throw new SyntaxException("Incompatible argument list in " + root.getName());
-		}
-		else{
-			//clist must be a LISTSTART syntax type
-			myListLegal=true;
-			Node clist = growTree();
-			root.addChild(clist);
 		}
 	}
 	
@@ -432,6 +437,7 @@ public class Parser implements Observer {
 	}
 	
 	private void parseMakeCmd(Node root) throws SyntaxException{
+		int beginIndex=myIndex;
 		root.setName(mySyntaxList.get(myIndex).getValue());
 		myIndex++;
 		try{
@@ -460,6 +466,13 @@ public class Parser implements Observer {
 		}catch(ArrayIndexOutOfBoundsException e){
 			throw new SyntaxException("Uncompleted argument list in " + root.getName());
 		}
+		int endIndex = myIndex;
+		String display = null;
+		for(int i=beginIndex;i<endIndex;i++){
+			display.concat(mySyntaxList.get(i).getValue());
+			display=display+" ";
+		}
+//		myManiControl.setFunction(display, root.getName(), root);
 	}
 	
 	//The following two methods are only used when we first create a parser. They will generate myTokenPatterns, mySyntaxPatterns
@@ -469,8 +482,6 @@ public class Parser implements Observer {
         Enumeration<String> iter = resources.getKeys();
         while (iter.hasMoreElements()) {
             String key = iter.nextElement();
-//            if(tokenMap.get(key.toUpperCase())==TokenType.COMMENT)
-//            	break;
             String regex = resources.getString(key);
             patterns.add(new SimpleEntry<TokenType, Pattern>(tokenMap.get(key.toUpperCase()),
                     Pattern.compile(regex, Pattern.CASE_INSENSITIVE)));
@@ -503,7 +514,7 @@ public class Parser implements Observer {
 		ManipulateController mani = new ManipulateController(new Workspace());
 		Executor exec = new Executor(mani);
         Parser parser = new Parser(exec, mani);
-        parser.parse("forward 50", "English");
+        parser.parse("forward 30", "English");
         System.out.println("11");
     }
 
