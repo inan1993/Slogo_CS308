@@ -8,6 +8,7 @@ import backend.node.Node;
 import backend.node.Variable;
 import backend.node.commands.*;
 import backend.node.control.*;
+import backend.node.operations.*;
 import backend.parser.SyntaxType;
 
 public class CommandFactory {
@@ -18,18 +19,18 @@ public class CommandFactory {
 ////		# Turtle Commands
 ////		#
 		registerNode(SyntaxType.FORWARD, FW.class);
-//		BACKWARD,
-//		LEFT,
-//		RIGHT,
-//		SETHEADING,
-//		SETTOWARDS,
-//		SETPOSITION,
-//		PENDOWN,
-//		PENUP,
-//		SHOWTURTLE,
-//		HIDETURTLE,
-//		HOME,
-//		CLEARSCREEN,
+		registerNode(SyntaxType.BACKWARD, BK.class);
+		registerNode(SyntaxType.LEFT, BK.class);
+		registerNode(SyntaxType.RIGHT, RT.class);
+		registerNode(SyntaxType.SETHEADING, SETH.class);
+		registerNode(SyntaxType.SETTOWARDS, TOWARDS.class);
+		registerNode(SyntaxType.SETPOSITION, GOTO.class);
+		registerNode(SyntaxType.PENDOWN, PD.class);
+		registerNode(SyntaxType.PENUP, PU.class);
+		registerNode(SyntaxType.SHOWTURTLE, ST.class);
+		registerNode(SyntaxType.HIDETURTLE, HT.class);
+		registerNode(SyntaxType.HOME, HOME.class);
+		registerNode(SyntaxType.CLEARSCREEN, CS.class);
 ////		#
 ////		# Turtle Queries
 ////		#
@@ -41,40 +42,40 @@ public class CommandFactory {
 ////		#
 ////		# Math Operations
 ////		#
-//		SUM,
-//		DIFFERENCE,
-//		PRODUCT,
-//		QUOTIENT,
-//		REMAINDER,
-//		MINUS,
-//		RANDOM,
-//		SINE,
-//		COSINE,
-//		TANGENT,
-//		ARCTANGENT,
-//		NATURALLOG,
-//		POWER,
-//		PI,
+		registerNode(SyntaxType.SUM, SUM.class);
+		registerNode(SyntaxType.DIFFERENCE, DIFFERENCE.class);
+		registerNode(SyntaxType.PRODUCT, PRODUCT.class);
+		registerNode(SyntaxType.QUOTIENT, QUOTIENT.class);
+		registerNode(SyntaxType.REMAINDER, REMAINDER.class);
+		registerNode(SyntaxType.MINUS, MINUS.class);
+		registerNode(SyntaxType.RANDOM, RANDOM.class);
+		registerNode(SyntaxType.SINE, SIN.class);
+		registerNode(SyntaxType.COSINE, COS.class);
+		registerNode(SyntaxType.TANGENT, TAN.class);
+		registerNode(SyntaxType.ARCTANGENT, ATAN.class);
+		registerNode(SyntaxType.NATURALLOG, LOG.class);
+		registerNode(SyntaxType.POWER, POW.class);
+		registerNode(SyntaxType.PI, PI.class);
 ////		#
 ////		# Boolean Operations
 ////		#
-//		LESSTHAN,
-//		GREATERTHAN,
-//		EQUAL,
-//		NOTEQUAL,
-//		AND,
-//		OR,
-//		NOT,
+		registerNode(SyntaxType.LESSTHAN, LESSP.class);
+		registerNode(SyntaxType.GREATERTHAN, GREATERP.class);
+		registerNode(SyntaxType.EQUAL, EQUALP.class);
+		registerNode(SyntaxType.NOTEQUAL, NOTEQUALP.class);
+		registerNode(SyntaxType.AND, AND.class);
+		registerNode(SyntaxType.OR, OR.class);
+		registerNode(SyntaxType.NOT, NOT.class);
 ////		#
 ////		# Variables, Control, and User-Defined Commands
 ////		#
-//		MAKEVARIABLE,
-		registerNode(SyntaxType.REPEAT, Repeat.class);
-		registerNode(SyntaxType.DOTIMES, DoTimes.class);
-//		FOR,
-//		IF,
-//		IFELSE,
-		registerNode(SyntaxType.MAKEUSERINSTRUCTION, ToCommand.class);
+		registerNode(SyntaxType.MAKEVARIABLE, MAKEVAR.class);
+		registerNode(SyntaxType.REPEAT, REPEAT.class);
+		registerNode(SyntaxType.DOTIMES, DOTIMES.class);
+		registerNode(SyntaxType.FOR, FOR.class);
+		registerNode(SyntaxType.IF, IF.class);
+		registerNode(SyntaxType.IFELSE, IFELSE.class);
+		registerNode(SyntaxType.MAKEUSERINSTRUCTION, TOCOMMAND.class);
 ////		#
 ////		# Display Commands
 ////		#
@@ -100,11 +101,11 @@ public class CommandFactory {
 ////		#
 //		VARIABLE,
 		registerNode(SyntaxType.CONSTANT,Constant.class);
-		registerNode(SyntaxType.LISTSTART, ListStart.class);
+		registerNode(SyntaxType.LISTSTART, LISTSTART.class);
 //		LISTEND,
 //		GROUPSTART,
 //		GROUPEND,
-//		USERCOMMAND;
+		registerNode(SyntaxType.USERCOMMAND, USERCOMMAND.class);
 	}
 	
 	public static void registerNode (SyntaxType type, Class nodeClass)

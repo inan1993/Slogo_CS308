@@ -7,9 +7,10 @@ public class MessageDisplayBox extends TextArea {
     public MessageDisplayBox () {
         super();
         this.setPromptText("Internal Message");
-        this.setStyle("-fx-border-color: red;");
         this.setPrefSize(650, 20);
+        this.setStyle("-fx-text-fill: blue; -fx-font-size: 14; -fx-background-color: red;");
         this.setWrapText(true);
+        
     }
 
     public void setMessage(String message){

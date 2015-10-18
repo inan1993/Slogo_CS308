@@ -1,8 +1,10 @@
 package backend.node.control;
 
-public class DoTimes extends ControlStructure {
+import backend.node.ControlStructure;
 
-	public DoTimes() {
+public class DOTIMES extends ControlStructure {
+
+	public DOTIMES() {
 		super();
 		super.setChildrenNum(3);
 		// TODO Auto-generated constructor stub

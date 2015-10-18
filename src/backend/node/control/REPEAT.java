@@ -1,7 +1,9 @@
 package backend.node.control;
 
-public class Repeat extends ControlStructure {
-	public Repeat() {
+import backend.node.ControlStructure;
+
+public class REPEAT extends ControlStructure {
+	public REPEAT() {
 		super();
 		super.setChildrenNum(2);
 		// TODO Auto-generated constructor stub
