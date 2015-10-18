@@ -152,8 +152,15 @@ public class ExecutorTester extends TestCase {
 
 	public void testVariable() {
 		Response s = p.parse("make :a 50", "English");
-		System.out.println(f.getManipulateController().getVariable("a").toString());
+		ManipulateController n = f.getManipulateController();
+		Node a = n.getVariable(":a");
+		System.out.println(a.getDoubleValue());
 		s = p.parse("forward :a", "English");
+		System.out.println(s.toString());
+	}
+	
+	public void testDoTimesVariable() {
+		Response s = p.parse("dotimes [ :a 5 ] [ fd :a ]", "English");
 		System.out.println(s.toString());
 	}
 

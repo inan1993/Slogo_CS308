@@ -16,7 +16,7 @@ public class MAKEVAR extends ControlStructure {
 	@Override
 	protected Node run(List<Node> nl, Executor executor) {
 		Node var = nl.get(0);
-		Node result = new Constant().setValue(Double.parseDouble(executor.execute(nl.get(0)).toString()));
+		Node result = new Constant().setValue(Double.parseDouble(executor.execute(nl.get(1)).toString()));
 		executor.getManipulateController().setVariable(var.getName(), result);
 		return result;
 	}
