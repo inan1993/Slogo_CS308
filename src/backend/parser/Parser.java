@@ -2,6 +2,7 @@ package backend.parser;
 
 import responses.Response;
 import sharedobjects.ManipulateController;
+import sharedobjects.Workspace;
 import responses.Error;
 import backend.*;
 import backend.node.Constant;
@@ -499,8 +500,8 @@ public class Parser implements Observer {
     }
 	
 	public static void main (String[] args) {
-		Executor exec = new Executor(null);
-		ManipulateController mani = new ManipulateController(null);
+		ManipulateController mani = new ManipulateController(new Workspace());
+		Executor exec = new Executor(mani);
         Parser parser = new Parser(exec, mani);
         parser.parse("repeat 2 [ forward 50 fd 3 ]", "English");
         System.out.println("11");
