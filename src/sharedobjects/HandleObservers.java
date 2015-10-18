@@ -36,6 +36,7 @@ public class HandleObservers {
 	private static void linkObserverableObserver(Observable observableO, Observer observerO) {
 		//Perform Observer/Observable Linking
 		observableO.addObserver(observerO);
+		System.out.println(observerO.getClass().getSimpleName() + " : " + observableO.getClass().getSimpleName());
 		System.out.println("got to link");
 	}
 
