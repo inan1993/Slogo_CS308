@@ -12,18 +12,18 @@ public class HandleObservers {
 
 	//map of Observable (String name) to their Observers (List<String name>)
     private static final Map<String, List<String>> observableMap = new HashMap<String,List<String>>() {{
-        put("Turtle", new LinkedList<String>(Arrays.asList("Observer1","Observer2")));
+        put("Turtle", new LinkedList<String>(Arrays.asList("FrontEndObserver")));
     }};
     
 	public HandleObservers() {}
 	
 	public static void handleObservers(List<Observable> observablesOList, List<Observer> observersOList){
     	for(Observable observableO: observablesOList){
-    		String observableName = observableO.getClass().getName();
+    		String observableName = observableO.getClass().getSimpleName();
     		List<String> observersSList = observableMap.get(observableName);
     		if(observersSList != null){
     			for(Observer observerO: observersOList){
-    				String observerName = observerO.getClass().getName();	
+    				String observerName = observerO.getClass().getSimpleName();	
     				if(observersSList.contains(observerName)){
     					linkObserverableObserver(observableO, observerO);
     				}
@@ -35,7 +35,7 @@ public class HandleObservers {
 	private static void linkObserverableObserver(Observable observableO, Observer observerO) {
 		//Perform Observer/Observable Linking
 		observableO.addObserver(observerO);
-		
+		System.out.println("got to link");
 	}
 
 }
