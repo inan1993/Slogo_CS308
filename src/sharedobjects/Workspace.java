@@ -94,7 +94,7 @@ public class Workspace {
 	}
 	
 	public void startWorkspace(){
-		TurtleTransferObject dto = new TurtleTransferObject(false, currTurtle.getID(), false, true, new int[]{0,0}, new int[]{0,0});
+		TurtleTransferObject dto = new TurtleTransferObject(false, currTurtle.getID(), true, true, new int[]{0,0}, new int[]{0,0});
 		currTurtle.notifyObservers(dto);
 	}
 	
