@@ -15,8 +15,8 @@ import sharedobjects.ManipulateController;
  */
 public abstract class Command extends Node{
 	
-	public Command(String name, int num) {
-		super(name, num);
+	public Command() {
+		super();
 	}
 	
 	/**

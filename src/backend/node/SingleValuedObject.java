@@ -8,7 +8,7 @@ package backend.node;
  *
  */
 public abstract class SingleValuedObject extends Node{
-	public SingleValuedObject(String name, int num) {
-		super(name, 0);
+	public SingleValuedObject() {
+		super();
 	}
 }

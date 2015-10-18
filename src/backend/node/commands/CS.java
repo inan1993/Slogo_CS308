@@ -17,7 +17,7 @@ import sharedobjects.ManipulateController;
  */
 public class CS extends Command {
 	public CS(String name, int children) {
-		super(name, children);
+		super();
 	}
 
 	@Override
@@ -32,7 +32,7 @@ public class CS extends Command {
 		sharedHandle.clearScreen();
 		
 		//Return the distance moved
-		return new Constant("Moved").setValue(distanceMoved);
+		return new Constant().setValue(distanceMoved);
 	}
 
 }

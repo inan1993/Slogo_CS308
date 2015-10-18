@@ -13,7 +13,7 @@ import sharedobjects.ManipulateController;
  */
 public class SETH extends Command {
 	public SETH(String name, int children) {
-		super(name, children);
+		super();
 	}
 
 	@Override
@@ -31,6 +31,6 @@ public class SETH extends Command {
 		 sharedHandle.setHeading(newHeading);
 		 
 		 //return the delta
-		 return new Constant("Heading").setValue(prevHeading-newHeading);
+		 return new Constant().setValue(prevHeading-newHeading);
 	}
 }

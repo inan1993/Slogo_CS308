@@ -15,7 +15,7 @@ import sharedobjects.ManipulateController;
  */
 public class ST extends Command {
 	public ST(String name, int children) {
-		super(name, children);
+		super();
 	}
 
 	@Override
@@ -23,6 +23,6 @@ public class ST extends Command {
 		sharedHandle.showTurtle();
 
 		// return 1
-		return new Constant("1").setValue(1);
+		return new Constant().setValue(1);
 	}
 }

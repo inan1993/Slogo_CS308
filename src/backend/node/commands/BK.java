@@ -14,7 +14,7 @@ import sharedobjects.ManipulateController;
  */
 public class BK extends Command {
 	public BK(String name, int children) {
-		super(name, children);
+		super();
 	}
 
 	@Override

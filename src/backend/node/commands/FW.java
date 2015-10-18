@@ -10,7 +10,7 @@ import backend.node.Node;
 
 public class FW extends Command {
 	public FW(String s) {
-		super(s, 1);
+		super();
 		// TODO Auto-generated constructor stub
 	}
 

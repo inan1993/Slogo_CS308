@@ -14,7 +14,7 @@ import sharedobjects.ManipulateController;
  */
 public class HOME extends Command {
 	public HOME(String name, int children) {
-		super(name, children);
+		super();
 	}
 
 	@Override
@@ -24,6 +24,6 @@ public class HOME extends Command {
 		
 		Response s = sharedHandle.home();
 		double distanceMoved = Double.parseDouble(s.toString());
-		return new Constant("Moved").setValue(distanceMoved);
+		return new Constant().setValue(distanceMoved);
 	}
 }

@@ -81,10 +81,16 @@ public enum SyntaxType {
 	TURTLES,
 	TELL,
 	ASK,
-	ASKWITH;
-////	#
-////	# Non-Command
-////	#
-//	VARIABLE,
-//	CONSTANT;
+	ASKWITH,
+//	#
+//	# Non-Command
+//	#
+	VARIABLE,
+	CONSTANT,
+	LISTSTART,
+	LISTEND,
+	GROUPSTART,
+	GROUPEND,
+	USERCOMMAND;
 }
+

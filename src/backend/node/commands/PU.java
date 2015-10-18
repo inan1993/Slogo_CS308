@@ -16,7 +16,7 @@ import sharedobjects.ManipulateController;
  */
 public class PU extends Command {
 	public PU(String name, int children) {
-		super(name, children);
+		super();
 	}
 
 	@Override
@@ -24,6 +24,6 @@ public class PU extends Command {
 		sharedHandle.penUp();
 
 		// return 1
-		return new Constant("0").setValue(1);
+		return new Constant().setValue(1);
 	}
 }

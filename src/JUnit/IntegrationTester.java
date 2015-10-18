@@ -21,7 +21,7 @@ public class IntegrationTester extends TestCase{
 	}
 	
 	public void testIntegration() {
-		Response s = p.parse("fw 50");
+		Response s = p.parse("fw 50", "English");
 		
 		assertEquals(Double.parseDouble(s.toString()), 50.0);
 	}

@@ -1,15 +1,17 @@
 /**
  * 
  */
-package backend.node;
+package backend.node.control;
+
+import backend.node.Node;
 
 /**
  * @author loganrooper
  *
  */
 public abstract class ControlStructure extends Node{
-	protected ControlStructure(String string, int num) {
-		super(string,num);
+	protected ControlStructure() {
+		super();
 		// TODO Auto-generated constructor stub
 	}
 }

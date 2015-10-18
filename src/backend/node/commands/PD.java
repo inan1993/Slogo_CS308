@@ -16,7 +16,7 @@ import sharedobjects.ManipulateController;
  */
 public class PD extends Command {
 	public PD(String name, int children) {
-		super(name, children);
+		super();
 	}
 
 	@Override
@@ -24,6 +24,6 @@ public class PD extends Command {
 		sharedHandle.penDown();
 
 		// return 1
-		return new Constant("1").setValue(1);
+		return new Constant().setValue(1);
 	}
 }

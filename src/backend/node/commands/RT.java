@@ -15,7 +15,7 @@ import sharedobjects.ManipulateController;
  */
 public class RT extends Command {
 	public RT(String name, int children) {
-		super(name, children);
+		super();
 	}
 
 	@Override

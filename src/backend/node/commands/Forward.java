@@ -3,16 +3,14 @@ package backend.node.commands;
 import java.util.List;
 
 import backend.factory.CommandFactory;
-import backend.parser.SyntaxType;
-import backend.factory.NodeFactory;
 import backend.node.Command;
 import backend.node.Node;
-import responses.Response;
+import backend.parser.SyntaxType;
 import sharedobjects.ManipulateController;
 
 public class Forward extends Command {
 	protected Forward(String s) {
-		super(s, 1);
+		super();
 		// TODO Auto-generated constructor stub
 	}
 

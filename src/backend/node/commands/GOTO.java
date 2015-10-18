@@ -13,7 +13,7 @@ import sharedobjects.ManipulateController;
  */
 public class GOTO extends Command {
 	public GOTO(String name, int children) {
-		super(name, children);
+		super();
 	}
 
 	@Override
@@ -37,6 +37,6 @@ public class GOTO extends Command {
 		double newHeading = ln.get(0).getDoubleValue();
 
 		// return the delta
-		return new Constant("Heading").setValue(prevHeading - newHeading);
+		return new Constant().setValue(prevHeading - newHeading);
 	}
 }
