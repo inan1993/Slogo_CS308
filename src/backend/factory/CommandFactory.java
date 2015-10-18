@@ -115,16 +115,17 @@ public class CommandFactory {
 	public Node createNode(SyntaxType type)
 	{
 		Node result=null;
+		int a = myRegisteredCommands.size();
 		Class nodeClass = (Class)myRegisteredCommands.get(type);
-		Constructor nodeConstructor;
+		Constructor nodeConstructor = null;
 		try {
-			nodeConstructor = nodeClass.getDeclaredConstructor(new Class[] { String.class });
-			result = (Node) nodeConstructor.newInstance(new Object[] { });
+			nodeConstructor = nodeClass.getDeclaredConstructor(new Class[]{});
+			result = (Node) nodeConstructor.newInstance();
 		} catch (NoSuchMethodException | SecurityException e) {
 			e.printStackTrace();
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return result;
 	}
 }
