@@ -13,7 +13,7 @@ import backend.parser.Parser;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import observers.FrontEndObserver;
+import observers.UserInputObserver;
 import sharedobjects.HandleObservers;
 import sharedobjects.ManipulateController;
 import sharedobjects.Workspace;

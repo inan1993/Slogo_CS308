@@ -32,7 +32,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import observers.FrontEndObserver;
@@ -118,7 +117,6 @@ public class SlogoView {
         if (selectedFile != null) {
             fileName = selectedFile.getName();
             myTurtleGroup.setImage(new Image(getClass().getClassLoader().getResourceAsStream(fileName)));
-            System.out.println(fileName);
             myObservers.get(0).update(null, (Object)createDTO2());
         }
         else {

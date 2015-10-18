@@ -36,7 +36,6 @@ public class TurtleCanvas extends Canvas{
 	public void setPenColor(String newPenColor){
 		this.penColor = Color.valueOf(newPenColor);
 		gc.setStroke(penColor);
-		System.out.println(newPenColor);
 
 	}
 
