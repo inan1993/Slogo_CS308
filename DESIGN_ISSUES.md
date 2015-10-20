@@ -7,5 +7,6 @@
     - How ??   
   
 ###Design Suggestions
+
 - Draw TurtleImage extends ImageView that has an instance of the ID of the turtle that you can check when you do getChildren() and loop through all the children (TurtleImages and then get the ID). This way you dont have to delete and re-add
 - 
