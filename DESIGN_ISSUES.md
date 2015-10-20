@@ -3,7 +3,6 @@
   + The front end is checking to see if the ***pen is up or down*** before drawing the line.
   + The front end is checking to see if the ***clearScreen*** is true before updating the view.
     - Should the logic be pushed into the FrontEndObserver or should it all happen in the backend. Should the frontEnd just expose an API (.clearScree()) that the backend can use when it wants. Or should we implement an Observerable pattern for clearScreen. If so how?
-
 - The front end can only make ***static changes*** to the view. NO dynamic changes.
   + How ?? 
   + Should the frontEnd hold any state??
