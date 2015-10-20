@@ -11,3 +11,7 @@
   
 ###Design Suggestions
 - Draw TurtleImage extends ImageView that has an instance of the ID of the turtle that you can check when you do getChildren() and loop through all the children (TurtleImages and then get the ID). This way you dont have to delete and re-add
+- The controller should not be implementing the changes in the state of the model. The backend implements these changes. The backend can use a another class to implement the changes (like whats happening now, but that would be called something else and not a controller). 
+  + Use the idea that the backend can pass lambdas (where these are the functions that need to be implemented on the model) into the controllers .execute(backend::command) method that the backend has to have no idea about.
+- For many turtles. You cannot use a boolean to set which are active... (What did he suggest in class?????)
+  + Use an interface for SingleTurtle and another for GroupOfTurtles?? So that one can implement the methods for one turtle and the other can implement the methods (fd, bk, angle) for many turtles.
