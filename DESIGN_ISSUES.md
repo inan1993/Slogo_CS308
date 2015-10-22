@@ -9,6 +9,10 @@
   + How ?? 
   + Should the frontEnd hold any state??
   
+**(MENTION IN ANALYSIS:
+TA: Create some GUI elements in the controller like upload turtle image and pass into the view so when the user changes the image the view can just call the update method on the element. The controller then changes what it needs to).**
+
+
 ###Design Suggestions
 - Draw TurtleImage extends ImageView that has an instance of the ID of the turtle that you can check when you do getChildren() and loop through all the children (TurtleImages and then get the ID). This way you dont have to delete and re-add
 - The controller should not be implementing the changes in the state of the model. The backend implements these changes. The backend can use a another class to implement the changes (like whats happening now, but that would be called something else and not a controller). 
