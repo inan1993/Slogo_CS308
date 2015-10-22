@@ -22,6 +22,7 @@ import datatransferobjects.UserInputTransferObject;
 import responses.Error;
 import responses.Response;
 import sharedobjects.ManipulateController;
+import sharedobjects.ManipulateController;
 import sharedobjects.Workspace;
 
 
@@ -275,7 +276,6 @@ public class Parser implements Observer {
 				throw new SyntaxException("Uncompleted argument list in" + root.getName());
 			Node c = growTree();
 			root.addChild(c);
-			i++;
 		}
 	}
 	
@@ -507,15 +507,16 @@ public class Parser implements Observer {
 		ManipulateController mani = new ManipulateController(new Workspace());
 		Executor exec = new Executor(mani);
         Parser parser = new Parser(exec, mani);
-        parser.parse("IF EQUALP 20 20 [ fd 50 ]", "English");
+        parser.parse("make :r 4", "English");
         System.out.println("11");
     }
 
 	@Override
 	public void update(Observable o, Object arg) {
-		UserInputTransferObject userInput = (UserInputTransferObject) arg;
-		String input = userInput.getUserInput();
-		String lang = userInput.getLanguage();
+		UserInputTransferObject dto = (UserInputTransferObject) arg;
+		String input = dto.getUserInput();
+		String lang = dto.getLanguage();
 		parse(input, lang);
 	}
 }
+
