@@ -15,5 +15,4 @@
   + Use the idea that the backend can pass lambdas (where these are the functions that need to be implemented on the model) into the controllers .execute(backend::command) method that the backend has to have no idea about.
 - For many turtles. You cannot use a boolean to set which are active... (What did he suggest in class?????)
   + Use an interface for SingleTurtle and another for GroupOfTurtles?? So that one can implement the methods for one turtle and the other can implement the methods (fd, bk, angle) for many turtles.
-
 - ##Use List for GUI elements with reflections... How to implement reflections with custom methods for each button??##
