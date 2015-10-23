@@ -9,7 +9,6 @@ public class FD extends Command {
 	public FD() {
 		super();
 		super.setChildrenNum(1);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -20,9 +19,6 @@ public class FD extends Command {
 			throw new RuntimeException(String.format("Expected 1 parameter, got: %d", ln.size()));
 
 		sharedHandle.foward(ln.get(0).getIntegerValue());
-		
-		// return argument 1 value
-		System.out.println("FD " + ln.get(0).getIntegerValue());
 		return ln.get(0);
 	}
 }
