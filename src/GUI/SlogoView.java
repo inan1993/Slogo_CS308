@@ -247,15 +247,15 @@ public class SlogoView {
 		mainBox.getChildren().addAll(myBackgroundRectangle, myTurtleCanvas, myTurtleGroup);
 		TabPane tabPane = new TabPane();
 		Tab tab = new Tab();
-		Tab tab2 = new Tab();
+//		Tab tab2 = new Tab();
 		tab.setText("Turtle Workspace");
 		tab.setContent(mainBox);//new Rectangle(800,590, Color.LIGHTSTEELBLUE));
 		tab.setClosable(false);
-		tab2.setText("Turtle Workspace");
-		tab2.setContent(new Rectangle(800,590, Color.WHITE));
-		tab2.setClosable(true);
-		tabPane.getTabs().addAll(tab,tab2);
-
+//		tab2.setText("Turtle Workspace");
+//		tab2.setContent(new Rectangle(800,590, Color.WHITE));
+//		tab2.setClosable(true);
+//		tabPane.getTabs().addAll(tab,tab2);
+		tabPane.getTabs().add(tab);
 
 		return tabPane;        
 
