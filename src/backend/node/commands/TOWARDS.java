@@ -1,7 +1,6 @@
 package backend.node.commands;
 
 import java.util.List;
-
 import backend.node.Command;
 import backend.node.Constant;
 import backend.node.Node;
