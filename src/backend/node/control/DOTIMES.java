@@ -13,8 +13,6 @@ public class DOTIMES extends ControlStructure {
 
 	public DOTIMES() {
 		super();
-		super.setChildrenNum(3);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

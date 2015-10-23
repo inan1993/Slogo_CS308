@@ -12,7 +12,6 @@ import sharedobjects.ManipulateController;
 public class REPEAT extends ControlStructure {
 	public REPEAT() {
 		super();
-		super.setChildrenNum(2);
 	}
 
 	@Override

@@ -10,7 +10,6 @@ public class FOR extends ControlStructure{
 	public FOR()
 	{
 		super();
-		super.setChildrenNum(5);
 	}
 
 	@Override

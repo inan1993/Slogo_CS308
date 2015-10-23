@@ -9,7 +9,6 @@ import backend.node.Node;
 public class IFELSE extends ControlStructure {
 	public IFELSE(){
 		super();
-		super.setChildrenNum(3);
 	}
 
 	@Override

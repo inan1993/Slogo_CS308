@@ -1,12 +1,14 @@
 package GUI;
 
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
-
 import GUI.button.ClearCommandButton;
 import GUI.button.EnterCommandButton;
 import GUI.button.HelpButton;
@@ -19,11 +21,10 @@ import GUI.textBox.MessageDisplayBox;
 import GUI.turtlepane.BackgroundRectangle;
 import GUI.turtlepane.TurtleCanvas;
 import GUI.turtlepane.TurtleGroup;
-import GUI.viewbox.AViewBox;
 import GUI.viewbox.CommandHistoryBox;
 import GUI.viewbox.FunctionListBox;
 import GUI.viewbox.VariableListBox;
-import datatransferobjects.TurtleTransferObject;
+import datatransferobjects.UserInputTransferObject;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -35,7 +36,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import observers.FrontEndObserver;
-import observers.UserInputObserver;
+import observers.ParsedCommandsObserver;
+import sharedobjects.UserInput;
 
 public class SlogoView {
 
@@ -62,7 +64,12 @@ public class SlogoView {
     private BackgroundRectangle myBackgroundRectangle;
     
     private List<Observer> myObservers;
+    private UserInput myUserInputObservable;
 
+    
+    private HashMap<String, ActionEvent> buttonActions;
+    
+    
     public SlogoView(){
 
         ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_LANGUAGE);
@@ -72,6 +79,8 @@ public class SlogoView {
         myTurtleIDs = new ArrayList<Double>();
         myObservers = new ArrayList<Observer>();
 
+        myUserInputObservable = new UserInput(DEFAULT_LANGUAGE);
+        
         BorderPane root = new BorderPane();
 
         root.setMaxSize(DEFAULT_SIZE.getWidth(),DEFAULT_SIZE.getHeight());
@@ -100,6 +109,9 @@ public class SlogoView {
 
     private Node menu() {
         HBox result = new HBox();
+        
+//        Use List with reflections ????
+        
         result.getChildren().add(imageButton());
         result.getChildren().add(createLanguageDropDown());
         result.getChildren().add(bgColorDropDown());
@@ -112,7 +124,7 @@ public class SlogoView {
         return new UploadButton(event->ButtonClicked());  
     }
 
-    public void ButtonClicked() {
+    private void ButtonClicked() {
         FileChooser fileChooser = new FileChooser();
         File selectedFile = fileChooser.showOpenDialog(null);
         String fileName;
@@ -120,7 +132,6 @@ public class SlogoView {
         if (selectedFile != null) {
             fileName = selectedFile.getName();
             myTurtleGroup.setImage(new Image(getClass().getClassLoader().getResourceAsStream(fileName)));
-//            myObservers.get(0).update(null, (Object)createDTO2());
         }
         else {
             if (selectedFile == null) {
@@ -137,6 +148,7 @@ public class SlogoView {
         ComboBox<String> languageDropDown = new LanguageListDropdown("Languages");
         languageDropDown.setOnAction(event->{
             String lang = languageDropDown.getValue();
+            myUserInputObservable.setCurrentLanguage(lang);
             messageBox.setMessage("Language Set to "+lang);
         });
         return languageDropDown;  
@@ -180,7 +192,6 @@ public class SlogoView {
         HBox result = new HBox();
         messageBox = new MessageDisplayBox();
         result.getChildren().add(messageBox);
-
         Button clearButton = new ClearCommandButton(event->{
             commandBox.clear();
         });
@@ -195,9 +206,11 @@ public class SlogoView {
         result.getChildren().add(commandBox);
 
         Button enterButton =  new EnterCommandButton(event->{
-            String str = commandBox.getText();
-            messageBox.setMessage(str);
-            historyDisplayBox.setMessage(str);
+            String userInput = commandBox.getText();
+            historyDisplayBox.setMessage(userInput);
+            myUserInputObservable.setUserInput(userInput);
+            UserInputTransferObject ut = new UserInputTransferObject(myUserInputObservable.getCurrentLanguage(), myUserInputObservable.getUserInput());
+            myUserInputObservable.notifyObservers(ut);
         });
 
         result.getChildren().add(enterButton);
@@ -207,10 +220,13 @@ public class SlogoView {
 
     private VBox rightBox(){
         VBox result = new VBox();
+        
+//        Add to a list using reflections
+        
         variableDisplayBox = new VariableListBox(commandBox);
         historyDisplayBox = new CommandHistoryBox(commandBox);
         functionDisplayBox = new FunctionListBox(commandBox);
-        myObservers.add(new UserInputObserver(functionDisplayBox, variableDisplayBox));
+        myObservers.add(new ParsedCommandsObserver(functionDisplayBox, variableDisplayBox));
         result.getChildren().addAll(variableDisplayBox,historyDisplayBox,functionDisplayBox);
         return result;
     }
@@ -223,14 +239,8 @@ public class SlogoView {
         myObservers.add(obs);
     }
     
-    
-//    public TurtleTransferObject createDTO(){
-//        TurtleTransferObject turtle = new TurtleTransferObject(false, 1, true, true, new int[]{10,50}, new int[]{200,200});
-//        return turtle;
-//    }
-//    public TurtleTransferObject createDTO2(){
-//        TurtleTransferObject turtle = new TurtleTransferObject(false, 1, true, true, new int[]{50,55}, new int[]{20,20});
-//        return turtle;
-//    }
-    
+    public Observable getObservable(){
+        return this.myUserInputObservable;
+    }
+
 }
