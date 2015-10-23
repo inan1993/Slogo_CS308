@@ -17,6 +17,7 @@ import GUI.button.HelpButton;
 import GUI.button.UploadButton;
 import GUI.dropdown.BackgroundColorDropdown;
 import GUI.dropdown.LanguageListDropdown;
+import GUI.dropdown.LineTypeDropDown;
 import GUI.dropdown.PenColorDropdown;
 import GUI.textBox.CommandPromptDisplayBox;
 import GUI.textBox.MessageDisplayBox;
@@ -118,6 +119,7 @@ public class SlogoView {
         result.getChildren().add(createLanguageDropDown());
         result.getChildren().add(bgColorDropDown());
         result.getChildren().add(penColorDropDown());
+        result.getChildren().add(lineTypeDropDown());
         result.getChildren().add(createHelpMenu());
         return result;
     }
@@ -184,6 +186,15 @@ public class SlogoView {
         return penColor;  
     }
 
+    private Node lineTypeDropDown(){
+        ComboBox<String> lineType = new LineTypeDropDown("Line Type");
+        lineType.setOnAction(event->{
+            String line = lineType.getValue();
+            myTurtleCanvas.setLineType(line);
+            messageBox.setMessage("Line type set to "+line);
+        });
+        return lineType;  
+    }
 
     private Node centerBox() {
         AnchorPane mainBox = new AnchorPane();
