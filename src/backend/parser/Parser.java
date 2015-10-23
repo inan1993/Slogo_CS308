@@ -64,6 +64,10 @@ public class Parser implements Observer {
 		//Call run to start.
 		myExec = exec;
 		myManiControl=mc;
+		init();
+	}
+	
+	public void init(){
 		myRoots = new ArrayList<Node>();
 		myIndex=0;
 		myListLegal=false;
@@ -100,6 +104,7 @@ public class Parser implements Observer {
 		{
 //			should add a try catch, and make executor throws execute exception
 			response = myExec.execute(each);
+//			System.out.println("call exec");
 		}
 		return response;
 	}
@@ -503,18 +508,20 @@ public class Parser implements Observer {
         return result;
     }
 	
-	public static void main (String[] args) {
-		ManipulateController mani = new ManipulateController(new Workspace());
-		Executor exec = new Executor(mani);
-        Parser parser = new Parser(exec, mani);
-        parser.parse("make :r 4", "English");
-        System.out.println("11");
-    }
+//	public static void main (String[] args) {
+//		ManipulateController mani = new ManipulateController(new Workspace());
+//		Executor exec = new Executor(mani);
+//        Parser parser = new Parser(exec, mani);
+//        parser.parse("make :r 4", "English");
+//        System.out.println("11");
+//    }
 
 	@Override
 	public void update(Observable o, Object arg) {
+		init();
 		UserInputTransferObject dto = (UserInputTransferObject) arg;
 		String input = dto.getUserInput();
+		System.out.println("Wanning"+input);
 		String lang = dto.getLanguage();
 		parse(input, lang);
 	}

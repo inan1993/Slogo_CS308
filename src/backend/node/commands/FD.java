@@ -14,8 +14,6 @@ import backend.node.Node;
 public class FD extends Command {
 	public FD() {
 		super();
-		super.setChildrenNum(1);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -26,7 +24,6 @@ public class FD extends Command {
 			throw new RuntimeException(String.format("Expected 1 parameter, got: %d", ln.size()));
 
 		int pixels = ln.get(0).getIntegerValue();
-		
 		LambdaInterface l = (Turtle t) -> {
 			int[] currPosition = t.getPosition();
 			System.out.println("Current Position..." + currPosition[0] + ":" + currPosition[1]);
