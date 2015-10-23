@@ -3,6 +3,7 @@ package GUI;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.io.File;
+import java.lang.reflect.Constructor;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,6 +11,8 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
+import org.w3c.dom.Element;
+import GUI.button.AButton;
 import GUI.button.ClearCommandButton;
 import GUI.button.EnterCommandButton;
 import GUI.button.UploadButton;
@@ -25,6 +28,7 @@ import GUI.viewbox.CommandHistoryBox;
 import GUI.viewbox.FunctionListBox;
 import GUI.viewbox.VariableListBox;
 import datatransferobjects.UserInputTransferObject;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -57,17 +61,17 @@ public class SlogoView {
     private VariableListBox variableDisplayBox;
     private CommandHistoryBox historyDisplayBox;
     private FunctionListBox functionDisplayBox;
-    
+
     private Image myTurtleImage;
     private List<Double> myTurtleIDs;
     private TurtleCanvas myTurtleCanvas;
     private TurtleGroup myTurtleGroup;
     private BackgroundRectangle myBackgroundRectangle;
-    
+
     private List<Observer> myObservers;
     private UserInput myUserInputObservable;
-    
-    private HashMap<String, EventHandler> myButtonActions;
+
+    private HashMap<String, EventHandler<ActionEvent>> myButtonActions;
 
     public SlogoView(){
 
@@ -75,15 +79,15 @@ public class SlogoView {
         myResource = ResourceBundle.getBundle(DEFAULT_RESOURCE_VIEW);
 
         mapButtonsWithActions();
-        
-        
-        
+
+
+
         myTurtleImage = new Image(getClass().getClassLoader().getResourceAsStream(myResource.getString("defaultTurtle")));
         myTurtleIDs = new ArrayList<Double>();
         myObservers = new ArrayList<Observer>();
 
         myUserInputObservable = new UserInput(DEFAULT_LANGUAGE);
-        
+
         BorderPane root = new BorderPane();
 
         root.setMaxSize(DEFAULT_SIZE.getWidth(),DEFAULT_SIZE.getHeight());
@@ -93,20 +97,32 @@ public class SlogoView {
         root.setBottom(bottomBox());
         root.setRight(rightBox());    
 
-    //    myObservers.get(0).update(null, (Object)createDTO());
+        //    myObservers.get(0).update(null, (Object)createDTO());
         //myObservers.get(0).update(null, (Object)createDTO2());
         scene = new Scene(root, DEFAULT_SIZE.width, DEFAULT_SIZE.height);
     }
-    
+
     private void mapButtonsWithActions(){
         String[] buttons = myResource.getString("buttons").split(",");
-        myButtonActions = new HashMap<String, EventHandler>();
+        myButtonActions = new HashMap<String, EventHandler<ActionEvent>>();
         //Help, Enter, Clear, Upload
+
+        try {
+            Constructor<?> c =
+                    Class.forName(buttons[0])
+                    .getConstructor(EventHandler.class);
+            AButton button = c.newInstance(event->help());
+        }catch(Exception e){
+            
+        }
+
+
         myButtonActions.put(buttons[0], event->help());
-        myButtonActions.put(buttons[1], event->help());
-        myButtonActions.put(buttons[2], event->help());
-        myButtonActions.put(buttons[3], event->help());
-        
+        myButtonActions.put(buttons[1], event->enterEvent());
+        myButtonActions.put(buttons[2], event->{
+            commandBox.clear();
+        });
+        myButtonActions.put(buttons[3], event->uploadEvent());
     }
 
     private Node menu() {
@@ -115,7 +131,7 @@ public class SlogoView {
         result.getChildren().add(createLanguageDropDown());
         result.getChildren().add(bgColorDropDown());
         result.getChildren().add(penColorDropDown());
-//        result.getChildren().add(createHelpMenu());
+        //        result.getChildren().add(createHelpMenu());
         return result;
     }
 
@@ -133,10 +149,10 @@ public class SlogoView {
 
 
     private Node imageButton(){
-        return new UploadButton(event->ButtonClicked());  
+        return new UploadButton(event->uploadEvent());  
     }
 
-    public void ButtonClicked() {
+    public void uploadEvent() {
         FileChooser fileChooser = new FileChooser();
         File selectedFile = fileChooser.showOpenDialog(null);
         String fileName;
@@ -144,7 +160,7 @@ public class SlogoView {
         if (selectedFile != null) {
             fileName = selectedFile.getName();
             myTurtleGroup.setImage(new Image(getClass().getClassLoader().getResourceAsStream(fileName)));
-//            myObservers.get(0).update(null, (Object)createDTO2());
+            //            myObservers.get(0).update(null, (Object)createDTO2());
         }
         else {
             if (selectedFile == null) {
@@ -153,9 +169,9 @@ public class SlogoView {
         }
     }
 
-//    private Node createHelpMenu() {
-//        return new HelpButton();
-//    }
+    //    private Node createHelpMenu() {
+    //        return new HelpButton();
+    //    }
 
     private Node createLanguageDropDown(){
         ComboBox<String> languageDropDown = new LanguageListDropdown("Languages");
@@ -195,7 +211,7 @@ public class SlogoView {
         myTurtleCanvas = new TurtleCanvas(Integer.parseInt(myResource.getString("canvasWidth")), Integer.parseInt(myResource.getString("canvasHeight")));
         myTurtleGroup = new TurtleGroup(myTurtleImage, myTurtleIDs);
         myObservers.add(new FrontEndObserver(myTurtleGroup, myTurtleCanvas));
-        
+
         mainBox.getChildren().addAll(myBackgroundRectangle, myTurtleCanvas, myTurtleGroup);
         return mainBox;
     }
@@ -219,18 +235,20 @@ public class SlogoView {
         commandBox = new CommandPromptDisplayBox();
         result.getChildren().add(commandBox);
 
-        Button enterButton =  new EnterCommandButton(event->{
-            String userInput = commandBox.getText();
-            historyDisplayBox.setMessage(userInput);
-            myUserInputObservable.setUserInput(userInput);
-            UserInputTransferObject ut = new UserInputTransferObject(myUserInputObservable.getCurrentLanguage(), myUserInputObservable.getUserInput());
-            myUserInputObservable.notifyObservers(ut);
-        });
+        Button enterButton =  new EnterCommandButton(event->enterEvent());
 
         result.getChildren().add(enterButton);
         return result;	
     }
-    
+
+    private void enterEvent(){
+        String userInput = commandBox.getText();
+        historyDisplayBox.setMessage(userInput);
+        myUserInputObservable.setUserInput(userInput);
+        UserInputTransferObject ut = new UserInputTransferObject(myUserInputObservable.getCurrentLanguage(), myUserInputObservable.getUserInput());
+        myUserInputObservable.notifyObservers(ut);
+    }
+
 
     private VBox rightBox(){
         VBox result = new VBox();
@@ -241,15 +259,15 @@ public class SlogoView {
         result.getChildren().addAll(variableDisplayBox,historyDisplayBox,functionDisplayBox);
         return result;
     }
-    
+
     public List<Observer> getObservers(){
         return this.myObservers;
     }
-    
+
     public void addObservers(Observer obs){
         myObservers.add(obs);
     }
-    
+
     public Observable getObservable(){
         return this.myUserInputObservable;
     }
@@ -259,5 +277,5 @@ public class SlogoView {
             Desktop.getDesktop().browse(new URL("http://www.cs.duke.edu/courses/fall15/compsci308/assign/03_slogo/commands.php").toURI());
         } catch (Exception e) {};
     }
-    
+
 }
