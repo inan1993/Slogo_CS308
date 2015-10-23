@@ -17,7 +17,6 @@ import backend.node.Operation;
 public class EQUALP extends Operation{
 	public EQUALP() {
 		super();
-		super.setChildrenNum(2);
 	}
 
 	@Override

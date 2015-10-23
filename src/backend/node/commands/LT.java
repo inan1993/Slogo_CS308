@@ -14,8 +14,9 @@ import sharedobjects.ManipulateController;
  *
  */
 public class LT extends Command {
-	public LT(String name, int children) {
+	public LT() {
 		super();
+		super.setChildrenNum(1);
 	}
 
 	@Override

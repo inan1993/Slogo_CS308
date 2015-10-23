@@ -10,7 +10,6 @@ import backend.node.Node;
 public class MAKEVAR extends ControlStructure {
 	public MAKEVAR(){
 		super();
-		super.setChildrenNum(2);
 	}
 
 	@Override

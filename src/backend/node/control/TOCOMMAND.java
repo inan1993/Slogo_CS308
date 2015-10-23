@@ -9,7 +9,6 @@ import backend.node.Node;
 public class TOCOMMAND extends ControlStructure {
 	public TOCOMMAND(){
 		super();
-		super.setChildrenNum(0);
 	}
 
 	@Override

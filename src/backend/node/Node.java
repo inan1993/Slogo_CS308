@@ -12,7 +12,6 @@ import responses.Response;
 public abstract class Node implements Cloneable {
 	private String myName;
 	private List<Node> myChildren;
-	private int myNumOfChildren;
 	private double myValue;
 
 	public Node() {
@@ -21,7 +20,6 @@ public abstract class Node implements Cloneable {
 
 	public Node addChild(Node node) {
 		myChildren.add(node);
-		myNumOfChildren = myChildren.size();
 		return node;
 	}
 
@@ -29,16 +27,7 @@ public abstract class Node implements Cloneable {
 		for (Node n : nodes)
 			myChildren.add(n);
 
-		myNumOfChildren = myChildren.size();
 		return nodes[0];
-	}
-
-	public int getChildrenNum() {
-		return myNumOfChildren;
-	}
-
-	public void setChildrenNum(int n) {
-		myNumOfChildren = n;
 	}
 
 	public void setName(String name) {
@@ -46,7 +35,7 @@ public abstract class Node implements Cloneable {
 	}
 
 	public Boolean hasChildren() {
-		return (getChildrenNum() > 0);
+		return (myChildren.size() > 0);
 	}
 
 	public List<Node> getChildren() {
