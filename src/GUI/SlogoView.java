@@ -1,8 +1,9 @@
 package GUI;
 
+import java.awt.Desktop;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
 import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +12,6 @@ import java.util.Observer;
 import java.util.ResourceBundle;
 import GUI.button.ClearCommandButton;
 import GUI.button.EnterCommandButton;
-import GUI.button.HelpButton;
 import GUI.button.UploadButton;
 import GUI.dropdown.BackgroundColorDropdown;
 import GUI.dropdown.LanguageListDropdown;
@@ -25,6 +25,7 @@ import GUI.viewbox.CommandHistoryBox;
 import GUI.viewbox.FunctionListBox;
 import GUI.viewbox.VariableListBox;
 import datatransferobjects.UserInputTransferObject;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -65,16 +66,18 @@ public class SlogoView {
     
     private List<Observer> myObservers;
     private UserInput myUserInputObservable;
+    
+    private HashMap<String, EventHandler> myButtonActions;
 
-    
-    private HashMap<String, ActionEvent> buttonActions;
-    
-    
     public SlogoView(){
 
         ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_LANGUAGE);
         myResource = ResourceBundle.getBundle(DEFAULT_RESOURCE_VIEW);
 
+        mapButtonsWithActions();
+        
+        
+        
         myTurtleImage = new Image(getClass().getClassLoader().getResourceAsStream(myResource.getString("defaultTurtle")));
         myTurtleIDs = new ArrayList<Double>();
         myObservers = new ArrayList<Observer>();
@@ -94,6 +97,27 @@ public class SlogoView {
         //myObservers.get(0).update(null, (Object)createDTO2());
         scene = new Scene(root, DEFAULT_SIZE.width, DEFAULT_SIZE.height);
     }
+    
+    private void mapButtonsWithActions(){
+        String[] buttons = myResource.getString("buttons").split(",");
+        myButtonActions = new HashMap<String, EventHandler>();
+        //Help, Enter, Clear, Upload
+        myButtonActions.put(buttons[0], event->help());
+        myButtonActions.put(buttons[1], event->help());
+        myButtonActions.put(buttons[2], event->help());
+        myButtonActions.put(buttons[3], event->help());
+        
+    }
+
+    private Node menu() {
+        HBox result = new HBox();
+        result.getChildren().add(imageButton());
+        result.getChildren().add(createLanguageDropDown());
+        result.getChildren().add(bgColorDropDown());
+        result.getChildren().add(penColorDropDown());
+//        result.getChildren().add(createHelpMenu());
+        return result;
+    }
 
     private Node bottomBox () {
         VBox result = new VBox();
@@ -107,24 +131,12 @@ public class SlogoView {
         return scene;
     }
 
-    private Node menu() {
-        HBox result = new HBox();
-        
-//        Use List with reflections ????
-        
-        result.getChildren().add(imageButton());
-        result.getChildren().add(createLanguageDropDown());
-        result.getChildren().add(bgColorDropDown());
-        result.getChildren().add(penColorDropDown());
-        result.getChildren().add(createHelpMenu());
-        return result;
-    }
 
     private Node imageButton(){
         return new UploadButton(event->ButtonClicked());  
     }
 
-    private void ButtonClicked() {
+    public void ButtonClicked() {
         FileChooser fileChooser = new FileChooser();
         File selectedFile = fileChooser.showOpenDialog(null);
         String fileName;
@@ -132,6 +144,7 @@ public class SlogoView {
         if (selectedFile != null) {
             fileName = selectedFile.getName();
             myTurtleGroup.setImage(new Image(getClass().getClassLoader().getResourceAsStream(fileName)));
+//            myObservers.get(0).update(null, (Object)createDTO2());
         }
         else {
             if (selectedFile == null) {
@@ -140,9 +153,9 @@ public class SlogoView {
         }
     }
 
-    private Node createHelpMenu() {
-        return new HelpButton();
-    }
+//    private Node createHelpMenu() {
+//        return new HelpButton();
+//    }
 
     private Node createLanguageDropDown(){
         ComboBox<String> languageDropDown = new LanguageListDropdown("Languages");
@@ -192,6 +205,7 @@ public class SlogoView {
         HBox result = new HBox();
         messageBox = new MessageDisplayBox();
         result.getChildren().add(messageBox);
+
         Button clearButton = new ClearCommandButton(event->{
             commandBox.clear();
         });
@@ -220,9 +234,6 @@ public class SlogoView {
 
     private VBox rightBox(){
         VBox result = new VBox();
-        
-//        Add to a list using reflections
-        
         variableDisplayBox = new VariableListBox(commandBox);
         historyDisplayBox = new CommandHistoryBox(commandBox);
         functionDisplayBox = new FunctionListBox(commandBox);
@@ -243,4 +254,10 @@ public class SlogoView {
         return this.myUserInputObservable;
     }
 
+    private void help() {
+        try {
+            Desktop.getDesktop().browse(new URL("http://www.cs.duke.edu/courses/fall15/compsci308/assign/03_slogo/commands.php").toURI());
+        } catch (Exception e) {};
+    }
+    
 }
