@@ -9,7 +9,6 @@ import backend.node.Node;
 public class IF extends ControlStructure {
 	public IF(){
 		super();
-		super.setChildrenNum(2);
 	}
 
 	@Override

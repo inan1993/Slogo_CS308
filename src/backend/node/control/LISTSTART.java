@@ -12,7 +12,6 @@ import responses.Response;
 public class LISTSTART extends ControlStructure {
 	public LISTSTART(){
 		super();
-		super.setChildrenNum(0);
 	}
 
 	@Override
