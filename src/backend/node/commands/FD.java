@@ -1,9 +1,12 @@
 package backend.node.commands;
 
 import java.util.List;
+
+import backend.factory.CommandFactory;
+import backend.parser.SyntaxType;
+import sharedobjects.ManipulateController;
 import backend.node.Command;
 import backend.node.Node;
-import sharedobjects.ManipulateController;
 
 public class FD extends Command {
 	public FD() {

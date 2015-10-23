@@ -1,11 +1,11 @@
 package datatransferobjects;
 
-public class UserInputsTransferObject {
+public class ParsedCommandsTransferObject {
 	
 	private boolean function;
 	private String userInput;
 	
-	public UserInputsTransferObject(boolean f, String u) {
+	public ParsedCommandsTransferObject(boolean f, String u) {
 		function = f;
 		userInput = u;
 	}
