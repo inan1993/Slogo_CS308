@@ -57,6 +57,7 @@ public class TurtleCanvas extends Canvas{
 			gc.setLineDashOffset(2f);
 			gc.setLineDashes(4f,4f);
 		}else if(line.equalsIgnoreCase("dotted")){
+			gc.setLineDashOffset(2f);
 			gc.setLineDashes(1f,1f);
 		}
 
