@@ -13,6 +13,7 @@ public abstract class Node implements Cloneable {
 	private String myName;
 	private List<Node> myChildren;
 	private double myValue;
+	private int myNumOfChildren;
 
 	public Node() {
 		myChildren = new ArrayList<Node>();
@@ -28,6 +29,14 @@ public abstract class Node implements Cloneable {
 			myChildren.add(n);
 
 		return nodes[0];
+	}
+	
+	public int getChildrenNum() {
+		return myNumOfChildren;
+	}
+
+	public void setChildrenNum(int n) {
+		myNumOfChildren = n;
 	}
 
 	public void setName(String name) {
