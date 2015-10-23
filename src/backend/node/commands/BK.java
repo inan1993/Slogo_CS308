@@ -15,6 +15,7 @@ import sharedobjects.ManipulateController;
 public class BK extends Command {
 	public BK() {
 		super();
+		super.setChildrenNum(1);
 	}
 
 	@Override
