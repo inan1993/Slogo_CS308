@@ -1,16 +1,13 @@
 package GUI;
 
-import java.awt.Desktop;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
 import java.io.File;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
+
 import GUI.button.ClearCommandButton;
 import GUI.button.EnterCommandButton;
 import GUI.button.HelpButton;
@@ -76,7 +73,7 @@ public class SlogoView {
 	private UserInput myUserInputObservable;
 
 
-	private HashMap<String, ActionEvent> buttonActions;
+	//private HashMap<String, ActionEvent> buttonActions;
 
 
 	public SlogoView(){
@@ -121,7 +118,7 @@ public class SlogoView {
 
 		//        Use List with reflections ????
 		result.getChildren().add(createFileDropDown());
-		//result.getChildren().add(imageButton());
+		result.getChildren().add(imageButton());
 		result.getChildren().add(createLanguageDropDown());
 		result.getChildren().add(bgColorDropDown());
 		result.getChildren().add(penColorDropDown());
@@ -134,21 +131,21 @@ public class SlogoView {
 	private Node createFileDropDown(){
 		ComboBox<String> fileDropDown = new FileDropDown("File");
 		fileDropDown.setOnAction(event->{
-			String file = fileDropDown.getValue();
-			if(file.equalsIgnoreCase("Upload Turtle Image")){
-				ButtonClicked();
-			}else{
+			String text = fileDropDown.getValue();
+			if(text.equalsIgnoreCase("New Workspace")){
+				centerBox();
+			}else if(text.equalsIgnoreCase("Save Workspace")){
 				centerBox();
 			}
 			//myUserInputObservable.setCurrentLanguage(lang);
-			messageBox.setMessage(file + " executed");
+			messageBox.setMessage(text + " executed");
 		});
 		return fileDropDown;  
 	}
 
-	//    private Node imageButton(){
-	//        return new UploadButton(event->ButtonClicked());  
-	//    }
+	private Node imageButton(){
+		return new UploadButton(event->ButtonClicked());  
+	}
 
 	private void ButtonClicked() {
 		FileChooser fileChooser = new FileChooser();
@@ -170,6 +167,11 @@ public class SlogoView {
 		return new HelpButton();//event->help());
 	}
 
+//	private void createTabControls(TabPane tabPane) {
+//		
+//			tabPane.getTabs().add(center());
+//			tabPane.getSelectionModel().selectLast();
+//	}
 
 	//    private void help() {
 	//        try {
@@ -217,6 +219,22 @@ public class SlogoView {
 		});
 		return lineType;  
 	}
+
+	//	private Tab createTab() {
+	//        tabNum++;
+	//        Tab tab = new Tab("Tab: " + tabNum);
+	// 
+	//        StackPane tabLayout = new StackPane();
+	//        tabLayout.setStyle("-fx-background-color: " + randomRgbColorString());
+	//        Label tabText = new Label("" + tabNum);
+	//        tabText.setStyle("-fx-font-size: 40px;");
+	//        tabLayout.getChildren().add(tabText);
+	// 
+	//        tab.setContent(tabLayout);
+	// 
+	//        return tab;
+	//    }
+
 
 	private Node centerBox() {
 		AnchorPane mainBox = new AnchorPane();
