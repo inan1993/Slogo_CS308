@@ -6,12 +6,12 @@ import java.util.Observable;
 
 import backend.node.Node;
 
-public class UserInputs extends Observable {
+public class ParsedCommands extends Observable {
 	
 	Map<String, Node> commandMap;
 	Map<String, Node> variableMap;
 	
-	public UserInputs() {
+	public ParsedCommands() {
 		commandMap = new HashMap<String, Node>();
 		variableMap = new HashMap<String, Node>();
 	}

@@ -1,36 +1,29 @@
 package backend.parser;
 
-import responses.Response;
-import responses.Success;
-import sharedobjects.ManipulateController;
-import sharedobjects.Workspace;
-import responses.Error;
-import backend.*;
-import backend.node.Constant;
-import backend.node.Executor;
-import backend.factory.CommandFactory;
-import backend.node.Node;
-import backend.node.Variable;
-import resources.languages.*;
-
-import java.util.List;
-import java.util.Map;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.StringReader;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 import java.util.regex.Pattern;
-
+import backend.factory.CommandFactory;
+import backend.node.Executor;
+import backend.node.Node;
+import datatransferobjects.UserInputTransferObject;
+import responses.Error;
+import responses.Response;
 import sharedobjects.ManipulateController;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.StringReader;
-import java.util.AbstractMap.SimpleEntry;
+import sharedobjects.ManipulateController;
+import sharedobjects.Workspace;
 
 
 /**
@@ -283,7 +276,6 @@ public class Parser implements Observer {
 				throw new SyntaxException("Uncompleted argument list in" + root.getName());
 			Node c = growTree();
 			root.addChild(c);
-			i++;
 		}
 	}
 	
@@ -423,6 +415,7 @@ public class Parser implements Observer {
 	private void parseIf(Node root) throws SyntaxException{
 		try {
 			Node c = growTree();
+			root.addChild(c);
 			if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.LISTSTART){
 				throw new SyntaxException("Incompatible argument list in " + root.getName());
 			}
@@ -472,7 +465,7 @@ public class Parser implements Observer {
 			display.concat(mySyntaxList.get(i).getValue());
 			display=display+" ";
 		}
-//		myManiControl.setFunction(display, root.getName(), root);
+		myManiControl.setCommand(display, root.getName(), root);
 	}
 	
 	//The following two methods are only used when we first create a parser. They will generate myTokenPatterns, mySyntaxPatterns
@@ -514,15 +507,16 @@ public class Parser implements Observer {
 		ManipulateController mani = new ManipulateController(new Workspace());
 		Executor exec = new Executor(mani);
         Parser parser = new Parser(exec, mani);
-        parser.parse("forward 30", "English");
+        parser.parse("make :r 4", "English");
         System.out.println("11");
     }
 
 	@Override
 	public void update(Observable o, Object arg) {
-		String args = (String) arg;
-		String input = args.split(",")[0];
-		String lang = args.split(",")[1];
+		UserInputTransferObject dto = (UserInputTransferObject) arg;
+		String input = dto.getUserInput();
+		String lang = dto.getLanguage();
 		parse(input, lang);
 	}
 }
+
