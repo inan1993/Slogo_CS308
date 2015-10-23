@@ -1,7 +1,9 @@
 package GUI;
 
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observer;
@@ -130,9 +132,17 @@ public class SlogoView {
     }
 
     private Node createHelpMenu() {
-        return new HelpButton();
+        return new HelpButton();//event->help());
     }
 
+
+//    private void help() {
+//        try {
+//            Desktop.getDesktop().browse(new URL("http://www.cs.duke.edu/courses/fall15/compsci308/assign/03_slogo/commands.php").toURI());
+//        } catch (Exception e) {};
+//    }
+
+    
     private Node createLanguageDropDown(){
         ComboBox<String> languageDropDown = new LanguageListDropdown("Languages");
         languageDropDown.setOnAction(event->{

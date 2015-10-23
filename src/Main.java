@@ -45,8 +45,9 @@ public class Main extends Application{
     	/*6*/ HandleObservers.handleObservers(currWorkspace.getObservables(), frontEnd.getObservers());
     	
     	currWorkspace.startWorkspace();
-    	manipulateController.setHeading(0);
-    	manipulateController.foward(50);
+    	manipulateController.setHeading(30);
+    	manipulateController.foward(500);
+    	manipulateController.penDown();
         launch(args);
     }
 }

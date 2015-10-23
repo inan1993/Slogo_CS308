@@ -42,7 +42,10 @@ public class TurtleCanvas extends Canvas{
 	public void drawLine(int[]startLoc, int[] endLoc, boolean draw){
 		if(draw){
 			gc.setStroke(penColor);
-			gc.strokeLine(startLoc[0], startLoc[1], endLoc[0], endLoc[1]);            
+			gc.strokeLine(startLoc[0], startLoc[1], endLoc[0], endLoc[1]); 
+			//gc.setLineDashes(6f,4f,5f);
+			gc.setLineDashes(2f,2f,1f);
+			//gc.setLineWidth(3);
 		}
 	}
 }
