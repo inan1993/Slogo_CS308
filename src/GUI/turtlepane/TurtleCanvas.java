@@ -46,13 +46,14 @@ public class TurtleCanvas extends Canvas{
 		if(draw){
 			gc.setStroke(penColor);
 			gc.strokeLine(startLoc[0]+width/2, startLoc[1]+height/2, endLoc[0]+width/2, endLoc[1]+height/2); 
+			//gc.setLineWidth(1);
 
 		}
 	}
 
 	public void setLineType(String line) {
 		if (line.equalsIgnoreCase("solid"))
-			gc.setLineWidth(3);
+			gc.setLineWidth(1);
 		else if (line.equalsIgnoreCase("dashed")){
 			gc.setLineDashOffset(2f);
 			gc.setLineDashes(4f,4f);
@@ -61,5 +62,9 @@ public class TurtleCanvas extends Canvas{
 			gc.setLineDashes(1f,1f);
 		}
 
+	}
+	
+	public void setPenWidth(Double penWidth){
+		gc.setLineWidth(penWidth);
 	}
 }

@@ -11,17 +11,31 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
-import GUI.button.*;
-import GUI.dropdown.*;
-import GUI.textBox.*;
-import GUI.turtlepane.*;
-import GUI.viewbox.*;
+
+import GUI.button.AButton;
+import GUI.dropdown.BackgroundColorDropdown;
+import GUI.dropdown.FileDropDown;
+import GUI.dropdown.LanguageListDropdown;
+import GUI.dropdown.LineTypeDropDown;
+import GUI.dropdown.PenColorDropdown;
+import GUI.slider.LineSlider;
+import GUI.textBox.CommandPromptDisplayBox;
+import GUI.textBox.MessageDisplayBox;
+import GUI.turtlepane.BackgroundRectangle;
+import GUI.turtlepane.TurtleCanvas;
+import GUI.turtlepane.TurtleGroup;
+import GUI.viewbox.CommandHistoryBox;
+import GUI.viewbox.FunctionListBox;
+import GUI.viewbox.VariableListBox;
 import datatransferobjects.UserInputTransferObject;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -49,6 +63,7 @@ public class SlogoView {
     private VariableListBox variableDisplayBox;
     private CommandHistoryBox historyDisplayBox;
     private FunctionListBox functionDisplayBox;
+    private LineSlider lineSlider;
 
     private Image myTurtleImage;
     private List<Double> myTurtleIDs;
@@ -260,14 +275,30 @@ public class SlogoView {
         return result;	
     }
 
+    private HBox slider(){
+    	HBox slider = new HBox();
+    	lineSlider = new LineSlider();
+        Label sliderCaption = new Label(" Pen thickness: ");
 
+    	lineSlider.valueProperty().addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                sliderCaption.setText(" Pen thickness: "+ String.format("%.0f  ", newValue));		
+                myTurtleCanvas.setPenWidth(newValue.doubleValue());
+			}
+        });
+        slider.getChildren().addAll(lineSlider, sliderCaption);
+    	return slider;
+    }
+    
     private VBox rightBox(){
         VBox result = new VBox();
         variableDisplayBox = new VariableListBox(commandBox);
         historyDisplayBox = new CommandHistoryBox(commandBox);
         functionDisplayBox = new FunctionListBox(commandBox);
+        
         myObservers.add(new ParsedCommandsObserver(functionDisplayBox, variableDisplayBox));
-        result.getChildren().addAll(variableDisplayBox,historyDisplayBox,functionDisplayBox);
+        result.getChildren().addAll(slider(),variableDisplayBox,historyDisplayBox,functionDisplayBox);
         return result;
     }
    
