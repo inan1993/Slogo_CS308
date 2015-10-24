@@ -30,6 +30,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
@@ -37,8 +38,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import observers.FrontEndObserver;
 import observers.ParsedCommandsObserver;
@@ -88,6 +87,7 @@ public class SlogoView {
 		myUserInputObservable = new UserInput(DEFAULT_LANGUAGE);
 
 		BorderPane root = new BorderPane();
+		//TabPane taba = new TabPane();
 
 		root.setMaxSize(DEFAULT_SIZE.getWidth(),DEFAULT_SIZE.getHeight());
 
@@ -115,7 +115,7 @@ public class SlogoView {
 
 	private Node menu() {
 		HBox result = new HBox();
-
+		TabPane tabal = new TabPane();
 		//        Use List with reflections ????
 		result.getChildren().add(createFileDropDown());
 		result.getChildren().add(imageButton());
@@ -130,12 +130,15 @@ public class SlogoView {
 
 	private Node createFileDropDown(){
 		ComboBox<String> fileDropDown = new FileDropDown("File");
+		TabPane pane = new TabPane();
 		fileDropDown.setOnAction(event->{
 			String text = fileDropDown.getValue();
 			if(text.equalsIgnoreCase("New Workspace")){
-				centerBox();
+				//centerBox();
+				createTabControls(pane);
 			}else if(text.equalsIgnoreCase("Save Workspace")){
-				centerBox();
+				//centerBox();
+				createTabControls(pane);
 			}
 			//myUserInputObservable.setCurrentLanguage(lang);
 			messageBox.setMessage(text + " executed");
@@ -166,19 +169,6 @@ public class SlogoView {
 	private Node createHelpMenu() {
 		return new HelpButton();//event->help());
 	}
-
-//	private void createTabControls(TabPane tabPane) {
-//		
-//			tabPane.getTabs().add(center());
-//			tabPane.getSelectionModel().selectLast();
-//	}
-
-	//    private void help() {
-	//        try {
-	//            Desktop.getDesktop().browse(new URL("http://www.cs.duke.edu/courses/fall15/compsci308/assign/03_slogo/commands.php").toURI());
-	//        } catch (Exception e) {};
-	//    }
-
 
 	private Node createLanguageDropDown(){
 		ComboBox<String> languageDropDown = new LanguageListDropdown("Languages");
@@ -220,25 +210,33 @@ public class SlogoView {
 		return lineType;  
 	}
 
-	//	private Tab createTab() {
-	//        tabNum++;
-	//        Tab tab = new Tab("Tab: " + tabNum);
-	// 
-	//        StackPane tabLayout = new StackPane();
-	//        tabLayout.setStyle("-fx-background-color: " + randomRgbColorString());
-	//        Label tabText = new Label("" + tabNum);
-	//        tabText.setStyle("-fx-font-size: 40px;");
-	//        tabLayout.getChildren().add(tabText);
-	// 
-	//        tab.setContent(tabLayout);
-	// 
-	//        return tab;
-	//    }
+	private Button createTabControls(TabPane tabPane) {
+		Button addTab = new Button("New Tab");
+		addTab.setOnAction(event -> {
+			tabPane.getTabs().add(
+					createTab()
+					);
+			tabPane.getSelectionModel().selectLast();
+		});
+		return addTab;
+	}
+
+	private Tab createTab() {
+		Tab tab = new Tab("Tab: " + 1); 
+		AnchorPane tabLayout = new AnchorPane();
+		Label tabText = new Label("" + 1);
+		//tabText.setStyle("-fx-font-size: 40px;");
+		tabLayout.getChildren().add(tabText);
+		tab.setContent(tabLayout);
+
+		return tab;
+	}
+
 
 
 	private Node centerBox() {
 		AnchorPane mainBox = new AnchorPane();
-		//
+
 		myBackgroundRectangle = new BackgroundRectangle(Integer.parseInt(myResource.getString("canvasWidth")), Integer.parseInt(myResource.getString("canvasHeight")));
 		myTurtleCanvas = new TurtleCanvas(Integer.parseInt(myResource.getString("canvasWidth")), Integer.parseInt(myResource.getString("canvasHeight")));
 		myTurtleGroup = new TurtleGroup(myTurtleImage, myTurtleIDs);
@@ -247,19 +245,16 @@ public class SlogoView {
 		mainBox.getChildren().addAll(myBackgroundRectangle, myTurtleCanvas, myTurtleGroup);
 		TabPane tabPane = new TabPane();
 		Tab tab = new Tab();
-//		Tab tab2 = new Tab();
+		Tab tab2 = new Tab();
 		tab.setText("Turtle Workspace");
 		tab.setContent(mainBox);//new Rectangle(800,590, Color.LIGHTSTEELBLUE));
 		tab.setClosable(false);
-//		tab2.setText("Turtle Workspace");
-//		tab2.setContent(new Rectangle(800,590, Color.WHITE));
-//		tab2.setClosable(true);
-//		tabPane.getTabs().addAll(tab,tab2);
-		tabPane.getTabs().add(tab);
+		tab2.setText("Turtle Workspace");
+		//tab2.setContent(mainBox);
+		tab2.setClosable(true);
+		tabPane.getTabs().addAll(tab,tab2);
 
 		return tabPane;        
-
-		//        return mainBox;
 	}
 
 
