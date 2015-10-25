@@ -10,7 +10,7 @@ import responses.Response;
  *
  */
 public abstract class Node implements Cloneable {
-	private String myName;
+	private String name;
 	private List<Node> myChildren;
 	private double myValue;
 
@@ -29,9 +29,23 @@ public abstract class Node implements Cloneable {
 
 		return nodes[0];
 	}
+	
+	private void clearChildren() {
+		myChildren = new ArrayList<Node>();
+	}
+	
+	public Node setChildren(Node...nodes) {
+		clearChildren();
+		addChildren(nodes);
+		return nodes[0];
+	}
+	
+	public int getChildrenNum() {
+		return myChildren.size();
+	}
 
 	public void setName(String name) {
-		myName = name;
+		this.name = name;
 	}
 
 	public Boolean hasChildren() {
@@ -46,7 +60,7 @@ public abstract class Node implements Cloneable {
 	 * @return the myName
 	 */
 	public String getName() {
-		return myName;
+		return name;
 	}
 
 	/**
@@ -76,6 +90,14 @@ public abstract class Node implements Cloneable {
 	@Override
 	public Node clone() throws CloneNotSupportedException {
 		return (Node) super.clone();
+	}
+
+	/**
+	 * 
+	 */
+	public void prepare() {
+		// TODO Auto-generated method stub
+		//if control, this will split 
 	}
 
 }

@@ -44,7 +44,8 @@ public class Executor {
 
 			// Now, run this with our received parameters
 			if (root instanceof Command) {
-				return ((Command) root).run(sharedHandle, returnedNodes);
+				
+			    return ((Command) root).run(sharedHandle, returnedNodes);
 			} else if (root instanceof Operation) {
 				return ((Operation) root).run(returnedNodes);
 			} else if (root instanceof ControlStructure) {

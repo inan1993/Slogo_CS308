@@ -21,6 +21,10 @@ public class FD extends Command {
 			throw new RuntimeException(String.format("Expected 1 parameter, got: %d", ln.size()));
 
 		sharedHandle.foward(ln.get(0).getIntegerValue());
+//		sharedHandle.run(lambda)
+		
+		// return argument 1 value
+		System.out.println("FD " + ln.get(0).getIntegerValue());
 		return ln.get(0);
 	}
 }
