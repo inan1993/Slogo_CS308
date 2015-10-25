@@ -215,16 +215,20 @@ public class Parser implements Observer {
 		case VARIABLE:case PENDOWN:case PENUP: case SHOWTURTLE :case HIDETURTLE:
 		case HOME:case CLEARSCREEN:case XCOORDINATE:case YCOORDINATE:
 		case HEADING: case ISPENDOWN: case ISSHOWING: case PI:
+			parseExpression(root,0);
+			break;
 		//with 1 para
 		case FORWARD:case BACKWARD:case LEFT: case RIGHT: case SETHEADING:
 		case MINUS: case RANDOM:case SINE:case COSINE:case TANGENT:
 		case ARCTANGENT:case NATURALLOG:case NOT:
+			parseExpression(root,1);
+			break;
 		//with 2 paras	
 		case SETTOWARDS:case SETPOSITION:case SUM:case DIFFERENCE:
 		case PRODUCT:case QUOTIENT:case REMAINDER:case POWER:
 		case LESSTHAN:case GREATERTHAN:case EQUAL:case NOTEQUAL:
 		case AND:case OR:
-			parseExpression(root);
+			parseExpression(root, 2);
 		    break;
 		case LISTSTART:
 			if(myListLegal){
@@ -262,17 +266,30 @@ public class Parser implements Observer {
 			//root is USERCOMMAND
 			Node toCmd = myManiControl.getCommand(mySyntaxList.get(myIndex).getValue());///////////maybe getFunction?
 			if(toCmd==null)
+<<<<<<< HEAD
+				throw new SyntaxException("Undefied command!");
+			int numOfArg=toCmd.getChildrenNum()-1;
+			root.setChildrenNum(numOfArg);
+			parseExpression(root, numOfArg);
+=======
 				throw new SyntaxException("Undefined command!");
 			//int numOfArg=toCmd.getChildrenNum()-1;
 			//root.setChildrenNum(numOfArg);
 			parseExpression(root);
+>>>>>>> master
 		}
 		return root;
 	}
 	
+<<<<<<< HEAD
+	private void parseExpression(Node root, int numOfChildren) throws SyntaxException	{
+//		int numOfChildren=root.getChildrenNum();
+		for(int i=0;i<numOfChildren;i++)
+=======
 	private void parseExpression(Node root) throws SyntaxException	{
 		//int numOfChildren=root.getChildrenNum();
 		for(int i=0;i<root.getArgumentNumber();i++)
+>>>>>>> master
 		{
 			if(myIndex>=mySyntaxList.size())
 				throw new SyntaxException("Uncompleted argument list in" + root.getName());
