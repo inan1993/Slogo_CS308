@@ -40,5 +40,4 @@ public class DOTIMES extends ControlStructure {
 		// Return root return value
 		return new Constant().setValue(Double.parseDouble(s.toString()));
 	}
-
 }
