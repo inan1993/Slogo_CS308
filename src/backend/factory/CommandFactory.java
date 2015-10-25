@@ -3,37 +3,38 @@ package backend.factory;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
-import backend.node.Constant;
+
 import backend.node.Node;
-import backend.node.Variable;
 import backend.node.commands.*;
 import backend.node.control.*;
 import backend.node.operations.*;
+import backend.node.types.Constant;
+import backend.node.control.Variable;
+import backend.node.display.*;
 import backend.parser.SyntaxType;
 
 public class CommandFactory {
-	private static HashMap<SyntaxType,Class> myRegisteredCommands = new HashMap<SyntaxType,Class>();
+	private static HashMap<SyntaxType, Class> myRegisteredCommands = new HashMap<SyntaxType, Class>();
 
-	static{
-////		#
-////		# Turtle Commands
-////		#
-		registerNode(SyntaxType.FORWARD, FD.class);
-//		BACKWARD,
-//		LEFT,
-//		RIGHT,
-//		SETHEADING,
-//		SETTOWARDS,
-//		SETPOSITION,
-//		PENDOWN,
-//		PENUP,
-//		SHOWTURTLE,
-//		HIDETURTLE,
-//		HOME,
-//		CLEARSCREEN,
+	static {
+		//// #
+		//// # Turtle Commands
+		//// #
+		// BACKWARD,
+		// LEFT,
+		// RIGHT,
+		// SETHEADING,
+		// SETTOWARDS,
+		// SETPOSITION,
+		// PENDOWN,
+		// PENUP,
+		// SHOWTURTLE,
+		// HIDETURTLE,
+		// HOME,
+		// CLEARSCREEN,
 		registerNode(SyntaxType.FORWARD, FD.class);
 		registerNode(SyntaxType.BACKWARD, BK.class);
-		registerNode(SyntaxType.LEFT, BK.class);
+		registerNode(SyntaxType.LEFT, LT.class);
 		registerNode(SyntaxType.RIGHT, RT.class);
 		registerNode(SyntaxType.SETHEADING, SETH.class);
 		registerNode(SyntaxType.SETTOWARDS, TOWARDS.class);
@@ -44,17 +45,17 @@ public class CommandFactory {
 		registerNode(SyntaxType.HIDETURTLE, HT.class);
 		registerNode(SyntaxType.HOME, HOME.class);
 		registerNode(SyntaxType.CLEARSCREEN, CS.class);
-////		#
-////		# Turtle Queries
-////		#
-//		XCOORDINATE,
-//		YCOORDINATE,
-//		HEADING,
-//		ISPENDOWN,
-//		ISSHOWING,
-////		#
-////		# Math Operations
-////		#
+		//// #
+		//// # Turtle Queries
+		//// #
+		// XCOORDINATE,
+		// YCOORDINATE,
+		// HEADING,
+		// ISPENDOWN,
+		// ISSHOWING,
+		//// #
+		//// # Math Operations
+		//// #
 		registerNode(SyntaxType.SUM, SUM.class);
 		registerNode(SyntaxType.DIFFERENCE, DIFFERENCE.class);
 		registerNode(SyntaxType.PRODUCT, PRODUCT.class);
@@ -69,9 +70,9 @@ public class CommandFactory {
 		registerNode(SyntaxType.NATURALLOG, LOG.class);
 		registerNode(SyntaxType.POWER, POW.class);
 		registerNode(SyntaxType.PI, PI.class);
-////		#
-////		# Boolean Operations
-////		#
+		//// #
+		//// # Boolean Operations
+		//// #
 		registerNode(SyntaxType.LESSTHAN, LESSP.class);
 		registerNode(SyntaxType.GREATERTHAN, GREATERP.class);
 		registerNode(SyntaxType.EQUAL, EQUALP.class);
@@ -79,9 +80,9 @@ public class CommandFactory {
 		registerNode(SyntaxType.AND, AND.class);
 		registerNode(SyntaxType.OR, OR.class);
 		registerNode(SyntaxType.NOT, NOT.class);
-////		#
-////		# Variables, Control, and User-Defined Commands
-////		#
+		//// #
+		//// # Variables, Control, and User-Defined Commands
+		//// #
 		registerNode(SyntaxType.MAKEVARIABLE, MAKEVAR.class);
 		registerNode(SyntaxType.REPEAT, REPEAT.class);
 		registerNode(SyntaxType.DOTIMES, DOTIMES.class);
@@ -89,55 +90,74 @@ public class CommandFactory {
 		registerNode(SyntaxType.IF, IF.class);
 		registerNode(SyntaxType.IFELSE, IFELSE.class);
 		registerNode(SyntaxType.MAKEUSERINSTRUCTION, TOCOMMAND.class);
-////		#
-////		# Display Commands
-////		#
-//		SETBACKGROUND,
-//		SETPENCOLOR,
-//		SETPENSIZE,
-//		SETSHAPE,
-//		SETPALETTE,
-//		GETPENCOLOR,
-//		GETSHAPE,
-//		STAMP,
-//		CLEARSTAMPS,
-////		#
-////		# Multiple Turtle Commands
-////		#
-//		ID,
-//		TURTLES,
-//		TELL,
-//		ASK,
-//		ASKWITH,
-////		#
-////		# Non-Command
-////		#
-		registerNode(SyntaxType.VARIABLE,Variable.class);
-		registerNode(SyntaxType.CONSTANT,Constant.class);
+		//// #
+		//// # Display Commands
+		//// #
+		// SETBACKGROUND,
+		// SETPENCOLOR,
+		// SETPENSIZE,
+		// SETSHAPE,
+		// SETPALETTE,
+		// GETPENCOLOR,
+		// GETSHAPE,
+		// STAMP,
+		// CLEARSTAMPS,
+		//// #
+		//// # Multiple Turtle Commands
+		//// #
+		// ID,
+		// TURTLES,
+		// TELL,
+		// ASK,
+		// ASKWITH,
+		//// #
+		//// # Non-Command
+		//// #
+		registerNode(SyntaxType.VARIABLE, Variable.class);
+		registerNode(SyntaxType.CONSTANT, Constant.class);
 		registerNode(SyntaxType.LISTSTART, LISTSTART.class);
-//		LISTEND,
-//		GROUPSTART,
-//		GROUPEND,
+		// LISTEND,
+		// GROUPSTART,
+		// GROUPEND,
 		registerNode(SyntaxType.USERCOMMAND, USERCOMMAND.class);
+
+		// Extension commands
+
+		registerNode(SyntaxType.ASK, ASK.class);
+		registerNode(SyntaxType.TELL, TELL.class);
+		registerNode(SyntaxType.ID, ID.class);
+		registerNode(SyntaxType.TURTLES, TURTLES.class);
+		
+		registerNode(SyntaxType.CLEARSTAMPS, CLEARSTAMPS.class);
+		registerNode(SyntaxType.GETPENCOLOR, PC.class);
+		registerNode(SyntaxType.SETBACKGROUND, SETBG.class);
+		registerNode(SyntaxType.SETPALETTE, SETPALETTE.class);
+		registerNode(SyntaxType.SETPENCOLOR, SETPC.class);
+		registerNode(SyntaxType.SETPENSIZE, SETPS.class);
+		registerNode(SyntaxType.SETSHAPE, SETSH.class);
+		registerNode(SyntaxType.GETSHAPE, SH.class);
+		registerNode(SyntaxType.STAMP, STAMP.class);
+		
+		
+
 	}
-	
-	public static void registerNode (SyntaxType type, Class nodeClass)
-	{
+
+	public static void registerNode(SyntaxType type, Class nodeClass) {
 		myRegisteredCommands.put(type, nodeClass);
 	}
 
-	public Node createNode(SyntaxType type)
-	{
-		Node result=null;
+	public Node createNode(SyntaxType type) {
+		Node result = null;
 		int a = myRegisteredCommands.size();
-		Class nodeClass = (Class)myRegisteredCommands.get(type);
+		Class nodeClass = (Class) myRegisteredCommands.get(type);
 		Constructor nodeConstructor = null;
 		try {
-			nodeConstructor = nodeClass.getDeclaredConstructor(new Class[]{});
+			nodeConstructor = nodeClass.getDeclaredConstructor(new Class[] {});
 			result = (Node) nodeConstructor.newInstance();
 		} catch (NoSuchMethodException | SecurityException e) {
 			e.printStackTrace();
-		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException e) {
 			e.printStackTrace();
 		}
 		return result;

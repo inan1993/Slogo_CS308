@@ -1,36 +1,26 @@
 package backend.node.commands;
 
-import java.util.List;
-
-import backend.node.Command;
-import backend.node.Constant;
-import backend.node.Node;
+import backend.node.types.OneArgumentNode;
+import responses.Response;
+import responses.Success;
 import sharedobjects.ManipulateController;
 
 /**
  * @author loganrooper
  *
  */
-public class SETH extends Command {
-	public SETH(String name, int children) {
-		super();
-	}
+public class SETH extends OneArgumentNode {
 
 	@Override
-	public Node run(ManipulateController sharedHandle, List<Node> ln) {
-		 if (ln == null)
-			 throw new RuntimeException("Missing parameter.");
-		 if (ln.size() < 1)
-			 throw new RuntimeException(String.format("Expected 1 parameter, got: %d", ln.size()));
-		 
+	public Response run(ManipulateController sharedHandle) {
 		 //get headings
 		 double prevHeading = sharedHandle.getHeading();
-		 double newHeading = ln.get(0).getDoubleValue();
+		 double newHeading = getAndRun(0, sharedHandle).getDoubleValue();
 		 
 	     //turn
 		 sharedHandle.setHeading(newHeading);
 		 
 		 //return the delta
-		 return new Constant().setValue(prevHeading-newHeading);
+		 return new Success(prevHeading-newHeading);
 	}
 }

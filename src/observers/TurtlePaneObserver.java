@@ -7,12 +7,12 @@ import GUI.turtlepane.TurtleCanvas;
 import GUI.turtlepane.TurtleGroup;
 import datatransferobjects.TurtleTransferObject;
 
-public class FrontEndObserver implements Observer{
+public class TurtlePaneObserver implements Observer{
 
     private TurtleGroup myTurtleGroup;
     private TurtleCanvas myTurtleCanvas;
 
-    public FrontEndObserver (TurtleGroup turtlePaneGroup, TurtleCanvas turtlePaneCanvas) {
+    public TurtlePaneObserver (TurtleGroup turtlePaneGroup, TurtleCanvas turtlePaneCanvas) {
         this.myTurtleGroup = turtlePaneGroup;
         this.myTurtleCanvas = turtlePaneCanvas;
     }

@@ -1,4 +1,4 @@
-package backend.node;
+package backend.node.types;
 import java.util.List;
 
 import backend.node.*;
@@ -12,6 +12,5 @@ public abstract class ControlStructure extends Node{
 	protected ControlStructure() {
 		super();
 	}
-
-	protected abstract Node run(List<Node> nl, Executor executor);
+	
 }

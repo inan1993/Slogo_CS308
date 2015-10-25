@@ -27,7 +27,7 @@ public abstract class AViewBox extends TitledPane{
 
 	public void setMessage(String message){
 		listView.setEditable(true);
-		data.add(message);
+		data.add(0,message);
 		listView.setItems(data);
 		listView.getSelectionModel().selectedItemProperty().addListener(
 				(ObservableValue<? extends String> ov, String old_val, String new_val) -> {

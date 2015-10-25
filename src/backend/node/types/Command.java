@@ -1,10 +1,11 @@
 /**
  * 
  */
-package backend.node;
+package backend.node.types;
 
 import java.util.List;
 
+import backend.node.Node;
 import responses.Response;
 import sharedobjects.ManipulateController;
 
@@ -14,16 +15,7 @@ import sharedobjects.ManipulateController;
  *
  */
 public abstract class Command extends Node{
-	
 	public Command() {
 		super();
 	}
-	
-	/**
-	 * A command requires two arguments
-	 * @param wsc
-	 * @param returnedNodes
-	 * @return
-	 */
-	protected abstract Node run(ManipulateController wsc, List<Node> returnedNodes);
 }

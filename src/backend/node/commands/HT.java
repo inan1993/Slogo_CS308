@@ -3,27 +3,22 @@
  */
 package backend.node.commands;
 
-import java.util.List;
-
-import backend.node.Command;
-import backend.node.Constant;
-import backend.node.Node;
+import backend.node.types.ZeroArgumentNode;
+import responses.Response;
+import responses.Success;
 import sharedobjects.ManipulateController;
 
 /**
  * @author loganrooper
  *
  */
-public class HT extends Command {
-	public HT(String name, int children) {
-		super();
-	}
+public class HT extends ZeroArgumentNode {
 
 	@Override
-	public Node run(ManipulateController sharedHandle, List<Node> ln) {
+	public Response run(ManipulateController sharedHandle) {
 		sharedHandle.showTurtle();
 
 		// return 1
-		return new Constant().setValue(1);
+		return new Success(1);
 	}
 }

@@ -1,20 +1,16 @@
 package backend.node.control;
 
-import java.util.List;
-
-import backend.node.ControlStructure;
-import backend.node.Executor;
-import backend.node.Node;
+import backend.node.types.ControlStructure;
+import responses.Response;
+import sharedobjects.ManipulateController;
 
 public class IF extends ControlStructure {
-	public IF(){
-		super();
-		super.setChildrenNum(2);
-	}
-
 	@Override
-	protected Node run(List<Node> nl, Executor executor) {
-		// TODO Auto-generated method stub
-		return null;
+	public Response run(ManipulateController mc) {
+		Response left = getAndRun(0, mc);
+		if (left.getDoubleValue() != 0) {
+			return getAndRun(1, mc);
+		}
+		return left;
 	}
 }

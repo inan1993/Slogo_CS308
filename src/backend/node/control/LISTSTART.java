@@ -1,30 +1,23 @@
 package backend.node.control;
 
-import java.util.List;
-
-import backend.node.Constant;
-import backend.node.ControlStructure;
-import backend.node.Executor;
 import backend.node.Node;
-import responses.Response;
-
+import backend.node.types.ControlStructure;
+import responses.*;
+import responses.Error;
+import sharedobjects.ManipulateController;
 
 public class LISTSTART extends ControlStructure {
-	public LISTSTART(){
-		super();
-		super.setChildrenNum(0);
-	}
-
 	@Override
-	protected Node run(List<Node> nl, Executor executor) {
+	public Response run(ManipulateController mc) {
 		// Just run each node and return the last value
 		Response s = null;
-		for (Node n : nl) {
-			s = executor.execute(n);
+		for (Node n : getChildren()) {
+			s = n.run(mc);
 		}
+
 		if (s == null)
-			this.setValue(0.0);
-		this.setValue(Double.parseDouble(s.toString()));
-		return this;
+			return new Error("Messsage");
+
+		return s;
 	}
 }

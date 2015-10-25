@@ -1,28 +1,20 @@
-/**
- * 
- */
 package backend.node.operations;
 
-import java.util.List;
-import java.util.Random;
-
-import backend.node.Constant;
-import backend.node.Node;
-import backend.node.Operation;
+import backend.node.types.TwoArgumentNode;
+import responses.Response;
+import responses.Success;
+import sharedobjects.ManipulateController;
 
 /**
  * @author loganrooper
  *
  */
-public class TAN extends Operation{
-	public TAN() {
-		super();
-	}
+public class TAN extends TwoArgumentNode{
 
 	@Override
-	public Node run(List<Node> nl) {	
-		Double x = nl.get(0).getDoubleValue();
-		//convert input to radians, sin, conver to degrees
-		return new Constant().setValue(Math.toDegrees(Math.tan(Math.toRadians(x))));
+	public Response run(ManipulateController mc) {
+		Double x = getAndRun(0, mc).getDoubleValue();
+		//convert input to radians, sin, convert to degrees
+		return new Success(Math.toDegrees(Math.tan(Math.toRadians(x))));
 	}
 }

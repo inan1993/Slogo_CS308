@@ -1,7 +1,9 @@
 package sharedobjects;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 import backend.node.Node;
 import datatransferobjects.TurtleTransferObject;
@@ -9,56 +11,79 @@ import datatransferobjects.ParsedCommandsTransferObject;
 
 public class Workspace {
 
-	List<Turtle> turtleList;
-	List<Pen> penList;
-	Turtle currTurtle;
+	Map<Integer, Turtle> allTurtles;
+	List<Turtle> activeTurtles;
+	List<Turtle> tempTurtles;
 	ParsedCommands userInputsObservable = new ParsedCommands();
+	Pen pen;
 	
 	public Workspace() {
-		turtleList = new LinkedList<Turtle>();
-		penList = new LinkedList<Pen>();
-		currTurtle = new Turtle();
-		turtleList.add(currTurtle);
+		allTurtles = new HashMap<Integer, Turtle>();
+		allTurtles.put(1, new Turtle(1));
+		activeTurtles = new LinkedList<Turtle>();
+		activeTurtles.add(allTurtles.get(1));
+		tempTurtles = new LinkedList<Turtle>();
+		pen = new Pen();
 	}
 	
-	public void setHeading(double angle){
-		currTurtle.setHeading(angle);
+	public Map<Integer, Turtle> getAllTurtles(){
+		return allTurtles;
 	}
 	
-	public double getHeading(){
-		return currTurtle.getHeading();
+	public List<Turtle> getActiveTurtles() {
+		return activeTurtles;
 	}
 	
-	public void setPosition(int[] pos){
-		TurtleTransferObject dto = new TurtleTransferObject(false, currTurtle.getID(), false, currTurtle.isPenDown(), currTurtle.getPosition(), pos);
-		currTurtle.setPosition(pos);
-		currTurtle.notifyObservers(dto);
+	public void setActiveTurtles(List<Turtle> activeTurtles) {
+		this.activeTurtles = activeTurtles;
 	}
 	
-	public int[] getPosition(){
-		return currTurtle.getPosition();
+	public void setTempTurtles(List<Turtle> tempTurtles){
+		this.tempTurtles = tempTurtles;
 	}
 	
-	public void showTurtle(){
-		currTurtle.show();
-		TurtleTransferObject dto = new TurtleTransferObject(false, currTurtle.getID(), true, currTurtle.isPenDown(), currTurtle.getPosition(), currTurtle.getPosition());
-		currTurtle.notifyObservers(dto);
+	public List<Turtle> getTempTurtles(){
+		return tempTurtles;
 	}
 	
-	public void hideTurtle(){
-		currTurtle.hide();
-		TurtleTransferObject dto = new TurtleTransferObject(false, currTurtle.getID(), false, currTurtle.isPenDown(), currTurtle.getPosition(), currTurtle.getPosition());
-		currTurtle.notifyObservers(dto);
-	}
-	
- 	//****Pen Manipulation********
-	public void penUp(){
-		currTurtle.penUp();
-	}
-	
-	public void penDown(){
-		currTurtle.penDown();
-	}
+//	public void setHeading(double angle){
+//		currTurtle.setHeading(angle);
+//	}
+//	
+//	public double getHeading(){
+//		return currTurtle.getHeading();
+//	}
+//	
+//	public void setPosition(int[] pos){
+//		TurtleTransferObject dto = new TurtleTransferObject(false, currTurtle.getID(), false, currTurtle.isPenDown(), currTurtle.getPosition(), pos);
+//		currTurtle.setPosition(pos);
+//		currTurtle.notifyObservers(dto);
+//	}
+//	
+//	public int[] getPosition(){
+//		return currTurtle.getPosition();
+//	}
+//	
+//	public void showTurtle(){
+//		currTurtle.show();
+//		TurtleTransferObject dto = new TurtleTransferObject(false, currTurtle.getID(), true, currTurtle.isPenDown(), currTurtle.getPosition(), currTurtle.getPosition());
+//		currTurtle.notifyObservers(dto);
+//	}
+//	
+//	public void hideTurtle(){
+//		currTurtle.hide();
+//		TurtleTransferObject dto = new TurtleTransferObject(false, currTurtle.getID(), false, currTurtle.isPenDown(), currTurtle.getPosition(), currTurtle.getPosition());
+//		currTurtle.notifyObservers(dto);
+//	}
+//	
+// 	//****Pen Manipulation********
+//	public void penUp(){
+//		currTurtle.penUp();
+//	}
+//	
+//	public void penDown(){
+//		currTurtle.penDown();
+//	}
 	
 	//****Commands and Variables Manipulation*****//
 	public void addVariable(String v, Node n){
@@ -83,7 +108,7 @@ public class Workspace {
 	
 	public List<Observable> getObservables(){
 		List<Observable> observables = new LinkedList<Observable>();
-		for(Turtle t: turtleList){
+		for(Turtle t: activeTurtles){
 		        System.out.println("here2");
 			observables.add((Observable) t);
 		}
@@ -92,8 +117,9 @@ public class Workspace {
 	}
 	
 	public void startWorkspace(){
-		TurtleTransferObject dto = new TurtleTransferObject(false, currTurtle.getID(), false, true, new int[]{12,12}, new int[]{12,12});
-		currTurtle.notifyObservers(dto);
+		Turtle firstTurtle = activeTurtles.get(0);
+		TurtleTransferObject dto = new TurtleTransferObject(false, firstTurtle.getID(), false, true, new int[]{12,12}, new int[]{12,12});
+		firstTurtle.notifyObservers(dto);
 		System.out.println("here1");
 	}
 	

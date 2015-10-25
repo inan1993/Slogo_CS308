@@ -1,9 +1,9 @@
 /**
  * 
  */
-package backend.node;
+package backend.node.types;
 
-import java.util.List;
+import backend.node.Node;
 
 /**
  * @author loganrooper
@@ -13,6 +13,4 @@ public abstract class Operation extends Node{
 	public Operation() {
 		super();
 	}
-	
-	public abstract Node run(List<Node> list);
 }
