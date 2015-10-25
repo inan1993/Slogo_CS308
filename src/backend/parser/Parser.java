@@ -16,7 +16,6 @@ import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 import java.util.regex.Pattern;
 import backend.factory.CommandFactory;
-import backend.node.Executor;
 import backend.node.Node;
 import datatransferobjects.UserInputTransferObject;
 import responses.Error;
@@ -31,7 +30,6 @@ import sharedobjects.Workspace;
  *
  */
 public class Parser implements Observer {
-	private Executor myExec;
 	private ManipulateController myManiControl;
 	private List<Node> myRoots;
 	private int myIndex;
@@ -60,9 +58,8 @@ public class Parser implements Observer {
 	private static final List<Entry<TokenType, Pattern>> myTokenPatterns = makeTokenPatterns("resources/languages/Syntax");
 	public static final Map<LangType,List<Entry<SyntaxType, Pattern>>> mySyntaxPatterns = makeSyntaxPatterns(); 
 	
-	public Parser(Executor exec, ManipulateController mc) {
+	public Parser(ManipulateController mc) {
 		//Call run to start.
-		myExec = exec;
 		myManiControl=mc;
 		init();
 	}
@@ -103,7 +100,7 @@ public class Parser implements Observer {
 		for(Node each:myRoots)
 		{
 //			should add a try catch, and make executor throws execute exception
-			response = myExec.execute(each);
+			response = each.run(myManiControl);
 //			System.out.println("call exec");
 		}
 		return response;

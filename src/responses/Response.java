@@ -13,5 +13,9 @@ public abstract class Response {
 	public Response(String msg)	{
 		message=msg;
 	}
+	public Response(Double d) {
+		message = d.toString();
+	}
 	public abstract String toString();
+	public abstract double toDouble();
 }

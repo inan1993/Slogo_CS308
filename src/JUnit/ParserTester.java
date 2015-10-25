@@ -26,7 +26,7 @@ public class ParserTester extends TestCase {
 		ws = new Workspace();
 		mc = new ManipulateController(ws);
 		f = new Executor(mc);
-		p = new Parser(f, mc);
+		p = new Parser(mc);
 	}
 
 	// "fd fd 10"

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import responses.Response;
+import sharedobjects.ManipulateController;
 
 /**
  * @author loganrooper
@@ -60,6 +61,10 @@ public abstract class Node implements Cloneable {
 	public List<Node> getChildren() {
 		return myChildren;
 	}
+	
+	public Node getChild(int index) {
+		return myChildren.get(index);
+	}
 
 	/**
 	 * @return the myName
@@ -96,13 +101,11 @@ public abstract class Node implements Cloneable {
 	public Node clone() throws CloneNotSupportedException {
 		return (Node) super.clone();
 	}
-
+	
 	/**
-	 * 
+	 * This is the main method that nodes call of each other.
+	 * @param mc
+	 * @return
 	 */
-	public void prepare() {
-		// TODO Auto-generated method stub
-		//if control, this will split 
-	}
-
+	public abstract Response run(ManipulateController mc);
 }

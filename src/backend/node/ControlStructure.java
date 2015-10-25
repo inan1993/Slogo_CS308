@@ -12,6 +12,5 @@ public abstract class ControlStructure extends Node{
 	protected ControlStructure() {
 		super();
 	}
-
-	protected abstract Node run(List<Node> nl, Executor executor);
+	
 }

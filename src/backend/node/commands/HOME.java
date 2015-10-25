@@ -6,6 +6,7 @@ import backend.node.Command;
 import backend.node.Constant;
 import backend.node.Node;
 import responses.Response;
+import responses.Success;
 import sharedobjects.ManipulateController;
 
 /**
@@ -17,13 +18,9 @@ public class HOME extends Command {
 		super();
 	}
 
-	@Override
-	public Node run(ManipulateController sharedHandle, List<Node> ln) {
-		if (ln == null)
-			throw new RuntimeException("Missing parameter.");
-		
-		Response s = sharedHandle.home();
+	public Response run(ManipulateController mc) {
+		Response s = mc.home();
 		double distanceMoved = Double.parseDouble(s.toString());
-		return new Constant().setValue(distanceMoved);
+		return new Success(distanceMoved);
 	}
 }
