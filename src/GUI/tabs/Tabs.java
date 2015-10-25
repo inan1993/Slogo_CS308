@@ -1,4 +1,4 @@
-package GUI;
+package GUI.tabs;
 
 import javafx.scene.Node;
 import javafx.scene.control.Tab;
@@ -13,7 +13,7 @@ public class Tabs {
 		TabPane tabPane = new TabPane();
 		Tab tab = new Tab();
 		tab.setText("Turtle Workspace");
-		tab.setContent(new Rectangle(800,590, Color.WHITE));
+		tab.setContent(new Rectangle(800,580, Color.WHITE));
 		tab.setClosable(true);
 		tabPane.getTabs().add(tab);
 

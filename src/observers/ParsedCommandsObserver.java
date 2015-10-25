@@ -20,7 +20,7 @@ public class ParsedCommandsObserver implements Observer{
 	@Override
 	public void update (Observable o, Object arg) {
 		ParsedCommandsTransferObject functionVariableDTO = (ParsedCommandsTransferObject) arg;
-
+		System.out.println("variable observer");
 
 		if(functionVariableDTO.isFunction()){
 			myFunctionList.setMessage(functionVariableDTO.getUserInput()); 

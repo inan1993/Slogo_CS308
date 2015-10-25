@@ -13,6 +13,7 @@ public class LineSlider extends Slider{
 		this.setShowTickLabels(true);
 		this.setShowTickLabels(true);
 		this.setMajorTickUnit(1);
-		this.setBlockIncrement(1);	 
+		this.setBlockIncrement(1);
+		
 	}
 }

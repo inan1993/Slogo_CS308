@@ -1,9 +1,9 @@
 package GUI.dropdown;
 
-public class LineTypeDropDown extends ADropdownBox{
+public class LineTypeDropdown extends ADropdownBox{
 
-	public LineTypeDropDown (String value) {
-        super(value);
+	public LineTypeDropdown () {
+        super("Line Type");
         this.getItems().addAll(myResource.getString("lineProperties").split(","));
     }
 }

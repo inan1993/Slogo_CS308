@@ -1,12 +1,10 @@
 package GUI.turtlepane;
 
-import java.awt.BasicStroke;
-import java.awt.Stroke;
 import java.util.ResourceBundle;
+
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 
 public class TurtleCanvas extends Canvas{
 
@@ -46,24 +44,29 @@ public class TurtleCanvas extends Canvas{
 		if(draw){
 			gc.setStroke(penColor);
 			gc.strokeLine(startLoc[0]+width/2, startLoc[1]+height/2, endLoc[0]+width/2, endLoc[1]+height/2); 
-			//gc.setLineWidth(1);
 
 		}
 	}
 
+	public void penUpDown(){
+		System.out.println("check");	
+		gc.clearRect(0, 0, width, height);
+		
+	}
+	
 	public void setLineType(String line) {
 		if (line.equalsIgnoreCase("solid"))
 			gc.setLineWidth(1);
 		else if (line.equalsIgnoreCase("dashed")){
-			gc.setLineDashOffset(2f);
-			gc.setLineDashes(4f,4f);
+			gc.setLineDashOffset(5f);
+			gc.setLineDashes(5f,5f);
 		}else if(line.equalsIgnoreCase("dotted")){
 			gc.setLineDashOffset(2f);
 			gc.setLineDashes(1f,1f);
 		}
 
 	}
-	
+
 	public void setPenWidth(Double penWidth){
 		gc.setLineWidth(penWidth);
 	}
