@@ -21,5 +21,9 @@ public class Error extends Response {
 	public String toString() {
 		return this.message;
 	}
-
+	
+	@Override
+	public double toDouble() {
+		return Double.parseDouble(message);
+	}
 }

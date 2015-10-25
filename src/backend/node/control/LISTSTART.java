@@ -7,23 +7,20 @@ import backend.node.ControlStructure;
 import backend.node.Executor;
 import backend.node.Node;
 import responses.Response;
+import sharedobjects.ManipulateController;
 
 
 public class LISTSTART extends ControlStructure {
-	public LISTSTART(){
-		super();
-	}
-
 	@Override
-	protected Node run(List<Node> nl, Executor executor) {
+	public Response run(ManipulateController mc) {
 		// Just run each node and return the last value
-		Response s = null;
-		for (Node n : nl) {
-			s = executor.execute(n);
+		Response s;
+		for (Node n : getChildren()) {
+			s = n.run(mc);
 		}
 		if (s == null)
-			this.setValue(0.0);
-		this.setValue(Double.parseDouble(s.toString()));
-		return this;
+			s = new Error("Messsage");
+		
+		return s;
 	}
 }

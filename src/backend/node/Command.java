@@ -14,10 +14,7 @@ import sharedobjects.ManipulateController;
  *
  */
 public abstract class Command extends Node{
-	
 	public Command() {
 		super();
 	}
-
-	protected abstract Node run(ManipulateController wsc, List<Node> returnedNodes);
 }
