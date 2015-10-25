@@ -11,13 +11,13 @@ public class Workspace {
 
 	List<Turtle> activeTurtles;
 	List<Turtle> inactiveTurtles;
-	List<Pen> penList;
 	ParsedCommands userInputsObservable = new ParsedCommands();
+	Pen pen;
 	
 	public Workspace() {
 		activeTurtles = new LinkedList<Turtle>();
 		inactiveTurtles = new LinkedList<Turtle>();
-		penList = new LinkedList<Pen>();
+		new Pen();
 		activeTurtles.add(new Turtle());
 	}
 	
