@@ -1,13 +1,8 @@
-/**
- * 
- */
 package backend.node.commands;
 
-import java.util.List;
-
-import backend.node.Command;
-import backend.node.Node;
-import datatransferobjects.TurtleTransferObject;
+import backend.node.OneArgumentNode;
+import responses.Response;
+import responses.Success;
 import sharedobjects.LambdaInterface;
 import sharedobjects.ManipulateController;
 import sharedobjects.Turtle;
@@ -16,20 +11,14 @@ import sharedobjects.Turtle;
  * @author loganrooper
  *
  */
-public class LT extends Command {
+public class LT extends OneArgumentNode {
 	public LT() {
 		super();
-		super.setChildrenNum(1);
 	}
-
+	
 	@Override
-	public Node run(ManipulateController sharedHandle, List<Node> ln) {
-		if (ln == null)
-			throw new RuntimeException("Missing parameter.");
-		if (ln.size() < 1)
-			throw new RuntimeException(String.format("Expected 1 parameter, got: %d", ln.size()));
-
-		int degrees = ln.get(0).getIntegerValue();
+	public Response run(ManipulateController sharedHandle) {
+		int degrees = getChild(0).getIntegerValue();
 		LambdaInterface l = (Turtle t) -> {
 			double currHeading = t.getHeading();
 			currHeading -= degrees;
@@ -41,6 +30,6 @@ public class LT extends Command {
 		sharedHandle.execute(l);
 		
 		// return argument 1 value
-		return ln.get(0);
+		return new Success(getChild(0).toString());
 	}
 }

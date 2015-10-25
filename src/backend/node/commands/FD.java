@@ -5,26 +5,23 @@ import java.util.List;
 import backend.factory.CommandFactory;
 import backend.parser.SyntaxType;
 import datatransferobjects.TurtleTransferObject;
+import responses.Response;
+import responses.Success;
 import sharedobjects.LambdaInterface;
 import sharedobjects.ManipulateController;
 import sharedobjects.Turtle;
 import backend.node.Command;
 import backend.node.Node;
+import backend.node.OneArgumentNode;
 
-public class FD extends Command {
+public class FD extends OneArgumentNode {
 	public FD() {
 		super();
-		super.setChildrenNum(1);
 	}
 
 	@Override
-	public Node run(ManipulateController sharedHandle, List<Node> ln) {
-		if (ln == null)
-			throw new RuntimeException("Missing parameter.");
-		if (ln.size() < 1)
-			throw new RuntimeException(String.format("Expected 1 parameter, got: %d", ln.size()));
-
-		int pixels = ln.get(0).getIntegerValue();
+	public Response run(ManipulateController sharedHandle) {
+		int pixels = getChild(0).getIntegerValue();
 		LambdaInterface l = (Turtle t) -> {
 			int[] currPosition = t.getPosition();
 			System.out.println("Current Position..." + currPosition[0] + ":" + currPosition[1]);
@@ -44,7 +41,7 @@ public class FD extends Command {
 		System.out.println("Got to Command FD");
 		sharedHandle.execute(l);
 		// return argument 1 value
-		return ln.get(0);
+		return new Success(this.getChild(0).getDoubleValue());
 		
 	}
 }

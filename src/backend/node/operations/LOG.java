@@ -3,26 +3,24 @@
  */
 package backend.node.operations;
 
-import java.util.List;
-import java.util.Random;
-
-import backend.node.Constant;
-import backend.node.Node;
-import backend.node.Operation;
+import backend.node.OneArgumentNode;
+import responses.Response;
+import responses.Success;
+import sharedobjects.ManipulateController;
 
 /**
  * @author loganrooper
  *
  */
-public class LOG extends Operation{
+public class LOG extends OneArgumentNode{
 	public LOG() {
 		super();
 	}
 
 	@Override
-	public Node run(List<Node> nl) {	
-		Double x = nl.get(0).getDoubleValue();
+	public Response run(ManipulateController mc) {
+		Double x = getChild(0).getDoubleValue();
 		//convert input to radians, sin, conver to degrees
-		return new Constant().setValue(Math.log(x));
+		return new Success(Math.log(x));
 	}
 }
