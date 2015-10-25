@@ -1,7 +1,9 @@
 package sharedobjects;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 import backend.node.Node;
 import datatransferobjects.TurtleTransferObject;
@@ -9,16 +11,23 @@ import datatransferobjects.ParsedCommandsTransferObject;
 
 public class Workspace {
 
+	Map<Integer, Turtle> allTurtles;
 	List<Turtle> activeTurtles;
-	List<Turtle> inactiveTurtles;
+	List<Turtle> tempTurtles;
 	ParsedCommands userInputsObservable = new ParsedCommands();
 	Pen pen;
 	
 	public Workspace() {
+		allTurtles = new HashMap<Integer, Turtle>();
+		allTurtles.put(1, new Turtle(1));
 		activeTurtles = new LinkedList<Turtle>();
-		inactiveTurtles = new LinkedList<Turtle>();
-		new Pen();
-		activeTurtles.add(new Turtle());
+		activeTurtles.add(allTurtles.get(1));
+		tempTurtles = new LinkedList<Turtle>();
+		pen = new Pen();
+	}
+	
+	public Map<Integer, Turtle> getAllTurtles(){
+		return allTurtles;
 	}
 	
 	public List<Turtle> getActiveTurtles() {
@@ -29,12 +38,12 @@ public class Workspace {
 		this.activeTurtles = activeTurtles;
 	}
 	
-	public List<Turtle> getInactiveTurtles() {
-		return inactiveTurtles;
+	public void setTempTurtles(List<Turtle> tempTurtles){
+		this.tempTurtles = tempTurtles;
 	}
 	
-	public void setInactiveTurtles(List<Turtle> inactiveTurtles) {
-		this.inactiveTurtles = inactiveTurtles;
+	public List<Turtle> getTempTurtles(){
+		return tempTurtles;
 	}
 	
 //	public void setHeading(double angle){

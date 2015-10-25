@@ -1,7 +1,9 @@
 package sharedobjects;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 
 import backend.node.Node;
@@ -18,12 +20,31 @@ public class ManipulateController implements IWorkSpaceController{
                 workspaceList.add(currWorkspace);
         }
 
+        
         public void execute(LambdaInterface lambda){
-        	for(Turtle turtle : currWorkspace.getActiveTurtles()){
-        		System.out.println("Got to Manipulate Controller execute");
+        	List<Turtle> turtles = (currWorkspace.getTempTurtles().size() > 0) ? 
+        			currWorkspace.getTempTurtles() : currWorkspace.getActiveTurtles();
+       
+        	for(Turtle turtle : turtles){
         		lambda.run(turtle);
         	}
         }
+        
+        public void setTempTurtles(int[] ids){
+        	Map<Integer, Turtle> allTurtles = currWorkspace.getAllTurtles();
+        	List<Turtle> tempTurtles = new LinkedList<Turtle>();
+        	for(int i = 0; i < ids.length; i++){
+        		if(allTurtles.containsKey(i)){
+        			tempTurtles.add(allTurtles.get(i));
+        		}
+        	}
+        	currWorkspace.setTempTurtles(tempTurtles);
+        }
+        
+        public void clearTempTurtles(){
+        	currWorkspace.setTempTurtles(Collections.<Turtle> emptyList());
+        }
+        
         
         public double getHeading(){
         	return 0;
@@ -32,8 +53,6 @@ public class ManipulateController implements IWorkSpaceController{
         public void addVariable(String v, Node n){
     		currWorkspace.addVariable(v, n);
     	}
-    	
-
 
 		@Override
 		public Response foward(int pixels) {
