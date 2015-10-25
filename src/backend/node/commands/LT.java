@@ -7,7 +7,10 @@ import java.util.List;
 
 import backend.node.Command;
 import backend.node.Node;
+import datatransferobjects.TurtleTransferObject;
+import sharedobjects.LambdaInterface;
 import sharedobjects.ManipulateController;
+import sharedobjects.Turtle;
 
 /**
  * @author loganrooper
@@ -26,8 +29,17 @@ public class LT extends Command {
 		if (ln.size() < 1)
 			throw new RuntimeException(String.format("Expected 1 parameter, got: %d", ln.size()));
 
-		sharedHandle.left(ln.get(0).getDoubleValue());
-
+		int degrees = ln.get(0).getIntegerValue();
+		LambdaInterface l = (Turtle t) -> {
+			double currHeading = t.getHeading();
+			currHeading -= degrees;
+			if(currHeading < 0){
+	               currHeading += 360;
+			}
+			t.setHeading(currHeading);
+		};
+		sharedHandle.execute(l);
+		
 		// return argument 1 value
 		return ln.get(0);
 	}
