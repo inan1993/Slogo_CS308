@@ -14,6 +14,7 @@ import backend.node.Node;
 public class FD extends Command {
 	public FD() {
 		super();
+		super.setChildrenNum(1);
 	}
 
 	@Override
