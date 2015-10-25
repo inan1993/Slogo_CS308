@@ -1,6 +1,6 @@
 package backend.node.display;
 
-import backend.node.ZeroArgumentNode;
+import backend.node.types.ZeroArgumentNode;
 import responses.Response;
 import sharedobjects.ManipulateController;
 

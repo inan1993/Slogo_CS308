@@ -2,9 +2,9 @@ package backend.node.commands;
 
 import java.util.List;
 
-import backend.node.Command;
-import backend.node.Constant;
 import backend.node.Node;
+import backend.node.types.Command;
+import backend.node.types.Constant;
 import responses.Response;
 import responses.Success;
 import sharedobjects.ManipulateController;

@@ -3,7 +3,7 @@
  */
 package backend.node.commands;
 
-import backend.node.ZeroArgumentNode;
+import backend.node.types.ZeroArgumentNode;
 import responses.Response;
 import sharedobjects.ManipulateController;
 

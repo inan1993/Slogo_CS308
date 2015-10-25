@@ -3,12 +3,13 @@ package backend.factory;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
-import backend.node.Constant;
+
 import backend.node.Node;
-import backend.node.Variable;
 import backend.node.commands.*;
 import backend.node.control.*;
 import backend.node.operations.*;
+import backend.node.types.Constant;
+import backend.node.types.Variable;
 import backend.parser.SyntaxType;
 
 public class CommandFactory {

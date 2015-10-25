@@ -1,7 +1,7 @@
 package backend.node.commands;
 
-import backend.node.ControlStructure;
-import backend.node.TwoArgumentNode;
+import backend.node.types.ControlStructure;
+import backend.node.types.TwoArgumentNode;
 import responses.Response;
 import sharedobjects.ManipulateController;
 

@@ -1,10 +1,10 @@
 package JUnit;
 
-import backend.node.Constant;
 import backend.node.Executor;
 import backend.node.Node;
 import backend.node.commands.FD;
 import backend.node.operations.*;
+import backend.node.types.Constant;
 import backend.parser.Parser;
 import responses.Response;
 import sharedobjects.ManipulateController;
