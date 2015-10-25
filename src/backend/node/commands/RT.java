@@ -1,34 +1,34 @@
-/**
- * 
- */
 package backend.node.commands;
 
-import java.util.List;
-
-import backend.node.Command;
-import backend.node.Node;
+import backend.node.OneArgumentNode;
+import responses.Response;
+import responses.Success;
+import sharedobjects.LambdaInterface;
 import sharedobjects.ManipulateController;
+import sharedobjects.Turtle;
 
 /**
  * @author loganrooper
  *
  */
-public class RT extends Command {
-	public RT() {
-		super();
-		super.setChildrenNum(1);
-	}
+public class RT extends OneArgumentNode {
 
 	@Override
-	public Node run(ManipulateController sharedHandle, List<Node> ln) {
-		if (ln == null)
-			throw new RuntimeException("Missing parameter.");
-		if (ln.size() < 1)
-			throw new RuntimeException(String.format("Expected 1 parameter, got: %d", ln.size()));
-
-		sharedHandle.right(ln.get(0).getDoubleValue());
-
+	public Response run(ManipulateController sharedHandle) {
+		int degrees = getAndRun(0, sharedHandle).getIntegerValue();
+		LambdaInterface l = (Turtle t) -> {
+			double currHeading = t.getHeading();
+			System.out.println(currHeading);
+			currHeading -= degrees;
+			while(currHeading < 0){
+	               currHeading += 360;
+			}
+			t.setHeading(currHeading);
+			System.out.println(currHeading);
+		};
+		sharedHandle.execute(l);
+		
 		// return argument 1 value
-		return ln.get(0);
+		return new Success(getAndRun(0, sharedHandle).toString());
 	}
 }

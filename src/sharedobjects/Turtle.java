@@ -9,6 +9,7 @@ public class Turtle extends Observable{
 	private double heading;
 	private boolean penDown;
 	private boolean showing;
+	private boolean active;
 	
 	private Random rand = new Random();
 	
@@ -18,6 +19,7 @@ public class Turtle extends Observable{
 		heading = 90;
 		penDown = true;
 		showing = true;
+		active = true;
 		this.setChanged();
 	}
 	
@@ -36,6 +38,7 @@ public class Turtle extends Observable{
 	
 	public void setPosition(int[] p){
 		position = p;
+		System.out.println("Changing the current Turtle's position to..." + p[0] + ":" + p[1]);
 		this.setChanged();
 	}
 	
@@ -77,5 +80,17 @@ public class Turtle extends Observable{
 	
 	public boolean isShowing(){
 		return showing;
+	}
+	
+	public boolean isActive(){
+		return active;
+	}
+	
+	public void activate(){
+		active = true;
+	}
+	
+	public void deativate(){
+		active = false;
 	}
 }

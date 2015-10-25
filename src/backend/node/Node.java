@@ -4,16 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import responses.Response;
+import sharedobjects.ManipulateController;
 
 /**
  * @author loganrooper
  *
  */
 public abstract class Node implements Cloneable {
-	private String myName;
+	private String name;
 	private List<Node> myChildren;
 	private double myValue;
-	private int myNumOfChildren;
+	protected double expectedArgumentNumber;
 
 	public Node() {
 		myChildren = new ArrayList<Node>();
@@ -23,6 +24,10 @@ public abstract class Node implements Cloneable {
 		myChildren.add(node);
 		return node;
 	}
+	
+	public double getArgumentNumber() {
+		return expectedArgumentNumber;
+	}
 
 	public Node addChildren(Node... nodes) {
 		for (Node n : nodes)
@@ -31,16 +36,22 @@ public abstract class Node implements Cloneable {
 		return nodes[0];
 	}
 	
-	public int getChildrenNum() {
-		return myNumOfChildren;
+	private void clearChildren() {
+		myChildren = new ArrayList<Node>();
 	}
-
-	public void setChildrenNum(int n) {
-		myNumOfChildren = n;
+	
+	public Node setChildren(Node...nodes) {
+		clearChildren();
+		addChildren(nodes);
+		return nodes[0];
+	}
+	
+	public int getChildrenNum() {
+		return myChildren.size();
 	}
 
 	public void setName(String name) {
-		myName = name;
+		this.name = name;
 	}
 
 	public Boolean hasChildren() {
@@ -50,12 +61,16 @@ public abstract class Node implements Cloneable {
 	public List<Node> getChildren() {
 		return myChildren;
 	}
+	
+	public Response getAndRun(int index, ManipulateController mc) {
+		return myChildren.get(index).run(mc);
+	}
 
 	/**
 	 * @return the myName
 	 */
 	public String getName() {
-		return myName;
+		return name;
 	}
 
 	/**
@@ -86,5 +101,11 @@ public abstract class Node implements Cloneable {
 	public Node clone() throws CloneNotSupportedException {
 		return (Node) super.clone();
 	}
-
+	
+	/**
+	 * This is the main method that nodes call of each other.
+	 * @param mc
+	 * @return
+	 */
+	public abstract Response run(ManipulateController mc);
 }

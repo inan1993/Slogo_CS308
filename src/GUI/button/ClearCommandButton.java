@@ -7,5 +7,6 @@ public class ClearCommandButton extends AButton{
 
     public ClearCommandButton (EventHandler<ActionEvent> event) {
         super("Clear", event);
+//        this.setStyle("-fx-text-color: red;");
     }
 }

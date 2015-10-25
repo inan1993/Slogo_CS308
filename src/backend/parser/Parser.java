@@ -16,7 +16,6 @@ import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 import java.util.regex.Pattern;
 import backend.factory.CommandFactory;
-import backend.node.Executor;
 import backend.node.Node;
 import datatransferobjects.UserInputTransferObject;
 import responses.Error;
@@ -31,7 +30,6 @@ import sharedobjects.Workspace;
  *
  */
 public class Parser implements Observer {
-	private Executor myExec;
 	private ManipulateController myManiControl;
 	private List<Node> myRoots;
 	private int myIndex;
@@ -60,9 +58,8 @@ public class Parser implements Observer {
 	private static final List<Entry<TokenType, Pattern>> myTokenPatterns = makeTokenPatterns("resources/languages/Syntax");
 	public static final Map<LangType,List<Entry<SyntaxType, Pattern>>> mySyntaxPatterns = makeSyntaxPatterns(); 
 	
-	public Parser(Executor exec, ManipulateController mc) {
+	public Parser(ManipulateController mc) {
 		//Call run to start.
-		myExec = exec;
 		myManiControl=mc;
 		init();
 	}
@@ -103,7 +100,7 @@ public class Parser implements Observer {
 		for(Node each:myRoots)
 		{
 //			should add a try catch, and make executor throws execute exception
-			response = myExec.execute(each);
+			response = each.run(myManiControl);
 //			System.out.println("call exec");
 		}
 		return response;
@@ -265,17 +262,17 @@ public class Parser implements Observer {
 			//root is USERCOMMAND
 			Node toCmd = myManiControl.getCommand(mySyntaxList.get(myIndex).getValue());///////////maybe getFunction?
 			if(toCmd==null)
-				throw new SyntaxException("Undefied command!");
-			int numOfArg=toCmd.getChildrenNum()-1;
-			root.setChildrenNum(numOfArg);
+				throw new SyntaxException("Undefined command!");
+			//int numOfArg=toCmd.getChildrenNum()-1;
+			//root.setChildrenNum(numOfArg);
 			parseExpression(root);
 		}
 		return root;
 	}
 	
 	private void parseExpression(Node root) throws SyntaxException	{
-		int numOfChildren=root.getChildrenNum();
-		for(int i=0;i<numOfChildren;i++)
+		//int numOfChildren=root.getChildrenNum();
+		for(int i=0;i<root.getArgumentNumber();i++)
 		{
 			if(myIndex>=mySyntaxList.size())
 				throw new SyntaxException("Uncompleted argument list in" + root.getName());
@@ -517,13 +514,15 @@ public class Parser implements Observer {
 //    }
 
 	@Override
-	public void update(Observable o, Object arg) {
+	public void update(Observable o, Object arg) throws SyntaxException{
 		init();
 		UserInputTransferObject dto = (UserInputTransferObject) arg;
 		String input = dto.getUserInput();
 		System.out.println("Wanning"+input);
 		String lang = dto.getLanguage();
-		parse(input, lang);
+		Response s = parse(input, lang);
+		if (s instanceof Error)
+			throw new SyntaxException("Invalid Syntax");
 	}
 }
 
