@@ -18,7 +18,7 @@ public class RT extends OneArgumentNode {
 
 	@Override
 	public Response run(ManipulateController sharedHandle) {
-		int degrees = getChild(0).getIntegerValue();
+		int degrees = getAndRun(0, sharedHandle).getIntegerValue();
 		LambdaInterface l = (Turtle t) -> {
 			double currHeading = t.getHeading();
 			System.out.println(currHeading);
@@ -32,6 +32,6 @@ public class RT extends OneArgumentNode {
 		sharedHandle.execute(l);
 		
 		// return argument 1 value
-		return new Success(getChild(0).toString());
+		return new Success(getAndRun(0, sharedHandle).toString());
 	}
 }

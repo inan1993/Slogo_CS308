@@ -1,6 +1,3 @@
-/**
- * 
- */
 package backend.node.operations;
 
 import backend.node.OneArgumentNode;
@@ -19,7 +16,7 @@ public class LOG extends OneArgumentNode{
 
 	@Override
 	public Response run(ManipulateController mc) {
-		Double x = getChild(0).getDoubleValue();
+		Double x = getAndRun(0, mc).getDoubleValue();
 		//convert input to radians, sin, conver to degrees
 		return new Success(Math.log(x));
 	}

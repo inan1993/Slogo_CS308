@@ -18,7 +18,7 @@ public class SETH extends OneArgumentNode {
 	public Response run(ManipulateController sharedHandle) {
 		 //get headings
 		 double prevHeading = sharedHandle.getHeading();
-		 double newHeading = getChild(0).getDoubleValue();
+		 double newHeading = getAndRun(0, sharedHandle).getDoubleValue();
 		 
 	     //turn
 		 sharedHandle.setHeading(newHeading);

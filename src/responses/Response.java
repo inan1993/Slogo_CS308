@@ -22,6 +22,15 @@ public abstract class Response {
 	public Response(int i) {
 		message = Integer.toString(i);
 	}
-	public abstract String toString();
-	public abstract double toDouble();
+	public String toString() {
+		return this.message;
+	}
+	
+	public double getDoubleValue() {
+		return Double.parseDouble(message);
+	}
+	
+	public int getIntegerValue() {
+		return Integer.parseInt(message);
+	}
 }

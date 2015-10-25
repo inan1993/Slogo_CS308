@@ -21,14 +21,14 @@ public class GOTO extends TwoArgumentNode {
 		double prevHeading = sharedHandle.getHeading();
 
 		// get xy
-		int x = getChild(0).getIntegerValue();
-		int y = getChild(1).getIntegerValue();
+		int x = getAndRun(0, sharedHandle).getIntegerValue();
+		int y = getAndRun(1, sharedHandle).getIntegerValue();
 
 		// turn
 		sharedHandle.towards(x, y);
 
 		// new heading
-		double newHeading = getChild(0).getDoubleValue();
+		double newHeading = getAndRun(0, sharedHandle).getDoubleValue();
 
 		// return the delta
 		return new Success(prevHeading - newHeading);

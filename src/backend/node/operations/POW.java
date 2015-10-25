@@ -16,7 +16,7 @@ public class POW extends TwoArgumentNode{
 
 	@Override
 	public Response run(ManipulateController mc) {
-		Double result = Math.pow(getChild(0).getDoubleValue(), getChild(1).getDoubleValue());
+		Double result = Math.pow(getAndRun(0, mc).getDoubleValue(), getAndRun(1, mc).getDoubleValue());
 		return new Success(result);
 	}
 }

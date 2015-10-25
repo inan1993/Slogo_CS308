@@ -16,7 +16,7 @@ public class QUOTIENT extends TwoArgumentNode{
 
 	@Override
 	public Response run(ManipulateController mc) {	
-		Double result = getChild(0).getDoubleValue()/getChild(1).getDoubleValue();
+		Double result = getAndRun(0, mc).getDoubleValue()/getAndRun(1, mc).getDoubleValue();
 		return new Success(result);
 	}
 }

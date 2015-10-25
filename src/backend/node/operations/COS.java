@@ -1,6 +1,3 @@
-/**
- * 
- */
 package backend.node.operations;
 
 import backend.node.TwoArgumentNode;
@@ -19,7 +16,7 @@ public class COS extends TwoArgumentNode{
 
 	@Override
 	public Response run(ManipulateController mc) {
-		Double x = getChild(0).getDoubleValue();
+		Double x = getAndRun(0, mc).getDoubleValue();
 		//convert input to radians, cos, conver to degrees
 		return new Success(Math.toDegrees(Math.cos(Math.toRadians(x))));
 	}
