@@ -12,9 +12,10 @@ import sharedobjects.ManipulateController;
 public class ASK extends TwoArgumentNode {
 	@Override
 	public Response run(ManipulateController mc) {
-		// Call setTemporaryTurtleIDs(array of ints)
+		// Call mc.setTempTurtles(array of ints)
+		
 		// Run everything in the list
-		// Call clearTemporaryTurtleIDs
+		// Call mc.clearTempTurtles();
 		return null;
 	}
 }
