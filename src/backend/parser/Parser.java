@@ -37,6 +37,7 @@ public class Parser implements Observer {
 	private List<Entry<TokenType, String>> myTokenList; 
 	private List<Entry<SyntaxType, String>> mySyntaxList; 
 	private boolean myListLegal;
+	private boolean myGroupLegal;
 	private static final HashMap<String, TokenType> tokenMap = new HashMap<String, TokenType>(){{
 		for(TokenType each:TokenType.values())
 		{
@@ -68,6 +69,7 @@ public class Parser implements Observer {
 		myRoots = new ArrayList<Node>();
 		myIndex=0;
 		myListLegal=false;
+		myGroupLegal=false;
 	}
 	
 	public Response parse(String userInput, String lang) {
@@ -126,8 +128,7 @@ public class Parser implements Observer {
 				if(match(nodeName, p.getValue()))
 				{
 					if(p.getKey()==TokenType.COMMENT){
-						commentFlag=true;
-					
+						commentFlag=true;					
 		            	break;
 					}
 					result.add(new SimpleEntry<TokenType, String>(p.getKey(), nodeName));
@@ -163,8 +164,11 @@ public class Parser implements Observer {
 			case LISTEND:
 				mySyntaxList.add(new SimpleEntry<SyntaxType, String>(SyntaxType.LISTEND, entry.getValue()));
 				break;
-//			case GROUPSTART:
-//			case GROUPEND:
+			case GROUPSTART:
+				mySyntaxList.add(new SimpleEntry<SyntaxType, String>(SyntaxType.GROUPSTART, entry.getValue()));
+				break;
+			case GROUPEND:
+				mySyntaxList.add(new SimpleEntry<SyntaxType, String>(SyntaxType.GROUPEND, entry.getValue()));
 			case COMMAND:
 				boolean matchFlag=false;
 				for(Entry<SyntaxType, Pattern> p:mySyntaxPatterns.get(languageMap.get(myLanguage.toUpperCase())))
@@ -199,80 +203,98 @@ public class Parser implements Observer {
 	//index after growTree will indicate a token that hasn't been parsed
 	//growTree will only generate one root or subroot in the tree
 	private Node growTree() throws SyntaxException{
-		if(myIndex>=mySyntaxList.size())
+		try{
+			//create the node using factory design pattern
+			CommandFactory factory = new CommandFactory();
+			SyntaxType type = mySyntaxList.get(myIndex).getKey();
+			Node root = factory.createNode(type);
+			root.setName(mySyntaxList.get(myIndex).getValue());
+			myIndex++;
+			//check the syntax and move on
+			switch(type){
+			//with 0 para
+			case CONSTANT:
+				root.setValue(Double.parseDouble(mySyntaxList.get(myIndex-1).getValue()));
+			case VARIABLE:case PENDOWN:case PENUP: case SHOWTURTLE :case HIDETURTLE:
+			case HOME:case CLEARSCREEN:case XCOORDINATE:case YCOORDINATE:
+			case HEADING: case ISPENDOWN: case ISSHOWING: case PI:
+				parseExpression(root,0);
+				break;
+			//with 1 para
+			case FORWARD:case BACKWARD:case LEFT: case RIGHT: case SETHEADING:
+			case MINUS: case RANDOM:case SINE:case COSINE:case TANGENT:
+			case ARCTANGENT:case NATURALLOG:case NOT:
+				parseExpression(root,1);
+				break;
+			//with 2 paras	
+			case SETTOWARDS:case SETPOSITION:case SUM:case DIFFERENCE:
+			case PRODUCT:case QUOTIENT:case REMAINDER:case POWER:
+			case LESSTHAN:case GREATERTHAN:case EQUAL:case NOTEQUAL:
+			case AND:case OR:
+				parseExpression(root, 2);
+			    break;
+			case GROUPSTART:
+				if(myGroupLegal){
+					root = factory.createNode(mySyntaxList.get(myIndex).getKey());
+					root.setName(mySyntaxList.get(myIndex).getValue());
+					myIndex++;
+					parseGroupStart(root);
+					myGroupLegal=false;
+				}
+				else{
+					throw new SyntaxException("Use "+ root.getName() + "in illegal conditon");
+				}
+				break;
+			case GROUPEND:
+				break;
+			case LISTSTART:
+				if(myListLegal){
+					parseListStart(root);
+					myListLegal=false;
+				}
+				else{
+					throw new SyntaxException("Use " + root.getName() + "in illegal condition");
+				}
+				break;
+			case LISTEND:
+				throw new SyntaxException("Miss a left [ for" + root.getName());
+			case MAKEVARIABLE:
+				parseMakeVar(root);
+				break;
+			case REPEAT:
+				parseRepeat(root);
+				break;
+			case DOTIMES:
+				parseDoTimes(root);
+				break;
+			case FOR:
+				parseFor(root);
+				break;
+			case IF:
+				parseIf(root);
+				break;
+			case IFELSE:
+				parseIfelse(root);
+				break;
+			case MAKEUSERINSTRUCTION:
+				parseMakeCmd(root);
+				break;
+			default:
+				//root is USERCOMMAND
+				Node toCmd = myManiControl.getCommand(mySyntaxList.get(myIndex).getValue());///////////maybe getFunction?
+				if(toCmd==null)
+					throw new SyntaxException("Undefied command!");
+				int numOfArg=toCmd.getChildrenNum()-1;
+				parseExpression(root, numOfArg);
+			}
+			return root;
+		}catch(ArrayIndexOutOfBoundsException e){
 			throw new SyntaxException("Uncompleted arguments list!");
-		//create the node using factory design pattern
-		CommandFactory factory = new CommandFactory();
-		SyntaxType type = mySyntaxList.get(myIndex).getKey();
-		Node root = factory.createNode(type);
-		root.setName(mySyntaxList.get(myIndex).getValue());
-		myIndex++;
-		//check the syntax and move on
-		switch(type){
-		//with 0 para
-		case CONSTANT:
-			root.setValue(Double.parseDouble(mySyntaxList.get(myIndex-1).getValue()));
-		case VARIABLE:case PENDOWN:case PENUP: case SHOWTURTLE :case HIDETURTLE:
-		case HOME:case CLEARSCREEN:case XCOORDINATE:case YCOORDINATE:
-		case HEADING: case ISPENDOWN: case ISSHOWING: case PI:
-		//with 1 para
-		case FORWARD:case BACKWARD:case LEFT: case RIGHT: case SETHEADING:
-		case MINUS: case RANDOM:case SINE:case COSINE:case TANGENT:
-		case ARCTANGENT:case NATURALLOG:case NOT:
-		//with 2 paras	
-		case SETTOWARDS:case SETPOSITION:case SUM:case DIFFERENCE:
-		case PRODUCT:case QUOTIENT:case REMAINDER:case POWER:
-		case LESSTHAN:case GREATERTHAN:case EQUAL:case NOTEQUAL:
-		case AND:case OR:
-			parseExpression(root);
-		    break;
-		case LISTSTART:
-			if(myListLegal){
-				parseListStart(root);
-				myListLegal=false;
-			}
-			else{
-				throw new SyntaxException("Use " + root.getName() + "in illegal condition");
-			}
-			break;
-		case LISTEND:
-			throw new SyntaxException("Miss a left [ for" + root.getName());
-		case MAKEVARIABLE:
-			parseMakeVar(root);
-			break;
-		case REPEAT:
-			parseRepeat(root);
-			break;
-		case DOTIMES:
-			parseDoTimes(root);
-			break;
-		case FOR:
-			parseFor(root);
-			break;
-		case IF:
-			parseIf(root);
-			break;
-		case IFELSE:
-			parseIfelse(root);
-			break;
-		case MAKEUSERINSTRUCTION:
-			parseMakeCmd(root);
-			break;
-		default:
-			//root is USERCOMMAND
-			Node toCmd = myManiControl.getCommand(mySyntaxList.get(myIndex).getValue());///////////maybe getFunction?
-			if(toCmd==null)
-				throw new SyntaxException("Undefined command!");
-			//int numOfArg=toCmd.getChildrenNum()-1;
-			//root.setChildrenNum(numOfArg);
-			parseExpression(root);
 		}
-		return root;
 	}
 	
-	private void parseExpression(Node root) throws SyntaxException	{
-		//int numOfChildren=root.getChildrenNum();
-		for(int i=0;i<root.getArgumentNumber();i++)
+	private void parseExpression(Node root, int numOfChildren) throws SyntaxException	{
+		for(int i=0;i<numOfChildren;i++)
 		{
 			if(myIndex>=mySyntaxList.size())
 				throw new SyntaxException("Uncompleted argument list in" + root.getName());
@@ -320,15 +342,47 @@ public class Parser implements Observer {
 	}
 	
 	private void parseListStart(Node root) throws SyntaxException{
-		while(myIndex<mySyntaxList.size()){
-			Node c = growTree();
+		try{
+			while(mySyntaxList.get(myIndex).getKey()!=SyntaxType.LISTEND){
+				Node c = growTree();
+				root.addChild(c);
+			}
+			myIndex++;
+			return;
+		}catch(ArrayIndexOutOfBoundsException e){
+			throw new SyntaxException("Miss a right brace ] in "+root.getName());
+		}
+	}
+	
+	private void parseGroupStart(Node root) throws SyntaxException{
+		SyntaxType type = mySyntaxList.get(myIndex-1).getKey(); 
+		switch(type){
+		case SUM:
+			try{
+				CommandFactory factory = new CommandFactory();
+				while(mySyntaxList.get(myIndex).getKey()!=SyntaxType.GROUPEND){
+					parseExpression(root, 1);
+					Node c = factory.createNode(type);
+					root.addChild(c);
+//					root=
+				}
+			}catch(ArrayIndexOutOfBoundsException e){
+				throw new SyntaxException("Miss a right brace ) in "+root.getName());
+			}
+			break;
+		default:
+			Node c=growTree();
 			root.addChild(c);
-			if(mySyntaxList.get(myIndex).getKey()==SyntaxType.LISTEND){
+			try{
+				while(mySyntaxList.get(myIndex).getKey()!=SyntaxType.GROUPEND){
+					myIndex++;
+				}
 				myIndex++;
-				return;
+			}catch(ArrayIndexOutOfBoundsException e){
+				throw new SyntaxException("Miss a right brace ) in "+root.getName());
 			}
 		}
-		throw new SyntaxException("Miss a right brace ] in "+root.getName()); 
+		
 	}
 	
 	private void parseDoTimes(Node root) throws SyntaxException{
@@ -454,6 +508,9 @@ public class Parser implements Observer {
 				throw new SyntaxException("Incompatible argument list in " + root.getName());
 			}
 			else {
+				/*unsafe code, because the display string is empty for the time being*/
+				myManiControl.setCommand("",root.getName(), root);
+//				myManiControl.setCommandOnly(root.getName(), root);
 				myListLegal=true;
 				Node c=growTree();
 				root.addChild(c);
@@ -467,7 +524,9 @@ public class Parser implements Observer {
 			display.concat(mySyntaxList.get(i).getValue());
 			display=display+" ";
 		}
+		/*unsafe code, because it will overwrite the previous prototype in the map*/
 		myManiControl.setCommand(display, root.getName(), root);
+//		myManiControl.setCommandWithDisplay(display, root.getName(), root);
 	}
 	
 	//The following two methods are only used when we first create a parser. They will generate myTokenPatterns, mySyntaxPatterns

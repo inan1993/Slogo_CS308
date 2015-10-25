@@ -79,6 +79,7 @@ public class SlogoView {
         variableDisplayBox = new VariableListBox(commandBox);
         historyDisplayBox = new CommandHistoryBox(commandBox);
         functionDisplayBox = new FunctionListBox(commandBox);
+        turtleStateBox = new TurtleStateBox();
         myTurtleImage = new Image(getClass().getClassLoader().getResourceAsStream(myResource.getString("defaultTurtle")));
         myTurtleIDs = new ArrayList<Double>();
         myTurtleGroup = new TurtleGroup(myTurtleImage, myTurtleIDs);
@@ -237,7 +238,7 @@ public class SlogoView {
 
     private VBox rightBox(){
         VBox result = new VBox();
-        result.getChildren().addAll(variableDisplayBox,historyDisplayBox,functionDisplayBox);
+        result.getChildren().addAll(variableDisplayBox,historyDisplayBox,functionDisplayBox,turtleStateBox);
         return result;
     }
 
@@ -263,5 +264,10 @@ public class SlogoView {
 
     public VariableListBox getVariableDisplayBox () {
         return variableDisplayBox;
+    }
+
+
+    public TurtleStateBox getTurtleStateBox () {
+        return turtleStateBox;
     }
 }
