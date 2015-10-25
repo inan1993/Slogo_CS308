@@ -237,7 +237,7 @@ public class SlogoView {
 
     private VBox rightBox(){
         VBox result = new VBox();
-        result.getChildren().addAll(variableDisplayBox,historyDisplayBox,functionDisplayBox);
+        result.getChildren().addAll(variableDisplayBox,historyDisplayBox,functionDisplayBox,turtleStateBox);
         return result;
     }
 
