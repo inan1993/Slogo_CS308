@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.ResourceBundle;
+
 import GUI.button.AButton;
 import GUI.button.ButtonFactory;
 import GUI.checkbox.PenUpDownCheckBox;
@@ -37,8 +38,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import observers.ParsedCommandsObserver;
-import sharedobjects.*;
+import sharedobjects.UserInput;
 
 public class SlogoView {
 
@@ -229,7 +229,7 @@ public class SlogoView {
 		checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
 			@Override
 			public void changed(ObservableValue ov, Boolean old_val, Boolean new_val) {
-				messageBox.setMessage("Pen Down");
+				messageBox.setMessage("Pen Up");
 			}
 		});
 

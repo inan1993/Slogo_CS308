@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+
 import GUI.SlogoView;
 import backend.node.Executor;
 import backend.parser.Parser;

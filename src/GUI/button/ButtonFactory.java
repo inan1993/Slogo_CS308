@@ -82,6 +82,7 @@ public class ButtonFactory {
             fileName = selectedFile.getName();
             myTurtleGroup.setImage(new Image(getClass().getClassLoader().getResourceAsStream(fileName)));
             //            myObservers.get(0).update(null, (Object)createDTO2());
+            System.out.println("uploaded");
         }
         else {
             if (selectedFile == null) {
