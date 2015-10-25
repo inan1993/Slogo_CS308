@@ -14,7 +14,8 @@ import sharedobjects.ManipulateController;
 public class TELL extends OneArgumentNode {
 	@Override
 	public Response run(ManipulateController mc) {
-		// Call setTurtleIDS(array of ints)
+		// Call setTurtleIDS(array of ints) -> this should create turtles as well
+		
 		
 		return null;
 	}

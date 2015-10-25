@@ -14,7 +14,6 @@ public abstract class Node implements Cloneable {
 	private String name;
 	private List<Node> myChildren;
 	private double myValue;
-	protected double expectedArgumentNumber;
 
 	public Node() {
 		myChildren = new ArrayList<Node>();
@@ -23,10 +22,6 @@ public abstract class Node implements Cloneable {
 	public Node addChild(Node node) {
 		myChildren.add(node);
 		return node;
-	}
-	
-	public double getArgumentNumber() {
-		return expectedArgumentNumber;
 	}
 
 	public Node addChildren(Node... nodes) {
