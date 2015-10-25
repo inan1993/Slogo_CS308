@@ -3,27 +3,22 @@
  */
 package backend.node.commands;
 
-import java.util.List;
-
-import backend.node.Command;
-import backend.node.Constant;
-import backend.node.Node;
+import backend.node.ZeroArgumentNode;
+import responses.Response;
+import responses.Success;
 import sharedobjects.ManipulateController;
 
 /**
  * @author loganrooper
  *
  */
-public class PD extends Command {
-	public PD() {
-		super();
-	}
+public class PD extends ZeroArgumentNode {
 
 	@Override
-	public Node run(ManipulateController sharedHandle, List<Node> ln) {
+	public Response run(ManipulateController sharedHandle) {
 		sharedHandle.penDown();
 
 		// return 1
-		return new Constant().setValue(1);
+		return new Success(1);
 	}
 }

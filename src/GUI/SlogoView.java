@@ -5,21 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
-import java.util.Observer;
 import java.util.ResourceBundle;
-import GUI.button.AButton;
-import GUI.button.ButtonFactory;
-import GUI.dropdown.BackgroundColorDropdown;
-import GUI.dropdown.LanguageListDropdown;
-import GUI.dropdown.PenColorDropdown;
-import GUI.textBox.CommandPromptDisplayBox;
-import GUI.textBox.MessageDisplayBox;
-import GUI.turtlepane.BackgroundRectangle;
-import GUI.turtlepane.TurtleCanvas;
-import GUI.turtlepane.TurtleGroup;
-import GUI.viewbox.CommandHistoryBox;
-import GUI.viewbox.FunctionListBox;
-import GUI.viewbox.VariableListBox;
+import GUI.button.*;
+import GUI.dropdown.*;
+import GUI.textBox.*;
+import GUI.turtlepane.*;
+import GUI.viewbox.*;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
@@ -28,9 +19,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import observers.FrontEndObserver;
-import observers.ParsedCommandsObserver;
-import sharedobjects.UserInput;
+import sharedobjects.*;
 
 public class SlogoView {
 

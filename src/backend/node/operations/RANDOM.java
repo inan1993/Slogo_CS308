@@ -1,30 +1,24 @@
-/**
- * 
- */
 package backend.node.operations;
 
-import java.util.List;
 import java.util.Random;
 
-import backend.node.Constant;
-import backend.node.Node;
-import backend.node.Operation;
+import backend.node.TwoArgumentNode;
+import responses.Response;
+import responses.Success;
+import sharedobjects.ManipulateController;
 
 /**
  * @author loganrooper
  *
  */
-public class RANDOM extends Operation{
-	public RANDOM() {
-		super();
-	}
+public class RANDOM extends TwoArgumentNode{
 
 	@Override
-	public Node run(List<Node> nl) {	
-		Double max = nl.get(0).getDoubleValue();
+	public Response run(ManipulateController mc) {
+		Double max = getAndRun(0, mc).getDoubleValue();
 		Random rand = new Random();
 		int i = rand.nextInt((int) Math.round(max));
 		
-		return new Constant().setValue((double) i);
+		return new Success(i);
 	}
 }

@@ -3,27 +3,22 @@
  */
 package backend.node.commands;
 
-import java.util.List;
-
-import backend.node.Command;
-import backend.node.Constant;
-import backend.node.Node;
+import backend.node.ZeroArgumentNode;
+import responses.Response;
+import responses.Success;
 import sharedobjects.ManipulateController;
 
 /**
  * @author loganrooper
  *
  */
-public class PU extends Command {
-	public PU(String name, int children) {
-		super();
-	}
+public class PU extends ZeroArgumentNode {
 
 	@Override
-	public Node run(ManipulateController sharedHandle, List<Node> ln) {
+	public Response run(ManipulateController sharedHandle) {
 		sharedHandle.penUp();
 
 		// return 1
-		return new Constant().setValue(1);
+		return new Success(1);
 	}
 }

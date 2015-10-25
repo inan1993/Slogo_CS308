@@ -33,7 +33,7 @@ public class Main extends Application{
         /*2*/ManipulateController manipulateController = new ManipulateController(currWorkspace);
 
         /*3*/Executor executor = new Executor(manipulateController);
-        /*4*/Parser parser = new Parser(executor, manipulateController);
+        /*4*/Parser parser = new Parser(manipulateController);
 
         /*5*/ frontEnd = new SlogoView(); //TODO: frontEnd must create an observers list
 

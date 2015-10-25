@@ -33,7 +33,7 @@ public class CommandFactory {
 //		CLEARSCREEN,
 		registerNode(SyntaxType.FORWARD, FD.class);
 		registerNode(SyntaxType.BACKWARD, BK.class);
-		registerNode(SyntaxType.LEFT, BK.class);
+		registerNode(SyntaxType.LEFT, LT.class);
 		registerNode(SyntaxType.RIGHT, RT.class);
 		registerNode(SyntaxType.SETHEADING, SETH.class);
 		registerNode(SyntaxType.SETTOWARDS, TOWARDS.class);

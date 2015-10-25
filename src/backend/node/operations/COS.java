@@ -1,28 +1,20 @@
-/**
- * 
- */
 package backend.node.operations;
 
-import java.util.List;
-import java.util.Random;
-
-import backend.node.Constant;
-import backend.node.Node;
-import backend.node.Operation;
+import backend.node.TwoArgumentNode;
+import responses.Response;
+import responses.Success;
+import sharedobjects.ManipulateController;
 
 /**
  * @author loganrooper
  *
  */
-public class COS extends Operation{
-	public COS() {
-		super();
-	}
+public class COS extends TwoArgumentNode{
 
 	@Override
-	public Node run(List<Node> nl) {	
-		Double x = nl.get(0).getDoubleValue();
+	public Response run(ManipulateController mc) {
+		Double x = getAndRun(0, mc).getDoubleValue();
 		//convert input to radians, cos, conver to degrees
-		return new Constant().setValue(Math.toDegrees(Math.cos(Math.toRadians(x))));
+		return new Success(Math.toDegrees(Math.cos(Math.toRadians(x))));
 	}
 }
