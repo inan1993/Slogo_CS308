@@ -1,24 +1,25 @@
 package GUI;
 
-import java.awt.Desktop;
 import java.awt.Dimension;
-import java.io.File;
-import java.lang.reflect.Constructor;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
-import GUI.button.*;
-import GUI.dropdown.*;
-import GUI.textBox.*;
-import GUI.turtlepane.*;
-import GUI.viewbox.*;
-import datatransferobjects.UserInputTransferObject;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import GUI.button.AButton;
+import GUI.button.ButtonFactory;
+import GUI.dropdown.BackgroundColorDropdown;
+import GUI.dropdown.LanguageListDropdown;
+import GUI.dropdown.PenColorDropdown;
+import GUI.textBox.CommandPromptDisplayBox;
+import GUI.textBox.MessageDisplayBox;
+import GUI.turtlepane.BackgroundRectangle;
+import GUI.turtlepane.TurtleCanvas;
+import GUI.turtlepane.TurtleGroup;
+import GUI.viewbox.CommandHistoryBox;
+import GUI.viewbox.FunctionListBox;
+import GUI.viewbox.VariableListBox;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
@@ -27,7 +28,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.FileChooser;
 import observers.FrontEndObserver;
 import observers.ParsedCommandsObserver;
 import sharedobjects.UserInput;
@@ -35,7 +35,7 @@ import sharedobjects.UserInput;
 public class SlogoView {
 
     private static final Dimension DEFAULT_SIZE = new Dimension(1200, 700);
-    private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/";
+//    private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/";
     private static final String DEFAULT_RESOURCE_VIEW = "GUI.view";
     protected static ResourceBundle myResource;
 
@@ -59,24 +59,26 @@ public class SlogoView {
     private List<Observer> myObservers;
     private UserInput myUserInputObservable;
 
-    private HashMap<String, AButton> myButtons;
+    private Map<String, AButton> myButtons;
 
     public SlogoView(){
 
-        ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_LANGUAGE);
+//        ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_LANGUAGE);
         myResource = ResourceBundle.getBundle(DEFAULT_RESOURCE_VIEW);
-
-        myButtons = new HashMap<String, AButton>();
-        mapButtonsWithActions();
-
-        
-        
-
+        commandBox = new CommandPromptDisplayBox();
+        messageBox = new MessageDisplayBox();
+        variableDisplayBox = new VariableListBox(commandBox);
+        historyDisplayBox = new CommandHistoryBox(commandBox);
+        functionDisplayBox = new FunctionListBox(commandBox);
         myTurtleImage = new Image(getClass().getClassLoader().getResourceAsStream(myResource.getString("defaultTurtle")));
         myTurtleIDs = new ArrayList<Double>();
-        myObservers = new ArrayList<Observer>();
-
+        myTurtleGroup = new TurtleGroup(myTurtleImage, myTurtleIDs);
         myUserInputObservable = new UserInput(DEFAULT_LANGUAGE);
+        
+        ButtonFactory buttonFactory = new ButtonFactory(commandBox, messageBox, historyDisplayBox, myTurtleGroup, myUserInputObservable);
+        myButtons = buttonFactory.getButtons();
+
+        myObservers = new ArrayList<Observer>();
 
         BorderPane root = new BorderPane();
 
@@ -92,65 +94,6 @@ public class SlogoView {
         scene = new Scene(root, DEFAULT_SIZE.width, DEFAULT_SIZE.height);
     }
 
-    
-    private void clearButtonEvent(){
-        commandBox.clear();
-    }
-    private void uploadButtonEvent() {
-        FileChooser fileChooser = new FileChooser();
-        File selectedFile = fileChooser.showOpenDialog(null);
-        String fileName;
-        
-        if (selectedFile != null) {
-            fileName = selectedFile.getName();
-            myTurtleGroup.setImage(new Image(getClass().getClassLoader().getResourceAsStream(fileName)));
-            //            myObservers.get(0).update(null, (Object)createDTO2());
-        }
-        else {
-            if (selectedFile == null) {
-                messageBox.setMessage("Upload Cancelled");
-            }
-        }
-    }
-    private void enterButtonEvent(){
-        String userInput = commandBox.getText();
-        historyDisplayBox.setMessage(userInput);
-        myUserInputObservable.setUserInput(userInput);
-        UserInputTransferObject ut = new UserInputTransferObject(myUserInputObservable.getCurrentLanguage(), myUserInputObservable.getUserInput());
-        myUserInputObservable.notifyObservers(ut);
-    }
-    private void helpButtonEvent() {
-        try {
-            Desktop.getDesktop().browse(new URL("http://www.cs.duke.edu/courses/fall15/compsci308/assign/03_slogo/commands.php").toURI());
-        } catch (Exception e) {};
-    }
- 
-    
-    private void mapButtonsWithActions(){
-        String[] buttons = myResource.getString("buttons").split(",");
-        HashMap<String, EventHandler<ActionEvent>> buttonEventHandle = new HashMap<String, EventHandler<ActionEvent>>();
-        //Help, Enter, Clear, Upload
-        buttonEventHandle.put(buttons[0], event->helpButtonEvent());
-        buttonEventHandle.put(buttons[1], event->enterButtonEvent());
-        buttonEventHandle.put(buttons[2], event->clearButtonEvent());
-        buttonEventHandle.put(buttons[3], event->uploadButtonEvent());
-        for(String buttonClassName: buttons){
-            try {
-                Constructor<?> c =
-                        Class.forName("GUI.button."+buttonClassName)
-                        .getConstructor(EventHandler.class);
-//                AButton button = (AButton) c.newInstance(new EventHandler<ActionEvent>() {
-//                    @Override public void handle(ActionEvent e) {
-//                        help();
-//                    }
-//                });
-                AButton button = (AButton) c.newInstance(buttonEventHandle.get(buttonClassName));
-                myButtons.put(buttonClassName, button);
-            }catch(Exception e){
-                e.printStackTrace();
-            }
-        }
-    }
     
     private Node menu() {
         HBox result = new HBox();
@@ -208,12 +151,9 @@ public class SlogoView {
 
     private Node centerBox() {
         AnchorPane mainBox = new AnchorPane();
-
         myBackgroundRectangle = new BackgroundRectangle(Integer.parseInt(myResource.getString("canvasWidth")), Integer.parseInt(myResource.getString("canvasHeight")));
         myTurtleCanvas = new TurtleCanvas(Integer.parseInt(myResource.getString("canvasWidth")), Integer.parseInt(myResource.getString("canvasHeight")));
-        myTurtleGroup = new TurtleGroup(myTurtleImage, myTurtleIDs);
         myObservers.add(new FrontEndObserver(myTurtleGroup, myTurtleCanvas));
-
         mainBox.getChildren().addAll(myBackgroundRectangle, myTurtleCanvas, myTurtleGroup);
         return mainBox;
     }
@@ -221,7 +161,6 @@ public class SlogoView {
 
     private Node messageAndClearBoxes(){
         HBox result = new HBox();
-        messageBox = new MessageDisplayBox();
         result.getChildren().add(messageBox);
         result.getChildren().add(myButtons.get("ClearCommandButton"));
         return result;
@@ -230,7 +169,6 @@ public class SlogoView {
 
     private Node commandAndEnterBoxes() {
         HBox result = new HBox();
-        commandBox = new CommandPromptDisplayBox();
         result.getChildren().add(commandBox);
         result.getChildren().add(myButtons.get("EnterCommandButton"));
         return result;	
@@ -240,9 +178,6 @@ public class SlogoView {
 
     private VBox rightBox(){
         VBox result = new VBox();
-        variableDisplayBox = new VariableListBox(commandBox);
-        historyDisplayBox = new CommandHistoryBox(commandBox);
-        functionDisplayBox = new FunctionListBox(commandBox);
         myObservers.add(new ParsedCommandsObserver(functionDisplayBox, variableDisplayBox));
         result.getChildren().addAll(variableDisplayBox,historyDisplayBox,functionDisplayBox);
         return result;
