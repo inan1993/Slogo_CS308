@@ -237,7 +237,6 @@ public class SlogoView {
 			public void changed(ObservableValue ov, Boolean old_val, Boolean new_val) {
 				messageBox.setMessage("Pen Down");
 
-				myTurtleCanvas.penUpDown();
 		}
 	});
 
@@ -246,9 +245,6 @@ public class SlogoView {
 
     private VBox rightBox(){
     	VBox result = new VBox();
-    	variableDisplayBox = new VariableListBox(commandBox);
-    	historyDisplayBox = new CommandHistoryBox(commandBox);
-    	functionDisplayBox = new FunctionListBox(commandBox);
     	turtleStateBox = new TurtleStateBox(commandBox);
     	myObservers.add(new ParsedCommandsObserver(functionDisplayBox, variableDisplayBox));
     	result.getChildren().addAll(variableDisplayBox,historyDisplayBox,functionDisplayBox,turtleStateBox);

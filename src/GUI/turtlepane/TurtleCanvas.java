@@ -48,11 +48,6 @@ public class TurtleCanvas extends Canvas{
 		}
 	}
 
-	public void penUpDown(){
-		System.out.println("check");	
-		gc.clearRect(0, 0, width, height);
-		
-	}
 	
 	public void setLineType(String line) {
 		if (line.equalsIgnoreCase("solid"))
