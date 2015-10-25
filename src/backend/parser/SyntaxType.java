@@ -91,6 +91,6 @@ public enum SyntaxType {
 	LISTEND,
 	GROUPSTART,
 	GROUPEND,
-	USERCOMMAND;
+	USERCOMMAND,
 }
 

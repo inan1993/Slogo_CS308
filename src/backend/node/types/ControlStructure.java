@@ -1,4 +1,4 @@
-package backend.node;
+package backend.node.types;
 import java.util.List;
 
 import backend.node.*;

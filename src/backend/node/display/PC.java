@@ -1,21 +1,17 @@
-package backend.node.operations;
+package backend.node.display;
 
 import backend.node.types.ZeroArgumentNode;
 import responses.Response;
-import responses.Success;
 import sharedobjects.ManipulateController;
 
 /**
  * @author loganrooper
  *
  */
-public class PI extends ZeroArgumentNode {
-
+public class PC extends ZeroArgumentNode {
 	@Override
 	public Response run(ManipulateController mc) {
-		this.setValue(Math.PI);
-		return new Success(Math.PI);
+		//Call mc.getColorIndex()
+		return null;
 	}
-	
-	
 }

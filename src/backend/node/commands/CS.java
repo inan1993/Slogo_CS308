@@ -4,8 +4,8 @@
 package backend.node.commands;
 
 
-import backend.node.Command;
-import backend.node.ZeroArgumentNode;
+import backend.node.types.Command;
+import backend.node.types.ZeroArgumentNode;
 import responses.Response;
 import responses.Success;
 import sharedobjects.ManipulateController;

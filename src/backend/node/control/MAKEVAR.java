@@ -2,10 +2,9 @@ package backend.node.control;
 
 import java.util.List;
 
-import backend.node.Constant;
-import backend.node.ControlStructure;
-import backend.node.Executor;
 import backend.node.Node;
+import backend.node.types.Constant;
+import backend.node.types.ControlStructure;
 import responses.Error;
 import responses.Response;
 import responses.Success;

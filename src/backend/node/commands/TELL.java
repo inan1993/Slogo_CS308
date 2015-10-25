@@ -1,19 +1,21 @@
-package backend.node.operations;
+/**
+ * 
+ */
+package backend.node.commands;
 
 import backend.node.types.OneArgumentNode;
 import responses.Response;
-import responses.Success;
 import sharedobjects.ManipulateController;
 
 /**
  * @author loganrooper
  *
  */
-public class MINUS extends OneArgumentNode{
-
+public class TELL extends OneArgumentNode {
 	@Override
 	public Response run(ManipulateController mc) {
-		Double result = getAndRun(0, mc).getDoubleValue()*-1;
-		return new Success(result);
+		// Call setTurtleIDS(array of ints)
+		
+		return null;
 	}
 }
