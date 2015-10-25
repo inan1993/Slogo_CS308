@@ -299,7 +299,7 @@ public class SlogoView {
 			public void changed(ObservableValue ov, Boolean old_val, Boolean new_val) {
 				messageBox.setMessage("Pen Down");
 
-				myTurtleCanvas.clear();
+				myTurtleCanvas.penUpDown();
 		}
 	});
 
