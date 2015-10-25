@@ -10,9 +10,6 @@ import sharedobjects.ManipulateController;
  *
  */
 public class LESSP extends OneArgumentNode{
-	public LESSP() {
-		super();
-	}
 
 	@Override
 	public Response run(ManipulateController mc) {	

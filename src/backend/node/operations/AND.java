@@ -10,9 +10,6 @@ import sharedobjects.ManipulateController;
  *
  */
 public class AND extends TwoArgumentNode{
-	public AND() {
-		super();
-	}
 
 	@Override
 	public Response run(ManipulateController mc) {

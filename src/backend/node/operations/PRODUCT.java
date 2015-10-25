@@ -10,9 +10,6 @@ import sharedobjects.ManipulateController;
  *
  */
 public class PRODUCT extends TwoArgumentNode{
-	public PRODUCT() {
-		super();
-	}
 
 	@Override
 	public Response run(ManipulateController mc) {	

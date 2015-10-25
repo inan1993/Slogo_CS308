@@ -12,9 +12,6 @@ import sharedobjects.ManipulateController;
  *
  */
 public class RANDOM extends TwoArgumentNode{
-	public RANDOM() {
-		super();
-	}
 
 	@Override
 	public Response run(ManipulateController mc) {

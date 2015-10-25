@@ -10,9 +10,6 @@ import sharedobjects.ManipulateController;
  *
  */
 public class TAN extends TwoArgumentNode{
-	public TAN() {
-		super();
-	}
 
 	@Override
 	public Response run(ManipulateController mc) {

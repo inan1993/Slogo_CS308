@@ -5,10 +5,6 @@ import responses.Response;
 import sharedobjects.ManipulateController;
 
 public class IF extends ControlStructure {
-	public IF() {
-		super();
-	}
-
 	@Override
 	public Response run(ManipulateController mc) {
 		Response left = getAndRun(0, mc);

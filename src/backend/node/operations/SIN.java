@@ -10,9 +10,6 @@ import sharedobjects.ManipulateController;
  *
  */
 public class SIN extends OneArgumentNode{
-	public SIN() {
-		super();
-	}
 
 	@Override
 	public Response run(ManipulateController mc) {	

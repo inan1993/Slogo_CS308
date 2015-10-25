@@ -7,9 +7,6 @@ import responses.Response;
 import sharedobjects.ManipulateController;
 
 public class REPEAT extends ControlStructure {
-	public REPEAT() {
-		super();
-	}
 
 //	@Override
 //	protected Node run(List<Node> nl, Executor exec) {

@@ -10,9 +10,6 @@ import sharedobjects.ManipulateController;
  *
  */
 public class REMAINDER extends TwoArgumentNode{
-	public REMAINDER() {
-		super();
-	}
 
 	@Override
 	public Response run(ManipulateController mc) {	

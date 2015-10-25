@@ -10,9 +10,6 @@ import sharedobjects.ManipulateController;
  *
  */
 public class NOT extends OneArgumentNode{
-	public NOT() {
-		super();
-	}
 
 	@Override
 	public Response run(ManipulateController mc) {	

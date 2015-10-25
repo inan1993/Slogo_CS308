@@ -514,13 +514,15 @@ public class Parser implements Observer {
 //    }
 
 	@Override
-	public void update(Observable o, Object arg) {
+	public void update(Observable o, Object arg) throws SyntaxException{
 		init();
 		UserInputTransferObject dto = (UserInputTransferObject) arg;
 		String input = dto.getUserInput();
 		System.out.println("Wanning"+input);
 		String lang = dto.getLanguage();
-		parse(input, lang);
+		Response s = parse(input, lang);
+		if (s instanceof Error)
+			throw new SyntaxException("Invalid Syntax");
 	}
 }
 

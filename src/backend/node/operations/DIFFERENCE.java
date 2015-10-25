@@ -10,9 +10,6 @@ import sharedobjects.ManipulateController;
  *
  */
 public class DIFFERENCE extends TwoArgumentNode{
-	public DIFFERENCE() {
-		super();
-	}
 
 	@Override
 	public Response run(ManipulateController mc) {	

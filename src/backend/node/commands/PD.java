@@ -13,9 +13,6 @@ import sharedobjects.ManipulateController;
  *
  */
 public class PD extends ZeroArgumentNode {
-	public PD() {
-		super();
-	}
 
 	@Override
 	public Response run(ManipulateController sharedHandle) {

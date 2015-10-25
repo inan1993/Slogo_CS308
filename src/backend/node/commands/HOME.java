@@ -14,9 +14,6 @@ import sharedobjects.ManipulateController;
  *
  */
 public class HOME extends Command {
-	public HOME(String name, int children) {
-		super();
-	}
 
 	public Response run(ManipulateController mc) {
 		Response s = mc.home();

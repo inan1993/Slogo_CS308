@@ -12,9 +12,6 @@ import responses.Success;
 import sharedobjects.ManipulateController;
 
 public class MAKEVAR extends ControlStructure {
-	public MAKEVAR(){
-		super();
-	}
 
 //	@Override
 //	public Response run(ManipulateController mc) {
