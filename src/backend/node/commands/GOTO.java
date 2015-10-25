@@ -11,9 +11,6 @@ import sharedobjects.ManipulateController;
  *
  */
 public class GOTO extends TwoArgumentNode {
-	public GOTO(String name, int children) {
-		super();
-	}
 
 	@Override
 	public Response run(ManipulateController sharedHandle) {

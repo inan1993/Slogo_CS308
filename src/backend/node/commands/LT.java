@@ -12,9 +12,6 @@ import sharedobjects.Turtle;
  *
  */
 public class LT extends OneArgumentNode {
-	public LT() {
-		super();
-	}
 	
 	@Override
 	public Response run(ManipulateController sharedHandle) {

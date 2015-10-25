@@ -10,9 +10,6 @@ import sharedobjects.ManipulateController;
  *
  */
 public class GREATERP extends TwoArgumentNode{
-	public GREATERP() {
-		super();
-	}
 
 	@Override
 	public Response run(ManipulateController mc) {	

@@ -10,9 +10,6 @@ import sharedobjects.ManipulateController;
  *
  */
 public class TOWARDS extends TwoArgumentNode {
-	public TOWARDS(String name, int children) {
-		super();
-	}
 
 	@Override
 	public Response run(ManipulateController sharedHandle) {

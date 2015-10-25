@@ -10,9 +10,6 @@ import sharedobjects.ManipulateController;
  *
  */
 public class PI extends ZeroArgumentNode {
-	public PI() {
-		super();
-	}
 
 	@Override
 	public Response run(ManipulateController mc) {

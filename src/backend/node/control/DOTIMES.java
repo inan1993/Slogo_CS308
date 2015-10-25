@@ -6,11 +6,6 @@ import responses.Error;
 import sharedobjects.ManipulateController;
 
 public class DOTIMES extends ControlStructure {
-
-	public DOTIMES() {
-		super();
-	}
-
 	@Override
 	public Response run(ManipulateController mc) {
 //		Double numExecutions = Double.parseDouble(exec.execute(nl.get(0)).toString());

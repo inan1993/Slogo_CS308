@@ -10,9 +10,6 @@ import sharedobjects.ManipulateController;
  *
  */
 public class COS extends TwoArgumentNode{
-	public COS() {
-		super();
-	}
 
 	@Override
 	public Response run(ManipulateController mc) {
