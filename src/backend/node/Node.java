@@ -62,8 +62,8 @@ public abstract class Node implements Cloneable {
 		return myChildren;
 	}
 	
-	public Node getChild(int index) {
-		return myChildren.get(index);
+	public Response getAndRun(int index, ManipulateController mc) {
+		return myChildren.get(index).run(mc);
 	}
 
 	/**

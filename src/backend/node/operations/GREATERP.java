@@ -16,8 +16,8 @@ public class GREATERP extends TwoArgumentNode{
 
 	@Override
 	public Response run(ManipulateController mc) {	
-		Double a = getChild(0).getDoubleValue();
-		Double b = getChild(1).getDoubleValue();
+		Double a = getAndRun(0, mc).getDoubleValue();
+		Double b = getAndRun(1, mc).getDoubleValue();
 		//convert input to radians, cos, conver to degrees
 		return new Success(a > b ? 1 : 0);
 	}

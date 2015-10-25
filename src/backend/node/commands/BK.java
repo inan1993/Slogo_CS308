@@ -21,7 +21,7 @@ public class BK extends OneArgumentNode {
 
 	@Override
 	public Response run(ManipulateController sharedHandle) {
-		int pixels = getChild(0).getIntegerValue();
+		int pixels = getAndRun(0, sharedHandle).getIntegerValue();
 		LambdaInterface l = (Turtle t) -> {
 			int[] currPosition = t.getPosition();
 			System.out.println("Current Position..." + currPosition[0] + ":" + currPosition[1]);
@@ -40,6 +40,6 @@ public class BK extends OneArgumentNode {
 		};
 		
 		// return argument 1 value
-		return new Success(getChild(0).getDoubleValue());
+		return new Success(getAndRun(0, sharedHandle).getDoubleValue());
 	}
 }

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package backend.node.operations;
 
 import backend.node.OneArgumentNode;
@@ -19,7 +16,7 @@ public class NOT extends OneArgumentNode{
 
 	@Override
 	public Response run(ManipulateController mc) {	
-		Double a = getChild(0).getDoubleValue();
+		Double a = getAndRun(0, mc).getDoubleValue();
 		//convert input to radians, cos, conver to degrees
 		return new Success(a == 0 ? 1 : 0);
 	}

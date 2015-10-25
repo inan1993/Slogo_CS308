@@ -18,7 +18,7 @@ public class RANDOM extends TwoArgumentNode{
 
 	@Override
 	public Response run(ManipulateController mc) {
-		Double max = getChild(0).getDoubleValue();
+		Double max = getAndRun(0, mc).getDoubleValue();
 		Random rand = new Random();
 		int i = rand.nextInt((int) Math.round(max));
 		

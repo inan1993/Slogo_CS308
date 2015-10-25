@@ -1,6 +1,3 @@
-/**
- * 
- */
 package backend.node.operations;
 
 import backend.node.OneArgumentNode;
@@ -19,7 +16,7 @@ public class MINUS extends OneArgumentNode{
 
 	@Override
 	public Response run(ManipulateController mc) {
-		Double result = getChild(0).getDoubleValue()*-1;
+		Double result = getAndRun(0, mc).getDoubleValue()*-1;
 		return new Success(result);
 	}
 }

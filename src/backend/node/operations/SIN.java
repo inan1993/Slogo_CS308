@@ -16,7 +16,7 @@ public class SIN extends OneArgumentNode{
 
 	@Override
 	public Response run(ManipulateController mc) {	
-		Double x = getChild(0).getDoubleValue();
+		Double x = getAndRun(0, mc).getDoubleValue();
 		//convert input to radians, sin, conver to degrees
 		return new Success(Math.toDegrees(Math.sin(Math.toRadians(x))));
 	}

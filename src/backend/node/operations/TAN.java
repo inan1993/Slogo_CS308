@@ -1,6 +1,3 @@
-/**
- * 
- */
 package backend.node.operations;
 
 import backend.node.TwoArgumentNode;
@@ -19,8 +16,8 @@ public class TAN extends TwoArgumentNode{
 
 	@Override
 	public Response run(ManipulateController mc) {
-		Double x = getChild(0).getDoubleValue();
-		//convert input to radians, sin, conver to degrees
+		Double x = getAndRun(0, mc).getDoubleValue();
+		//convert input to radians, sin, convert to degrees
 		return new Success(Math.toDegrees(Math.tan(Math.toRadians(x))));
 	}
 }
