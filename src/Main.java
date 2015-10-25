@@ -9,6 +9,7 @@ import backend.parser.Parser;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import observers.ObserverFactory;
 import sharedobjects.HandleObservers;
 import sharedobjects.ManipulateController;
 import sharedobjects.Workspace;
@@ -36,12 +37,14 @@ public class Main extends Application{
 
         /*5*/ frontEnd = new SlogoView(); //TODO: frontEnd must create an observers list
 
+        ObserverFactory observerFactory = new ObserverFactory(frontEnd);
+        
         List<Observable> observables = new ArrayList<Observable>();
         observables.addAll(currWorkspace.getObservables()); 
         observables.add(frontEnd.getObservable());
         
         List<Observer> observers = new ArrayList<Observer>();
-        observers.addAll(frontEnd.getObservers()); 
+        observers.addAll(observerFactory.getObservers()); 
         observers.add(parser);
         /*6*/ HandleObservers.handleObservers(observables, observers);
 

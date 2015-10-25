@@ -7,10 +7,6 @@ import sharedobjects.LambdaInterface;
 import sharedobjects.ManipulateController;
 import sharedobjects.Turtle;
 
-/**
- * @author loganrooper
- *
- */
 public class LT extends OneArgumentNode {
 	
 	@Override
