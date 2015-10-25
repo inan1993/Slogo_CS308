@@ -15,9 +15,6 @@ import sharedobjects.Turtle;
  *
  */
 public class BK extends OneArgumentNode {
-	public BK() {
-		super();
-	}
 
 	@Override
 	public Response run(ManipulateController sharedHandle) {

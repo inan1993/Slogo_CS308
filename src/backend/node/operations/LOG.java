@@ -10,9 +10,6 @@ import sharedobjects.ManipulateController;
  *
  */
 public class LOG extends OneArgumentNode{
-	public LOG() {
-		super();
-	}
 
 	@Override
 	public Response run(ManipulateController mc) {

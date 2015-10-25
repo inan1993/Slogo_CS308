@@ -10,9 +10,6 @@ import sharedobjects.ManipulateController;
  *
  */
 public class QUOTIENT extends TwoArgumentNode{
-	public QUOTIENT() {
-		super();
-	}
 
 	@Override
 	public Response run(ManipulateController mc) {	

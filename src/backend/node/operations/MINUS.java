@@ -10,9 +10,6 @@ import sharedobjects.ManipulateController;
  *
  */
 public class MINUS extends OneArgumentNode{
-	public MINUS() {
-		super();
-	}
 
 	@Override
 	public Response run(ManipulateController mc) {

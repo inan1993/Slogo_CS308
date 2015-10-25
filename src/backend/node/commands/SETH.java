@@ -10,9 +10,6 @@ import sharedobjects.ManipulateController;
  *
  */
 public class SETH extends OneArgumentNode {
-	public SETH(String name, int children) {
-		super();
-	}
 
 	@Override
 	public Response run(ManipulateController sharedHandle) {

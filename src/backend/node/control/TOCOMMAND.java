@@ -7,10 +7,6 @@ import responses.Response;
 import sharedobjects.ManipulateController;
 
 public class TOCOMMAND extends ControlStructure {
-	public TOCOMMAND(){
-		super();
-	}
-	
 	@Override
 	public Response run(ManipulateController mc) {
 		return new Error("Unimplemented");

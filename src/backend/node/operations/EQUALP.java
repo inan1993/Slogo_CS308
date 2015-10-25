@@ -10,9 +10,6 @@ import sharedobjects.ManipulateController;
  *
  */
 public class EQUALP extends TwoArgumentNode{
-	public EQUALP() {
-		super();
-	}
 
 	@Override
 	public Response run(ManipulateController mc) {	

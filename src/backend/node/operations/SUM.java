@@ -10,9 +10,6 @@ import sharedobjects.ManipulateController;
  *
  */
 public class SUM extends TwoArgumentNode{
-	public SUM() {
-		super();
-	}
 
 	@Override
 	public Response run(ManipulateController mc) {

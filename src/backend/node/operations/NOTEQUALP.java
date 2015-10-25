@@ -10,9 +10,6 @@ import sharedobjects.ManipulateController;
  *
  */
 public class NOTEQUALP extends TwoArgumentNode{
-	public NOTEQUALP() {
-		super();
-	}
 
 	@Override
 	public Response run(ManipulateController mc) {

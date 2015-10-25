@@ -12,9 +12,6 @@ import sharedobjects.ManipulateController;
  *
  */
 public class ST extends ZeroArgumentNode {
-	public ST(String name, int children) {
-		super();
-	}
 
 	@Override
 	public Response run(ManipulateController sharedHandle) {

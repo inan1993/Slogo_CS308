@@ -10,9 +10,6 @@ import sharedobjects.ManipulateController;
  *
  */
 public class POW extends TwoArgumentNode{
-	public POW() {
-		super();
-	}
 
 	@Override
 	public Response run(ManipulateController mc) {

@@ -10,9 +10,6 @@ import sharedobjects.ManipulateController;
  *
  */
 public class ATAN extends OneArgumentNode{
-	public ATAN() {
-		super();
-	}
 
 	@Override
 	public Response run(ManipulateController mc) {

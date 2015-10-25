@@ -9,9 +9,6 @@ import sharedobjects.Turtle;
 import backend.node.OneArgumentNode;
 
 public class FD extends OneArgumentNode {
-	public FD() {
-		super();
-	}
 
 	@Override
 	public Response run(ManipulateController sharedHandle) {

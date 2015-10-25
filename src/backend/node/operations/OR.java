@@ -10,9 +10,6 @@ import sharedobjects.ManipulateController;
  *
  */
 public class OR extends TwoArgumentNode{
-	public OR() {
-		super();
-	}
 
 	@Override
 	public Response run(ManipulateController mc) {	
