@@ -4,12 +4,12 @@ import responses.Response;
 import responses.Success;
 import sharedobjects.ManipulateController;
 
-public class Variable extends SingleValuedObject {
+public class Variable extends ZeroArgumentNode {
 	public Variable() {
 		super();
 	}
 
-	protected Response run(ManipulateController mc) {
+	public Response run(ManipulateController mc) {
 		return new Success(mc.getVariable(this.getName()).getDoubleValue());
 	}
 }

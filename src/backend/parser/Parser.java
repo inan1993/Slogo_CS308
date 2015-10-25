@@ -262,17 +262,17 @@ public class Parser implements Observer {
 			//root is USERCOMMAND
 			Node toCmd = myManiControl.getCommand(mySyntaxList.get(myIndex).getValue());///////////maybe getFunction?
 			if(toCmd==null)
-				throw new SyntaxException("Undefied command!");
-			int numOfArg=toCmd.getChildrenNum()-1;
-			root.setChildrenNum(numOfArg);
+				throw new SyntaxException("Undefined command!");
+			//int numOfArg=toCmd.getChildrenNum()-1;
+			//root.setChildrenNum(numOfArg);
 			parseExpression(root);
 		}
 		return root;
 	}
 	
 	private void parseExpression(Node root) throws SyntaxException	{
-		int numOfChildren=root.getChildrenNum();
-		for(int i=0;i<numOfChildren;i++)
+		//int numOfChildren=root.getChildrenNum();
+		for(int i=0;i<root.getArgumentNumber();i++)
 		{
 			if(myIndex>=mySyntaxList.size())
 				throw new SyntaxException("Uncompleted argument list in" + root.getName());
