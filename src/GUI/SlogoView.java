@@ -56,7 +56,6 @@ public class SlogoView {
     private TurtleGroup myTurtleGroup;
     private BackgroundRectangle myBackgroundRectangle;
 
-    private List<Observer> myObservers;
     private UserInput myUserInputObservable;
 
     private Map<String, AButton> myButtons;
@@ -77,8 +76,6 @@ public class SlogoView {
         
         ButtonFactory buttonFactory = new ButtonFactory(commandBox, messageBox, historyDisplayBox, myTurtleGroup, myUserInputObservable);
         myButtons = buttonFactory.getButtons();
-
-        myObservers = new ArrayList<Observer>();
 
         BorderPane root = new BorderPane();
 
@@ -153,7 +150,6 @@ public class SlogoView {
         AnchorPane mainBox = new AnchorPane();
         myBackgroundRectangle = new BackgroundRectangle(Integer.parseInt(myResource.getString("canvasWidth")), Integer.parseInt(myResource.getString("canvasHeight")));
         myTurtleCanvas = new TurtleCanvas(Integer.parseInt(myResource.getString("canvasWidth")), Integer.parseInt(myResource.getString("canvasHeight")));
-        myObservers.add(new FrontEndObserver(myTurtleGroup, myTurtleCanvas));
         mainBox.getChildren().addAll(myBackgroundRectangle, myTurtleCanvas, myTurtleGroup);
         return mainBox;
     }
@@ -178,20 +174,31 @@ public class SlogoView {
 
     private VBox rightBox(){
         VBox result = new VBox();
-        myObservers.add(new ParsedCommandsObserver(functionDisplayBox, variableDisplayBox));
         result.getChildren().addAll(variableDisplayBox,historyDisplayBox,functionDisplayBox);
         return result;
     }
    
-    public List<Observer> getObservers(){
-        return this.myObservers;
-    }
-
-    public void addObservers(Observer obs){
-        myObservers.add(obs);
-    }
-
+    
     public Observable getObservable(){
         return this.myUserInputObservable;
+    }
+
+
+    public TurtleGroup getTurtlePaneGroup () {
+        return myTurtleGroup;
+    }
+
+    public TurtleCanvas getTurtlePaneCanvas () {
+        return myTurtleCanvas;
+    }
+
+
+    public FunctionListBox getFunctionDisplayBox () {
+        return functionDisplayBox;
+    }
+
+
+    public VariableListBox getVariableDisplayBox () {
+        return variableDisplayBox;
     }
 }

@@ -267,7 +267,7 @@ public class Parser implements Observer {
 			if(toCmd==null)
 				throw new SyntaxException("Undefied command!");
 			int numOfArg=toCmd.getChildrenNum()-1;
-			root.setChildrenNum(numOfArg);
+//			root.setChildrenNum(numOfArg);
 			parseExpression(root);
 		}
 		return root;

@@ -9,27 +9,26 @@ import datatransferobjects.ParsedCommandsTransferObject;
 
 public class ParsedCommandsObserver implements Observer{
 
-	private FunctionListBox myFunctionList;
+    private FunctionListBox myFunctionList;
     private VariableListBox myVariableList;
 
-	public ParsedCommandsObserver (FunctionListBox functionList, VariableListBox variableList) {
-		this.myFunctionList = functionList;
-		this.myVariableList = variableList;
-	}
+    public ParsedCommandsObserver (FunctionListBox functionList, VariableListBox variableList) {
+        this.myFunctionList = functionList;
+        this.myVariableList = variableList;
+    }
 
-	@Override
-	public void update (Observable o, Object arg) {
-		ParsedCommandsTransferObject functionVariableDTO = (ParsedCommandsTransferObject) arg;
+    @Override
+    public void update (Observable o, Object arg) {
+        ParsedCommandsTransferObject functionVariableDTO = (ParsedCommandsTransferObject) arg;
+        System.out.println("here");
+        if(functionVariableDTO.isFunction()){
+            myFunctionList.setMessage(functionVariableDTO.getUserInput()); 
+        }
+        else{
+            myVariableList.setMessage(functionVariableDTO.getUserInput()); 
 
-
-		if(functionVariableDTO.isFunction()){
-			myFunctionList.setMessage(functionVariableDTO.getUserInput()); 
-		}
-		else{
-			myVariableList.setMessage(functionVariableDTO.getUserInput()); 
-          
-		}
-	}
+        }
+    }
 }
 
 // 

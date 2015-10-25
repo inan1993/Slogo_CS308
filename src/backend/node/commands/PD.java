@@ -17,7 +17,6 @@ import sharedobjects.ManipulateController;
 public class PD extends Command {
 	public PD() {
 		super();
-		super.setChildrenNum(0);
 	}
 
 	@Override
