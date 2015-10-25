@@ -10,7 +10,7 @@ public class Constant extends ZeroArgumentNode {
 	}
 
 	@Override
-	protected Response run(ManipulateController mc) {
-		return new Success(this.getDoubleValue());
+	public Response run(ManipulateController mc) {
+		return new Success(getDoubleValue());
 	}
 }
