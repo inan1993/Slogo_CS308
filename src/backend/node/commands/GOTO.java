@@ -1,42 +1,36 @@
 package backend.node.commands;
 
-import java.util.List;
 
-import backend.node.Command;
-import backend.node.Constant;
-import backend.node.Node;
+import backend.node.TwoArgumentNode;
+import responses.Response;
+import responses.Success;
 import sharedobjects.ManipulateController;
 
 /**
  * @author loganrooper
  *
  */
-public class GOTO extends Command {
+public class GOTO extends TwoArgumentNode {
 	public GOTO(String name, int children) {
 		super();
 	}
 
 	@Override
-	public Node run(ManipulateController sharedHandle, List<Node> ln) {
-		if (ln == null)
-			throw new RuntimeException("Missing parameter.");
-		if (ln.size() < 2)
-			throw new RuntimeException(String.format("Expected 2 parameters, got: %d", ln.size()));
-
+	public Response run(ManipulateController sharedHandle) {
 		// get headings
 		double prevHeading = sharedHandle.getHeading();
 
 		// get xy
-		int x = ln.get(0).getIntegerValue();
-		int y = ln.get(1).getIntegerValue();
+		int x = getChild(0).getIntegerValue();
+		int y = getChild(1).getIntegerValue();
 
 		// turn
 		sharedHandle.towards(x, y);
 
 		// new heading
-		double newHeading = ln.get(0).getDoubleValue();
+		double newHeading = getChild(0).getDoubleValue();
 
 		// return the delta
-		return new Constant().setValue(prevHeading - newHeading);
+		return new Success(prevHeading - newHeading);
 	}
 }

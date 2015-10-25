@@ -17,6 +17,13 @@ public class Success extends Response{
 		super(d);
 	}
 
+	/**
+	 * @param i
+	 */
+	public Success(int i) {
+		super(i);
+	}
+
 	@Override
 	public String toString() {
 		return message;

@@ -3,24 +3,23 @@
  */
 package backend.node.operations;
 
-import java.util.List;
-
-import backend.node.Constant;
-import backend.node.Node;
-import backend.node.Operation;
+import backend.node.OneArgumentNode;
+import responses.Response;
+import responses.Success;
+import sharedobjects.ManipulateController;
 
 /**
  * @author loganrooper
  *
  */
-public class MINUS extends Operation{
+public class MINUS extends OneArgumentNode{
 	public MINUS() {
 		super();
 	}
 
 	@Override
-	public Node run(List<Node> nl) {	
-		Double result = nl.get(0).getDoubleValue()*-1;
-		return new Constant().setValue(result);
+	public Response run(ManipulateController mc) {
+		Double result = getChild(0).getDoubleValue()*-1;
+		return new Success(result);
 	}
 }
