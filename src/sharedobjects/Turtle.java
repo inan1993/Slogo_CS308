@@ -36,6 +36,7 @@ public class Turtle extends Observable{
 	
 	public void setPosition(int[] p){
 		position = p;
+		System.out.println("Changing the current Turtle's position to..." + p[0] + ":" + p[1]);
 		this.setChanged();
 	}
 	

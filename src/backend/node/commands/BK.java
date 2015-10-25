@@ -5,7 +5,10 @@ import java.util.List;
 
 import backend.node.Command;
 import backend.node.Node;
+import datatransferobjects.TurtleTransferObject;
+import sharedobjects.LambdaInterface;
 import sharedobjects.ManipulateController;
+import sharedobjects.Turtle;
 
 
 /**
@@ -24,9 +27,26 @@ public class BK extends Command {
 			throw new RuntimeException("Missing parameter.");
 		if (ln.size() < 1)
 			throw new RuntimeException(String.format("Expected 1 parameter, got: %d", ln.size()));
-
+		
+		int pixels = ln.get(0).getIntegerValue();
+		LambdaInterface l = (Turtle t) -> {
+			int[] currPosition = t.getPosition();
+			System.out.println("Current Position..." + currPosition[0] + ":" + currPosition[1]);
+			
+			double heading = t.getHeading();
+			
+			double xDiff = Math.cos(Math.toRadians(heading))*pixels; //adjacent 
+			double yDiff = Math.sin(Math.toRadians(heading))*pixels; //opposite
+			
+			int xBack = (int) (currPosition[0] - xDiff);
+			int yBack = (int) (currPosition[1] - yDiff);
+			int[] nextPos = new int[]{xBack, yBack};
+			t.setPosition(nextPos);
+			TurtleTransferObject dto = new TurtleTransferObject(false, t.getID(), false, t.isPenDown(), t.getPosition(), nextPos);
+			t.notifyObservers(dto);
+		};
 		// move forward using argument 1
-		sharedHandle.back(ln.get(0).getIntegerValue());
+		sharedHandle.execute(l);
 		// return argument 1 value
 		return ln.get(0);
 	}
