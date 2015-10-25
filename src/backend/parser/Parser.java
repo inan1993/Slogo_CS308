@@ -363,6 +363,8 @@ public class Parser implements Observer {
 				while(mySyntaxList.get(myIndex).getKey()!=SyntaxType.GROUPEND){
 					parseExpression(root, 1);
 					Node c = factory.createNode(type);
+					root.addChild(c);
+//					root=
 				}
 			}catch(ArrayIndexOutOfBoundsException e){
 				throw new SyntaxException("Miss a right brace ) in "+root.getName());
@@ -370,6 +372,7 @@ public class Parser implements Observer {
 			break;
 		default:
 			Node c=growTree();
+			root.addChild(c);
 			try{
 				while(mySyntaxList.get(myIndex).getKey()!=SyntaxType.GROUPEND){
 					myIndex++;
