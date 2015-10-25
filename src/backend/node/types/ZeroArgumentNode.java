@@ -1,7 +1,9 @@
 /**
  * 
  */
-package backend.node;
+package backend.node.types;
+
+import backend.node.Node;
 
 /**
  * @author loganrooper

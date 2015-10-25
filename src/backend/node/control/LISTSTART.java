@@ -1,7 +1,7 @@
 package backend.node.control;
 
-import backend.node.ControlStructure;
 import backend.node.Node;
+import backend.node.types.ControlStructure;
 import responses.*;
 import responses.Error;
 import sharedobjects.ManipulateController;

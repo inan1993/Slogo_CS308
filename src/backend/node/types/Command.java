@@ -1,10 +1,11 @@
 /**
  * 
  */
-package backend.node;
+package backend.node.types;
 
 import java.util.List;
 
+import backend.node.Node;
 import responses.Response;
 import sharedobjects.ManipulateController;
 
