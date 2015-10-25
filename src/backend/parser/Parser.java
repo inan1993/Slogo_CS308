@@ -235,6 +235,9 @@ public class Parser implements Observer {
 			    break;
 			case GROUPSTART:
 				if(myGroupLegal){
+					root = factory.createNode(mySyntaxList.get(myIndex).getKey());
+					root.setName(mySyntaxList.get(myIndex).getValue());
+					myIndex++;
 					parseGroupStart(root);
 					myGroupLegal=false;
 				}
@@ -352,14 +355,31 @@ public class Parser implements Observer {
 	}
 	
 	private void parseGroupStart(Node root) throws SyntaxException{
-		try{
-			while(mySyntaxList.get(myIndex).getKey()!=SyntaxType.GROUPEND){
-				Node c = growTree();
-				root = c;
+		SyntaxType type = mySyntaxList.get(myIndex-1).getKey(); 
+		switch(type){
+		case SUM:
+			try{
+				CommandFactory factory = new CommandFactory();
+				while(mySyntaxList.get(myIndex).getKey()!=SyntaxType.GROUPEND){
+					parseExpression(root, 1);
+					Node c = factory.createNode(type);
+				}
+			}catch(ArrayIndexOutOfBoundsException e){
+				throw new SyntaxException("Miss a right brace ) in "+root.getName());
 			}
-		}catch(ArrayIndexOutOfBoundsException e){
-			throw new SyntaxException("Miss a right brace ) in "+root.getName());
+			break;
+		default:
+			Node c=growTree();
+			try{
+				while(mySyntaxList.get(myIndex).getKey()!=SyntaxType.GROUPEND){
+					myIndex++;
+				}
+				myIndex++;
+			}catch(ArrayIndexOutOfBoundsException e){
+				throw new SyntaxException("Miss a right brace ) in "+root.getName());
+			}
 		}
+		
 	}
 	
 	private void parseDoTimes(Node root) throws SyntaxException{
