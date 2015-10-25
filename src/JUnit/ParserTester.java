@@ -15,7 +15,7 @@ import junit.framework.*;
  * @author loganrooper
  *
  */
-public class ExecutorTester extends TestCase {
+public class ParserTester extends TestCase {
 
 	private Executor f;
 	private ManipulateController mc;
@@ -162,6 +162,11 @@ public class ExecutorTester extends TestCase {
 	public void testDoTimesVariable() {
 		Response s = p.parse("dotimes [ :a 5 ] [ fd :a ]", "English");
 		System.out.println(s.toString());
+	}
+	
+	public void testBasicParse() {
+		Response s = p.parse("fd 50", "English");
+		System.out.println();
 	}
 
 }

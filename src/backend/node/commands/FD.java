@@ -10,11 +10,11 @@ import sharedobjects.ManipulateController;
 import sharedobjects.Turtle;
 import backend.node.Command;
 import backend.node.Node;
+import backend.node.OneArgumentNode;
 
-public class FD extends Command {
+public class FD extends OneArgumentNode {
 	public FD() {
 		super();
-		super.setChildrenNum(1);
 	}
 
 	@Override

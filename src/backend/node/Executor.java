@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 import backend.node.Command;
 import backend.node.Node;
-import backend.node.SingleValuedObject;
+import backend.node.OneArgumentNode;
 import backend.node.commands.FD;
 import responses.*;
 import responses.Error;
@@ -42,31 +42,12 @@ public class Executor {
 				returnedNodes.add(recurse(n));
 			}
 
-			// Now, run this with our received parameters
-			if (root instanceof Command) {
-				
-			    return ((Command) root).run(sharedHandle, returnedNodes);
-			} else if (root instanceof Operation) {
-				return ((Operation) root).run(returnedNodes);
-			} else if (root instanceof ControlStructure) {
-				return ((ControlStructure) root).run(returnedNodes, this);
-			} else {
-				// We've got a SVO here, that wasn't a leaf...
-				throw new RuntimeException("Invalid number of children for this node!");
-			}
-		} else {
-			// leaf - make sure it's a SVO not a command
-			if (root.getClass().getSuperclass().equals(SingleValuedObject.class)) {
-				// Update variables here
-				if (root.getClass().equals(Variable.class)) {
-					root = sharedHandle.getVariable(root.getName());
-				}
-				return root;
-			} else {
-				// We've got a command here, that was a leaf...
-				throw new RuntimeException("Invalid number of children for this node!");
-			}
-		}
+			//todo: run.
+			return null;
+			
+		} 
+		//todo: run
+		return null;
 	}
 
 	public ManipulateController getManipulateController() {
