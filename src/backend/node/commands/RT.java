@@ -23,7 +23,7 @@ public class RT extends OneArgumentNode {
 			double currHeading = t.getHeading();
 			System.out.println(currHeading);
 			currHeading -= degrees;
-			if(currHeading < 0){
+			while(currHeading < 0){
 	               currHeading += 360;
 			}
 			t.setHeading(currHeading);

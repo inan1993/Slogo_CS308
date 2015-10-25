@@ -21,11 +21,13 @@ public class LT extends OneArgumentNode {
 		int degrees = getAndRun(0, sharedHandle).getIntegerValue();
 		LambdaInterface l = (Turtle t) -> {
 			double currHeading = t.getHeading();
-			currHeading -= degrees;
-			if(currHeading < 0){
-	               currHeading += 360;
+			System.out.println(currHeading);
+			currHeading += degrees;
+			while(currHeading > 360){
+	               currHeading -= 360;
 			}
 			t.setHeading(currHeading);
+			System.out.println(currHeading);
 		};
 		sharedHandle.execute(l);
 		

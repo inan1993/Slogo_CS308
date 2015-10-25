@@ -31,6 +31,6 @@ public abstract class Response {
 	}
 	
 	public int getIntegerValue() {
-		return Integer.parseInt(message);
+		return (int) Double.parseDouble(message);
 	}
 }
