@@ -2,8 +2,10 @@ package sharedobjects;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Observable;
 
 import backend.node.Node;
+import datatransferobjects.ParsedCommandsTransferObject;
 import responses.Response;
 
 public class ManipulateController implements IWorkSpaceController{
@@ -24,9 +26,14 @@ public class ManipulateController implements IWorkSpaceController{
         }
         
         public double getHeading(){
-        	
         	return 0;
         }
+        
+        public void addVariable(String v, Node n){
+    		currWorkspace.addVariable(v, n);
+    	}
+    	
+
 
 		@Override
 		public Response foward(int pixels) {
@@ -106,29 +113,6 @@ public class ManipulateController implements IWorkSpaceController{
 			return null;
 		}
 
-		@Override
-		public Response setCommand(String userInput, String s, Node n) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public Node getCommand(String commandName) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public Response setVariable(String variableName, Node var) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public Node getVariable(String variableName) {
-			// TODO Auto-generated method stub
-			return null;
-		}
         
 //        @Override
 //        public Response foward(int pixels) {
@@ -249,27 +233,27 @@ public class ManipulateController implements IWorkSpaceController{
 //                return null;
 //        }
 //
-//        @Override
-//        public Response setCommand(String userInput, String stringName, Node n) {
-//                currWorkspace.addCommand(userInput, stringName, n);
-//                return null;
-//        }
-//
-//        @Override
-//        public Node getCommand(String commandName) {
-//                return currWorkspace.getCommand(commandName);
-//        }
-//
-//        @Override
-//        public Response setVariable(String variableName, Node var) {
-//                currWorkspace.addVariable(variableName, var);
-//                return null;
-//        }
-//
-//        @Override
-//        public Node getVariable(String variableName) {
-//                return currWorkspace.getVariable(variableName);
-//        }
+        @Override
+        public Response setCommand(String userInput, String stringName, Node n) {
+                currWorkspace.addCommand(userInput, stringName, n);
+                return null;
+        }
+
+        @Override
+        public Node getCommand(String commandName) {
+                return currWorkspace.getCommand(commandName);
+        }
+
+        @Override
+        public Response setVariable(String variableName, Node var) {
+                currWorkspace.addVariable(variableName, var);
+                return null;
+        }
+
+        @Override
+        public Node getVariable(String variableName) {
+                return currWorkspace.getVariable(variableName);
+        }
 //
 //        public double getHeading() {
 //                return currWorkspace.getHeading();
