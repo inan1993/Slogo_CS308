@@ -1,10 +1,10 @@
 package backend.node.control;
 
-import java.util.List;
 
 import backend.node.ControlStructure;
-import backend.node.Executor;
-import backend.node.Node;
+import responses.Error;
+import responses.Response;
+import sharedobjects.ManipulateController;
 
 public class FOR extends ControlStructure{
 	public FOR()
@@ -13,8 +13,7 @@ public class FOR extends ControlStructure{
 	}
 
 	@Override
-	protected Node run(List<Node> nl, Executor executor) {
-		// TODO Auto-generated method stub
-		return null;
+	public Response run(ManipulateController mc) {
+		return new Error("Unimplemented");
 	}
 }

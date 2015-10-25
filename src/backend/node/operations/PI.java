@@ -1,22 +1,24 @@
-/**
- * 
- */
 package backend.node.operations;
 
-import java.util.List;
-
-import backend.node.Constant;
-import backend.node.Node;
-import backend.node.Operation;
-import backend.node.OneArgumentNode;
+import backend.node.ZeroArgumentNode;
+import responses.Response;
+import responses.Success;
+import sharedobjects.ManipulateController;
 
 /**
  * @author loganrooper
  *
  */
-public class PI extends OneArgumentNode {
+public class PI extends ZeroArgumentNode {
 	public PI() {
 		super();
-		this.setValue(Math.PI);
 	}
+
+	@Override
+	public Response run(ManipulateController mc) {
+		this.setValue(Math.PI);
+		return new Success(Math.PI);
+	}
+	
+	
 }
