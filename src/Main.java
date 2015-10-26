@@ -16,12 +16,12 @@ import sharedobjects.Workspace;
 
 public class Main extends Application{
     public static final String TITLE = "Slogo";
-    private static SlogoView frontEnd;
+    private static SlogoView slogoViewFrontEnd;
     Scene scene;
 
     public  void start (Stage stage) throws Exception {
         stage.setTitle(TITLE);
-        stage.setScene(frontEnd.getScene()); 
+        stage.setScene(slogoViewFrontEnd.getScene()); 
         stage.setResizable(false);
         stage.sizeToScene(); 
         stage.show();
@@ -29,18 +29,21 @@ public class Main extends Application{
 
     public static void main (String[] args) {
 
-        /*4*/ frontEnd = new SlogoView(); //TODO: frontEnd must create an observers list
+        ObserverFactory observerFactory = new ObserverFactory();
 
+        /*4*/ slogoViewFrontEnd = new SlogoView(observerFactory.getGuiCanvas(), observerFactory.getGuiTurtleGroup()); //TODO: frontEnd must create an observers list
+        observerFactory.createObserversWithGUIDependancies(slogoViewFrontEnd);
+        
         try{
-        /*1*/Workspace currWorkspace = new Workspace(); //TODO: workspace must create an observables list
+          //TODO: workspace must create an observable list
+        /*1*/Workspace currWorkspace = new Workspace(); 
         /*2*/ManipulateController manipulateController = new ManipulateController(currWorkspace);
 
         /*3*/Parser parser = new Parser(manipulateController);
-        ObserverFactory observerFactory = new ObserverFactory(frontEnd);
         
         List<Observable> observables = new ArrayList<Observable>();
         observables.addAll(currWorkspace.getObservables()); 
-        observables.add(frontEnd.getObservable());
+        observables.add(slogoViewFrontEnd.getObservable());
         
         List<Observer> observers = new ArrayList<Observer>();
         observers.addAll(observerFactory.getObservers()); 
@@ -51,7 +54,7 @@ public class Main extends Application{
         }
         catch(Exception e){
             e.printStackTrace();
-            frontEnd.showError(e);
+            slogoViewFrontEnd.showError(e);
         }
         
         

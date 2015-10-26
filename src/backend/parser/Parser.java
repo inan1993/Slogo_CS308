@@ -15,7 +15,6 @@ import java.util.Observer;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 import java.util.regex.Pattern;
-
 import backend.factory.CommandFactory;
 import backend.node.Node;
 import backend.node.control.USERCOMMAND;

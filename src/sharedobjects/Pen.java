@@ -8,44 +8,40 @@ import javafx.scene.paint.Paint;
 
 public class Pen {
 
-	private Paint color;
+	private Color myColor;
 	private double thickness;
 	private String state;
 
-	private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/";
-    private static final String DEFAULT_RESOURCE_VIEW = "GUI.view";
-    private static ResourceBundle myResource;
-    private static final String DEFAULT_LANGUAGE = "English";
-	
+	private static final String DEFAULT_GUI_RESOURCE = "GUI.view";
+	private static ResourceBundle myResource;
+
 	public Pen() {
-		ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_LANGUAGE);
-        myResource = ResourceBundle.getBundle(DEFAULT_RESOURCE_VIEW);
-		color =  Paint.valueOf(myResource.getString("defaultPenColor"));
-		thickness = Integer.parseInt(myResource.getString("defaultPenThickness"));
-		state = myResource.getString("defaultPenState");
+		myResource = ResourceBundle.getBundle(DEFAULT_GUI_RESOURCE);
+		myColor = Color.valueOf(myResource.getString("defaultPenColor"));
+		thickness = Integer.parseInt(myResource.getString("defaultLineThickness"));
+		state = myResource.getString("defaultLineType");
 	}
-	
-	public void setColor(int index){
-		throw new NotImplementedException();
-		//color = index;
+
+	public void setColor(String color) {
+		myColor = Color.valueOf(color);
 	}
-	
-	public Paint getColor(){
-		return color;
+
+	public Paint getColor() {
+		return myColor;
 	}
-	
-	public void setThickness(double t){
+
+	public void setThickness(double t) {
 		thickness = t;
 	}
-	
-	public double getThickness(){
+
+	public double getThickness() {
 		return thickness;
 	}
-	
+
 	public String getState() {
 		return state;
 	}
-	
+
 	public void setState(String state) {
 		this.state = state;
 	}
