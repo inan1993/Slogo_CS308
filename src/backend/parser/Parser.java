@@ -20,6 +20,7 @@ import backend.factory.CommandFactory;
 import backend.node.Node;
 import backend.node.control.USERCOMMAND;
 import datatransferobjects.UserInputTransferObject;
+import exceptions.SyntaxException;
 import responses.Error;
 import responses.Response;
 import sharedobjects.ManipulateController;
