@@ -101,6 +101,7 @@ public class Parser implements Observer {
 		{
 //			should add a try catch, and make executor throws execute exception
 			response = each.run(myManiControl);
+			System.out.println("--> " + response.toString());
 //			System.out.println("call exec");
 		}
 		return response;
