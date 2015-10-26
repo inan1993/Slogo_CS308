@@ -281,6 +281,10 @@ public class ManipulateController implements IWorkSpaceController{
 			currWorkspace.addVariable(variableName, new Constant(currWorkspace.getVariable(variableName).getIntegerValue()+1));
 		}
 		
+		public void incrementVariableByValue(String variableName, int value) {
+			currWorkspace.addVariable(variableName, new Constant(currWorkspace.getVariable(variableName).getIntegerValue()+value));
+		}
+		
 		public void decrementVariable(String variableName) {
 			currWorkspace.addVariable(variableName, new Constant(currWorkspace.getVariable(variableName).getIntegerValue()-1));
 		}
