@@ -20,18 +20,6 @@ public class CommandFactory {
 		//// #
 		//// # Turtle Commands
 		//// #
-		// BACKWARD,
-		// LEFT,
-		// RIGHT,
-		// SETHEADING,
-		// SETTOWARDS,
-		// SETPOSITION,
-		// PENDOWN,
-		// PENUP,
-		// SHOWTURTLE,
-		// HIDETURTLE,
-		// HOME,
-		// CLEARSCREEN,
 		registerNode(SyntaxType.FORWARD, FD.class);
 		registerNode(SyntaxType.BACKWARD, BK.class);
 		registerNode(SyntaxType.LEFT, LT.class);
@@ -93,23 +81,23 @@ public class CommandFactory {
 		//// #
 		//// # Display Commands
 		//// #
-		// SETBACKGROUND,
-		// SETPENCOLOR,
-		// SETPENSIZE,
-		// SETSHAPE,
-		// SETPALETTE,
-		// GETPENCOLOR,
-		// GETSHAPE,
-		// STAMP,
-		// CLEARSTAMPS,
+		registerNode(SyntaxType.SETBACKGROUND, SETBG.class);
+		registerNode(SyntaxType.SETPENCOLOR, SETPC.class);
+		registerNode(SyntaxType.SETPENSIZE, SETPS.class);
+		registerNode(SyntaxType.SETSHAPE, SETSH.class);
+		registerNode(SyntaxType.SETPALETTE, SETPALETTE.class);
+		registerNode(SyntaxType.GETPENCOLOR, PC.class);
+		registerNode(SyntaxType.GETSHAPE, SH.class);
+		registerNode(SyntaxType.STAMP, STAMP.class);
+		registerNode(SyntaxType.CLEARSCREEN, CLEARSTAMPS.class);
 		//// #
 		//// # Multiple Turtle Commands
 		//// #
-		// ID,
-		// TURTLES,
-		// TELL,
-		// ASK,
-		// ASKWITH,
+		registerNode(SyntaxType.ID, ID.class);
+		registerNode(SyntaxType.TURTLES, TURTLES.class);
+		registerNode(SyntaxType.TELL, TELL.class);
+		registerNode(SyntaxType.ASK, ASK.class);
+		registerNode(SyntaxType.ASKWITH, ASKWITH.class);
 		//// #
 		//// # Non-Command
 		//// #
@@ -117,26 +105,13 @@ public class CommandFactory {
 		registerNode(SyntaxType.CONSTANT, Constant.class);
 		registerNode(SyntaxType.LISTSTART, LISTSTART.class);
 		// LISTEND,
-		// GROUPSTART,
+		registerNode(SyntaxType.GROUPSTART, GROUPSTART.class);// GROUPSTART,
 		// GROUPEND,
 		registerNode(SyntaxType.USERCOMMAND, USERCOMMAND.class);
 
-		// Extension commands
 
-		registerNode(SyntaxType.ASK, ASK.class);
-		registerNode(SyntaxType.TELL, TELL.class);
-		registerNode(SyntaxType.ID, ID.class);
-		registerNode(SyntaxType.TURTLES, TURTLES.class);
 		
-		registerNode(SyntaxType.CLEARSTAMPS, CLEARSTAMPS.class);
-		registerNode(SyntaxType.GETPENCOLOR, PC.class);
-		registerNode(SyntaxType.SETBACKGROUND, SETBG.class);
-		registerNode(SyntaxType.SETPALETTE, SETPALETTE.class);
-		registerNode(SyntaxType.SETPENCOLOR, SETPC.class);
-		registerNode(SyntaxType.SETPENSIZE, SETPS.class);
-		registerNode(SyntaxType.SETSHAPE, SETSH.class);
-		registerNode(SyntaxType.GETSHAPE, SH.class);
-		registerNode(SyntaxType.STAMP, STAMP.class);
+		
 		
 		
 
