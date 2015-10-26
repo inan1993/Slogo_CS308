@@ -27,7 +27,6 @@ public class ObserverFactory {
     }
 
     public void createObserversWithGUIDependancies(SlogoView slogoView){
-        //        myObservers.add(new TurtlePaneObserver(mySlogoView.getTurtlePaneGroup(), mySlogoView.getTurtlePaneCanvas()));
         myObservers.add(new ParsedCommandsObserver(slogoView.getFunctionDisplayBox(), slogoView.getVariableDisplayBox()));
         myObservers.add(new TurtleStateBoxObserver(slogoView.getTurtleStateBox()));
         //No need for wrapper observer class here- MessageDisplayBox is only used in GUI once.

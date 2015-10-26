@@ -47,6 +47,10 @@ public class Pen {
 		this.state = state;
 	}
 
+	public void setShape(int index) {
+		throw new NotImplementedException();
+	}
+
 	public void setBackground(int index) {
 		throw new NotImplementedException();
 	}

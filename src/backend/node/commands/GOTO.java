@@ -2,7 +2,6 @@ package backend.node.commands;
 
 
 import backend.node.types.TwoArgumentNode;
-import datatransferobjects.TurtleTransferObject;
 import responses.Response;
 import responses.Success;
 import sharedobjects.ITurtleLambda;
@@ -22,9 +21,8 @@ public class GOTO extends TwoArgumentNode {
 		int y = getAndRun(1, sharedHandle).getIntegerValue();
 				 	
 		ITurtleLambda l = (Turtle t) -> {
-			TurtleTransferObject dto = new TurtleTransferObject(false, t.getID(), false, t.isPenDown(), t.getPosition(), new double[]{0,0});
 			t.setPosition(new double[]{x,y});
-			t.notifyObservers(dto);
+			t.notifyObservers("turtle");
 		};
 		sharedHandle.executeOnAllActiveTurtles(l);
 		return new Success(0);

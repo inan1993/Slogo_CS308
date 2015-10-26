@@ -1,7 +1,6 @@
 package backend.node.commands;
 
 import backend.node.types.TwoArgumentNode;
-import datatransferobjects.TurtleTransferObject;
 import responses.Response;
 import responses.Success;
 import sharedobjects.ITurtleLambda;
@@ -30,9 +29,7 @@ public class TOWARDS extends TwoArgumentNode {
                   angle = angle - 360;
 			}
 			t.setHeading(angle);
-			TurtleTransferObject dto = new TurtleTransferObject(false, t.getID(), t.isShowing(), t.isPenDown(), t.getPosition(), t.getPosition());
-				
-			t.notifyObservers(dto);
+			t.notifyObservers("turtle");
 		};
 		
 		mc.executeOnAllActiveTurtles(l);

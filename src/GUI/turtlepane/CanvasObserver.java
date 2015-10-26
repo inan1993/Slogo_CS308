@@ -49,13 +49,20 @@ public class CanvasObserver extends Canvas implements Observer {
 		myGC.setStroke(myPenColor);
 	}
 
-	public void drawLine(double[] startLoc, double[] endLoc, boolean draw) {
-		if (draw) {
-			// myGC.setStroke(myPenColor);
-			myGC.strokeLine(startLoc[0] + myWidth / 2.0, startLoc[1] + myHeight / 2.0, endLoc[0] + myWidth / 2.0,
-					endLoc[1] + myHeight / 2.0);
-		}
-	}
+//<<<<<<< HEAD
+//	public void drawLine(double[] startLoc, double[] endLoc, boolean draw) {
+//		if (draw) {
+//			// myGC.setStroke(myPenColor);
+//			myGC.strokeLine(startLoc[0] + myWidth / 2.0, startLoc[1] + myHeight / 2.0, endLoc[0] + myWidth / 2.0,
+//					endLoc[1] + myHeight / 2.0);
+//		}
+//	}
+//=======
+    public void drawLine(double[]startLoc, double[] endLoc, boolean draw){
+        if(draw){
+            myGC.strokeLine(startLoc[0]+myWidth/2.0, startLoc[1]+myHeight/2.0, endLoc[0]+myWidth/2.0, endLoc[1]+myHeight/2.0); 
+        }
+    }
 
 	public void penUpDown() {
 		System.out.println("check");
