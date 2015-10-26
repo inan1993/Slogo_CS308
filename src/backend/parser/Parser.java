@@ -15,14 +15,15 @@ import java.util.Observer;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 import java.util.regex.Pattern;
+
 import backend.factory.CommandFactory;
 import backend.node.Node;
+import backend.node.control.USERCOMMAND;
 import datatransferobjects.UserInputTransferObject;
 import responses.Error;
 import responses.Response;
+import responses.Success;
 import sharedobjects.ManipulateController;
-import sharedobjects.ManipulateController;
-import sharedobjects.Workspace;
 
 
 /**
@@ -73,7 +74,7 @@ public class Parser implements Observer {
 	public Response parse(String userInput, String lang) {
 		myLanguage=lang;
 		myTokenList=new ArrayList<Entry<TokenType, String>>();
-		Response response = new Error("Haven't begin parsing");
+		Response response = null;
 		BufferedReader reader=new BufferedReader(new StringReader(userInput));
 		String line;
 		try {
@@ -275,11 +276,16 @@ public class Parser implements Observer {
 				break;
 			default:
 				//root is USERCOMMAND
-				Node toCmd = myManiControl.getCommand(mySyntaxList.get(myIndex-1).getValue());///////////maybe getFunction?
-				if(toCmd==null)
-					throw new SyntaxException("Undefined command!");
-				int numOfArg=toCmd.getChildrenNum()-1;
-				parseExpression(root, numOfArg);
+				if (root instanceof USERCOMMAND) {
+					Node toCmd = myManiControl.getCommand(mySyntaxList.get(myIndex-1).getValue());///////////maybe getFunction?
+					if(toCmd==null)
+						throw new SyntaxException("You have not defined this command!");
+					int numOfArg=toCmd.getChildrenNum()-1;
+					parseExpression(root, numOfArg);
+				} else {
+					throw new SyntaxException("Invalid command parameters: " + root.getName());
+				}
+				
 			}
 			return root;
 		}catch(ArrayIndexOutOfBoundsException e){
@@ -577,9 +583,7 @@ public class Parser implements Observer {
 		String input = dto.getUserInput();
 		System.out.println("Wanning"+input);
 		String lang = dto.getLanguage();
-		Response s = parse(input, lang);
-		if (s instanceof Error)
-			throw new SyntaxException(s.toString());
+		Response s = parse(input, lang);	
 	}
 }
 
