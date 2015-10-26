@@ -22,7 +22,6 @@ import backend.node.control.USERCOMMAND;
 import datatransferobjects.UserInputTransferObject;
 import responses.Error;
 import responses.Response;
-import responses.Success;
 import sharedobjects.ManipulateController;
 
 
@@ -241,18 +240,18 @@ public class Parser implements Observer {
 				parseGroupStart(root);
 				break;
 			case GROUPEND:
-				throw new SyntaxException("Miss a left ( for" + root.getName());
+				throw new SyntaxException("Missing a left ( for" + root.getName());
 			case LISTSTART:
 				if(myListLegal){
 					parseListStart(root);
 					myListLegal=false;
 				}
 				else{
-					throw new SyntaxException("Use " + root.getName() + "in illegal condition");
+					throw new SyntaxException("Cannot use " + root.getName() + " here!");
 				}
 				break;
 			case LISTEND:
-				throw new SyntaxException("Miss a left [ for" + root.getName());
+				throw new SyntaxException("Missing a left [ for" + root.getName());
 			case MAKEVARIABLE:
 				parseMakeVar(root);
 				break;
@@ -289,7 +288,7 @@ public class Parser implements Observer {
 			}
 			return root;
 		}catch(ArrayIndexOutOfBoundsException e){
-			throw new SyntaxException("Uncompleted arguments list!");
+			throw new SyntaxException("Invalid command parameters!");
 		}
 	}
 	
@@ -350,7 +349,7 @@ public class Parser implements Observer {
 			myIndex++;
 			return;
 		}catch(ArrayIndexOutOfBoundsException e){
-			throw new SyntaxException("Miss a right brace ] in "+root.getName());
+			throw new SyntaxException("Missing a right brace ] in "+root.getName());
 		}
 	}
 	
@@ -369,7 +368,7 @@ public class Parser implements Observer {
 				}
 				myIndex++;
 			}catch(ArrayIndexOutOfBoundsException e){
-				throw new SyntaxException("Miss a right brace ) in "+root.getName());
+				throw new SyntaxException("Missing a right brace ) in "+root.getName());
 			}
 			break;
 		default:
@@ -381,7 +380,7 @@ public class Parser implements Observer {
 				}
 				myIndex++;
 			}catch(ArrayIndexOutOfBoundsException e){
-				throw new SyntaxException("Miss a right brace ) in "+root.getName());
+				throw new SyntaxException("Missing a right brace ) in "+root.getName());
 			}
 			return;
 		}
@@ -391,7 +390,7 @@ public class Parser implements Observer {
 	private void parseDoTimes(Node root) throws SyntaxException{
 		try{
 			if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.LISTSTART){
-				throw new SyntaxException("Miss a left brace [ in " + root.getName());
+				throw new SyntaxException("Missing a left brace [ in " + root.getName());
 			}
 			else {
 				myIndex++;
@@ -403,7 +402,7 @@ public class Parser implements Observer {
 				c=growTree();
 				root.addChild(c);
 				if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.LISTEND){
-					throw new SyntaxException("Miss a right brace ] in " + root.getName());
+					throw new SyntaxException("Missing a right brace ] in " + root.getName());
 				}
 				myIndex++;
 			}	
@@ -423,7 +422,7 @@ public class Parser implements Observer {
 	private void parseFor(Node root) throws SyntaxException{
 		try{
 			if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.LISTSTART){
-				throw new SyntaxException("Miss a left brace [ in " + root.getName());
+				throw new SyntaxException("Missing a left brace [ in " + root.getName());
 			}
 			else {
 				myIndex++;
@@ -436,7 +435,7 @@ public class Parser implements Observer {
 					root.addChild(c);
 				}
 				if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.LISTEND){
-					throw new SyntaxException("Miss a right brace ] in " + root.getName());
+					throw new SyntaxException("Missing a right brace ] in " + root.getName());
 				}
 				myIndex++;
 			}	
@@ -495,7 +494,7 @@ public class Parser implements Observer {
 		myIndex++;
 		try{
 			if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.LISTSTART){
-				throw new SyntaxException("Miss a left brace [ in " + root.getName());
+				throw new SyntaxException("Missing a left brace [ in " + root.getName());
 			}
 			else {
 				myIndex++;
@@ -504,7 +503,7 @@ public class Parser implements Observer {
 					root.addChild(c);
 				}
 				if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.LISTEND){
-					throw new SyntaxException("Miss a right brace ] in " + root.getName());
+					throw new SyntaxException("Missing a right brace ] in " + root.getName());
 				}
 				myIndex++;
 			}	
@@ -584,6 +583,8 @@ public class Parser implements Observer {
 		System.out.println("Wanning"+input);
 		String lang = dto.getLanguage();
 		Response s = parse(input, lang);	
+		//Notify the frontend
+
 	}
 }
 

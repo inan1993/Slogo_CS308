@@ -103,7 +103,7 @@ public class ButtonFactory {
             
         }catch(Exception e){
 //            e.printStackTrace();
-            myMessageBox.setMessage(e.toString());
+            myMessageBox.setMessage(e.getMessage());
         }
     }
     private void helpButtonEvent() {
