@@ -53,6 +53,8 @@ public interface IWorkSpaceController {
 	//erases turtle's trails and sends it to the home position
 	Response clearScreen();
 	
+	Response setCommand(String s, Node n);
+	
 	//add userDefinedCommand to Map
 	Response setCommand(String userInput, String s, Node n);
 	

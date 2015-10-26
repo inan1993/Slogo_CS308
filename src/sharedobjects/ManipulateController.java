@@ -44,6 +44,22 @@ public class ManipulateController implements IWorkSpaceController{
         	currWorkspace.setTempTurtles(Collections.<Turtle> emptyList());
         }
         
+        public void tellTurtles(int[] ids){
+        	Map<Integer, Turtle> allTurtles = currWorkspace.getAllTurtles();
+        	currWorkspace.setActiveTurtles(Collections.<Turtle> emptyList());
+        	List<Turtle> nextActiveList = new LinkedList<Turtle>();
+        	for(int id = 0; id < ids.length; id++){
+        		if(allTurtles.containsKey(id)){
+        			Turtle temp = allTurtles.get(id);
+        			temp.activate();
+        			nextActiveList.add(temp);
+        		}else {
+        			Turtle temp = currWorkspace.addNewTurtle(id);
+        			nextActiveList.add(temp);
+        		}
+        	}
+        	currWorkspace.setActiveTurtles(nextActiveList);
+        }
         
         public double getHeading(){
         	return 0;
@@ -132,125 +148,6 @@ public class ManipulateController implements IWorkSpaceController{
 		}
 
         
-//        @Override
-//        public Response foward(int pixels) {
-//                int[] currPosition = currWorkspace.getPosition();
-//                double heading = currWorkspace.getHeading();
-//                
-//                double xDiff = Math.cos(Math.toRadians(heading))*pixels; //adjacent 
-//                double yDiff = Math.sin(Math.toRadians(heading))*pixels; //opposite
-//                
-//                int xBack = (int) (currPosition[0] + xDiff);
-//                int yBack = (int) (currPosition[1] + yDiff);
-//
-//                currWorkspace.setPosition(new int[]{xBack, yBack});
-//                return null;
-//        }
-//
-//        @Override
-//        public Response back(int pixels) {
-//                int[] currPosition = currWorkspace.getPosition();
-//                double heading = currWorkspace.getHeading();
-//                
-//                double xDiff = Math.cos(Math.toRadians(heading))*pixels; //adjacent 
-//                double yDiff = Math.sin(Math.toRadians(heading))*pixels; //opposite
-//                
-//                int xBack = (int) (currPosition[0] - xDiff);
-//                int yBack = (int) (currPosition[1] - yDiff);
-//
-//                currWorkspace.setPosition(new int[]{xBack, yBack});
-//                
-//                return null;
-//        }
-//
-//        @Override
-//        public Response left(double degrees) {
-//                double currHeading = currWorkspace.getHeading();
-//                currHeading -= degrees;
-//                if(currHeading < 0){
-//                        currHeading += 360;
-//                }
-//                currWorkspace.setHeading(currHeading);
-//                
-//                return null;
-//        }
-//
-//        @Override
-//        public Response right(double degrees) {
-//                double currHeading = currWorkspace.getHeading();
-//                currHeading += degrees;
-//                if(currHeading > 360){
-//                        currHeading -= 360;
-//                }
-//                currWorkspace.setHeading(currHeading);
-//                
-//                return null;
-//        }
-//
-//        @Override
-//        public Response setHeading(double degrees) {
-//                currWorkspace.setHeading(degrees);
-//                
-//                return null;
-//        }
-//
-//        @Override
-//        public Response towards(int targetX, int targetY) {
-//                int[] currPos = currWorkspace.getPosition();
-//        
-//                double theta = Math.atan2(targetY - currPos[1], targetX - currPos[0]);
-//                double angle = Math.toDegrees(theta);
-//                angle = 360 - angle;
-//                
-//                if(angle >= 360){
-//                        angle = angle - 360;
-//                }
-//                currWorkspace.setHeading(angle);
-//                return null;
-//        }
-//
-//        @Override
-//        public Response setXY(int x, int y) {
-//                currWorkspace.setPosition(new int[]{x,y});
-//                return null;
-//        }
-//
-//        @Override
-//        public Response penDown() {
-//                currWorkspace.penDown();
-//                return null;
-//        }
-//
-//        @Override
-//        public Response penUp() {
-//                currWorkspace.penUp();
-//                return null;
-//        }
-//
-//        @Override
-//        public Response showTurtle() {
-//                currWorkspace.showTurtle();
-//                return null;
-//        }
-//
-//        @Override
-//        public Response hideTurtle() {
-//                currWorkspace.hideTurtle();
-//                return null;
-//        }
-//
-//        @Override
-//        public Response home() {
-//                currWorkspace.setPosition(new int[]{0,0});
-//                return null;
-//        }
-//
-//        @Override
-//        public Response clearScreen() {
-//                home();
-//                return null;
-//        }
-//
         @Override
         public Response setCommand(String userInput, String stringName, Node n) {
                 currWorkspace.addCommand(userInput, stringName, n);
@@ -272,10 +169,6 @@ public class ManipulateController implements IWorkSpaceController{
         public Node getVariable(String variableName) {
                 return currWorkspace.getVariable(variableName);
         }
-//
-//        public double getHeading() {
-//                return currWorkspace.getHeading();
-//        }
 
 		public void incrementVariable(String variableName) {
 			currWorkspace.addVariable(variableName, new Constant(currWorkspace.getVariable(variableName).getIntegerValue()+1));
@@ -287,6 +180,13 @@ public class ManipulateController implements IWorkSpaceController{
 		
 		public void decrementVariable(String variableName) {
 			currWorkspace.addVariable(variableName, new Constant(currWorkspace.getVariable(variableName).getIntegerValue()-1));
+		}
+
+
+		@Override
+		public Response setCommand(String s, Node n) {
+			// TODO Auto-generated method stub
+			return null;
 		}
 
 }
