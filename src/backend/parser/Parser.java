@@ -232,7 +232,7 @@ public class Parser implements Observer {
 			    break;
 			//with 3 arguments
 			case SETPALETTE: 
-				parseExpression(root, 3);
+				parseExpression(root, 4);
 				break;
 			//control structures
 			case GROUPSTART:
@@ -542,9 +542,7 @@ public class Parser implements Observer {
 		String input = dto.getUserInput();
 		System.out.println("Wanning"+input);
 		String lang = dto.getLanguage();
-		Response s = parse(input, lang);	
-		//Notify the frontend
-
+		Response s = parse(input, lang);
 	}
 }
 

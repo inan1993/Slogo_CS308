@@ -36,6 +36,7 @@ public class ManipulateController implements IWorkSpaceController{
         	currWorkspace.setTempTurtles(Collections.<Turtle> emptyList());
         }
         
+        //
         public void tellTurtles(int[] ids){
         	Map<Integer, Turtle> allTurtles = currWorkspace.getAllTurtles();
         	currWorkspace.setActiveTurtles(Collections.<Turtle> emptyList());
@@ -187,6 +188,13 @@ public class ManipulateController implements IWorkSpaceController{
 			l.run(currWorkspace);
 		}
 		
+<<<<<<< HEAD
+=======
+		public void executeDisplayProperties(IDisplayPropertiesLambda l) {
+			l.run(currWorkspace.displayProp);
+		}
+		
+>>>>>>> master
 		public void executePen(IPenLambda l) {
 			//l.run(currWorkspace.getActivePen);
 			throw new NotImplementedException();

@@ -5,20 +5,31 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
+
 import backend.node.Node;
+<<<<<<< HEAD
 import datatransferobjects.TurtleTransferObject;
 import exceptions.NotImplementedException;
 import javafx.scene.paint.Color;
+=======
+>>>>>>> master
 import datatransferobjects.ParsedCommandsTransferObject;
+import datatransferobjects.TurtleTransferObject;
 
+<<<<<<< HEAD
 public class Workspace{
 
+=======
+public class Workspace {
+>>>>>>> master
 	Map<Integer, Turtle> allTurtles;
 	List<Turtle> activeTurtles;
 	List<Turtle> tempTurtles;
 	List<Color> colorPalette;
 	ParsedCommands userInputsObservable = new ParsedCommands();
 	Pen pen;
+	DisplayProperties displayProp;
+	
 	
 	public Workspace() {
 		allTurtles = new HashMap<Integer, Turtle>();
@@ -26,6 +37,7 @@ public class Workspace{
 		activeTurtles = new LinkedList<Turtle>();
 		activeTurtles.add(allTurtles.get(1));
 		tempTurtles = new LinkedList<Turtle>();
+		displayProp = new DisplayProperties();
 		pen = new Pen();
 	}
 	
@@ -55,6 +67,7 @@ public class Workspace{
 		return tempTurtles;
 	}
 	
+<<<<<<< HEAD
 	public void addColorToPalette(int index, int r, int g, int b){
 		//Opacity=1
 		colorPalette.add(new Color(r, g, b, 1));
@@ -98,6 +111,12 @@ public class Workspace{
 //	public void penDown(){
 //		currTurtle.penDown();
 //	}
+=======
+	public void addColorToPalette(int index, double r, double g, double b){
+		//Opacity=1
+		displayProp.newPaletteColor(index, r,g,b);
+	}
+>>>>>>> master
 	
 	//****Commands and Variables Manipulation*****//
 	public void addVariable(String v, Node n){
@@ -138,6 +157,7 @@ public class Workspace{
 		Turtle firstTurtle = activeTurtles.get(0);
 		TurtleTransferObject dto = new TurtleTransferObject(false, firstTurtle.getID(), true, true, new double[]{0,0}, new double[]{0,0});
 		firstTurtle.notifyObservers(dto);
+		displayProp.notifyObservers();
 		System.out.println("here1");
 	}
 	
