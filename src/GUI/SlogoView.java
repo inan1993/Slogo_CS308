@@ -163,7 +163,8 @@ public class SlogoView {
     private Node bgColorDropDown(){
         ComboBox<String> bgColor = new BackgroundColorDropdown();
         bgColor.setOnAction(event->{
-            String color = bgColor.getValue();
+            String bgColorString = bgColor.getValue();
+            String color = bgColorString.substring(3);
             myBackgroundRectangle.setBackgroundColor(color);
             messageBox.setMessage("Background Color Set to "+color);
         });
@@ -173,7 +174,8 @@ public class SlogoView {
     private Node penColorDropDown(){
         ComboBox<String> penColor = new PenColorDropdown();
         penColor.setOnAction(event->{
-            String color = penColor.getValue();
+            String penColorString = penColor.getValue();
+            String color = penColorString.substring(3);
             myTurtleCanvas.setPenColor(color);
             messageBox.setMessage("Pen Color Set to "+color);
         });
