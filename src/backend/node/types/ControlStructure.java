@@ -12,5 +12,4 @@ public abstract class ControlStructure extends Node{
 	protected ControlStructure() {
 		super();
 	}
-	
 }

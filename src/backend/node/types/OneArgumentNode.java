@@ -14,6 +14,6 @@ import backend.node.Node;
 public abstract class OneArgumentNode extends Node{
 	public OneArgumentNode() {
 		super();
-		expectedArgumentNumber = 1;
+//		expectedArgumentNumber = 1;
 	}
 }
