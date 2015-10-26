@@ -89,7 +89,8 @@ public class CommandFactory {
 		registerNode(SyntaxType.GETPENCOLOR, PC.class);
 		registerNode(SyntaxType.GETSHAPE, SH.class);
 		registerNode(SyntaxType.STAMP, STAMP.class);
-		registerNode(SyntaxType.CLEARSCREEN, CLEARSTAMPS.class);
+		registerNode(SyntaxType.CLEARSTAMP, CLEARSTAMP.class);
+		registerNode(SyntaxType.CLEARSCREEN, CS.class);
 		//// #
 		//// # Multiple Turtle Commands
 		//// #

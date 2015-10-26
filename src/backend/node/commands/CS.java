@@ -4,7 +4,6 @@
 package backend.node.commands;
 
 
-import backend.node.types.Command;
 import backend.node.types.ZeroArgumentNode;
 import responses.Response;
 import responses.Success;
@@ -22,7 +21,7 @@ public class CS extends ZeroArgumentNode {
 
 		//First home
 		Response s = sharedHandle.home();
-		double distanceMoved = Double.parseDouble(s.toString());
+		double distanceMoved = s.getDoubleValue();
 		
 		//Now clear
 		sharedHandle.clearScreen();

@@ -12,13 +12,13 @@ public class DOTIMES extends ControlStructure {
 	public Response run(ManipulateController mc) {
 		int count = (int) getAndRun(1, mc).getDoubleValue();
 		String variableName = get(0).getName();
-		mc.addVariable(variableName, new Constant(0));
-		
-		// Run
+		mc.addVariable(variableName, new Constant(1));
+
+		// Run - return 0 by default
 		Response s = new Success(0);
 		for (int i = 0; i < count; i++) {
 			s = getAndRun(2, mc);
-			//Increment
+			// Increment
 			mc.incrementVariable(variableName);
 		}
 

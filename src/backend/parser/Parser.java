@@ -101,6 +101,7 @@ public class Parser implements Observer {
 		{
 //			should add a try catch, and make executor throws execute exception
 			response = each.run(myManiControl);
+			System.out.println("--> " + response.toString());
 //			System.out.println("call exec");
 		}
 		return response;
@@ -449,6 +450,7 @@ public class Parser implements Observer {
 	private void parseIfelse(Node root) throws SyntaxException{
 		try {
 			Node c = growTree();
+			root.addChild(c);
 			for (int i=0;i<2;i++) {
 				if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.LISTSTART){
 					throw new SyntaxException("Incompatible argument list in " + root.getName());
