@@ -28,15 +28,14 @@ public class BK extends OneArgumentNode {
 			double yDiff = Math.sin(Math.toRadians(heading))*pixels; //opposite
 			
 			int xBack = (int) (currPosition[0] - xDiff);
-			int yBack = (int) (currPosition[1] - yDiff);
+			int yBack = (int) (currPosition[1] + yDiff);
 			int[] nextPos = new int[]{xBack, yBack};
-			t.setPosition(nextPos);
 			TurtleTransferObject dto = new TurtleTransferObject(false, t.getID(), false, t.isPenDown(), t.getPosition(), nextPos);
+			t.setPosition(nextPos);
 			t.notifyObservers(dto);
 		};
 		
 		sharedHandle.execute(l);
-		
 		// return argument 1 value
 		return new Success(getAndRun(0, sharedHandle).getDoubleValue());
 	}
