@@ -11,7 +11,7 @@ public class DOTIMES extends ControlStructure {
 	@Override
 	public Response run(ManipulateController mc) {
 		int count = (int) getAndRun(1, mc).getDoubleValue();
-		String variableName = getAndRun(0,  mc).toString();
+		String variableName = get(0).getName();
 		mc.addVariable(variableName, new Constant(0));
 		
 		// Run
