@@ -618,7 +618,7 @@ public class Parser implements Observer {
 		String lang = dto.getLanguage();
 		Response s = parse(input, lang);	
 		//Notify the frontend
-
+		
 	}
 }
 

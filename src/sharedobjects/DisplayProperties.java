@@ -37,7 +37,7 @@ public class DisplayProperties extends Observable {
 		}
 	}
 
-	public void newPaletteColor(int index, double r, double g, double b){
+	public void newPaletteColor(inte index, double r, double g, double b){
 		Color color = new Color(r,g,b,.99);
 		colorPalette.put(index,color);
 	}
