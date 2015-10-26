@@ -1,6 +1,8 @@
 package sharedobjects;
 
 import java.util.ResourceBundle;
+
+import exceptions.NotImplementedException;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
@@ -45,6 +47,10 @@ public class Pen {
 	
 	public void setState(String state) {
 		this.state = state;
+	}
+
+	public void setShape() {
+		throw new NotImplementedException();
 	}
 
 }

@@ -3,7 +3,7 @@
  */
 package responses;
 
-import backend.parser.SyntaxException;
+import exceptions.SyntaxException;
 
 /**
  * @author loganrooper
