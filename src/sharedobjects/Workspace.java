@@ -7,12 +7,15 @@ import java.util.Map;
 import java.util.Observable;
 
 import backend.node.Node;
+import exceptions.NotImplementedException;
+import javafx.scene.paint.Color;
 import datatransferobjects.ParsedCommandsTransferObject;
 
 public class Workspace {
 	Map<Integer, Turtle> allTurtles;
 	List<Turtle> activeTurtles;
 	List<Turtle> tempTurtles;
+	List<Color> colorPalette;
 	ParsedCommands userInputsObservable = new ParsedCommands();
 	Pen pen;
 	DisplayProperties displayProp;
@@ -52,11 +55,6 @@ public class Workspace {
 	
 	public List<Turtle> getTempTurtles(){
 		return tempTurtles;
-	}
-	
-	public void addColorToPalette(int index, double r, double g, double b){
-		//Opacity=1
-		displayProp.newPaletteColor(index, r,g,b);
 	}
 	
 	//****Commands and Variables Manipulation*****//

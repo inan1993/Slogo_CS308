@@ -6,6 +6,7 @@ import responses.Success;
 import sharedobjects.DisplayProperties;
 import sharedobjects.IDisplayPropertiesLambda;
 import sharedobjects.ManipulateController;
+import sharedobjects.Workspace;
 
 /**
  * @author loganrooper
