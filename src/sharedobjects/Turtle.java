@@ -21,6 +21,14 @@ public class Turtle extends Observable{
 		active = true;
 		this.setChanged();
 	}
+<<<<<<< HEAD
+	
+//	public Turtle(double[] pos){
+//		position = pos;
+//		oldPosition = pos;
+//	}
+=======
+>>>>>>> master
 
 	public void setID(int i){
 		ID = i;

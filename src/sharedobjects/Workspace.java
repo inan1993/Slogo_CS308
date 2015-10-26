@@ -7,13 +7,25 @@ import java.util.Map;
 import java.util.Observable;
 
 import backend.node.Node;
+<<<<<<< HEAD
+import datatransferobjects.TurtleTransferObject;
+import exceptions.NotImplementedException;
+import javafx.scene.paint.Color;
+=======
+>>>>>>> master
 import datatransferobjects.ParsedCommandsTransferObject;
 import datatransferobjects.TurtleTransferObject;
 
+<<<<<<< HEAD
+public class Workspace{
+
+=======
 public class Workspace {
+>>>>>>> master
 	Map<Integer, Turtle> allTurtles;
 	List<Turtle> activeTurtles;
 	List<Turtle> tempTurtles;
+	List<Color> colorPalette;
 	ParsedCommands userInputsObservable = new ParsedCommands();
 	Pen pen;
 	DisplayProperties displayProp;
@@ -55,10 +67,56 @@ public class Workspace {
 		return tempTurtles;
 	}
 	
+<<<<<<< HEAD
+	public void addColorToPalette(int index, int r, int g, int b){
+		//Opacity=1
+		colorPalette.add(new Color(r, g, b, 1));
+	}
+	
+//	public void setHeading(double angle){
+//		currTurtle.setHeading(angle);
+//	}
+//	
+//	public double getHeading(){
+//		return currTurtle.getHeading();
+//	}
+//	
+//	public void setPosition(int[] pos){
+//		TurtleTransferObject dto = new TurtleTransferObject(false, currTurtle.getID(), false, currTurtle.isPenDown(), currTurtle.getPosition(), pos);
+//		currTurtle.setPosition(pos);
+//		currTurtle.notifyObservers(dto);
+//	}
+//	
+//	public int[] getPosition(){
+//		return currTurtle.getPosition();
+//	}
+//	
+//	public void showTurtle(){
+//		currTurtle.show();
+//		TurtleTransferObject dto = new TurtleTransferObject(false, currTurtle.getID(), true, currTurtle.isPenDown(), currTurtle.getPosition(), currTurtle.getPosition());
+//		currTurtle.notifyObservers(dto);
+//	}
+//	
+//	public void hideTurtle(){
+//		currTurtle.hide();
+//		TurtleTransferObject dto = new TurtleTransferObject(false, currTurtle.getID(), false, currTurtle.isPenDown(), currTurtle.getPosition(), currTurtle.getPosition());
+//		currTurtle.notifyObservers(dto);
+//	}
+//	
+// 	//****Pen Manipulation********
+//	public void penUp(){
+//		currTurtle.penUp();
+//	}
+//	
+//	public void penDown(){
+//		currTurtle.penDown();
+//	}
+=======
 	public void addColorToPalette(int index, double r, double g, double b){
 		//Opacity=1
 		displayProp.newPaletteColor(index, r,g,b);
 	}
+>>>>>>> master
 	
 	//****Commands and Variables Manipulation*****//
 	public void addVariable(String v, Node n){

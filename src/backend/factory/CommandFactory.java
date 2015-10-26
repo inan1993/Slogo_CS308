@@ -110,13 +110,6 @@ public class CommandFactory {
 		registerNode(SyntaxType.GROUPSTART, GROUPSTART.class);// GROUPSTART,
 		// GROUPEND,
 		registerNode(SyntaxType.USERCOMMAND, USERCOMMAND.class);
-
-
-		
-		
-		
-		
-
 	}
 
 	public static void registerNode(SyntaxType type, Class nodeClass) {
