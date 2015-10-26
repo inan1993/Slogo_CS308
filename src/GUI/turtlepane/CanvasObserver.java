@@ -60,14 +60,14 @@ public class CanvasObserver extends Canvas implements Observer{
     }
 
     public void setLineType(String line) {
-        if (line.equalsIgnoreCase("solid"))
+        if (line.equalsIgnoreCase("solid")){
             myGC.setLineWidth(1);
-        else if (line.equalsIgnoreCase("dashed")){
+        }else if (line.equalsIgnoreCase("dashed")){
             myGC.setLineDashOffset(5f);
             myGC.setLineDashes(5f,5f);
         }else if(line.equalsIgnoreCase("dotted")){
-            myGC.setLineDashOffset(2f);
-            myGC.setLineDashes(1f,1f);
+            myGC.setLineDashOffset(4f);
+            myGC.setLineDashes(2f,2f,2f,2f);
         }
     }
 

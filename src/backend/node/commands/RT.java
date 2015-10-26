@@ -26,7 +26,7 @@ public class RT extends OneArgumentNode {
 			t.setHeading(currHeading);
 			System.out.println(currHeading);
 		};
-		sharedHandle.execute(l);
+		sharedHandle.executeOnAllActiveTurtles(l);
 		
 		// return argument 1 value
 		return new Success(getAndRun(0, sharedHandle).toString());

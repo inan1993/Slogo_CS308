@@ -30,7 +30,7 @@ public class FD extends OneArgumentNode {
 			t.notifyObservers(dto);
 		};
 
-		mc.execute(l);
+		mc.executeOnAllActiveTurtles(l);
 		
 		// return argument 1 value
 		return new Success(this.getAndRun(0, mc).getDoubleValue());

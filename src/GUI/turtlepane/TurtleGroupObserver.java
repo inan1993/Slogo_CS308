@@ -45,6 +45,7 @@ public class TurtleGroupObserver extends Group implements Observer{
         turtleImage.setX(turtle.getPosition()[0]+width/2.0-(myTurtleImage.getWidth()/2.0));
         turtleImage.setY(turtle.getPosition()[1]+height/2.0-(myTurtleImage.getHeight()/2.0)); // need to change the hardcoded
         turtleImage.setVisible(turtle.isShowing());
+        turtleImage.setRotate(90-turtle.getHeading());
         //turtleImage.setOnMouseClicked(//make the turtle active);
         this.getChildren().add(turtleImage);
     }
