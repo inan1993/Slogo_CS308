@@ -22,8 +22,9 @@ public class Pen {
 		state = myResource.getString("defaultLineType");
 	}
 
-	public void setColor(String color) {
-		myColor = Color.valueOf(color);
+	public void setColor(int index) {
+		//myColor = Color.valueOf(index);
+		throw new NotImplementedException();
 	}
 
 	public Paint getColor() {
@@ -44,10 +45,6 @@ public class Pen {
 
 	public void setState(String state) {
 		this.state = state;
-	}
-
-	public void setShape(int index) {
-		throw new NotImplementedException();
 	}
 
 	public void setBackground(int index) {
