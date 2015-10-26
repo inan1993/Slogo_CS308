@@ -48,6 +48,7 @@ public class TurtleGroup extends Group{
 		turtleImage.setX(turtleDTO.getNextLoc()[0]+width/2-(myTurtleImage.getWidth()/2));
 		turtleImage.setY(turtleDTO.getNextLoc()[1]+height/2-(myTurtleImage.getHeight()/2)); // need to change the hardcoded
 		turtleImage.setVisible(true);//turtleDTO.isVisible());
+		//turtleImage.setRotate(value);
 		//turtleImage.setOnMouseClicked(//make the turtle active);
 		this.getChildren().add(turtleImage);
 	}
