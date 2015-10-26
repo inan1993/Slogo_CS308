@@ -26,7 +26,7 @@ public class HT extends ZeroArgumentNode {
 			
 			t.notifyObservers(dto);
 		};
-		mc.execute(l);
+		mc.executeOnAllActiveTurtles(l);
 
 		// return 1
 		return new Success(1);

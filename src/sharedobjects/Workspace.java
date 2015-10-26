@@ -7,13 +7,16 @@ import java.util.Map;
 import java.util.Observable;
 import backend.node.Node;
 import datatransferobjects.TurtleTransferObject;
+import exceptions.NotImplementedException;
+import javafx.scene.paint.Color;
 import datatransferobjects.ParsedCommandsTransferObject;
 
-public class Workspace {
+public class Workspace{
 
 	Map<Integer, Turtle> allTurtles;
 	List<Turtle> activeTurtles;
 	List<Turtle> tempTurtles;
+	List<Color> colorPalette;
 	ParsedCommands userInputsObservable = new ParsedCommands();
 	Pen pen;
 	
@@ -50,6 +53,11 @@ public class Workspace {
 	
 	public List<Turtle> getTempTurtles(){
 		return tempTurtles;
+	}
+	
+	public void addColorToPalette(int index, int r, int g, int b){
+		//Opacity=1
+		colorPalette.add(new Color(r, g, b, 1));
 	}
 	
 //	public void setHeading(double angle){
