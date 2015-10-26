@@ -4,10 +4,9 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Observable;
 
 import backend.node.Node;
-import datatransferobjects.ParsedCommandsTransferObject;
+import backend.node.types.Constant;
 import responses.Response;
 
 public class ManipulateController implements IWorkSpaceController{
@@ -277,5 +276,13 @@ public class ManipulateController implements IWorkSpaceController{
 //        public double getHeading() {
 //                return currWorkspace.getHeading();
 //        }
+
+		public void incrementVariable(String variableName) {
+			currWorkspace.addVariable(variableName, new Constant(currWorkspace.getVariable(variableName).getIntegerValue()+1));
+		}
+		
+		public void decrementVariable(String variableName) {
+			currWorkspace.addVariable(variableName, new Constant(currWorkspace.getVariable(variableName).getIntegerValue()-1));
+		}
 
 }
