@@ -52,10 +52,10 @@ public class TurtleGroupObserver extends Group implements Observer{
         turtleImage.setVisible(turtle.isShowing());
         turtleImage.setRotate(90-turtle.getHeading());
         //changeOpacity(0.41);
-        //turtleImage.setOnMouseClicked(//make the turtle active);
         this.getChildren().add(turtleImage);
     }
 
+    
     @Override
     public void update (Observable o, Object arg) {
         Turtle turtleObservable = (Turtle) o;

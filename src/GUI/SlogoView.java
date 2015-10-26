@@ -1,9 +1,14 @@
 package GUI;
 
 import java.awt.Dimension;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Map;
 import java.util.Observable;
 import java.util.ResourceBundle;
+
 import GUI.button.AButton;
 import GUI.button.ButtonFactory;
 import GUI.checkbox.PenUpDownCheckBox;
@@ -27,6 +32,8 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
@@ -35,267 +42,302 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import sharedobjects.UserInput;
 
 public class SlogoView {
 
 
-    private static final Dimension DEFAULT_SIZE = new Dimension(1200, 730);
-    //    private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/";
-    private static final String DEFAULT_RESOURCE_VIEW = "GUI.view";
-    protected static ResourceBundle myResource;
+	private static final Dimension DEFAULT_SIZE = new Dimension(1200, 730);
+	//    private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/";
+	private static final String DEFAULT_RESOURCE_VIEW = "GUI.view";
+	protected static ResourceBundle myResource;
 
-    private static final String DEFAULT_LANGUAGE = "English";
+	private static final String DEFAULT_LANGUAGE = "English";
 
-    private Scene scene;
-
-
-    private CommandPromptDisplayBox commandBox; 
-    private MessageDisplayBox messageBox;
-    private VariableListBox variableDisplayBox;
-    private CommandHistoryBox historyDisplayBox;
-    private FunctionListBox functionDisplayBox;
-
-//    private Image myTurtleImage;
-//    private List<Double> myTurtleIDs;
-    private CanvasObserver myTurtleCanvas;
-    private TurtleGroupObserver myTurtleGroup;
-    private BackgroundRectangle myBackgroundRectangle;
-    private TurtleStateBox turtleStateBox;
-    private LineSlider lineSlider;
-    private OpacitySlider opacitySlider;
-    private PenUpDownCheckBox checkBox;
-
-    private UserInput myUserInputObservable;
-
-    private Map<String, AButton> myButtons;
-
-    public SlogoView(CanvasObserver canvas, TurtleGroupObserver turtleGroup){
-        
-        myTurtleCanvas = canvas;
-        myTurtleGroup = turtleGroup;
-//        myTurtleGroup = new TurtleGroupObserver(myTurtleImage, myTurtleIDs);
-        
-
-        myResource = ResourceBundle.getBundle(DEFAULT_RESOURCE_VIEW);
-        commandBox = new CommandPromptDisplayBox();
-        messageBox = new MessageDisplayBox();
-        variableDisplayBox = new VariableListBox(commandBox);
-        historyDisplayBox = new CommandHistoryBox(commandBox);
-        functionDisplayBox = new FunctionListBox(commandBox);
-        turtleStateBox = new TurtleStateBox();
-//        myTurtleImage = new Image(getClass().getClassLoader().getResourceAsStream(myResource.getString("defaultTurtle")));
-//        myTurtleIDs = new ArrayList<Double>();
-        myUserInputObservable = new UserInput(DEFAULT_LANGUAGE);
-
-        ButtonFactory buttonFactory = new ButtonFactory(commandBox, messageBox, historyDisplayBox, myTurtleGroup, myUserInputObservable);
-        myButtons = buttonFactory.getButtons();
-
-        BorderPane root = new BorderPane();
-
-        root.setMaxSize(DEFAULT_SIZE.getWidth(),DEFAULT_SIZE.getHeight());
-
-        root.setTop(menu());
-        root.setCenter(centerBox());
-        root.setBottom(bottomBox());
-        root.setRight(rightBox());    
-
-        //    myObservers.get(0).update(null, (Object)createDTO());
-        //myObservers.get(0).update(null, (Object)createDTO2());
-        scene = new Scene(root, DEFAULT_SIZE.width, DEFAULT_SIZE.height);
-    }
+	private Scene scene;
 
 
-    private Node menu() {
-        HBox result = new HBox();
-        result.getChildren().addAll(createFileDropDown(),myButtons.get("UploadButton"),createLanguageDropDown(),bgColorDropDown(),penColorDropDown(),lineTypeDropDown(),myButtons.get("HelpButton"));
+	private CommandPromptDisplayBox commandBox; 
+	private MessageDisplayBox messageBox;
+	private VariableListBox variableDisplayBox;
+	private CommandHistoryBox historyDisplayBox;
+	private FunctionListBox functionDisplayBox;
 
-        return result;
-    }
+	//    private Image myTurtleImage;
+	//    private List<Double> myTurtleIDs;
+	private CanvasObserver myTurtleCanvas;
+	private TurtleGroupObserver myTurtleGroup;
+	private BackgroundRectangle myBackgroundRectangle;
+	private TurtleStateBox turtleStateBox;
+	private LineSlider lineSlider;
+	private OpacitySlider opacitySlider;
+	private PenUpDownCheckBox checkBox;
 
-    private Node bottomBox () {
-        VBox result = new VBox();
-        result.getChildren().add(messageAndClearBoxes());
-        result.getChildren().add(commandAndEnterBoxes());
+	private UserInput myUserInputObservable;
 
-        return result;
-    }
+	private Map<String, AButton> myButtons;
 
-    public Scene getScene(){
-        return scene;
-    }
+	public SlogoView(CanvasObserver canvas, TurtleGroupObserver turtleGroup){
 
-    private Node createFileDropDown(){
-        ComboBox<String> fileDropDown = new FileDropdown();
-        fileDropDown.setOnAction(event->{
-            String text = fileDropDown.getValue();
-            if(text.equalsIgnoreCase("New Workspace")){
-                //centerBox();
-            }else if(text.equalsIgnoreCase("Save Workspace")){
-                //centerBox();
-            }
-            messageBox.setMessage(text + " executed");
-        });
-        return fileDropDown;  
-    }
+		myTurtleCanvas = canvas;
+		myTurtleGroup = turtleGroup;
+		//        myTurtleGroup = new TurtleGroupObserver(myTurtleImage, myTurtleIDs);
 
 
-    private Node lineTypeDropDown(){
-        ComboBox<String> lineType = new LineTypeDropdown();
-        lineType.setOnAction(event->{
-            String line = lineType.getValue();
-            myTurtleCanvas.setLineType(line);
-            messageBox.setMessage("Line type set to "+line);
-        });
-        return lineType;  
-    }
+		myResource = ResourceBundle.getBundle(DEFAULT_RESOURCE_VIEW);
+		commandBox = new CommandPromptDisplayBox();
+		messageBox = new MessageDisplayBox();
+		variableDisplayBox = new VariableListBox(commandBox);
+		historyDisplayBox = new CommandHistoryBox(commandBox);
+		functionDisplayBox = new FunctionListBox(commandBox);
+		turtleStateBox = new TurtleStateBox();
+		//        myTurtleImage = new Image(getClass().getClassLoader().getResourceAsStream(myResource.getString("defaultTurtle")));
+		//        myTurtleIDs = new ArrayList<Double>();
+		myUserInputObservable = new UserInput(DEFAULT_LANGUAGE);
 
-    private Node createLanguageDropDown(){
-        ComboBox<String> languageDropDown = new LanguageListDropdown();
-        languageDropDown.setOnAction(event->{
-            String lang = languageDropDown.getValue();
-            myUserInputObservable.setCurrentLanguage(lang);
-            messageBox.setMessage("Language Set to "+lang);
-        });
-        return languageDropDown;  
-    }
+		ButtonFactory buttonFactory = new ButtonFactory(commandBox, messageBox, historyDisplayBox, myTurtleGroup, myUserInputObservable);
+		myButtons = buttonFactory.getButtons();
 
-    private Node bgColorDropDown(){
-        ComboBox<String> bgColor = new BackgroundColorDropdown();
-        bgColor.setOnAction(event->{
-            String bgColorString = bgColor.getValue();
-            String color = bgColorString.substring(3);
-            myBackgroundRectangle.setBackgroundColor(color);
-            messageBox.setMessage("Background Color Set to "+color);
-        });
-        return bgColor;  
-    }
+		BorderPane root = new BorderPane();
 
-    private Node penColorDropDown(){
-        ComboBox<String> penColor = new PenColorDropdown();
-        penColor.setOnAction(event->{
-            String penColorString = penColor.getValue();
-            String color = penColorString.substring(3);
-            myTurtleCanvas.setPenColor(color);
-            messageBox.setMessage("Pen Color Set to "+color);
-        });
-        return penColor;  
-    }
+		root.setMaxSize(DEFAULT_SIZE.getWidth(),DEFAULT_SIZE.getHeight());
 
-    private Node centerBox() {
-        TabPane tabPane = new TabPane();
-        AnchorPane mainBox = new AnchorPane();
-        //		TabPane mainBox = new TabPane();
-        Tab tab = new Tab();
-        myBackgroundRectangle = new BackgroundRectangle(Integer.parseInt(myResource.getString("canvasWidth")), Integer.parseInt(myResource.getString("canvasHeight")));
-//        myTurtleCanvas = new CanvasObserver(Integer.parseInt(myResource.getString("canvasWidth")), Integer.parseInt(myResource.getString("canvasHeight")));
-        mainBox.getChildren().addAll(myBackgroundRectangle, myTurtleCanvas, myTurtleGroup);
-        tab.setContent(mainBox);
-        tab.setClosable(false);
-        tab.setText("New Workspace");
-        tabPane.getTabs().add(tab);
-        return tabPane;
-    }
+		root.setTop(menu());
+		root.setCenter(centerBox());
+		root.setBottom(bottomBox());
+		root.setRight(rightBox());    
+
+		//    myObservers.get(0).update(null, (Object)createDTO());
+		//myObservers.get(0).update(null, (Object)createDTO2());
+		scene = new Scene(root, DEFAULT_SIZE.width, DEFAULT_SIZE.height);
+	}
 
 
-    private Node messageAndClearBoxes(){
-        HBox result = new HBox();
-        result.getChildren().addAll(messageBox,myButtons.get("ClearCommandButton"),imageOpacitySlider());
-        return result;
-    }
+	private Node menu() {
+		HBox result = new HBox();
+		result.getChildren().addAll(createFileDropDown(),myButtons.get("UploadButton"),createLanguageDropDown(),bgColorDropDown(),penColorDropDown(),lineTypeDropDown(),myButtons.get("HelpButton"));
+
+		return result;
+	}
+
+	private Node bottomBox () {
+		VBox result = new VBox();
+		result.getChildren().add(messageAndClearBoxes());
+		result.getChildren().add(commandAndEnterBoxes());
+
+		return result;
+	}
+
+	public Scene getScene(){
+		return scene;
+	}
+
+	private Node createFileDropDown(){
+		ComboBox<String> fileDropDown = new FileDropdown();
+		fileDropDown.setOnAction(event->{
+			String text = fileDropDown.getValue();
+			if(text.equalsIgnoreCase("New Workspace")){
+				//centerBox();
+			}else if(text.equalsIgnoreCase("Save Workspace")){
+				//centerBox();
+			}else if(text.equalsIgnoreCase("Load .logo File")){
+				fileUpload();
+			}
+			//messageBox.setMessage(text + " executed");
+
+		});
+		return fileDropDown;  
+	}
+
+	public void fileUpload() {
+
+		FileChooser fileChooser = new FileChooser();
+		File selectedFile = fileChooser.showOpenDialog(null);
+
+		if (selectedFile != null && selectedFile.getName().endsWith("logo")) {
+			try{
+				FileReader fr = new FileReader(selectedFile.getName());
+				BufferedReader br = new BufferedReader(fr);                                                 
+				StringBuffer stringBuffer = new StringBuffer();
+				String line;
+				while ((line = br.readLine()) != null) {
+					stringBuffer.append(line);
+					stringBuffer.append("\n");
+				}
+				fr.close();
+				System.out.println("Contents of file:");
+				System.out.println(stringBuffer.toString());
+                                
+			} catch(IOException e) {
+				messageBox.setText("no file" + selectedFile.getName());
+			}
+
+		}
+		else {
+			if (selectedFile == null) {
+				messageBox.setText("UploadCanceled");
+
+			} 
+		}
+	}
+
+	private Node lineTypeDropDown(){
+		ComboBox<String> lineType = new LineTypeDropdown();
+		lineType.setOnAction(event->{
+			String line = lineType.getValue();
+			myTurtleCanvas.setLineType(line);
+			messageBox.setMessage("Line type set to "+line);
+		});
+		return lineType;  
+	}
+
+	private Node createLanguageDropDown(){
+		ComboBox<String> languageDropDown = new LanguageListDropdown();
+		languageDropDown.setOnAction(event->{
+			String lang = languageDropDown.getValue();
+			myUserInputObservable.setCurrentLanguage(lang);
+			messageBox.setMessage("Language Set to "+lang);
+		});
+		return languageDropDown;  
+	}
+
+	private Node bgColorDropDown(){
+		ComboBox<String> bgColor = new BackgroundColorDropdown();
+		bgColor.setOnAction(event->{
+			String bgColorString = bgColor.getValue();
+			String color = bgColorString.substring(3);
+			myBackgroundRectangle.setBackgroundColor(color);
+			messageBox.setMessage("Background Color Set to "+color);
+		});
+		return bgColor;  
+	}
+
+	private Node penColorDropDown(){
+		ComboBox<String> penColor = new PenColorDropdown();
+		penColor.setOnAction(event->{
+			String penColorString = penColor.getValue();
+			String color = penColorString.substring(3);
+			myTurtleCanvas.setPenColor(color);
+			messageBox.setMessage("Pen Color Set to "+color);
+		});
+		return penColor;  
+	}
+
+	private Node centerBox() {
+		TabPane tabPane = new TabPane();
+		AnchorPane mainBox = new AnchorPane();
+		//		TabPane mainBox = new TabPane();
+		Tab tab = new Tab();
+		myBackgroundRectangle = new BackgroundRectangle(Integer.parseInt(myResource.getString("canvasWidth")), Integer.parseInt(myResource.getString("canvasHeight")));
+		//        myTurtleCanvas = new CanvasObserver(Integer.parseInt(myResource.getString("canvasWidth")), Integer.parseInt(myResource.getString("canvasHeight")));
+		mainBox.getChildren().addAll(myBackgroundRectangle, myTurtleCanvas, myTurtleGroup);
+		tab.setContent(mainBox);
+		tab.setClosable(false);
+		tab.setText("New Workspace");
+		tabPane.getTabs().add(tab);
+		return tabPane;
+	}
 
 
-    private Node commandAndEnterBoxes() {
-        HBox result = new HBox();
-        result.getChildren().addAll(commandBox,myButtons.get("EnterCommandButton"),lineThicknessSlider());
-        return result;	
-    }
-
-    private HBox lineThicknessSlider(){
-        HBox thicknessSlider = new HBox();
-        lineSlider = new LineSlider();
-        Label lineCaption = new Label(" Pen thickness: ");
-        lineSlider.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                lineCaption.setText(" Pen thickness: "+ String.format("%.0f  ", newValue));
-                myTurtleCanvas.setPenWidth(newValue.doubleValue());
-            }
-        });
-        thicknessSlider.getChildren().addAll(lineSlider, lineCaption);
-        return thicknessSlider;
-    }
-
-    private HBox imageOpacitySlider(){
-    	HBox imageSlider = new HBox();
-        opacitySlider = new OpacitySlider();
-        Label opacityCaption = new Label(" Turtle opacity: ");
-        opacityCaption.setStyle("-fx-font-color: red;");
-        opacitySlider.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-            	opacityCaption.setText(" Turtle opacity: "+ String.format("%.2f  ", newValue));	
-                opacityCaption.setStyle("-fx-font-color: red;");
-            	myTurtleGroup.changeOpacity(newValue.doubleValue());
-            }
-        });
-        imageSlider.getChildren().addAll(opacitySlider,opacityCaption);
-        return imageSlider;
-
-    }
-    
-    
-    private Node checkBox(){
-        checkBox = new PenUpDownCheckBox();
-        checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue ov, Boolean old_val, Boolean new_val) {
-                messageBox.setMessage("Pen Down");
-
-                myTurtleCanvas.penUpDown();
-            }
-        });
-
-        return checkBox;
-    }
-
-    private VBox rightBox(){
-        VBox result = new VBox();
-        result.getChildren().addAll(variableDisplayBox,historyDisplayBox,functionDisplayBox,turtleStateBox);
-        return result;
-    }
+	private Node messageAndClearBoxes(){
+		HBox result = new HBox();
+		result.getChildren().addAll(messageBox,myButtons.get("ClearCommandButton"),imageOpacitySlider());
+		return result;
+	}
 
 
-    public Observable getObservable(){
-        return this.myUserInputObservable;
-    }
+	private Node commandAndEnterBoxes() {
+		HBox result = new HBox();
+		result.getChildren().addAll(commandBox,myButtons.get("EnterCommandButton"),lineThicknessSlider());
+		return result;	
+	}
+
+	private HBox lineThicknessSlider(){
+		HBox thicknessSlider = new HBox();
+		lineSlider = new LineSlider();
+		Label lineCaption = new Label(" Pen thickness: ");
+		lineSlider.valueProperty().addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				lineCaption.setText(" Pen thickness: "+ String.format("%.0f  ", newValue));
+				myTurtleCanvas.setPenWidth(newValue.doubleValue());
+			}
+		});
+		thicknessSlider.getChildren().addAll(lineSlider, lineCaption);
+		return thicknessSlider;
+	}
+
+	private HBox imageOpacitySlider(){
+		HBox imageSlider = new HBox();
+		opacitySlider = new OpacitySlider();
+		Label opacityCaption = new Label(" Turtle opacity: ");
+		opacityCaption.setStyle("-fx-font-color: red;");
+		opacitySlider.valueProperty().addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				opacityCaption.setText(" Turtle opacity: "+ String.format("%.2f  ", newValue));	
+				opacityCaption.setStyle("-fx-font-color: red;");
+				myTurtleGroup.changeOpacity(newValue.doubleValue());
+			}
+		});
+		imageSlider.getChildren().addAll(opacitySlider,opacityCaption);
+		return imageSlider;
+
+	}
 
 
-    public TurtleGroupObserver getTurtlePaneGroup () {
-        return myTurtleGroup;
-    }
+//	private Node checkBox(){
+//		checkBox = new PenUpDownCheckBox();
+//		checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
+//			@Override
+//			public void changed(ObservableValue ov, Boolean old_val, Boolean new_val) {
+//				messageBox.setMessage("Pen Down");
+//
+//				myTurtleCanvas.penUpDown();
+//			}
+//		});
+//
+//		return checkBox;
+//	}
 
-    public CanvasObserver getTurtlePaneCanvas () {
-        return myTurtleCanvas;
-    }
-
-
-    public FunctionListBox getFunctionDisplayBox () {
-        return functionDisplayBox;
-    }
-
-
-    public VariableListBox getVariableDisplayBox () {
-        return variableDisplayBox;
-    }
-
-
-    public TurtleStateBox getTurtleStateBox () {
-        return turtleStateBox;
-    }
+	private VBox rightBox(){
+		VBox result = new VBox();
+		result.getChildren().addAll(variableDisplayBox,historyDisplayBox,functionDisplayBox,turtleStateBox);
+		return result;
+	}
 
 
-    public void showError (Exception e) {
-        messageBox.setMessage(e.toString());
-    }
+	public Observable getObservable(){
+		return this.myUserInputObservable;
+	}
+
+
+	public TurtleGroupObserver getTurtlePaneGroup () {
+		return myTurtleGroup;
+	}
+
+	public CanvasObserver getTurtlePaneCanvas () {
+		return myTurtleCanvas;
+	}
+
+
+	public FunctionListBox getFunctionDisplayBox () {
+		return functionDisplayBox;
+	}
+
+
+	public VariableListBox getVariableDisplayBox () {
+		return variableDisplayBox;
+	}
+
+
+	public TurtleStateBox getTurtleStateBox () {
+		return turtleStateBox;
+	}
+
+
+	public void showError (Exception e) {
+		messageBox.setMessage(e.toString());
+	}
 }
