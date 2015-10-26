@@ -5,17 +5,19 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
+
 import backend.node.Node;
-import datatransferobjects.TurtleTransferObject;
 import datatransferobjects.ParsedCommandsTransferObject;
+import datatransferobjects.TurtleTransferObject;
 
 public class Workspace {
-
 	Map<Integer, Turtle> allTurtles;
 	List<Turtle> activeTurtles;
 	List<Turtle> tempTurtles;
 	ParsedCommands userInputsObservable = new ParsedCommands();
 	Pen pen;
+	DisplayProperties displayProp;
+	
 	
 	public Workspace() {
 		allTurtles = new HashMap<Integer, Turtle>();
@@ -23,6 +25,7 @@ public class Workspace {
 		activeTurtles = new LinkedList<Turtle>();
 		activeTurtles.add(allTurtles.get(1));
 		tempTurtles = new LinkedList<Turtle>();
+		displayProp = new DisplayProperties();
 		pen = new Pen();
 	}
 	
@@ -52,44 +55,10 @@ public class Workspace {
 		return tempTurtles;
 	}
 	
-//	public void setHeading(double angle){
-//		currTurtle.setHeading(angle);
-//	}
-//	
-//	public double getHeading(){
-//		return currTurtle.getHeading();
-//	}
-//	
-//	public void setPosition(int[] pos){
-//		TurtleTransferObject dto = new TurtleTransferObject(false, currTurtle.getID(), false, currTurtle.isPenDown(), currTurtle.getPosition(), pos);
-//		currTurtle.setPosition(pos);
-//		currTurtle.notifyObservers(dto);
-//	}
-//	
-//	public int[] getPosition(){
-//		return currTurtle.getPosition();
-//	}
-//	
-//	public void showTurtle(){
-//		currTurtle.show();
-//		TurtleTransferObject dto = new TurtleTransferObject(false, currTurtle.getID(), true, currTurtle.isPenDown(), currTurtle.getPosition(), currTurtle.getPosition());
-//		currTurtle.notifyObservers(dto);
-//	}
-//	
-//	public void hideTurtle(){
-//		currTurtle.hide();
-//		TurtleTransferObject dto = new TurtleTransferObject(false, currTurtle.getID(), false, currTurtle.isPenDown(), currTurtle.getPosition(), currTurtle.getPosition());
-//		currTurtle.notifyObservers(dto);
-//	}
-//	
-// 	//****Pen Manipulation********
-//	public void penUp(){
-//		currTurtle.penUp();
-//	}
-//	
-//	public void penDown(){
-//		currTurtle.penDown();
-//	}
+	public void addColorToPalette(int index, double r, double g, double b){
+		//Opacity=1
+		displayProp.newPaletteColor(index, r,g,b);
+	}
 	
 	//****Commands and Variables Manipulation*****//
 	public void addVariable(String v, Node n){
@@ -108,6 +77,10 @@ public class Workspace {
 		userInputsObservable.notifyObservers(uito);
 	}
 	
+	public void addCommand(String c, Node n){
+		userInputsObservable.addCommand(c, n);
+	}
+	
 	public Node getCommand(String c){
 		return userInputsObservable.getCommand(c);
 	}
@@ -124,8 +97,9 @@ public class Workspace {
 	
 	public void startWorkspace(){
 		Turtle firstTurtle = activeTurtles.get(0);
-		TurtleTransferObject dto = new TurtleTransferObject(false, firstTurtle.getID(), false, true, new int[]{12,12}, new int[]{12,12});
+		TurtleTransferObject dto = new TurtleTransferObject(false, firstTurtle.getID(), true, true, new double[]{0,0}, new double[]{0,0});
 		firstTurtle.notifyObservers(dto);
+		displayProp.notifyObservers();
 		System.out.println("here1");
 	}
 	

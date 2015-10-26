@@ -1,8 +1,6 @@
 package GUI;
 
 import java.awt.Dimension;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.ResourceBundle;
@@ -18,8 +16,8 @@ import GUI.slider.LineSlider;
 import GUI.textBox.CommandPromptDisplayBox;
 import GUI.textBox.MessageDisplayBox;
 import GUI.turtlepane.BackgroundRectangle;
-import GUI.turtlepane.TurtleCanvas;
-import GUI.turtlepane.TurtleGroup;
+import GUI.turtlepane.CanvasObserver;
+import GUI.turtlepane.TurtleGroupObserver;
 import GUI.viewbox.CommandHistoryBox;
 import GUI.viewbox.FunctionListBox;
 import GUI.viewbox.TurtleStateBox;
@@ -32,16 +30,16 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import sharedobjects.*;
+import sharedobjects.UserInput;
 
 public class SlogoView {
 
-    private static final Dimension DEFAULT_SIZE = new Dimension(1200, 700);
+
+    private static final Dimension DEFAULT_SIZE = new Dimension(1200, 730);
     //    private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/";
     private static final String DEFAULT_RESOURCE_VIEW = "GUI.view";
     protected static ResourceBundle myResource;
@@ -57,10 +55,10 @@ public class SlogoView {
     private CommandHistoryBox historyDisplayBox;
     private FunctionListBox functionDisplayBox;
 
-    private Image myTurtleImage;
-    private List<Double> myTurtleIDs;
-    private TurtleCanvas myTurtleCanvas;
-    private TurtleGroup myTurtleGroup;
+//    private Image myTurtleImage;
+//    private List<Double> myTurtleIDs;
+    private CanvasObserver myTurtleCanvas;
+    private TurtleGroupObserver myTurtleGroup;
     private BackgroundRectangle myBackgroundRectangle;
     private TurtleStateBox turtleStateBox;
     private LineSlider lineSlider;
@@ -70,9 +68,13 @@ public class SlogoView {
 
     private Map<String, AButton> myButtons;
 
-    public SlogoView(){
+    public SlogoView(CanvasObserver canvas, TurtleGroupObserver turtleGroup){
+        
+        myTurtleCanvas = canvas;
+        myTurtleGroup = turtleGroup;
+//        myTurtleGroup = new TurtleGroupObserver(myTurtleImage, myTurtleIDs);
+        
 
-        //        ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_LANGUAGE);
         myResource = ResourceBundle.getBundle(DEFAULT_RESOURCE_VIEW);
         commandBox = new CommandPromptDisplayBox();
         messageBox = new MessageDisplayBox();
@@ -80,9 +82,8 @@ public class SlogoView {
         historyDisplayBox = new CommandHistoryBox(commandBox);
         functionDisplayBox = new FunctionListBox(commandBox);
         turtleStateBox = new TurtleStateBox();
-        myTurtleImage = new Image(getClass().getClassLoader().getResourceAsStream(myResource.getString("defaultTurtle")));
-        myTurtleIDs = new ArrayList<Double>();
-        myTurtleGroup = new TurtleGroup(myTurtleImage, myTurtleIDs);
+//        myTurtleImage = new Image(getClass().getClassLoader().getResourceAsStream(myResource.getString("defaultTurtle")));
+//        myTurtleIDs = new ArrayList<Double>();
         myUserInputObservable = new UserInput(DEFAULT_LANGUAGE);
 
         ButtonFactory buttonFactory = new ButtonFactory(commandBox, messageBox, historyDisplayBox, myTurtleGroup, myUserInputObservable);
@@ -183,8 +184,7 @@ public class SlogoView {
         //		TabPane mainBox = new TabPane();
         Tab tab = new Tab();
         myBackgroundRectangle = new BackgroundRectangle(Integer.parseInt(myResource.getString("canvasWidth")), Integer.parseInt(myResource.getString("canvasHeight")));
-        myTurtleCanvas = new TurtleCanvas(Integer.parseInt(myResource.getString("canvasWidth")), Integer.parseInt(myResource.getString("canvasHeight")));
-        myTurtleGroup = new TurtleGroup(myTurtleImage, myTurtleIDs);
+//        myTurtleCanvas = new CanvasObserver(Integer.parseInt(myResource.getString("canvasWidth")), Integer.parseInt(myResource.getString("canvasHeight")));
         mainBox.getChildren().addAll(myBackgroundRectangle, myTurtleCanvas, myTurtleGroup);
         tab.setContent(mainBox);
         tab.setClosable(false);
@@ -248,11 +248,11 @@ public class SlogoView {
     }
 
 
-    public TurtleGroup getTurtlePaneGroup () {
+    public TurtleGroupObserver getTurtlePaneGroup () {
         return myTurtleGroup;
     }
 
-    public TurtleCanvas getTurtlePaneCanvas () {
+    public CanvasObserver getTurtlePaneCanvas () {
         return myTurtleCanvas;
     }
 

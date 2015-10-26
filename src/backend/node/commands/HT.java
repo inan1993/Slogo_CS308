@@ -7,7 +7,7 @@ import backend.node.types.ZeroArgumentNode;
 import datatransferobjects.TurtleTransferObject;
 import responses.Response;
 import responses.Success;
-import sharedobjects.LambdaInterface;
+import sharedobjects.ITurtleLambda;
 import sharedobjects.ManipulateController;
 import sharedobjects.Turtle;
 
@@ -20,13 +20,13 @@ public class HT extends ZeroArgumentNode {
 	@Override
 	public Response run(ManipulateController mc) {
 		
-		LambdaInterface l = (Turtle t) -> {
+		ITurtleLambda l = (Turtle t) -> {
 			TurtleTransferObject dto = new TurtleTransferObject(false, t.getID(), false, t.isPenDown(), t.getPosition(), t.getPosition());
 			t.hide();
 			
 			t.notifyObservers(dto);
 		};
-		mc.execute(l);
+		mc.executeOnAllActiveTurtles(l);
 
 		// return 1
 		return new Success(1);

@@ -7,6 +7,8 @@ import java.util.Map;
 
 import backend.node.Node;
 import backend.node.types.Constant;
+import exceptions.NotImplementedException;
+import javafx.scene.paint.Color;
 import responses.Response;
 
 public class ManipulateController implements IWorkSpaceController{
@@ -17,16 +19,6 @@ public class ManipulateController implements IWorkSpaceController{
         public ManipulateController(Workspace w) {
                 currWorkspace = w;
                 workspaceList.add(currWorkspace);
-        }
-
-        
-        public void execute(LambdaInterface lambda){
-        	List<Turtle> turtles = (currWorkspace.getTempTurtles().size() > 0) ? 
-        			currWorkspace.getTempTurtles() : currWorkspace.getActiveTurtles();
-       
-        	for(Turtle turtle : turtles){
-        		lambda.run(turtle);
-        	}
         }
         
         public void setTempTurtles(int[] ids){
@@ -44,6 +36,7 @@ public class ManipulateController implements IWorkSpaceController{
         	currWorkspace.setTempTurtles(Collections.<Turtle> emptyList());
         }
         
+        //
         public void tellTurtles(int[] ids){
         	Map<Integer, Turtle> allTurtles = currWorkspace.getAllTurtles();
         	currWorkspace.setActiveTurtles(Collections.<Turtle> emptyList());
@@ -184,9 +177,33 @@ public class ManipulateController implements IWorkSpaceController{
 
 
 		@Override
-		public Response setCommand(String s, Node n) {
-			// TODO Auto-generated method stub
+		public Response setCommand(String stringName, Node n) {
+            currWorkspace.addCommand(stringName, n);
 			return null;
 		}
+
+		
+		//Execute
+		public void executeWorkspace(IWorkspaceLambda l) {
+			l.run(currWorkspace);
+		}
+		
+		public void executeDisplayProperties(IDisplayPropertiesLambda l) {
+			l.run(currWorkspace.displayProp);
+		}
+		
+		public void executePen(IPenLambda l) {
+			//l.run(currWorkspace.getActivePen);
+			throw new NotImplementedException();
+		}
+
+        public void executeOnAllActiveTurtles(ITurtleLambda lambda){
+        	List<Turtle> turtles = (currWorkspace.getTempTurtles().size() > 0) ? 
+        			currWorkspace.getTempTurtles() : currWorkspace.getActiveTurtles();
+       
+        	for(Turtle turtle : turtles){
+        		lambda.run(turtle);
+        	}
+        }
 
 }
