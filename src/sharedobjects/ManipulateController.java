@@ -188,10 +188,13 @@ public class ManipulateController implements IWorkSpaceController{
 			l.run(currWorkspace);
 		}
 		
+<<<<<<< HEAD
+=======
 		public void executeDisplayProperties(IDisplayPropertiesLambda l) {
 			l.run(currWorkspace.displayProp);
 		}
 		
+>>>>>>> master
 		public void executePen(IPenLambda l) {
 			//l.run(currWorkspace.getActivePen);
 			throw new NotImplementedException();
