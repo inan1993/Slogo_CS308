@@ -481,6 +481,7 @@ public class Parser implements Observer {
 		}
 	}
 	
+	//tell [ 3 ]
 	private void parseTell(Node root) throws SyntaxException{
 		try{
 			if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.LISTSTART){
@@ -496,6 +497,7 @@ public class Parser implements Observer {
 		}
 	}
 	
+	//ask [ 2 ] [ fd 10 ] 
 	private void parseAsk(Node root) throws SyntaxException{
 		try{
 			for(int i=0;i<2;i++){
