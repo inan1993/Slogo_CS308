@@ -3,11 +3,13 @@
  */
 package responses;
 
+import java.util.Observable;
+
 /**
  * @author loganrooper
  *
  */
-public abstract class Response {
+public abstract class Response extends Observable{
 	
 	protected String message;
 	public Response(String msg)	{
@@ -32,5 +34,13 @@ public abstract class Response {
 	
 	public int getIntegerValue() {
 		return (int) Double.parseDouble(message);
+	}
+	
+	/**
+	 * This is used for state transfer between classes.
+	 */
+	public void updateValue(String s) {
+		message = s;
+		this.setChanged();
 	}
 }

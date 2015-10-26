@@ -9,6 +9,8 @@ import java.util.Observable;
 import backend.node.Node;
 import datatransferobjects.ParsedCommandsTransferObject;
 import datatransferobjects.TurtleTransferObject;
+import responses.Response;
+import responses.Success;
 
 public class Workspace {
 	Map<Integer, Turtle> allTurtles;
@@ -17,7 +19,7 @@ public class Workspace {
 	ParsedCommands userInputsObservable = new ParsedCommands();
 	Pen pen;
 	DisplayProperties displayProp;
-	
+	private Response response;
 	
 	public Workspace() {
 		allTurtles = new HashMap<Integer, Turtle>();
@@ -27,6 +29,7 @@ public class Workspace {
 		tempTurtles = new LinkedList<Turtle>();
 		displayProp = new DisplayProperties();
 		pen = new Pen();
+		response = new Success("");
 	}
 	
 	public Turtle addNewTurtle(int id){
@@ -92,6 +95,12 @@ public class Workspace {
 			observables.add((Observable) t);
 		}
 		observables.add(userInputsObservable);
+		observables.add(displayProp);
+		observables.add(response);
+		//observables.add(pen);
+		//observables.add(functions);
+		//observables.add(variables);
+		//observables.add(response);
 		return observables;
 	}
 	
@@ -101,6 +110,14 @@ public class Workspace {
 		firstTurtle.notifyObservers(dto);
 		displayProp.notifyObservers();
 		System.out.println("here1");
+	}
+
+	/**
+	 * @param s
+	 */
+	public void setCurrentResponse(Response s) {
+		response.updateValue(s.toString());
+		response.notifyObservers("Response");
 	}
 	
 }

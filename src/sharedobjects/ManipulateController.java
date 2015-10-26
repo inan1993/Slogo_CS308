@@ -11,199 +11,245 @@ import exceptions.NotImplementedException;
 import javafx.scene.paint.Color;
 import responses.Response;
 
-public class ManipulateController implements IWorkSpaceController{
+public class ManipulateController implements IWorkSpaceController {
 
-        private Workspace currWorkspace;
-        private List<Workspace> workspaceList = new LinkedList<Workspace>();
-        
-        public ManipulateController(Workspace w) {
-                currWorkspace = w;
-                workspaceList.add(currWorkspace);
-        }
-        
-        public void setTempTurtles(int[] ids){
-        	Map<Integer, Turtle> allTurtles = currWorkspace.getAllTurtles();
-        	List<Turtle> tempTurtles = new LinkedList<Turtle>();
-        	for(int i = 0; i < ids.length; i++){
-        		if(allTurtles.containsKey(i)){
-        			tempTurtles.add(allTurtles.get(i));
-        		}
-        	}
-        	currWorkspace.setTempTurtles(tempTurtles);
-        }
-        
-        public void clearTempTurtles(){
-        	currWorkspace.setTempTurtles(Collections.<Turtle> emptyList());
-        }
-        
-        //
-        public void tellTurtles(int[] ids){
-        	Map<Integer, Turtle> allTurtles = currWorkspace.getAllTurtles();
-        	currWorkspace.setActiveTurtles(Collections.<Turtle> emptyList());
-        	List<Turtle> nextActiveList = new LinkedList<Turtle>();
-        	for(int id = 0; id < ids.length; id++){
-        		if(allTurtles.containsKey(id)){
-        			Turtle temp = allTurtles.get(id);
-        			temp.activate();
-        			nextActiveList.add(temp);
-        		}else {
-        			Turtle temp = currWorkspace.addNewTurtle(id);
-        			nextActiveList.add(temp);
-        		}
-        	}
-        	currWorkspace.setActiveTurtles(nextActiveList);
-        }
-        
-        public double getHeading(){
-        	return 0;
-        }
-        
-        public void addVariable(String v, Node n){
-    		currWorkspace.addVariable(v, n);
-    	}
+	private Workspace currWorkspace;
+	private List<Workspace> workspaceList = new LinkedList<Workspace>();
 
-		@Override
-		public Response foward(int pixels) {
-			// TODO Auto-generated method stub
-			return null;
+	public ManipulateController(Workspace w) {
+		currWorkspace = w;
+		workspaceList.add(currWorkspace);
+	}
+
+	public void setTempTurtles(int[] ids) {
+		Map<Integer, Turtle> allTurtles = currWorkspace.getAllTurtles();
+		List<Turtle> tempTurtles = new LinkedList<Turtle>();
+		for (int i = 0; i < ids.length; i++) {
+			if (allTurtles.containsKey(i)) {
+				tempTurtles.add(allTurtles.get(i));
+			}
 		}
+		currWorkspace.setTempTurtles(tempTurtles);
+	}
 
-		@Override
-		public Response back(int pixels) {
-			// TODO Auto-generated method stub
-			return null;
+	public void clearTempTurtles() {
+		currWorkspace.setTempTurtles(Collections.<Turtle> emptyList());
+	}
+
+	//
+	public void tellTurtles(int[] ids) {
+		Map<Integer, Turtle> allTurtles = currWorkspace.getAllTurtles();
+		currWorkspace.setActiveTurtles(Collections.<Turtle> emptyList());
+		List<Turtle> nextActiveList = new LinkedList<Turtle>();
+		for (int id = 0; id < ids.length; id++) {
+			if (allTurtles.containsKey(id)) {
+				Turtle temp = allTurtles.get(id);
+				temp.activate();
+				nextActiveList.add(temp);
+			} else {
+				Turtle temp = currWorkspace.addNewTurtle(id);
+				nextActiveList.add(temp);
+			}
 		}
+		currWorkspace.setActiveTurtles(nextActiveList);
+	}
 
-		@Override
-		public Response left(double degrees) {
-			// TODO Auto-generated method stub
-			return null;
+	public double getHeading() {
+		return 0;
+	}
+
+	public void addVariable(String v, Node n) {
+		currWorkspace.addVariable(v, n);
+	}
+
+	@Override
+	public Response setCommand(String userInput, String stringName, Node n) {
+		currWorkspace.addCommand(userInput, stringName, n);
+		return null;
+	}
+
+	@Override
+	public Node getCommand(String commandName) {
+		return currWorkspace.getCommand(commandName);
+	}
+
+	@Override
+	public Response setVariable(String variableName, Node var) {
+		currWorkspace.addVariable(variableName, var);
+		return null;
+	}
+
+	@Override
+	public Node getVariable(String variableName) {
+		return currWorkspace.getVariable(variableName);
+	}
+
+	public void incrementVariable(String variableName) {
+		currWorkspace.addVariable(variableName,
+				new Constant(currWorkspace.getVariable(variableName).getIntegerValue() + 1));
+	}
+
+	public void incrementVariableByValue(String variableName, int value) {
+		currWorkspace.addVariable(variableName,
+				new Constant(currWorkspace.getVariable(variableName).getIntegerValue() + value));
+	}
+
+	public void decrementVariable(String variableName) {
+		currWorkspace.addVariable(variableName,
+				new Constant(currWorkspace.getVariable(variableName).getIntegerValue() - 1));
+	}
+
+	@Override
+	public Response setCommand(String stringName, Node n) {
+		currWorkspace.addCommand(stringName, n);
+		return null;
+	}
+
+	// Execute
+	public void executeWorkspace(IWorkspaceLambda l) {
+		l.run(currWorkspace);
+	}
+
+	public void executeDisplayProperties(IDisplayPropertiesLambda l) {
+		l.run(currWorkspace.displayProp);
+	}
+
+	public void executePen(IPenLambda l) {
+		// l.run(currWorkspace.getActivePen);
+		throw new NotImplementedException();
+	}
+
+	public void executeOnAllActiveTurtles(ITurtleLambda lambda) {
+		List<Turtle> turtles = (currWorkspace.getTempTurtles().size() > 0) ? currWorkspace.getTempTurtles()
+				: currWorkspace.getActiveTurtles();
+
+		for (Turtle turtle : turtles) {
+			lambda.run(turtle);
 		}
+	}
 
-		@Override
-		public Response right(double degrees) {
-			// TODO Auto-generated method stub
-			return null;
-		}
+	/**
+	 * Parser will set currentWorkspace after it's done executing.
+	 * @param s
+	 */
+	public void setReponse(Response s) {
+		currWorkspace.setCurrentResponse(s);
+	}
 
-		@Override
-		public Response setHeading(double degrees) {
-			// TODO Auto-generated method stub
-			return null;
-		}
+	/* (non-Javadoc)
+	 * @see sharedobjects.IWorkSpaceController#foward(int)
+	 */
+	@Override
+	public Response foward(int pixels) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-		@Override
-		public Response towards(int x, int y) {
-			// TODO Auto-generated method stub
-			return null;
-		}
+	/* (non-Javadoc)
+	 * @see sharedobjects.IWorkSpaceController#back(int)
+	 */
+	@Override
+	public Response back(int pixels) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-		@Override
-		public Response setXY(int x, int y) {
-			// TODO Auto-generated method stub
-			return null;
-		}
+	/* (non-Javadoc)
+	 * @see sharedobjects.IWorkSpaceController#left(double)
+	 */
+	@Override
+	public Response left(double degrees) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-		@Override
-		public Response penDown() {
-			// TODO Auto-generated method stub
-			return null;
-		}
+	/* (non-Javadoc)
+	 * @see sharedobjects.IWorkSpaceController#right(double)
+	 */
+	@Override
+	public Response right(double degrees) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-		@Override
-		public Response penUp() {
-			// TODO Auto-generated method stub
-			return null;
-		}
+	/* (non-Javadoc)
+	 * @see sharedobjects.IWorkSpaceController#setHeading(double)
+	 */
+	@Override
+	public Response setHeading(double degrees) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-		@Override
-		public Response showTurtle() {
-			// TODO Auto-generated method stub
-			return null;
-		}
+	/* (non-Javadoc)
+	 * @see sharedobjects.IWorkSpaceController#towards(int, int)
+	 */
+	@Override
+	public Response towards(int x, int y) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-		@Override
-		public Response hideTurtle() {
-			// TODO Auto-generated method stub
-			return null;
-		}
+	/* (non-Javadoc)
+	 * @see sharedobjects.IWorkSpaceController#setXY(int, int)
+	 */
+	@Override
+	public Response setXY(int x, int y) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-		@Override
-		public Response home() {
-			// TODO Auto-generated method stub
-			return null;
-		}
+	/* (non-Javadoc)
+	 * @see sharedobjects.IWorkSpaceController#penDown()
+	 */
+	@Override
+	public Response penDown() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-		@Override
-		public Response clearScreen() {
-			// TODO Auto-generated method stub
-			return null;
-		}
+	/* (non-Javadoc)
+	 * @see sharedobjects.IWorkSpaceController#penUp()
+	 */
+	@Override
+	public Response penUp() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-        
-        @Override
-        public Response setCommand(String userInput, String stringName, Node n) {
-                currWorkspace.addCommand(userInput, stringName, n);
-                return null;
-        }
+	/* (non-Javadoc)
+	 * @see sharedobjects.IWorkSpaceController#showTurtle()
+	 */
+	@Override
+	public Response showTurtle() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-        @Override
-        public Node getCommand(String commandName) {
-                return currWorkspace.getCommand(commandName);
-        }
+	/* (non-Javadoc)
+	 * @see sharedobjects.IWorkSpaceController#hideTurtle()
+	 */
+	@Override
+	public Response hideTurtle() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-        @Override
-        public Response setVariable(String variableName, Node var) {
-                currWorkspace.addVariable(variableName, var);
-                return null;
-        }
+	/* (non-Javadoc)
+	 * @see sharedobjects.IWorkSpaceController#home()
+	 */
+	@Override
+	public Response home() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-        @Override
-        public Node getVariable(String variableName) {
-                return currWorkspace.getVariable(variableName);
-        }
-
-		public void incrementVariable(String variableName) {
-			currWorkspace.addVariable(variableName, new Constant(currWorkspace.getVariable(variableName).getIntegerValue()+1));
-		}
-		
-		public void incrementVariableByValue(String variableName, int value) {
-			currWorkspace.addVariable(variableName, new Constant(currWorkspace.getVariable(variableName).getIntegerValue()+value));
-		}
-		
-		public void decrementVariable(String variableName) {
-			currWorkspace.addVariable(variableName, new Constant(currWorkspace.getVariable(variableName).getIntegerValue()-1));
-		}
-
-
-		@Override
-		public Response setCommand(String stringName, Node n) {
-            currWorkspace.addCommand(stringName, n);
-			return null;
-		}
-
-		
-		//Execute
-		public void executeWorkspace(IWorkspaceLambda l) {
-			l.run(currWorkspace);
-		}
-		
-		public void executeDisplayProperties(IDisplayPropertiesLambda l) {
-			l.run(currWorkspace.displayProp);
-		}
-		
-		public void executePen(IPenLambda l) {
-			//l.run(currWorkspace.getActivePen);
-			throw new NotImplementedException();
-		}
-
-        public void executeOnAllActiveTurtles(ITurtleLambda lambda){
-        	List<Turtle> turtles = (currWorkspace.getTempTurtles().size() > 0) ? 
-        			currWorkspace.getTempTurtles() : currWorkspace.getActiveTurtles();
-       
-        	for(Turtle turtle : turtles){
-        		lambda.run(turtle);
-        	}
-        }
-
+	/* (non-Javadoc)
+	 * @see sharedobjects.IWorkSpaceController#clearScreen()
+	 */
+	@Override
+	public Response clearScreen() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

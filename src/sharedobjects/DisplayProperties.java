@@ -28,6 +28,7 @@ public class DisplayProperties extends Observable {
 		bgColor = Color.valueOf(myResource.getString("defaultBackgroundColor"));
 		colorPalette = new HashMap<Integer, Color>();
 		createDefaultPalette();
+		this.setChanged();
 	}
 	
 	private void createDefaultPalette() {
@@ -37,9 +38,10 @@ public class DisplayProperties extends Observable {
 		}
 	}
 
-	public void newPaletteColor(inte index, double r, double g, double b){
+	public void newPaletteColor(int index, double r, double g, double b){
 		Color color = new Color(r,g,b,.99);
 		colorPalette.put(index,color);
+		this.setChanged();
 	}
 	
 	public Color getPaletteColor(int index){
@@ -48,6 +50,7 @@ public class DisplayProperties extends Observable {
 	
 	public void setBgColor(int index){
 		bgColor = colorPalette.get(index-1);
+		this.setChanged();
 	}
 	
 	public Color getBgColor(){
