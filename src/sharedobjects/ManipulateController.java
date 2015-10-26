@@ -184,8 +184,8 @@ public class ManipulateController implements IWorkSpaceController{
 
 
 		@Override
-		public Response setCommand(String s, Node n) {
-			// TODO Auto-generated method stub
+		public Response setCommand(String stringName, Node n) {
+            currWorkspace.addCommand(stringName, n);
 			return null;
 		}
 
