@@ -578,7 +578,7 @@ public class Parser implements Observer {
 		String lang = dto.getLanguage();
 		Response s = parse(input, lang);
 		if (s instanceof Error)
-			throw new SyntaxException("Invalid Syntax");
+			throw new SyntaxException(s.toString());
 	}
 }
 

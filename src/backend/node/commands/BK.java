@@ -35,6 +35,8 @@ public class BK extends OneArgumentNode {
 			t.notifyObservers(dto);
 		};
 		
+		sharedHandle.execute(l);
+		
 		// return argument 1 value
 		return new Success(getAndRun(0, sharedHandle).getDoubleValue());
 	}
