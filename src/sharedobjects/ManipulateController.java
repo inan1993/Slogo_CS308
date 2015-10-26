@@ -189,4 +189,6 @@ public class ManipulateController implements IWorkSpaceController{
 			return null;
 		}
 
+		public void executePen(IPenLambda l) {}
+
 }
