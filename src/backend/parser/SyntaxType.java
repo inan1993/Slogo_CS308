@@ -17,6 +17,7 @@ public enum SyntaxType {
 	HIDETURTLE,
 	HOME,
 	CLEARSCREEN,
+	CLEARSTAMP,
 //	#
 //	# Turtle Queries
 //	#
