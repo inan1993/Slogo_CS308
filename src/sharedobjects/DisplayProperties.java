@@ -25,7 +25,7 @@ public class DisplayProperties extends Observable {
 	public DisplayProperties() {
 		//Default display values
 		myResource = ResourceBundle.getBundle(DEFAULT_GUI_RESOURCE);
-		bgColor = Color.valueOf(myResource.getString("backgroundColors"));
+		bgColor = Color.valueOf(myResource.getString("defaultBackgroundColor"));
 		colorPalette = new HashMap<Integer, Color>();
 		createDefaultPalette();
 	}

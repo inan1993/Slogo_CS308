@@ -223,7 +223,7 @@ public class Parser implements Observer {
 			    break;
 			//with 3 arguments
 			case SETPALETTE: 
-				parseExpression(root, 3);
+				parseExpression(root, 4);
 				break;
 			//control structures
 			case GROUPSTART:
