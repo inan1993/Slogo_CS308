@@ -25,7 +25,7 @@ public class CS extends ZeroArgumentNode {
 			t.notifyObservers(dto);
 		};
 
-		sharedHandle.execute(l);
+		sharedHandle.executeOnAllActiveTurtles(l);
 		
 		return new Success(0);
 		//return distance traveled

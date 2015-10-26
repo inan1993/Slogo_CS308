@@ -35,7 +35,7 @@ public class TOWARDS extends TwoArgumentNode {
 			t.notifyObservers(dto);
 		};
 		
-		mc.execute(l);
+		mc.executeOnAllActiveTurtles(l);
 
 		// return the delta
 		return new Success(1);

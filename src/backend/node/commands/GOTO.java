@@ -26,7 +26,7 @@ public class GOTO extends TwoArgumentNode {
 			t.setPosition(new int[]{x,y});
 			t.notifyObservers(dto);
 		};
-		sharedHandle.execute(l);
+		sharedHandle.executeOnAllActiveTurtles(l);
 		return new Success(0);
 	}
 }

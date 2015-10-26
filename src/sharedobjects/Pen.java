@@ -25,8 +25,9 @@ public class Pen {
 		state = myResource.getString("defaultPenState");
 	}
 	
-	public void setColor(Color c){
-		color = c;
+	public void setColor(int index){
+		throw new NotImplementedException();
+		//color = index;
 	}
 	
 	public Paint getColor(){
@@ -50,6 +51,10 @@ public class Pen {
 	}
 
 	public void setShape(int index) {
+		throw new NotImplementedException();
+	}
+
+	public void setBackground(int index) {
 		throw new NotImplementedException();
 	}
 
