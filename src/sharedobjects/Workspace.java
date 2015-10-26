@@ -108,6 +108,10 @@ public class Workspace {
 		userInputsObservable.notifyObservers(uito);
 	}
 	
+	public void addCommand(String c, Node n){
+		userInputsObservable.addCommand(c, n);
+	}
+	
 	public Node getCommand(String c){
 		return userInputsObservable.getCommand(c);
 	}
