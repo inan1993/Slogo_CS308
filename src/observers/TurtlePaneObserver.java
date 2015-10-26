@@ -2,10 +2,10 @@ package observers;
 
 import java.util.Observable;
 import java.util.Observer;
-
 import GUI.turtlepane.TurtleCanvas;
 import GUI.turtlepane.TurtleGroup;
 import datatransferobjects.TurtleTransferObject;
+import sharedobjects.Turtle;
 
 public class TurtlePaneObserver implements Observer{
 
@@ -19,6 +19,7 @@ public class TurtlePaneObserver implements Observer{
     
     @Override
     public void update (Observable o, Object arg) {
+        Turtle t = (Turtle) o;
         TurtleTransferObject turtleDTO = (TurtleTransferObject) arg;
         System.out.println("gothim");
         if(turtleDTO.isClearScreen()){

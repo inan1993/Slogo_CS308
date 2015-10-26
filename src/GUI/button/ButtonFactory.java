@@ -71,6 +71,7 @@ public class ButtonFactory {
     }
     
     private void clearButtonEvent(){
+        myMessageBox.clear();
         myCommandBox.clear();
     }
     private void uploadButtonEvent() {
@@ -81,6 +82,7 @@ public class ButtonFactory {
         if (selectedFile != null) {
             fileName = selectedFile.getName();
             myTurtleGroup.setImage(new Image(getClass().getClassLoader().getResourceAsStream(fileName)));
+            
             //            myObservers.get(0).update(null, (Object)createDTO2());
         }
         else {
@@ -90,11 +92,18 @@ public class ButtonFactory {
         }
     }
     private void enterButtonEvent(){
+        myMessageBox.clear();
         String userInput = myCommandBox.getText();
         myHistoryDisplayBox.setMessage(userInput);
         myUserInputObservable.setUserInput(userInput);
         UserInputTransferObject ut = new UserInputTransferObject(myUserInputObservable.getCurrentLanguage(), myUserInputObservable.getUserInput());
-        myUserInputObservable.notifyObservers(ut);
+        try{
+            myUserInputObservable.notifyObservers(ut);
+            
+        }catch(Exception e){
+//            e.printStackTrace();
+            myMessageBox.setMessage(e.toString());
+        }
     }
     private void helpButtonEvent() {
         try {
