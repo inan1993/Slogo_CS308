@@ -20,7 +20,7 @@ public class GOTO extends TwoArgumentNode {
 		// get xy
 		int x = getAndRun(0, sharedHandle).getIntegerValue();
 		int y = getAndRun(1, sharedHandle).getIntegerValue();
-				
+				 	
 		LambdaInterface l = (Turtle t) -> {
 			TurtleTransferObject dto = new TurtleTransferObject(false, t.getID(), false, t.isPenDown(), t.getPosition(), new int[]{0,0});
 			t.setPosition(new int[]{x,y});

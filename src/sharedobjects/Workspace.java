@@ -26,6 +26,12 @@ public class Workspace {
 		pen = new Pen();
 	}
 	
+	public Turtle addNewTurtle(int id){
+		Turtle turt = new Turtle(id);
+		allTurtles.put(id, turt);
+		return turt;
+	}
+	
 	public Map<Integer, Turtle> getAllTurtles(){
 		return allTurtles;
 	}
@@ -100,6 +106,10 @@ public class Workspace {
 		userInputsObservable.addCommand(c, n);
 		ParsedCommandsTransferObject uito = new ParsedCommandsTransferObject(true, userInput);
 		userInputsObservable.notifyObservers(uito);
+	}
+	
+	public void addCommand(String c, Node n){
+		userInputsObservable.addCommand(c, n);
 	}
 	
 	public Node getCommand(String c){
