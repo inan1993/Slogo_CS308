@@ -29,13 +29,13 @@ public class Main extends Application{
 
     public static void main (String[] args) {
 
+        /*4*/ frontEnd = new SlogoView(); //TODO: frontEnd must create an observers list
+
+        try{
         /*1*/Workspace currWorkspace = new Workspace(); //TODO: workspace must create an observables list
         /*2*/ManipulateController manipulateController = new ManipulateController(currWorkspace);
 
         /*3*/Parser parser = new Parser(manipulateController);
-
-        /*4*/ frontEnd = new SlogoView(); //TODO: frontEnd must create an observers list
-
         ObserverFactory observerFactory = new ObserverFactory(frontEnd);
         
         List<Observable> observables = new ArrayList<Observable>();
@@ -46,8 +46,17 @@ public class Main extends Application{
         observers.addAll(observerFactory.getObservers()); 
         observers.add(parser);
         /*6*/ HandleObservers.handleObservers(observables, observers);
-
+        
         currWorkspace.startWorkspace();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            frontEnd.showError(e);
+        }
+        
+        
+        
+
 //        manipulateController.setHeading(0);
 //        manipulateController.foward(50);
         launch(args);

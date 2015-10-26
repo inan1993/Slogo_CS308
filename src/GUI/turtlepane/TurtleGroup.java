@@ -51,5 +51,4 @@ public class TurtleGroup extends Group{
 		//turtleImage.setOnMouseClicked(//make the turtle active);
 		this.getChildren().add(turtleImage);
 	}
-
 }
