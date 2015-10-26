@@ -357,14 +357,15 @@ public class Parser implements Observer {
 	private void parseGroupStart(Node root) throws SyntaxException{
 		SyntaxType type = mySyntaxList.get(myIndex-1).getKey(); 
 		switch(type){
-		case SUM:
+		case SUM: case EQUAL: case DIFFERENCE: case PRODUCT:
 			try{
 				CommandFactory factory = new CommandFactory();
+				Node fakeRoot = root;
 				while(mySyntaxList.get(myIndex).getKey()!=SyntaxType.GROUPEND){
-					parseExpression(root, 1);
+					parseExpression(fakeRoot, 1);
 					Node c = factory.createNode(type);
-					root.addChild(c);
-//					root=
+					fakeRoot.addChild(c);
+					fakeRoot=c;
 				}
 			}catch(ArrayIndexOutOfBoundsException e){
 				throw new SyntaxException("Miss a right brace ) in "+root.getName());
@@ -381,6 +382,7 @@ public class Parser implements Observer {
 			}catch(ArrayIndexOutOfBoundsException e){
 				throw new SyntaxException("Miss a right brace ) in "+root.getName());
 			}
+			return;
 		}
 		
 	}
