@@ -1,7 +1,6 @@
 package sharedobjects;
 
 import java.util.Observable;
-import java.util.Random;
 
 public class Turtle extends Observable{
 	private int ID;
@@ -10,8 +9,6 @@ public class Turtle extends Observable{
 	private boolean penDown;
 	private boolean showing;
 	private boolean active;
-	
-	private Random rand = new Random();
 	
 	public Turtle(int id){
 		ID = id;

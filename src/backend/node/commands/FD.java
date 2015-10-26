@@ -11,8 +11,8 @@ import sharedobjects.Turtle;
 public class FD extends OneArgumentNode {
 
 	@Override
-	public Response run(ManipulateController sharedHandle) {
-		int pixels = getAndRun(0, sharedHandle).getIntegerValue();
+	public Response run(ManipulateController mc) {
+		int pixels = getAndRun(0, mc).getIntegerValue();
 		LambdaInterface l = (Turtle t) -> {
 			int[] currPosition = t.getPosition();
 			System.out.println("Current Position..." + currPosition[0] + ":" + currPosition[1]);
@@ -30,10 +30,10 @@ public class FD extends OneArgumentNode {
 			t.notifyObservers(dto);
 		};
 
-		sharedHandle.execute(l);
+		mc.execute(l);
 		
 		// return argument 1 value
-		return new Success(this.getAndRun(0, sharedHandle).getDoubleValue());
+		return new Success(this.getAndRun(0, mc).getDoubleValue());
 		
 	}
 }

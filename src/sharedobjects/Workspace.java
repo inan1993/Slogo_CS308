@@ -26,6 +26,12 @@ public class Workspace {
 		pen = new Pen();
 	}
 	
+	public Turtle addNewTurtle(int id){
+		Turtle turt = new Turtle(id);
+		allTurtles.put(id, turt);
+		return turt;
+	}
+	
 	public Map<Integer, Turtle> getAllTurtles(){
 		return allTurtles;
 	}
