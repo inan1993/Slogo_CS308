@@ -141,45 +141,11 @@ public class SlogoView {
 				//centerBox();
 			}else if(text.equalsIgnoreCase("Save Workspace")){
 				//centerBox();
-			}else if(text.equalsIgnoreCase("Load .logo File")){
-				fileUpload();
 			}
-			//messageBox.setMessage(text + " executed");
+			messageBox.setMessage(text + " executed");
 
 		});
 		return fileDropDown;  
-	}
-
-	public void fileUpload() {
-
-		FileChooser fileChooser = new FileChooser();
-		File selectedFile = fileChooser.showOpenDialog(null);
-
-		if (selectedFile != null && selectedFile.getName().endsWith("logo")) {
-			try{
-				FileReader fr = new FileReader(selectedFile.getName());
-				BufferedReader br = new BufferedReader(fr);                                                 
-				StringBuffer stringBuffer = new StringBuffer();
-				String line;
-				while ((line = br.readLine()) != null) {
-					stringBuffer.append(line);
-					stringBuffer.append("\n");
-				}
-				fr.close();
-				System.out.println("Contents of file:");
-				System.out.println(stringBuffer.toString());
-                                
-			} catch(IOException e) {
-				messageBox.setText("no file" + selectedFile.getName());
-			}
-
-		}
-		else {
-			if (selectedFile == null) {
-				messageBox.setText("UploadCanceled");
-
-			} 
-		}
 	}
 
 	private Node lineTypeDropDown(){
