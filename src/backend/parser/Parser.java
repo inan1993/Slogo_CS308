@@ -272,7 +272,7 @@ public class Parser implements Observer {
 				break;
 			default:
 				//root is USERCOMMAND
-				Node toCmd = myManiControl.getCommand(mySyntaxList.get(myIndex).getValue());///////////maybe getFunction?
+				Node toCmd = myManiControl.getCommand(mySyntaxList.get(myIndex-1).getValue());///////////maybe getFunction?
 				if(toCmd==null)
 					throw new SyntaxException("Undefined command!");
 				int numOfArg=toCmd.getChildrenNum()-1;
@@ -547,10 +547,10 @@ public class Parser implements Observer {
 			throw new SyntaxException("Uncompleted argument list in " + root.getName());
 		}
 		int endIndex = myIndex;
-		String display = null;
+		String display = "";
 		for(int i=beginIndex;i<endIndex;i++){
-			display.concat(mySyntaxList.get(i).getValue());
-			display=display+" ";
+			display += mySyntaxList.get(i).getValue();
+			display += " ";
 		}
 		/*unsafe code, because it will overwrite the previous prototype in the map*/
 		myManiControl.setCommand(display, root.getName(), root);

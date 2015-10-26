@@ -1,13 +1,12 @@
 package backend.node.commands;
 
-import java.util.List;
-
-import backend.node.Node;
 import backend.node.types.Command;
-import backend.node.types.Constant;
+import datatransferobjects.TurtleTransferObject;
 import responses.Response;
 import responses.Success;
+import sharedobjects.LambdaInterface;
 import sharedobjects.ManipulateController;
+import sharedobjects.Turtle;
 
 /**
  * @author loganrooper
@@ -16,8 +15,13 @@ import sharedobjects.ManipulateController;
 public class HOME extends Command {
 
 	public Response run(ManipulateController mc) {
-		Response s = mc.home();
-		double distanceMoved = Double.parseDouble(s.toString());
-		return new Success(distanceMoved);
+		// get xy		
+		LambdaInterface l = (Turtle t) -> {
+			TurtleTransferObject dto = new TurtleTransferObject(false, t.getID(), false, t.isPenDown(), t.getPosition(), new int[]{0,0});
+			t.setPosition(new int[]{0,0});
+			t.notifyObservers(dto);
+		};
+		mc.execute(l);
+		return new Success(0);
 	}
 }
