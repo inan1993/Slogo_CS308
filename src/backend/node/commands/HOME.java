@@ -21,7 +21,7 @@ public class HOME extends Command {
 			t.setPosition(new double[]{0,0});
 			t.notifyObservers(dto);
 		};
-		mc.execute(l);
+		mc.executeOnAllActiveTurtles(l);
 		return new Success(0);
 	}
 }

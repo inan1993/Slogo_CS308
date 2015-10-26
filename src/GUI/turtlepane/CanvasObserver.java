@@ -50,7 +50,6 @@ public class CanvasObserver extends Canvas implements Observer{
 
     public void drawLine(double[]startLoc, double[] endLoc, boolean draw){
         if(draw){
-            //            myGC.setStroke(myPenColor);
             myGC.strokeLine(startLoc[0]+myWidth/2.0, startLoc[1]+myHeight/2.0, endLoc[0]+myWidth/2.0, endLoc[1]+myHeight/2.0); 
         }
     }
@@ -61,14 +60,14 @@ public class CanvasObserver extends Canvas implements Observer{
     }
 
     public void setLineType(String line) {
-        if (line.equalsIgnoreCase("solid"))
+        if (line.equalsIgnoreCase("solid")){
             myGC.setLineWidth(1);
-        else if (line.equalsIgnoreCase("dashed")){
+        }else if (line.equalsIgnoreCase("dashed")){
             myGC.setLineDashOffset(5f);
             myGC.setLineDashes(5f,5f);
         }else if(line.equalsIgnoreCase("dotted")){
-            myGC.setLineDashOffset(2f);
-            myGC.setLineDashes(1f,1f);
+            myGC.setLineDashOffset(4f);
+            myGC.setLineDashes(2f,2f,2f,2f);
         }
     }
 

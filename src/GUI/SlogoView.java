@@ -38,7 +38,8 @@ import sharedobjects.UserInput;
 
 public class SlogoView {
 
-    private static final Dimension DEFAULT_SIZE = new Dimension(1200, 700);
+
+    private static final Dimension DEFAULT_SIZE = new Dimension(1200, 730);
     //    private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/";
     private static final String DEFAULT_RESOURCE_VIEW = "GUI.view";
     protected static ResourceBundle myResource;
