@@ -1,4 +1,3 @@
-
 package backend.node.commands;
 
 import backend.node.types.OneArgumentNode;

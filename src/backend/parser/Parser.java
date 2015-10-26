@@ -37,7 +37,6 @@ public class Parser implements Observer {
 	private List<Entry<TokenType, String>> myTokenList; 
 	private List<Entry<SyntaxType, String>> mySyntaxList; 
 	private boolean myListLegal;
-	private boolean myGroupLegal;
 	private static final HashMap<String, TokenType> tokenMap = new HashMap<String, TokenType>(){{
 		for(TokenType each:TokenType.values())
 		{
@@ -69,7 +68,6 @@ public class Parser implements Observer {
 		myRoots = new ArrayList<Node>();
 		myIndex=0;
 		myListLegal=false;
-		myGroupLegal=false;
 	}
 	
 	public Response parse(String userInput, String lang) {
@@ -103,6 +101,7 @@ public class Parser implements Observer {
 		{
 //			should add a try catch, and make executor throws execute exception
 			response = each.run(myManiControl);
+			System.out.println("--> " + response.toString());
 //			System.out.println("call exec");
 		}
 		return response;
@@ -169,6 +168,7 @@ public class Parser implements Observer {
 				break;
 			case GROUPEND:
 				mySyntaxList.add(new SimpleEntry<SyntaxType, String>(SyntaxType.GROUPEND, entry.getValue()));
+				break;
 			case COMMAND:
 				boolean matchFlag=false;
 				for(Entry<SyntaxType, Pattern> p:mySyntaxPatterns.get(languageMap.get(myLanguage.toUpperCase())))
@@ -234,19 +234,13 @@ public class Parser implements Observer {
 				parseExpression(root, 2);
 			    break;
 			case GROUPSTART:
-				if(myGroupLegal){
-					root = factory.createNode(mySyntaxList.get(myIndex).getKey());
-					root.setName(mySyntaxList.get(myIndex).getValue());
-					myIndex++;
-					parseGroupStart(root);
-					myGroupLegal=false;
-				}
-				else{
-					throw new SyntaxException("Use "+ root.getName() + "in illegal conditon");
-				}
+				root = factory.createNode(mySyntaxList.get(myIndex).getKey());
+				root.setName(mySyntaxList.get(myIndex).getValue());
+				myIndex++;
+				parseGroupStart(root);
 				break;
 			case GROUPEND:
-				break;
+				throw new SyntaxException("Miss a left ( for" + root.getName());
 			case LISTSTART:
 				if(myListLegal){
 					parseListStart(root);
@@ -357,15 +351,17 @@ public class Parser implements Observer {
 	private void parseGroupStart(Node root) throws SyntaxException{
 		SyntaxType type = mySyntaxList.get(myIndex-1).getKey(); 
 		switch(type){
-		case SUM:
+		case SUM: case EQUAL: case DIFFERENCE: case PRODUCT:
 			try{
 				CommandFactory factory = new CommandFactory();
+				Node fakeRoot = root;
 				while(mySyntaxList.get(myIndex).getKey()!=SyntaxType.GROUPEND){
-					parseExpression(root, 1);
+					parseExpression(fakeRoot, 1);
 					Node c = factory.createNode(type);
-					root.addChild(c);
-//					root=
+					fakeRoot.addChild(c);
+					fakeRoot=c;
 				}
+				myIndex++;
 			}catch(ArrayIndexOutOfBoundsException e){
 				throw new SyntaxException("Miss a right brace ) in "+root.getName());
 			}
@@ -381,6 +377,7 @@ public class Parser implements Observer {
 			}catch(ArrayIndexOutOfBoundsException e){
 				throw new SyntaxException("Miss a right brace ) in "+root.getName());
 			}
+			return;
 		}
 		
 	}
@@ -453,6 +450,7 @@ public class Parser implements Observer {
 	private void parseIfelse(Node root) throws SyntaxException{
 		try {
 			Node c = growTree();
+			root.addChild(c);
 			for (int i=0;i<2;i++) {
 				if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.LISTSTART){
 					throw new SyntaxException("Incompatible argument list in " + root.getName());
@@ -581,7 +579,7 @@ public class Parser implements Observer {
 		String lang = dto.getLanguage();
 		Response s = parse(input, lang);
 		if (s instanceof Error)
-			throw new SyntaxException("Invalid Syntax");
+			throw new SyntaxException(s.toString());
 	}
 }
 
