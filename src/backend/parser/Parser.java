@@ -354,12 +354,13 @@ public class Parser implements Observer {
 			try{
 				CommandFactory factory = new CommandFactory();
 				Node fakeRoot = root;
-				while(mySyntaxList.get(myIndex).getKey()!=SyntaxType.GROUPEND){
+				while(mySyntaxList.get(myIndex+2).getKey()!=SyntaxType.GROUPEND){
 					parseExpression(fakeRoot, 1);
 					Node c = factory.createNode(type);
 					fakeRoot.addChild(c);
 					fakeRoot=c;
 				}
+				parseExpression(fakeRoot, 2);
 				myIndex++;
 			}catch(ArrayIndexOutOfBoundsException e){
 				throw new SyntaxException("Miss a right brace ) in "+root.getName());
