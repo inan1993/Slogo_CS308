@@ -13,6 +13,7 @@ import GUI.dropdown.LanguageListDropdown;
 import GUI.dropdown.LineTypeDropdown;
 import GUI.dropdown.PenColorDropdown;
 import GUI.slider.LineSlider;
+import GUI.slider.OpacitySlider;
 import GUI.textBox.CommandPromptDisplayBox;
 import GUI.textBox.MessageDisplayBox;
 import GUI.turtlepane.BackgroundRectangle;
@@ -62,6 +63,7 @@ public class SlogoView {
     private BackgroundRectangle myBackgroundRectangle;
     private TurtleStateBox turtleStateBox;
     private LineSlider lineSlider;
+    private OpacitySlider opacitySlider;
     private PenUpDownCheckBox checkBox;
 
     private UserInput myUserInputObservable;
@@ -196,32 +198,51 @@ public class SlogoView {
 
     private Node messageAndClearBoxes(){
         HBox result = new HBox();
-        result.getChildren().addAll(messageBox,myButtons.get("ClearCommandButton"),checkBox());
+        result.getChildren().addAll(messageBox,myButtons.get("ClearCommandButton"),imageOpacitySlider());
         return result;
     }
 
 
     private Node commandAndEnterBoxes() {
         HBox result = new HBox();
-        result.getChildren().addAll(commandBox,myButtons.get("EnterCommandButton"),slider());
+        result.getChildren().addAll(commandBox,myButtons.get("EnterCommandButton"),lineThicknessSlider());
         return result;	
     }
 
-    private HBox slider(){
-        HBox slider = new HBox();
+    private HBox lineThicknessSlider(){
+        HBox thicknessSlider = new HBox();
         lineSlider = new LineSlider();
-        Label sliderCaption = new Label(" Pen thickness: ");
+        Label lineCaption = new Label(" Pen thickness: ");
         lineSlider.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                sliderCaption.setText(" Pen thickness: "+ String.format("%.0f  ", newValue));		
+                lineCaption.setText(" Pen thickness: "+ String.format("%.0f  ", newValue));
                 myTurtleCanvas.setPenWidth(newValue.doubleValue());
             }
         });
-        slider.getChildren().addAll(lineSlider, sliderCaption);
-        return slider;
+        thicknessSlider.getChildren().addAll(lineSlider, lineCaption);
+        return thicknessSlider;
     }
 
+    private HBox imageOpacitySlider(){
+    	HBox imageSlider = new HBox();
+        opacitySlider = new OpacitySlider();
+        Label opacityCaption = new Label(" Turtle opacity: ");
+        opacityCaption.setStyle("-fx-font-color: red;");
+        opacitySlider.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+            	opacityCaption.setText(" Turtle opacity: "+ String.format("%.2f  ", newValue));	
+                opacityCaption.setStyle("-fx-font-color: red;");
+            	myTurtleGroup.changeOpacity(newValue.doubleValue());
+            }
+        });
+        imageSlider.getChildren().addAll(opacitySlider,opacityCaption);
+        return imageSlider;
+
+    }
+    
+    
     private Node checkBox(){
         checkBox = new PenUpDownCheckBox();
         checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {

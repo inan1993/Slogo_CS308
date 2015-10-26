@@ -8,7 +8,7 @@ public abstract class AButton extends Button{
 
     public AButton (String text, EventHandler<ActionEvent> event) {
         super(text);
-        this.setPrefWidth(155);
+        this.setPrefWidth(150);
         this.setStyle("-fx-border-color: black;");
         this.setOnAction(event);
     }
