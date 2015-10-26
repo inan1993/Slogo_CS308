@@ -4,9 +4,12 @@
 package backend.node.commands;
 
 import backend.node.types.ZeroArgumentNode;
+import datatransferobjects.TurtleTransferObject;
 import responses.Response;
 import responses.Success;
+import sharedobjects.LambdaInterface;
 import sharedobjects.ManipulateController;
+import sharedobjects.Turtle;
 
 /**
  * @author loganrooper
@@ -15,9 +18,14 @@ import sharedobjects.ManipulateController;
 public class PD extends ZeroArgumentNode {
 
 	@Override
-	public Response run(ManipulateController sharedHandle) {
-		sharedHandle.penDown();
-
+	public Response run(ManipulateController mc) {
+		LambdaInterface l = (Turtle t) -> {
+			t.penDown();
+			TurtleTransferObject dto = new TurtleTransferObject(false, t.getID(), t.isShowing(), t.isPenDown(), t.getPosition(), t.getPosition());
+			
+			t.notifyObservers(dto);
+		};
+		mc.execute(l);
 		// return 1
 		return new Success(1);
 	}

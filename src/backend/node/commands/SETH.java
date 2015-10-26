@@ -1,9 +1,12 @@
 package backend.node.commands;
 
 import backend.node.types.OneArgumentNode;
+import datatransferobjects.TurtleTransferObject;
 import responses.Response;
 import responses.Success;
+import sharedobjects.LambdaInterface;
 import sharedobjects.ManipulateController;
+import sharedobjects.Turtle;
 
 /**
  * @author loganrooper
@@ -12,15 +15,18 @@ import sharedobjects.ManipulateController;
 public class SETH extends OneArgumentNode {
 
 	@Override
-	public Response run(ManipulateController sharedHandle) {
+	public Response run(ManipulateController mc) {
 		 //get headings
-		 double prevHeading = sharedHandle.getHeading();
-		 double newHeading = getAndRun(0, sharedHandle).getDoubleValue();
-		 
-	     //turn
-		 sharedHandle.setHeading(newHeading);
-		 
+		 double newHeading = getAndRun(0, mc).getDoubleValue();
+		 LambdaInterface l = (Turtle t) -> {
+			t.setHeading(newHeading);
+			TurtleTransferObject dto = new TurtleTransferObject(false, t.getID(), t.isShowing(), t.isPenDown(), t.getPosition(), t.getPosition());
+				
+			t.notifyObservers(dto);
+		};
+		mc.execute(l);
+	   
 		 //return the delta
-		 return new Success(prevHeading-newHeading);
+		 return new Success(1);
 	}
 }
