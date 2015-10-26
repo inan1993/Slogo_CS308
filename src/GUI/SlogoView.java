@@ -270,4 +270,9 @@ public class SlogoView {
     public TurtleStateBox getTurtleStateBox () {
         return turtleStateBox;
     }
+
+
+    public void showError (Exception e) {
+        messageBox.setMessage(e.toString());
+    }
 }
