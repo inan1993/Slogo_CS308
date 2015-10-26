@@ -10,7 +10,7 @@
   + Should the frontEnd hold any state??
   
 *(MENTION IN ANALYSIS:
-TA: Create some GUI elements in the controller (these elements can also **implement Observer** and thus can **hold state and perform comparisons**) like upload turtle image and pass into the view so when the user changes the image the view can just call the update method on the element. The controller then changes what it needs to).*
+TA: Create some GUI elements in the controller (these elements can also ***implement Observer*** and thus can ***hold state and perform comparisons***) like upload turtle image and pass into the view so when the user changes the image the view can just call the update method on the element. The controller then changes what it needs to).*
 
 
 ###Design Suggestions
