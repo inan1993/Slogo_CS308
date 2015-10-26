@@ -25,8 +25,8 @@ public class FD extends OneArgumentNode {
 			int xBack = (int) (currPosition[0] + xDiff);
 			int yBack = (int) (currPosition[1] + yDiff);
 			int[] nextPos = new int[]{xBack, yBack};
-			t.setPosition(nextPos);
 			TurtleTransferObject dto = new TurtleTransferObject(false, t.getID(), false, t.isPenDown(), t.getPosition(), nextPos);
+			t.setPosition(nextPos);
 			t.notifyObservers(dto);
 		};
 

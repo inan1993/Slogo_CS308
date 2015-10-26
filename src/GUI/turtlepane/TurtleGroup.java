@@ -45,7 +45,7 @@ public class TurtleGroup extends Group{
 	private void drawTurtle(TurtleTransferObject turtleDTO) {
 		myTurtleIDs.add(turtleDTO.getID());
 		ImageView turtleImage = new ImageView(myTurtleImage);
-		turtleImage.setX(turtleDTO.getNextLoc()[0]+width/2-(myTurtleImage.getWidth()/2)); // need to change the hardcoded
+		turtleImage.setX(turtleDTO.getNextLoc()[0]+width/2-(myTurtleImage.getWidth()/2));
 		turtleImage.setY(turtleDTO.getNextLoc()[1]+height/2-(myTurtleImage.getHeight()/2)); // need to change the hardcoded
 		turtleImage.setVisible(true);//turtleDTO.isVisible());
 		//turtleImage.setOnMouseClicked(//make the turtle active);
