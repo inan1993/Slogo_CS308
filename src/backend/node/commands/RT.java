@@ -3,7 +3,7 @@ package backend.node.commands;
 import backend.node.types.OneArgumentNode;
 import responses.Response;
 import responses.Success;
-import sharedobjects.LambdaInterface;
+import sharedobjects.ITurtleLambda;
 import sharedobjects.ManipulateController;
 import sharedobjects.Turtle;
 
@@ -16,7 +16,7 @@ public class RT extends OneArgumentNode {
 	@Override
 	public Response run(ManipulateController sharedHandle) {
 		int degrees = getAndRun(0, sharedHandle).getIntegerValue();
-		LambdaInterface l = (Turtle t) -> {
+		ITurtleLambda l = (Turtle t) -> {
 			double currHeading = t.getHeading();
 			System.out.println(currHeading);
 			currHeading -= degrees;

@@ -18,6 +18,6 @@ public class USERCOMMAND extends ControlStructure {
 		}
 		
 		//Run the list
-		return root.getAndRun(1, mc);
+		return root.getAndRun(getChildrenNum(), mc);
 	}
 }

@@ -20,7 +20,7 @@ public class ManipulateController implements IWorkSpaceController{
         }
 
         
-        public void execute(LambdaInterface lambda){
+        public void execute(ITurtleLambda lambda){
         	List<Turtle> turtles = (currWorkspace.getTempTurtles().size() > 0) ? 
         			currWorkspace.getTempTurtles() : currWorkspace.getActiveTurtles();
        

@@ -4,7 +4,7 @@ import backend.node.types.TwoArgumentNode;
 import datatransferobjects.TurtleTransferObject;
 import responses.Response;
 import responses.Success;
-import sharedobjects.LambdaInterface;
+import sharedobjects.ITurtleLambda;
 import sharedobjects.ManipulateController;
 import sharedobjects.Turtle;
 
@@ -20,7 +20,7 @@ public class TOWARDS extends TwoArgumentNode {
 		int targetX = getAndRun(0, mc).getIntegerValue();
 		int targetY = getAndRun(1, mc).getIntegerValue();
 
-		LambdaInterface l = (Turtle t) -> {
+		ITurtleLambda l = (Turtle t) -> {
 			int[] currPos = t.getPosition();
 			double theta = Math.atan2(-targetY - currPos[1], targetX - currPos[0]);
 			double angle = Math.toDegrees(theta);

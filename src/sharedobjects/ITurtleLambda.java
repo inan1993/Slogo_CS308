@@ -1,7 +1,7 @@
 package sharedobjects;
 
 @FunctionalInterface
-public interface LambdaInterface {
+public interface ITurtleLambda {
  //the abstract method	
  public void run(Turtle t);
  

@@ -4,7 +4,7 @@ import backend.node.types.OneArgumentNode;
 import datatransferobjects.TurtleTransferObject;
 import responses.Response;
 import responses.Success;
-import sharedobjects.LambdaInterface;
+import sharedobjects.ITurtleLambda;
 import sharedobjects.ManipulateController;
 import sharedobjects.Turtle;
 
@@ -13,7 +13,7 @@ public class FD extends OneArgumentNode {
 	@Override
 	public Response run(ManipulateController mc) {
 		int pixels = getAndRun(0, mc).getIntegerValue();
-		LambdaInterface l = (Turtle t) -> {
+		ITurtleLambda l = (Turtle t) -> {
 			int[] currPosition = t.getPosition();
 			System.out.println("Current Position..." + currPosition[0] + ":" + currPosition[1]);
 			
