@@ -17,7 +17,6 @@ public class Workspace {
 	List<Turtle> tempTurtles;
 	List<Color> colorPalette;
 	ParsedCommands userInputsObservable = new ParsedCommands();
-	Pen pen;
 	DisplayProperties displayProp;
 	private Response response;
 
@@ -28,7 +27,6 @@ public class Workspace {
 		activeTurtles.add(allTurtles.get(1));
 		tempTurtles = new LinkedList<Turtle>();
 		displayProp = new DisplayProperties();
-		pen = new Pen();
 		response = new Success("");
 	}
 

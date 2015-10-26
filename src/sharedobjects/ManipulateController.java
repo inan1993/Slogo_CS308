@@ -4,11 +4,9 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
 import backend.node.Node;
 import backend.node.types.Constant;
 import exceptions.NotImplementedException;
-import javafx.scene.paint.Color;
 import responses.Response;
 
 public class ManipulateController implements IWorkSpaceController {
@@ -114,11 +112,6 @@ public class ManipulateController implements IWorkSpaceController {
 		l.run(currWorkspace.displayProp);
 	}
 
-	public void executePen(IPenLambda l) {
-		// l.run(currWorkspace.getActivePen);
-		throw new NotImplementedException();
-	}
-
 	public void executeOnAllActiveTurtles(ITurtleLambda lambda) {
 		List<Turtle> turtles = (currWorkspace.getTempTurtles().size() > 0) ? currWorkspace.getTempTurtles()
 				: currWorkspace.getActiveTurtles();
@@ -126,130 +119,5 @@ public class ManipulateController implements IWorkSpaceController {
 		for (Turtle turtle : turtles) {
 			lambda.run(turtle);
 		}
-	}
-
-	/**
-	 * Parser will set currentWorkspace after it's done executing.
-	 * @param s
-	 */
-	public void setReponse(Response s) {
-		currWorkspace.setCurrentResponse(s);
-	}
-
-	/* (non-Javadoc)
-	 * @see sharedobjects.IWorkSpaceController#foward(int)
-	 */
-	@Override
-	public Response foward(int pixels) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see sharedobjects.IWorkSpaceController#back(int)
-	 */
-	@Override
-	public Response back(int pixels) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see sharedobjects.IWorkSpaceController#left(double)
-	 */
-	@Override
-	public Response left(double degrees) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see sharedobjects.IWorkSpaceController#right(double)
-	 */
-	@Override
-	public Response right(double degrees) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see sharedobjects.IWorkSpaceController#setHeading(double)
-	 */
-	@Override
-	public Response setHeading(double degrees) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see sharedobjects.IWorkSpaceController#towards(int, int)
-	 */
-	@Override
-	public Response towards(int x, int y) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see sharedobjects.IWorkSpaceController#setXY(int, int)
-	 */
-	@Override
-	public Response setXY(int x, int y) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see sharedobjects.IWorkSpaceController#penDown()
-	 */
-	@Override
-	public Response penDown() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see sharedobjects.IWorkSpaceController#penUp()
-	 */
-	@Override
-	public Response penUp() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see sharedobjects.IWorkSpaceController#showTurtle()
-	 */
-	@Override
-	public Response showTurtle() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see sharedobjects.IWorkSpaceController#hideTurtle()
-	 */
-	@Override
-	public Response hideTurtle() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see sharedobjects.IWorkSpaceController#home()
-	 */
-	@Override
-	public Response home() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see sharedobjects.IWorkSpaceController#clearScreen()
-	 */
-	@Override
-	public Response clearScreen() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

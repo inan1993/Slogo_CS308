@@ -17,7 +17,7 @@ public class SETPS extends OneArgumentNode {
 		// Get index
 		Double size = getAndRun(0, mc).getDoubleValue();
 		IPenLambda l = (Pen p) -> {
-			p.setThickness(size);
+			p.setPenThickness(size);
 		};
 
 		mc.executePen(l);

@@ -17,7 +17,7 @@ public class SETPC extends OneArgumentNode {
 		// Get index
 		int index = getAndRun(0, mc).getIntegerValue();
 		IPenLambda l = (Pen p) -> {
-			p.setColor(index);
+			p.setPenColor(index);
 		};
 
 		mc.executePen(l);
