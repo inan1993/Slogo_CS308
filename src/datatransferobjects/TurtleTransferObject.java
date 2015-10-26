@@ -5,16 +5,16 @@ public class TurtleTransferObject {
     private double ID;
     private boolean visible;
     private boolean penDown;
-    private int[] oldLoc;
-    private int[] nextLoc;
+    private double[] oldLoc;
+    private double[] nextLoc;
 
-    public TurtleTransferObject(boolean cs, double i, boolean v, boolean b, int[] o , int[] n) {
+    public TurtleTransferObject(boolean cs, double i, boolean v, boolean b, double[] ds , double[] nextPos) {
         clearScreen = cs;
         ID = i;
         visible = v;
         penDown = b;
-        oldLoc = o;
-        nextLoc = n;
+        oldLoc = ds;
+        nextLoc = nextPos;
     }
 
     public boolean isClearScreen(){
@@ -32,11 +32,11 @@ public class TurtleTransferObject {
     public boolean isPenDown(){
         return penDown;
     }
-    public int[] getOldLoc() {
+    public double[] getOldLoc() {
         return oldLoc;
     }
 
-    public int[] getNextLoc() {
+    public double[] getNextLoc() {
         return nextLoc;
     }
 

@@ -35,6 +35,6 @@ public class TurtleStateBox extends TitledPane {
     }
 
     private String createTurtleInfoString(TurtleTransferObject turtleDTO){
-        return String.format(stringFormat, turtleDTO.getID(), turtleDTO.getNextLoc()[0], turtleDTO.getNextLoc()[1], turtleDTO.isVisible(), turtleDTO.isPenDown());
+        return String.format(stringFormat, turtleDTO.getID(), -turtleDTO.getNextLoc()[0], -turtleDTO.getNextLoc()[1], turtleDTO.isVisible(), turtleDTO.isPenDown());
     }
 }

@@ -22,8 +22,8 @@ public class GOTO extends TwoArgumentNode {
 		int y = getAndRun(1, sharedHandle).getIntegerValue();
 				 	
 		ITurtleLambda l = (Turtle t) -> {
-			TurtleTransferObject dto = new TurtleTransferObject(false, t.getID(), false, t.isPenDown(), t.getPosition(), new int[]{0,0});
-			t.setPosition(new int[]{x,y});
+			TurtleTransferObject dto = new TurtleTransferObject(false, t.getID(), false, t.isPenDown(), t.getPosition(), new double[]{0,0});
+			t.setPosition(new double[]{x,y});
 			t.notifyObservers(dto);
 		};
 		sharedHandle.execute(l);

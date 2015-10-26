@@ -17,8 +17,8 @@ public class HOME extends Command {
 	public Response run(ManipulateController mc) {
 		// get xy		
 		ITurtleLambda l = (Turtle t) -> {
-			TurtleTransferObject dto = new TurtleTransferObject(false, t.getID(), false, t.isPenDown(), t.getPosition(), new int[]{0,0});
-			t.setPosition(new int[]{0,0});
+			TurtleTransferObject dto = new TurtleTransferObject(false, t.getID(), false, t.isPenDown(), t.getPosition(), new double[]{0,0});
+			t.setPosition(new double[]{0,0});
 			t.notifyObservers(dto);
 		};
 		mc.execute(l);
