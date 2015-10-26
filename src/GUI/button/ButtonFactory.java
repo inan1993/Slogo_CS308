@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import GUI.textBox.CommandPromptDisplayBox;
 import GUI.textBox.MessageDisplayBox;
-import GUI.turtlepane.TurtleGroup;
+import GUI.turtlepane.TurtleGroupObserver;
 import GUI.viewbox.CommandHistoryBox;
 import datatransferobjects.UserInputTransferObject;
 import javafx.event.ActionEvent;
@@ -26,10 +26,10 @@ public class ButtonFactory {
     private CommandPromptDisplayBox myCommandBox; 
     private MessageDisplayBox myMessageBox;
     private CommandHistoryBox myHistoryDisplayBox;
-    private TurtleGroup myTurtleGroup;
+    private TurtleGroupObserver myTurtleGroup;
     private UserInput myUserInputObservable;
     
-    public ButtonFactory (CommandPromptDisplayBox commandBox, MessageDisplayBox messageBox, CommandHistoryBox historyDisplayBox, TurtleGroup turtleGroup, UserInput userInputObservable) {
+    public ButtonFactory (CommandPromptDisplayBox commandBox, MessageDisplayBox messageBox, CommandHistoryBox historyDisplayBox, TurtleGroupObserver turtleGroup, UserInput userInputObservable) {
         myResource = ResourceBundle.getBundle(DEFAULT_RESOURCE_BUTTON);
         this.myCommandBox = commandBox;
         this.myHistoryDisplayBox = historyDisplayBox;
@@ -102,8 +102,10 @@ public class ButtonFactory {
             myUserInputObservable.notifyObservers(ut);
             
         }catch(Exception e){
-//            e.printStackTrace();
+            System.out.println("Error From Backend (parser)");
+            e.printStackTrace();
             myMessageBox.setMessage(e.toString());
+//            myMessageBox.setMessage(e.getStackTrace().toString());
         }
     }
     private void helpButtonEvent() {

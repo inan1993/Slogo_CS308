@@ -5,7 +5,8 @@ import java.util.Random;
 
 public class Turtle extends Observable{
 	private int ID;
-	private int[] position;
+	private double[] position;
+	private double[] oldPosition;
 	private double heading;
 	private boolean penDown;
 	private boolean showing;
@@ -15,7 +16,8 @@ public class Turtle extends Observable{
 	
 	public Turtle(int id){
 		ID = id;
-		position = new int[]{0,0};
+		position = new double[]{0.0,0.0};
+		oldPosition = new double[]{0.0,0.0};;
 		heading = 90;
 		penDown = true;
 		showing = true;
@@ -23,9 +25,10 @@ public class Turtle extends Observable{
 		this.setChanged();
 	}
 	
-	public Turtle(int[] pos){
-		position = pos;
-	}
+//	public Turtle(double[] pos){
+//		position = pos;
+//		oldPosition = pos;
+//	}
 
 	public void setID(int i){
 		ID = i;
@@ -36,15 +39,20 @@ public class Turtle extends Observable{
 		return ID;
 	}
 	
-	public void setPosition(int[] p){
-		position = p;
+	public void setPosition(double[] p){
+	        oldPosition = position;
+	        position = p;
 		System.out.println("Changing the current Turtle's position to..." + p[0] + ":" + p[1]);
 		this.setChanged();
 	}
 	
-	public int[] getPosition(){
+	public double[] getPosition(){
 		return position;
 	}
+	
+	public double[] getOldPosition(){
+            return oldPosition;
+        }
 
 	public void setHeading(double h){
 		heading = h;

@@ -14,7 +14,7 @@ public class FD extends OneArgumentNode {
 	public Response run(ManipulateController sharedHandle) {
 		int pixels = getAndRun(0, sharedHandle).getIntegerValue();
 		LambdaInterface l = (Turtle t) -> {
-			int[] currPosition = t.getPosition();
+			double[] currPosition = t.getPosition();
 			System.out.println("Current Position..." + currPosition[0] + ":" + currPosition[1]);
 			
 			double heading = t.getHeading();
@@ -22,9 +22,9 @@ public class FD extends OneArgumentNode {
 			double xDiff = Math.cos(Math.toRadians(heading))*pixels; //adjacent 
 			double yDiff = Math.sin(Math.toRadians(heading))*pixels; //opposite
 			
-			int xBack = (int) (currPosition[0] + xDiff);
-			int yBack = (int) (currPosition[1] - yDiff);
-			int[] nextPos = new int[]{xBack, yBack};
+			double xBack = (currPosition[0] + xDiff);
+			double yBack = (currPosition[1] - yDiff);
+			double[] nextPos = new double[]{xBack, yBack};
 			TurtleTransferObject dto = new TurtleTransferObject(false, t.getID(), false, t.isPenDown(), t.getPosition(), nextPos);
 			t.setPosition(nextPos);
 			t.notifyObservers(dto);
