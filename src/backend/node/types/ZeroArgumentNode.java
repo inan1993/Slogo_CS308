@@ -12,6 +12,6 @@ import backend.node.Node;
 public abstract class ZeroArgumentNode extends Node{
 	public ZeroArgumentNode() {
 		super();
-		expectedArgumentNumber = 0;
+//		expectedArgumentNumber = 0;
 	}
 }
