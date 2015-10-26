@@ -1,7 +1,7 @@
 package backend.node.control;
 
 
-import backend.node.ControlStructure;
+import backend.node.types.ControlStructure;
 import responses.Error;
 import responses.Response;
 import sharedobjects.ManipulateController;
@@ -9,6 +9,11 @@ import sharedobjects.ManipulateController;
 public class IFELSE extends ControlStructure {
 	@Override
 	public Response run(ManipulateController mc) {
-		return new Error("Unimplemented");
+		Response left = getAndRun(0, mc);
+		if (left.getDoubleValue() != 0) {
+			return getAndRun(1, mc);
+		} else {
+			return getAndRun(2, mc);
+		}
 	}
 }

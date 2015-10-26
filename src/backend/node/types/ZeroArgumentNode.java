@@ -1,7 +1,9 @@
 /**
  * 
  */
-package backend.node;
+package backend.node.types;
+
+import backend.node.Node;
 
 /**
  * @author loganrooper
@@ -10,6 +12,6 @@ package backend.node;
 public abstract class ZeroArgumentNode extends Node{
 	public ZeroArgumentNode() {
 		super();
-		expectedArgumentNumber = 0;
+//		expectedArgumentNumber = 0;
 	}
 }

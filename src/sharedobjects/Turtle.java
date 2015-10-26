@@ -13,8 +13,8 @@ public class Turtle extends Observable{
 	
 	private Random rand = new Random();
 	
-	public Turtle(){
-		ID = rand.nextInt(100000) + 1;
+	public Turtle(int id){
+		ID = id;
 		position = new int[]{0,0};
 		heading = 90;
 		penDown = true;

@@ -5,7 +5,6 @@ import java.util.Observable;
 import java.util.Observer;
 
 import GUI.SlogoView;
-import backend.node.Executor;
 import backend.parser.Parser;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -33,10 +32,9 @@ public class Main extends Application{
         /*1*/Workspace currWorkspace = new Workspace(); //TODO: workspace must create an observables list
         /*2*/ManipulateController manipulateController = new ManipulateController(currWorkspace);
 
-        /*3*/Executor executor = new Executor(manipulateController);
-        /*4*/Parser parser = new Parser(manipulateController);
+        /*3*/Parser parser = new Parser(manipulateController);
 
-        /*5*/ frontEnd = new SlogoView(); //TODO: frontEnd must create an observers list
+        /*4*/ frontEnd = new SlogoView(); //TODO: frontEnd must create an observers list
 
         ObserverFactory observerFactory = new ObserverFactory(frontEnd);
         

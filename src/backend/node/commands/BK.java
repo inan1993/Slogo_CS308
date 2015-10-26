@@ -1,7 +1,6 @@
-
 package backend.node.commands;
 
-import backend.node.OneArgumentNode;
+import backend.node.types.OneArgumentNode;
 import datatransferobjects.TurtleTransferObject;
 import responses.Response;
 import responses.Success;
@@ -35,6 +34,8 @@ public class BK extends OneArgumentNode {
 			TurtleTransferObject dto = new TurtleTransferObject(false, t.getID(), false, t.isPenDown(), t.getPosition(), nextPos);
 			t.notifyObservers(dto);
 		};
+		
+		sharedHandle.execute(l);
 		
 		// return argument 1 value
 		return new Success(getAndRun(0, sharedHandle).getDoubleValue());

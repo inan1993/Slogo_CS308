@@ -2,7 +2,7 @@ package backend.node.operations;
 
 import java.util.Random;
 
-import backend.node.TwoArgumentNode;
+import backend.node.types.TwoArgumentNode;
 import responses.Response;
 import responses.Success;
 import sharedobjects.ManipulateController;

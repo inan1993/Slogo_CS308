@@ -17,6 +17,7 @@ public enum SyntaxType {
 	HIDETURTLE,
 	HOME,
 	CLEARSCREEN,
+	CLEARSTAMP,
 //	#
 //	# Turtle Queries
 //	#
@@ -91,6 +92,6 @@ public enum SyntaxType {
 	LISTEND,
 	GROUPSTART,
 	GROUPEND,
-	USERCOMMAND;
+	USERCOMMAND,
 }
 

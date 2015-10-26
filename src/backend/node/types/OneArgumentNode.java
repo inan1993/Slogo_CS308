@@ -1,9 +1,11 @@
 /**
  * 
  */
-package backend.node;
+package backend.node.types;
 
 import java.util.List;
+
+import backend.node.Node;
 
 /**
  * @author loganrooper
@@ -12,6 +14,6 @@ import java.util.List;
 public abstract class OneArgumentNode extends Node{
 	public OneArgumentNode() {
 		super();
-		expectedArgumentNumber = 1;
+//		expectedArgumentNumber = 1;
 	}
 }

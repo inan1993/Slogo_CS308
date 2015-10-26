@@ -17,8 +17,9 @@ public class ObserverFactory {
     }
 
     private void createObservers(){
-        myObservers.add(new FrontEndObserver(mySlogoView.getTurtlePaneGroup(), mySlogoView.getTurtlePaneCanvas()));
+        myObservers.add(new TurtlePaneObserver(mySlogoView.getTurtlePaneGroup(), mySlogoView.getTurtlePaneCanvas()));
         myObservers.add(new ParsedCommandsObserver(mySlogoView.getFunctionDisplayBox(), mySlogoView.getVariableDisplayBox()));
+        myObservers.add(new TurtleStateBoxObserver(mySlogoView.getTurtleStateBox()));
     }
     
     public List<Observer> getObservers(){

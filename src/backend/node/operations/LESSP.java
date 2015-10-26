@@ -1,6 +1,6 @@
 package backend.node.operations;
 
-import backend.node.OneArgumentNode;
+import backend.node.types.OneArgumentNode;
 import responses.Response;
 import responses.Success;
 import sharedobjects.ManipulateController;
