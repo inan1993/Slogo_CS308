@@ -1,7 +1,7 @@
-package backend.parser;
+package exceptions;
 
 public class SyntaxException extends RuntimeException {
-	SyntaxException(String msg)	{
+	public SyntaxException(String msg)	{
 		super(msg);
 	}
 }

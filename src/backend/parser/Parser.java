@@ -17,12 +17,12 @@ import java.util.StringTokenizer;
 import java.util.regex.Pattern;
 import backend.factory.CommandFactory;
 import backend.node.Node;
+import backend.node.control.USERCOMMAND;
 import datatransferobjects.UserInputTransferObject;
+import exceptions.SyntaxException;
 import responses.Error;
 import responses.Response;
 import sharedobjects.ManipulateController;
-import sharedobjects.ManipulateController;
-import sharedobjects.Workspace;
 
 
 /**
@@ -73,9 +73,10 @@ public class Parser implements Observer {
 	public Response parse(String userInput, String lang) {
 		myLanguage=lang;
 		myTokenList=new ArrayList<Entry<TokenType, String>>();
-		Response response = new Error("Haven't begin parsing");
+		Response response = null;
 		BufferedReader reader=new BufferedReader(new StringReader(userInput));
 		String line;
+		//lexicon parsing ("fd :#$@" is wrong)
 		try {
 			while((line=reader.readLine())!=null)
 			{
@@ -87,9 +88,9 @@ public class Parser implements Observer {
 				}
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		//syntax parsing ("fd fd" is wrong)
 		try {
 			buildSyntaxTree();
 		} catch (SyntaxException e)
@@ -151,23 +152,8 @@ public class Parser implements Observer {
 		mySyntaxList = new ArrayList<Entry<SyntaxType, String>>();
 		for(Entry<TokenType, String> entry:myTokenList){
 			switch(entry.getKey()){
-			case CONSTANT:
-				mySyntaxList.add(new SimpleEntry<SyntaxType, String>(SyntaxType.CONSTANT, entry.getValue()));
-				break;
-			case VARIABLE:
-				mySyntaxList.add(new SimpleEntry<SyntaxType, String>(SyntaxType.VARIABLE, entry.getValue()));
-				break;
-			case LISTSTART:
-				mySyntaxList.add(new SimpleEntry<SyntaxType, String>(SyntaxType.LISTSTART, entry.getValue()));
-				break;
-			case LISTEND:
-				mySyntaxList.add(new SimpleEntry<SyntaxType, String>(SyntaxType.LISTEND, entry.getValue()));
-				break;
-			case GROUPSTART:
-				mySyntaxList.add(new SimpleEntry<SyntaxType, String>(SyntaxType.GROUPSTART, entry.getValue()));
-				break;
-			case GROUPEND:
-				mySyntaxList.add(new SimpleEntry<SyntaxType, String>(SyntaxType.GROUPEND, entry.getValue()));
+			case CONSTANT: case VARIABLE: case LISTSTART: case LISTEND: case GROUPSTART: case GROUPEND:
+				mySyntaxList.add(new SimpleEntry<SyntaxType, String>(syntaxMap.get(entry.getKey().name().toUpperCase()), entry.getValue()));
 				break;
 			case COMMAND:
 				boolean matchFlag=false;
@@ -212,27 +198,34 @@ public class Parser implements Observer {
 			myIndex++;
 			//check the syntax and move on
 			switch(type){
-			//with 0 para
+			//with 0 argument
 			case CONSTANT:
 				root.setValue(Double.parseDouble(mySyntaxList.get(myIndex-1).getValue()));
 			case VARIABLE:case PENDOWN:case PENUP: case SHOWTURTLE :case HIDETURTLE:
 			case HOME:case CLEARSCREEN:case XCOORDINATE:case YCOORDINATE:
-			case HEADING: case ISPENDOWN: case ISSHOWING: case PI:
+			case HEADING: case ISPENDOWN: case ISSHOWING: case PI: case GETPENCOLOR: 
+			case GETSHAPE: case STAMP: case CLEARSTAMP: case ID: case TURTLES:
 				parseExpression(root,0);
 				break;
-			//with 1 para
+			//with 1 argument
 			case FORWARD:case BACKWARD:case LEFT: case RIGHT: case SETHEADING:
 			case MINUS: case RANDOM:case SINE:case COSINE:case TANGENT:
-			case ARCTANGENT:case NATURALLOG:case NOT:
+			case ARCTANGENT:case NATURALLOG:case NOT: case SETBACKGROUND: case SETPENCOLOR:
+			case SETPENSIZE: case SETSHAPE: 
 				parseExpression(root,1);
 				break;
-			//with 2 paras	
+			//with 2 arguments	
 			case SETTOWARDS:case SETPOSITION:case SUM:case DIFFERENCE:
 			case PRODUCT:case QUOTIENT:case REMAINDER:case POWER:
 			case LESSTHAN:case GREATERTHAN:case EQUAL:case NOTEQUAL:
 			case AND:case OR:
 				parseExpression(root, 2);
 			    break;
+			//with 3 arguments
+			case SETPALETTE: 
+				parseExpression(root, 3);
+				break;
+			//control structures
 			case GROUPSTART:
 				root = factory.createNode(mySyntaxList.get(myIndex).getKey());
 				root.setName(mySyntaxList.get(myIndex).getValue());
@@ -240,18 +233,18 @@ public class Parser implements Observer {
 				parseGroupStart(root);
 				break;
 			case GROUPEND:
-				throw new SyntaxException("Miss a left ( for" + root.getName());
+				throw new SyntaxException("Missing a left ( for" + root.getName());
 			case LISTSTART:
 				if(myListLegal){
 					parseListStart(root);
 					myListLegal=false;
 				}
 				else{
-					throw new SyntaxException("Use " + root.getName() + "in illegal condition");
+					throw new SyntaxException("Cannot use " + root.getName() + " here!");
 				}
 				break;
 			case LISTEND:
-				throw new SyntaxException("Miss a left [ for" + root.getName());
+				throw new SyntaxException("Missing a left [ for" + root.getName());
 			case MAKEVARIABLE:
 				parseMakeVar(root);
 				break;
@@ -270,20 +263,31 @@ public class Parser implements Observer {
 			case IFELSE:
 				parseIfelse(root);
 				break;
+			case TELL:
+				parseTell(root);
+				break;
+			case ASK:case ASKWITH:
+				parseAsk(root);
+				break;
 			case MAKEUSERINSTRUCTION:
 				parseMakeCmd(root);
 				break;
 			default:
 				//root is USERCOMMAND
-				Node toCmd = myManiControl.getCommand(mySyntaxList.get(myIndex-1).getValue());///////////maybe getFunction?
-				if(toCmd==null)
-					throw new SyntaxException("Undefined command!");
-				int numOfArg=toCmd.getChildrenNum()-1;
-				parseExpression(root, numOfArg);
+				if (root instanceof USERCOMMAND) {
+					Node toCmd = myManiControl.getCommand(mySyntaxList.get(myIndex-1).getValue());///////////maybe getFunction?
+					if(toCmd==null)
+						throw new SyntaxException("You have not defined this command!");
+					int numOfArg=toCmd.getChildrenNum()-1;
+					parseExpression(root, numOfArg);
+				} else {
+					throw new SyntaxException("Invalid command parameters: " + root.getName());
+				}
+				
 			}
 			return root;
 		}catch(ArrayIndexOutOfBoundsException e){
-			throw new SyntaxException("Uncompleted arguments list!");
+			throw new SyntaxException("Invalid command parameters!");
 		}
 	}
 	
@@ -344,7 +348,7 @@ public class Parser implements Observer {
 			myIndex++;
 			return;
 		}catch(ArrayIndexOutOfBoundsException e){
-			throw new SyntaxException("Miss a right brace ] in "+root.getName());
+			throw new SyntaxException("Missing a right brace ] in "+root.getName());
 		}
 	}
 	
@@ -355,15 +359,16 @@ public class Parser implements Observer {
 			try{
 				CommandFactory factory = new CommandFactory();
 				Node fakeRoot = root;
-				while(mySyntaxList.get(myIndex).getKey()!=SyntaxType.GROUPEND){
+				while(mySyntaxList.get(myIndex+2).getKey()!=SyntaxType.GROUPEND){
 					parseExpression(fakeRoot, 1);
 					Node c = factory.createNode(type);
 					fakeRoot.addChild(c);
 					fakeRoot=c;
 				}
+				parseExpression(fakeRoot, 2);
 				myIndex++;
 			}catch(ArrayIndexOutOfBoundsException e){
-				throw new SyntaxException("Miss a right brace ) in "+root.getName());
+				throw new SyntaxException("Missing a right brace ) in "+root.getName());
 			}
 			break;
 		default:
@@ -375,7 +380,7 @@ public class Parser implements Observer {
 				}
 				myIndex++;
 			}catch(ArrayIndexOutOfBoundsException e){
-				throw new SyntaxException("Miss a right brace ) in "+root.getName());
+				throw new SyntaxException("Missing a right brace ) in "+root.getName());
 			}
 			return;
 		}
@@ -385,7 +390,7 @@ public class Parser implements Observer {
 	private void parseDoTimes(Node root) throws SyntaxException{
 		try{
 			if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.LISTSTART){
-				throw new SyntaxException("Miss a left brace [ in " + root.getName());
+				throw new SyntaxException("Missing a left brace [ in " + root.getName());
 			}
 			else {
 				myIndex++;
@@ -397,7 +402,7 @@ public class Parser implements Observer {
 				c=growTree();
 				root.addChild(c);
 				if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.LISTEND){
-					throw new SyntaxException("Miss a right brace ] in " + root.getName());
+					throw new SyntaxException("Missing a right brace ] in " + root.getName());
 				}
 				myIndex++;
 			}	
@@ -417,7 +422,7 @@ public class Parser implements Observer {
 	private void parseFor(Node root) throws SyntaxException{
 		try{
 			if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.LISTSTART){
-				throw new SyntaxException("Miss a left brace [ in " + root.getName());
+				throw new SyntaxException("Missing a left brace [ in " + root.getName());
 			}
 			else {
 				myIndex++;
@@ -430,7 +435,7 @@ public class Parser implements Observer {
 					root.addChild(c);
 				}
 				if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.LISTEND){
-					throw new SyntaxException("Miss a right brace ] in " + root.getName());
+					throw new SyntaxException("Missing a right brace ] in " + root.getName());
 				}
 				myIndex++;
 			}	
@@ -483,13 +488,47 @@ public class Parser implements Observer {
 		}
 	}
 	
+	//tell [ 3 ]
+	private void parseTell(Node root) throws SyntaxException{
+		try{
+			if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.LISTSTART){
+				throw new SyntaxException("Miss a left brace [ in " + root.getName());
+			}
+			else {
+				myListLegal=true;
+				Node c=growTree();
+				root.addChild(c);
+			}
+		}catch(ArrayIndexOutOfBoundsException e){
+			throw new SyntaxException("Uncompleted argument list in " + root.getName());
+		}
+	}
+	
+	//ask [ 2 ] [ fd 10 ] 
+	private void parseAsk(Node root) throws SyntaxException{
+		try{
+			for(int i=0;i<2;i++){
+				if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.LISTSTART){
+					throw new SyntaxException("Miss a left brace [ in " + root.getName());
+				}
+				else {
+					myListLegal=true;
+					Node c=growTree();
+					root.addChild(c);
+				}
+			}
+		}catch(ArrayIndexOutOfBoundsException e){
+			throw new SyntaxException("Uncompleted argument list in " + root.getName());
+		}
+	}
+	
 	private void parseMakeCmd(Node root) throws SyntaxException{
 		int beginIndex=myIndex;
 		root.setName(mySyntaxList.get(myIndex).getValue());
 		myIndex++;
 		try{
 			if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.LISTSTART){
-				throw new SyntaxException("Miss a left brace [ in " + root.getName());
+				throw new SyntaxException("Missing a left brace [ in " + root.getName());
 			}
 			else {
 				myIndex++;
@@ -498,7 +537,7 @@ public class Parser implements Observer {
 					root.addChild(c);
 				}
 				if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.LISTEND){
-					throw new SyntaxException("Miss a right brace ] in " + root.getName());
+					throw new SyntaxException("Missing a right brace ] in " + root.getName());
 				}
 				myIndex++;
 			}	
@@ -507,7 +546,7 @@ public class Parser implements Observer {
 			}
 			else {
 				/*unsafe code, because the display string is empty for the time being*/
-				myManiControl.setCommand("",root.getName(), root);
+				myManiControl.setCommand(root.getName(), root);
 //				myManiControl.setCommandOnly(root.getName(), root);
 				myListLegal=true;
 				Node c=growTree();
@@ -577,9 +616,9 @@ public class Parser implements Observer {
 		String input = dto.getUserInput();
 		System.out.println("Wanning"+input);
 		String lang = dto.getLanguage();
-		Response s = parse(input, lang);
-		if (s instanceof Error)
-			throw new SyntaxException(s.toString());
+		Response s = parse(input, lang);	
+		//Notify the frontend
+
 	}
 }
 

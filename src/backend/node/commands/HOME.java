@@ -4,7 +4,7 @@ import backend.node.types.Command;
 import datatransferobjects.TurtleTransferObject;
 import responses.Response;
 import responses.Success;
-import sharedobjects.LambdaInterface;
+import sharedobjects.ITurtleLambda;
 import sharedobjects.ManipulateController;
 import sharedobjects.Turtle;
 
@@ -16,9 +16,9 @@ public class HOME extends Command {
 
 	public Response run(ManipulateController mc) {
 		// get xy		
-		LambdaInterface l = (Turtle t) -> {
-			TurtleTransferObject dto = new TurtleTransferObject(false, t.getID(), false, t.isPenDown(), t.getPosition(), new int[]{0,0});
-			t.setPosition(new int[]{0,0});
+		ITurtleLambda l = (Turtle t) -> {
+			TurtleTransferObject dto = new TurtleTransferObject(false, t.getID(), false, t.isPenDown(), t.getPosition(), new double[]{0,0});
+			t.setPosition(new double[]{0,0});
 			t.notifyObservers(dto);
 		};
 		mc.execute(l);
