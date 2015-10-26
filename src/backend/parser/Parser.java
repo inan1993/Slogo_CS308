@@ -17,7 +17,9 @@ import java.util.StringTokenizer;
 import java.util.regex.Pattern;
 import backend.factory.CommandFactory;
 import backend.node.Node;
+import backend.node.control.USERCOMMAND;
 import datatransferobjects.UserInputTransferObject;
+import exceptions.SyntaxException;
 import responses.Error;
 import responses.Response;
 import sharedobjects.ManipulateController;
@@ -427,7 +429,6 @@ public class Parser implements Observer {
 				parseMakeCmd(root);
 				break;
 			default:
-				//root is USERCOMMAND
 				Node toCmd = myManiControl.getCommand(mySyntaxList.get(myIndex-1).getValue());///////////maybe getFunction?
 				if(toCmd==null)
 					throw new SyntaxException(error_undefined);
@@ -541,9 +542,9 @@ public class Parser implements Observer {
 		String input = dto.getUserInput();
 		System.out.println("Wanning"+input);
 		String lang = dto.getLanguage();
-		Response s = parse(input, lang);
-		if (s instanceof Error)
-			throw new SyntaxException(s.toString());
+		Response s = parse(input, lang);	
+		//Notify the frontend
+
 	}
 }
 

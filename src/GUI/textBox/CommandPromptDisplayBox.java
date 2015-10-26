@@ -8,7 +8,7 @@ public class CommandPromptDisplayBox extends TextArea {
         super();
         this.setPromptText("Enter command here");
         this.setStyle("-fx-border-color: black;");
-        this.setPrefSize(650, 70);
+        this.setPrefSize(650, 20);
     }
     
 }
