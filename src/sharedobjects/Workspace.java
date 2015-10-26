@@ -8,7 +8,6 @@ import java.util.Observable;
 
 import backend.node.Node;
 import datatransferobjects.ParsedCommandsTransferObject;
-import datatransferobjects.TurtleTransferObject;
 
 public class Workspace {
 	Map<Integer, Turtle> allTurtles;
@@ -97,8 +96,7 @@ public class Workspace {
 	
 	public void startWorkspace(){
 		Turtle firstTurtle = activeTurtles.get(0);
-		TurtleTransferObject dto = new TurtleTransferObject(false, firstTurtle.getID(), true, true, new double[]{0,0}, new double[]{0,0});
-		firstTurtle.notifyObservers(dto);
+		firstTurtle.notifyObservers("turtle");
 		displayProp.notifyObservers();
 		System.out.println("here1");
 	}
