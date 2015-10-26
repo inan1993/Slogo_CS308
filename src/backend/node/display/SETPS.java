@@ -15,12 +15,12 @@ public class SETPS extends OneArgumentNode {
 	@Override
 	public Response run(ManipulateController mc) {
 		// Get index
-		Double index = getAndRun(0, mc).getDoubleValue();
+		Double size = getAndRun(0, mc).getDoubleValue();
 		IPenLambda l = (Pen p) -> {
-			p.setThickness(index);
+			p.setThickness(size);
 		};
 
 		mc.executePen(l);
-		return new Success(index);
+		return new Success(size);
 	}
 }
