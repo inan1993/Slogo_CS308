@@ -277,7 +277,7 @@ public class Parser implements Observer {
 				//root is USERCOMMAND
 				Node toCmd = myManiControl.getCommand(mySyntaxList.get(myIndex).getValue());///////////maybe getFunction?
 				if(toCmd==null)
-					throw new SyntaxException("Undefied command!");
+					throw new SyntaxException("Undefined command!");
 				int numOfArg=toCmd.getChildrenNum()-1;
 				parseExpression(root, numOfArg);
 			}
