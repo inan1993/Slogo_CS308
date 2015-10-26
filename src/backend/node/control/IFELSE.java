@@ -9,6 +9,11 @@ import sharedobjects.ManipulateController;
 public class IFELSE extends ControlStructure {
 	@Override
 	public Response run(ManipulateController mc) {
-		return new Error("Unimplemented");
+		Response left = getAndRun(0, mc);
+		if (left.getDoubleValue() != 0) {
+			return getAndRun(1, mc);
+		} else {
+			return getAndRun(2, mc);
+		}
 	}
 }

@@ -449,6 +449,7 @@ public class Parser implements Observer {
 	private void parseIfelse(Node root) throws SyntaxException{
 		try {
 			Node c = growTree();
+			root.addChild(c);
 			for (int i=0;i<2;i++) {
 				if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.LISTSTART){
 					throw new SyntaxException("Incompatible argument list in " + root.getName());
