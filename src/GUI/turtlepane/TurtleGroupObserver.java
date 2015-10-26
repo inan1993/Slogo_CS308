@@ -52,7 +52,6 @@ public class TurtleGroupObserver extends Group implements Observer{
     @Override
     public void update (Observable o, Object arg) {
         Turtle turtleObservable = (Turtle) o;
-        System.out.println(this.getClass().getName()+": gothim"); 
         Iterator<Integer> it = myTurtleIDs.iterator();
         while(it.hasNext()){
             if(it.next() == turtleObservable.getID()){
