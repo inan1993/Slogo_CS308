@@ -33,6 +33,7 @@ public class CommandFactory {
 		registerNode(SyntaxType.HIDETURTLE, HT.class);
 		registerNode(SyntaxType.HOME, HOME.class);
 		registerNode(SyntaxType.CLEARSCREEN, CS.class);
+		
 		//// #
 		//// # Turtle Queries
 		//// #
