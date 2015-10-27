@@ -88,6 +88,10 @@ public class CanvasObserver extends Canvas implements Observer {
 	public void setPenWidth(Double penWidth) {
 		myGC.setLineWidth(penWidth);
 	}
+	
+//	public double getPenWidth(){
+//		return myGC.getLineWidth();
+//	}
 
 	@Override
 	public void update(Observable o, Object arg) {
