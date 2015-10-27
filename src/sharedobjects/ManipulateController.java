@@ -5,12 +5,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import backend.node.Node;
-import backend.node.types.Constant;
 import responses.Response;
-import responses.Success;
 
 public class ManipulateController implements IWorkSpaceController {
-
 	private Workspace currWorkspace;
 	private List<Workspace> workspaceList = new LinkedList<Workspace>();
 
@@ -52,64 +49,21 @@ public class ManipulateController implements IWorkSpaceController {
 		currWorkspace.setActiveTurtles(nextActiveList);
 	}
 
-	public double getHeading() {
-		return 0;
-	}
-
-	public void addVariable(String v, Node n) {
-		currWorkspace.addVariable(v, n);
-	}
-
-	@Override
-	public Response setCommand(String userInput, String stringName, Node n) {
-		currWorkspace.addCommand(userInput, stringName, n);
-		return null;
-	}
-
-	@Override
-	public Node getCommand(String commandName) {
-		return currWorkspace.getCommand(commandName);
-	}
-
-	@Override
-	public Response setVariable(String variableName, Node var) {
-		currWorkspace.addVariable(variableName, var);
-		return new Success(var.getDoubleValue());
-	}
-
-	@Override
-	public Node getVariable(String variableName) {
-		return currWorkspace.getVariable(variableName);
-	}
-
-	public void incrementVariable(String variableName) {
-		currWorkspace.addVariable(variableName,
-				new Constant(currWorkspace.getVariable(variableName).getIntegerValue() + 1));
-	}
-
-	public void incrementVariableByValue(String variableName, int value) {
-		currWorkspace.addVariable(variableName,
-				new Constant(currWorkspace.getVariable(variableName).getIntegerValue() + value));
-	}
-
-	public void decrementVariable(String variableName) {
-		currWorkspace.addVariable(variableName,
-				new Constant(currWorkspace.getVariable(variableName).getIntegerValue() - 1));
-	}
-
-	@Override
-	public Response setCommand(String stringName, Node n) {
-		currWorkspace.addCommand(stringName, n);
-		return null;
-	}
-
-	// Execute on Observables
+	// Execute on observables
 	public double executeWorkspace(IWorkspaceLambda l) {
 		return l.run(currWorkspace);
 	}
 
 	public double executeDisplayProperties(IDisplayPropertiesLambda l) {
 		return l.run(currWorkspace.displayProp);
+	}
+	
+	public Node executeOnWorkspaceFunctions(IWorkspaceFunctionsLambda l) {
+		return l.run(currWorkspace.funcs);
+	}
+	
+	public Node executeOnWorkspaceVariables(IWorkspaceVariablesLambda l) {
+		return l.run(currWorkspace.vars);
 	}
 
 	public double executeOnAllActiveTurtles(ITurtleLambda lambda) {

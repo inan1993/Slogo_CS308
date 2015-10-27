@@ -18,10 +18,12 @@ import java.util.regex.Pattern;
 import backend.factory.CommandFactory;
 import backend.node.Node;
 import backend.node.control.USERCOMMAND;
+import backend.node.types.Constant;
 import datatransferobjects.UserInputTransferObject;
 import exceptions.SyntaxException;
 import responses.Error;
 import responses.Response;
+import sharedobjects.Functions;
 import sharedobjects.ManipulateController;
 
 
@@ -429,7 +431,10 @@ public class Parser implements Observer {
 				parseMakeCmd(root);
 				break;
 			default:
-				Node toCmd = myManiControl.getCommand(mySyntaxList.get(myIndex-1).getValue());///////////maybe getFunction?
+				Node toCmd = myManiControl.executeOnWorkspaceFunctions((Functions f) -> {
+					return f.getCommand(mySyntaxList.get(myIndex-1).getValue());
+				});
+				
 				if(toCmd==null)
 					throw new SyntaxException(error_undefined);
 				int numOfArg=toCmd.getChildrenNum()-1;
@@ -482,7 +487,11 @@ public class Parser implements Observer {
 				throw new SyntaxException(error_left1 + root.getName());
 			}
 			else {
-				myManiControl.setCommand(root.getName(), root);
+				myManiControl.executeOnWorkspaceFunctions((Functions f) -> {
+					f.setCommand(root.getName(), root);
+					return new Constant(0);
+				});
+				
 				myListLegal=true;
 				Node c=growTree();
 				root.addChild(c);
@@ -496,7 +505,12 @@ public class Parser implements Observer {
 			display += mySyntaxList.get(i).getValue();
 			display += " ";
 		}
-		myManiControl.setCommand(display, root.getName(), root);
+		
+		final String s = display;
+		myManiControl.executeOnWorkspaceFunctions((Functions f) -> {
+			f.setCommand(s, root.getName(), root);
+			return new Constant(0);
+		});
 	}
 	
 	//The following two methods are only used when we first create a parser. They will generate myTokenPatterns, mySyntaxPatterns
