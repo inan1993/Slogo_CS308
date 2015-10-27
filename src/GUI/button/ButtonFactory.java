@@ -109,7 +109,7 @@ public class ButtonFactory {
             myUserInputObservable.notifyObservers(ut);
             
         }catch(Exception e){
-            //e.printStackTrace();
+            e.printStackTrace();
             myMessageBox.setMessage("Error: " + e.getMessage());
 //            myMessageBox.setMessage(e.getStackTrace().toString());
         }

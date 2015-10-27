@@ -21,8 +21,6 @@ public class HT extends ZeroArgumentNode {
 		
 		ITurtleLambda l = (Turtle t) -> {
 			t.hide();
-			
-			t.notifyObservers("turtle");
 			return 0;
 		};
 		mc.executeOnAllActiveTurtles(l);

@@ -22,7 +22,6 @@ public class CS extends ZeroArgumentNode {
 		sharedHandle.executeOnAllTurtles((Turtle t) -> {
 			t.setPosition(new double[]{0,0});
 			t.setHeading(90);
-			t.notifyObservers("turtle");
 			return 0;
 		});
 		

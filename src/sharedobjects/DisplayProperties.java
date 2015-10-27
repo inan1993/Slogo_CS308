@@ -146,5 +146,4 @@ public class DisplayProperties extends Observable {
 	public double getPenColorID() {
 		return myPenColor;
 	}
-
 }

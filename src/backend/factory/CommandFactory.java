@@ -4,6 +4,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
+import backend.node.DUVALL;
 import backend.node.Node;
 import backend.node.commands.*;
 import backend.node.control.*;
@@ -113,6 +114,8 @@ public class CommandFactory {
 		registerNode(SyntaxType.GROUPSTART, GROUPSTART.class);// GROUPSTART,
 		// GROUPEND,
 		registerNode(SyntaxType.USERCOMMAND, USERCOMMAND.class);
+		registerNode(SyntaxType.DUVALL, DUVALL.class);
+		
 	}
 
 	public static void registerNode(SyntaxType type, Class nodeClass) {

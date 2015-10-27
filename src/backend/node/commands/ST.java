@@ -19,7 +19,6 @@ public class ST extends ZeroArgumentNode {
 	public Response run(ManipulateController mc) {
 		ITurtleLambda l = (Turtle t) -> {
 			t.show();
-			t.notifyObservers("turtle");
 			return 1;
 		};
 		mc.executeOnAllActiveTurtles(l);

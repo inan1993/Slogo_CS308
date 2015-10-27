@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-
 import backend.node.Node;
 import responses.Response;
 
@@ -19,14 +17,7 @@ public class ManipulateController implements IWorkSpaceController {
 	}
 
 	public void setTempTurtles(int[] ids) {
-		Map<Integer, Turtle> allTurtles = currWorkspace.getAllTurtles();
-		List<Turtle> tempTurtles = new LinkedList<Turtle>();
-		for (int i = 0; i < ids.length; i++) {
-			if (allTurtles.containsKey(i)) {
-				tempTurtles.add(allTurtles.get(i));
-			}
-		}
-		currWorkspace.setTempTurtles(tempTurtles);
+		currWorkspace.getTurtleContainer().setTempTurtles(ids);
 	}
 
 	public void clearTempTurtles() {
@@ -34,54 +25,28 @@ public class ManipulateController implements IWorkSpaceController {
 	}
 
 	public int tellTurtles(int[] ids) {
-		Map<Integer, Turtle> allTurtles = currWorkspace.getAllTurtles();
-		currWorkspace.setActiveTurtles(Collections.<Turtle> emptyList());
-		List<Turtle> nextActiveList = new LinkedList<Turtle>();
-		for (int id = 0; id < ids.length; id++) {
-			if (allTurtles.containsKey(ids[id])) {
-				Turtle temp = allTurtles.get(ids[id]);
-				temp.activate();
-				nextActiveList.add(temp);
-			} else {
-				Turtle temp = currWorkspace.addNewTurtle(ids[id]);
-				nextActiveList.add(temp);
-			}
-		}
-		currWorkspace.setActiveTurtles(nextActiveList);
-		return ids[ids.length-1];
-	}
-
-	// Execute on observables
-	public double executeWorkspace(IWorkspaceLambda l) {
-		return l.run(currWorkspace);
+		return currWorkspace.getTurtleContainer().tellTurtles(ids);
 	}
 
 	public double executeDisplayProperties(IDisplayPropertiesLambda l) {
-		return l.run(currWorkspace.displayProp);
+		return l.run(currWorkspace.getDisplayProp());
 	}
 	
 	public Node executeOnWorkspaceFunctions(IWorkspaceFunctionsLambda l) {
-		return l.run(currWorkspace.funcs);
+		return l.run(currWorkspace.getFuncs());
 	}
 	
 	public Node executeOnWorkspaceVariables(IWorkspaceVariablesLambda l) {
-		return l.run(currWorkspace.vars);
+		return l.run(currWorkspace.getVars());
 	}
 
-	public double executeOnAllActiveTurtles(ITurtleLambda lambda) {
-		List<Turtle> turtles = (currWorkspace.getTempTurtles().size() > 0) ? currWorkspace.getTempTurtles()
-				: currWorkspace.getActiveTurtles();
-		
-		double response = 0;
-		for (Turtle turtle : turtles) {
-			response = lambda.run(turtle);
-		}
-		return response;
+	public double executeOnTurtleContainer(ITurtleLambda lambda) {
+		return currWorkspace.executeOnAllActiveTurtles(lambda);	
 	}
 	
 	public double executeOnAllTurtles(ITurtleLambda lambda) {
-		List<Turtle> turtles = (currWorkspace.getTempTurtles().size() > 0) ? currWorkspace.getTempTurtles()
-				: new ArrayList(currWorkspace.getAllTurtles().values());
+		List<Turtle> turtles = (currWorkspace.getTurtleContainer().getTempTurtles().size() > 0) ? currWorkspace.getTurtleContainer().getTempTurtles()
+				: new ArrayList(currWorkspace.getTurtleContainer().getAllTurtles().values());
 		
 		double response = 0;
 		for (Turtle turtle : turtles) {
@@ -92,5 +57,18 @@ public class ManipulateController implements IWorkSpaceController {
 	
 	public void setReponse(Response s) {
 		currWorkspace.setCurrentResponse(s);
+	}
+
+	@Override
+	public double executeOnAllActiveTurtles(ITurtleLambda lambda) {
+		return currWorkspace.executeOnAllActiveTurtles(lambda);
+	}
+	
+	public double executeOnCurrentTurtle(ITurtleLambda lambda){
+		return currWorkspace.executeOnCurrentTurtle(lambda);
+	}
+	
+	public void tellDuvall2Dance(){
+		currWorkspace.tellDuvall2Dance();
 	}
 }

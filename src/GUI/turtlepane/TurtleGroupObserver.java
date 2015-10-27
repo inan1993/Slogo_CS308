@@ -10,6 +10,7 @@ import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import sharedobjects.Turtle;
+import sharedobjects.TurtleContainer;
 
 public class TurtleGroupObserver extends Group implements Observer{
 
@@ -17,15 +18,18 @@ public class TurtleGroupObserver extends Group implements Observer{
 
     private List<Integer> myTurtleIDs;
     private Image myTurtleImage;
-    double width,height;
+    private double width,height;
+    private double inactiveOpacity;
+    private ResourceBundle myResource;
 
     public TurtleGroupObserver () {
         super();
-        ResourceBundle myResource = ResourceBundle.getBundle(DEFAULT_GUI_RESOURCE);
+        this.myResource = ResourceBundle.getBundle(DEFAULT_GUI_RESOURCE);
         this.myTurtleImage = new Image(getClass().getClassLoader().getResourceAsStream(myResource.getString("defaultTurtle")));
         this.myTurtleIDs = new ArrayList<Integer>();
         width = Integer.parseInt(myResource.getString("canvasWidth"));
         height = Integer.parseInt(myResource.getString("canvasHeight"));
+        inactiveOpacity = Double.parseDouble(myResource.getString("inactiveTurtleOpacity"));
     }
 
     public void setImage(Image newImage){
@@ -43,29 +47,43 @@ public class TurtleGroupObserver extends Group implements Observer{
         this.setOpacity(value);
 
     }
-    
-    private void drawTurtle(Turtle turtle) {
+
+    private void drawTurtle(Turtle turtle, List<Turtle> activeTurtles) {
         myTurtleIDs.add(turtle.getID());
         ImageView turtleImage = new ImageView(myTurtleImage);
         turtleImage.setX(turtle.getPosition()[0]+width/2.0-(myTurtleImage.getWidth()/2.0));
         turtleImage.setY(turtle.getPosition()[1]+height/2.0-(myTurtleImage.getHeight()/2.0));
         turtleImage.setVisible(turtle.isShowing());
-        System.out.println("heading towards");
         turtleImage.setRotate(90-turtle.getHeading());
+        if(!activeTurtles.contains(turtle)){
+            turtleImage.setOpacity(inactiveOpacity);
+        }
         this.getChildren().add(turtleImage);
     }
 
-    
     @Override
     public void update (Observable o, Object arg) {
-        Turtle turtleObservable = (Turtle) o;
-        Iterator<Integer> it = myTurtleIDs.iterator();
-        while(it.hasNext()){
-            if(it.next() == turtleObservable.getID()){
-                this.getChildren().remove(myTurtleIDs.indexOf(turtleObservable.getID()));
-                it.remove();
+        
+        if(((String)arg).equals("dancingDuvall")){
+            int c=0;
+            for(int id: myTurtleIDs){
+                this.getChildren().remove(c);
+                c++;
             }
+            ImageView duvall = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream(myResource.getString("defaultTurtle"))));
+            this.getChildren().add(duvall);
         }
-        drawTurtle(turtleObservable);
+
+        TurtleContainer turtleContainer = (TurtleContainer) o;
+        for(Turtle t: turtleContainer.getAllTurtles().values()){
+            Iterator<Integer> it = myTurtleIDs.iterator();
+            while(it.hasNext()){
+                if(it.next() == t.getID()){
+                    this.getChildren().remove(myTurtleIDs.indexOf(t.getID()));
+                    it.remove();
+                }
+            }
+            drawTurtle(t, turtleContainer.getActiveTurtles());
+        }
     }
 }

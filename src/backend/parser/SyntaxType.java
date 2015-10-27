@@ -95,6 +95,10 @@ public enum SyntaxType {
 	GROUPSTART,
 	GROUPEND,
 	USERCOMMAND, 
-	GOTO,
+	GOTO, 
+//	#
+//	# Duvall
+//	#
+	DUVALL
 }
 

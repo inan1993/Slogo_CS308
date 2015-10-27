@@ -4,6 +4,7 @@ import java.util.Observable;
 import java.util.Observer;
 import GUI.viewbox.TurtleStateBox;
 import sharedobjects.Turtle;
+import sharedobjects.TurtleContainer;
 
 public class TurtleStateBoxObserver implements Observer{
 
@@ -14,8 +15,10 @@ public class TurtleStateBoxObserver implements Observer{
 
     @Override
     public void update (Observable o, Object arg) {
-        Turtle turtle= (Turtle) o;
-        myTurtleStateBox.updateTurtleStateBox(turtle);
+    	TurtleContainer turtleContainer = (TurtleContainer) o;
+		for(Turtle t: turtleContainer.getAllTurtles().values()){
+			myTurtleStateBox.updateTurtleStateBox(t);			
+		}
     }
 
 }
