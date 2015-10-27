@@ -96,5 +96,9 @@ public enum SyntaxType {
 	GROUPEND,
 	USERCOMMAND, 
 	GOTO, 
+//	#
+//	# Duvall
+//	#
+	DUVALL
 }
 
