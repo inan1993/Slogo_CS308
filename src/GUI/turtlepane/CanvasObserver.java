@@ -5,10 +5,9 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
+
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import sharedobjects.DisplayProperties;
 import sharedobjects.Turtle;
@@ -38,15 +37,15 @@ public class CanvasObserver extends Canvas implements Observer {
 		myGC.fillRect(0, 0, myWidth, myHeight);
 		setDefaultPenAndStroke();
 	}
-	
+
 	private void setPalette(Map<Integer, Color> colorPalette) {
 		this.colorPalette = colorPalette;
 	}
 
 	private void setDefaultPenAndStroke() {
 		setPenColor(myResource.getString("defaultPenColor"));
-		setLineType(myResource.getString("defaultLineType"));
-		setPenWidth(Double.parseDouble(myResource.getString("defaultLineThickness")));
+		setLineType(myResource.getString("defaultPenState"));
+		setPenWidth(Double.parseDouble(myResource.getString("defaultPenThickness")));
 		myGC.setStroke(myPenColor);
 	}
 
@@ -59,16 +58,6 @@ public class CanvasObserver extends Canvas implements Observer {
 		myGC.setStroke(myPenColor);
 	}
 
-	// <<<<<<< HEAD
-	// public void drawLine(double[] startLoc, double[] endLoc, boolean draw) {
-	// if (draw) {
-	// // myGC.setStroke(myPenColor);
-	// myGC.strokeLine(startLoc[0] + myWidth / 2.0, startLoc[1] + myHeight /
-	// 2.0, endLoc[0] + myWidth / 2.0,
-	// endLoc[1] + myHeight / 2.0);
-	// }
-	// }
-	// =======
 	public void drawLine(double[] startLoc, double[] endLoc) {
 		if (isDrawing()) {
 			myGC.strokeLine(startLoc[0] + myWidth / 2.0, startLoc[1] + myHeight / 2.0, endLoc[0] + myWidth / 2.0,
@@ -96,36 +85,36 @@ public class CanvasObserver extends Canvas implements Observer {
 	public void setPenWidth(Double penWidth) {
 		myGC.setLineWidth(penWidth);
 	}
-	
+
 	public double getPenWidth(){
 		return myGC.getLineWidth();
 	}
-	
+
 	@Override
-  public void update(Observable o, Object arg) {
+	public void update(Observable o, Object arg) {
 
-      if(((String)arg).equals("dancingDuvall")){
-          clear();
-      }
+		if(((String)arg).equals("dancingDuvall")){
+			clear();
+		}
 
-      if (((String) arg).equals("turtle")) {
-          TurtleContainer turtleContainer = (TurtleContainer) o;
-          for(Turtle t: turtleContainer.getAllTurtles().values()){
-              drawLine(t.getOldPosition(), t.getPosition());
-          }
-      } else if (((String) arg).equals("pen")) {
-          DisplayProperties t = (DisplayProperties) o;
-          setPenColor(t.getPaletteColor(t.getPenColorID()).toString());
-          setLineType(t.getPenState());
-          setPenWidth(t.getPenThickness());
-          setDrawing(t.getPenDown());
-      } else if (((String) arg).equals("palette")) {
-          DisplayProperties t = (DisplayProperties) o;
-          setPalette(t.getPalette());
-      } else if (((String) arg).equals("clear")) {
-          clear();
-      }
-  }
+		if (((String) arg).equals("turtle")) {
+			TurtleContainer turtleContainer = (TurtleContainer) o;
+			for(Turtle t: turtleContainer.getAllTurtles().values()){
+				drawLine(t.getOldPosition(), t.getPosition());
+			}
+		} else if (((String) arg).equals("pen")) {
+			DisplayProperties t = (DisplayProperties) o;
+			setPenColor(t.getPaletteColor(t.getPenColorID()).toString());
+			setLineType(t.getPenState());
+			setPenWidth(t.getPenThickness());
+			setDrawing(t.getPenDown());
+		} else if (((String) arg).equals("palette")) {
+			DisplayProperties t = (DisplayProperties) o;
+			setPalette(t.getPalette());
+		} else if (((String) arg).equals("clear")) {
+			clear();
+		}
+	}
 
 	public boolean isDrawing() {
 		return isDrawing;

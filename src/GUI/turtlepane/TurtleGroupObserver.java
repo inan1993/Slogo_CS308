@@ -49,15 +49,11 @@ public class TurtleGroupObserver extends Group implements Observer{
 	}
 
 	public void clear(){
-		//        for(double id: myTurtleIDs){
-		//            this.getChildren().remove(id);
-		//        }
 		this.getChildren().removeAll();
 	}
 
 	public void changeOpacity(double value){
 		this.setOpacity(value);
-
 	}
 
 	private void drawTurtle(Turtle turtle, List<Turtle> activeTurtles) {
@@ -94,10 +90,6 @@ public class TurtleGroupObserver extends Group implements Observer{
 		}
 	}
 
-	
-	
-	
-	
 	//	-------------------------- EASTER EGG --------------------------
 
 	private void dance(Observable o, Object arg) {
