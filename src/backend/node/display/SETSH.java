@@ -1,12 +1,12 @@
 package backend.node.display;
 
 import backend.node.types.OneArgumentNode;
-import exceptions.WontAddException;
+import exceptions.WontImplementException;
 import responses.Response;
 import responses.Success;
-import sharedobjects.IPenLambda;
+import sharedobjects.DisplayProperties;
+import sharedobjects.IDisplayPropertiesLambda;
 import sharedobjects.ManipulateController;
-import sharedobjects.Pen;
 
 /**
  * @author loganrooper
@@ -15,6 +15,14 @@ import sharedobjects.Pen;
 public class SETSH extends OneArgumentNode {
 	@Override
 	public Response run(ManipulateController mc) {
-		throw new WontAddException();
+		int index = getAndRun(0, mc).getIntegerValue();
+		
+		IDisplayPropertiesLambda l = (DisplayProperties d) -> {
+			d.setPenShape(index);
+			return 0;
+		};
+
+		mc.executeDisplayProperties(l);
+		return new Success(index);
 	}
 }

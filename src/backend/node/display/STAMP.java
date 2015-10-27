@@ -1,6 +1,7 @@
 package backend.node.display;
 
 import backend.node.types.ZeroArgumentNode;
+import exceptions.NotImplementedException;
 import responses.Response;
 import sharedobjects.ManipulateController;
 
@@ -11,7 +12,6 @@ import sharedobjects.ManipulateController;
 public class STAMP extends ZeroArgumentNode {
 	@Override
 	public Response run(ManipulateController mc) {
-		//Call mc.stamp()
-		return null;
+		throw new NotImplementedException();
 	}
 }

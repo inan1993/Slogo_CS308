@@ -3,6 +3,7 @@ package GUI;
 import java.awt.Dimension;
 import java.util.Map;
 import java.util.Observable;
+import java.util.Observer;
 import java.util.ResourceBundle;
 import GUI.button.AButton;
 import GUI.button.ButtonFactory;
@@ -275,4 +276,8 @@ public class SlogoView {
     public void showError (Exception e) {
         messageBox.setMessage(e.toString());
     }
+    
+	public Observer getMessageBox() {
+		return messageBox;
+	}
 }

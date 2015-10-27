@@ -3,7 +3,7 @@ package observers;
 import java.util.Observable;
 import java.util.Observer;
 import GUI.viewbox.TurtleStateBox;
-import datatransferobjects.TurtleTransferObject;
+import sharedobjects.Turtle;
 
 public class TurtleStateBoxObserver implements Observer{
 
@@ -14,8 +14,8 @@ public class TurtleStateBoxObserver implements Observer{
 
     @Override
     public void update (Observable o, Object arg) {
-        TurtleTransferObject turtleDTO = (TurtleTransferObject) arg;
-        myTurtleStateBox.updateTurtleStateBox(turtleDTO);
+        Turtle turtle= (Turtle) o;
+        myTurtleStateBox.updateTurtleStateBox(turtle);
     }
 
 }

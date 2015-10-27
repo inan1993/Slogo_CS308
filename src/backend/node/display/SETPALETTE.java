@@ -6,6 +6,7 @@ import responses.Success;
 import sharedobjects.DisplayProperties;
 import sharedobjects.IDisplayPropertiesLambda;
 import sharedobjects.ManipulateController;
+import sharedobjects.Workspace;
 
 /**
  * @author loganrooper
@@ -22,6 +23,7 @@ public class SETPALETTE extends FourArgumentNode {
 		
 		IDisplayPropertiesLambda l = (DisplayProperties d) -> {
 			d.newPaletteColor(index, r, g, b);
+			return 0;
 		};
 		
 		mc.executeDisplayProperties(l);
