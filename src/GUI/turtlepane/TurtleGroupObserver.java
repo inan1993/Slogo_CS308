@@ -65,10 +65,13 @@ public class TurtleGroupObserver extends Group implements Observer{
     public void update (Observable o, Object arg) {
         if(((String)arg).equals("dancingDuvall")){
             System.out.println("reached?");
-            TurtleContainer turtleContainer = (TurtleContainer) o;
-            
-            ImageView duvall = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream(myResource.getString("defaultTurtle"))));
+            Image d = new Image(getClass().getClassLoader().getResourceAsStream(myResource.getString("dancingDuvall")));
+            ImageView duvall = new ImageView(d);
+            this.getChildren().clear();
             this.getChildren().add(duvall);
+            while(true){
+                
+            }
         }
 
         TurtleContainer turtleContainer = (TurtleContainer) o;
