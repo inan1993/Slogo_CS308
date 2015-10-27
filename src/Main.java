@@ -10,7 +10,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import observers.ObserverFactory;
-import sharedobjects.HandleObservers;
+import sharedobjects.HandleObservation;
 import sharedobjects.ManipulateController;
 import sharedobjects.Workspace;
 
@@ -51,7 +51,7 @@ public class Main extends Application {
 			List<Observer> observers = new ArrayList<Observer>();
 			observers.addAll(observerFactory.getObservers());
 			observers.add(parser);
-			/* 6 */ HandleObservers.handleObservers(observables, observers);
+			/* 6 */ HandleObservation.handleObservers(observables, observers);
 
 			currWorkspace.startWorkspace();
 		} catch (Exception e) {

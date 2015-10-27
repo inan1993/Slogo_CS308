@@ -18,13 +18,15 @@ public class SETH extends OneArgumentNode {
 		 //get headings
 		 double newHeading = getAndRun(0, mc).getDoubleValue();
 		 ITurtleLambda l = (Turtle t) -> {
+			Double delta = Math.abs(t.getHeading() - newHeading);
+			delta = Math.min(delta, 360 - delta);
 			t.setHeading(newHeading);
 			t.notifyObservers("turtle");
-			return 0;
+			return delta;
 		};
-		mc.executeOnAllActiveTurtles(l);
+		Double delta = mc.executeOnAllActiveTurtles(l);
 	   
-		 //return the delta
-		 return new Success(1);
+		//return the delta
+		return new Success(delta);
 	}
 }
