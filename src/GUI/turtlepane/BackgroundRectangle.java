@@ -14,7 +14,11 @@ public class BackgroundRectangle extends Rectangle implements Observer{
 	protected static ResourceBundle myResource;
 
 	private Color myBackgroundColor;
-
+	
+	public BackgroundRectangle() {
+		super(Integer.parseInt(myResource.getString("canvasWidth")), Integer.parseInt(myResource.getString("canvasHeight")));
+	}
+	
 	public BackgroundRectangle (int width, int height) {
 		super(width, height);
 		myResource = ResourceBundle.getBundle(TURTLE_RESOURCE_PACKAGE);
@@ -33,6 +37,9 @@ public class BackgroundRectangle extends Rectangle implements Observer{
 		if (((String) arg).equals("turtle")) {
 			DisplayProperties t = (DisplayProperties) o;
 			this.setFill(t.getBgColor());
+		} else if (((String) arg).equals("bg")) {
+			DisplayProperties t = (DisplayProperties) o;
+			setBackgroundColor(t.getBgColor().toString());
 		}
 	}
 }

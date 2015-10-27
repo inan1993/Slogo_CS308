@@ -110,8 +110,6 @@ public class CanvasObserver extends Canvas implements Observer {
 		} else if (((String) arg).equals("palette")) {
 			DisplayProperties t = (DisplayProperties) o;
 			setPalette(t.getPalette());
-		} else {
-			throw new FrontendException("Internal error:" + arg.toString());
 		}
 	}
 
