@@ -90,12 +90,13 @@ public class SlogoView {
 		// Image(getClass().getClassLoader().getResourceAsStream(myResource.getString("defaultTurtle")));
 		// myTurtleIDs = new ArrayList<Double>();
 		myUserInputObservable = new UserInput(DEFAULT_LANGUAGE);
-
-		ButtonFactory buttonFactory = new ButtonFactory(commandBox, messageBox, historyDisplayBox, myTurtleGroup,
-				myUserInputObservable);
-		myButtons = buttonFactory.getButtons();
-
 		BorderPane root = new BorderPane();
+		
+		ButtonFactory buttonFactory = new ButtonFactory(commandBox, messageBox, historyDisplayBox, myTurtleGroup,
+				myUserInputObservable, root);
+		myButtons = buttonFactory.getButtons();
+		
+		
 
 		root.setMaxSize(DEFAULT_SIZE.getWidth(), DEFAULT_SIZE.getHeight());
 

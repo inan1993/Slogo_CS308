@@ -15,7 +15,9 @@ import GUI.viewbox.CommandHistoryBox;
 import datatransferobjects.UserInputTransferObject;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import sharedobjects.UserInput;
 
@@ -29,8 +31,9 @@ public class ButtonFactory {
     private CommandHistoryBox myHistoryDisplayBox;
     private TurtleGroupObserver myTurtleGroup;
     private UserInput myUserInputObservable;
+    private BorderPane root;
     
-    public ButtonFactory (CommandPromptDisplayBox commandBox, MessageDisplayBoxObserver messageBox, CommandHistoryBox historyDisplayBox, TurtleGroupObserver turtleGroup, UserInput userInputObservable) {
+    public ButtonFactory (CommandPromptDisplayBox commandBox, MessageDisplayBoxObserver messageBox, CommandHistoryBox historyDisplayBox, TurtleGroupObserver turtleGroup, UserInput userInputObservable, BorderPane main) {
         myResource = ResourceBundle.getBundle(DEFAULT_RESOURCE_BUTTON);
         this.myCommandBox = commandBox;
         this.myHistoryDisplayBox = historyDisplayBox;
@@ -39,6 +42,7 @@ public class ButtonFactory {
         this.myUserInputObservable = userInputObservable;
         myButtons = new HashMap<String, AButton>();
         createButtons();
+        root = main;
     }
     
     public void createButtons(){

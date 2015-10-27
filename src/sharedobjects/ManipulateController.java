@@ -1,9 +1,11 @@
 package sharedobjects;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
 import backend.node.Node;
 import responses.Response;
 
@@ -69,6 +71,17 @@ public class ManipulateController implements IWorkSpaceController {
 	public double executeOnAllActiveTurtles(ITurtleLambda lambda) {
 		List<Turtle> turtles = (currWorkspace.getTempTurtles().size() > 0) ? currWorkspace.getTempTurtles()
 				: currWorkspace.getActiveTurtles();
+		
+		double response = 0;
+		for (Turtle turtle : turtles) {
+			response = lambda.run(turtle);
+		}
+		return response;
+	}
+	
+	public double executeOnAllTurtles(ITurtleLambda lambda) {
+		List<Turtle> turtles = (currWorkspace.getTempTurtles().size() > 0) ? currWorkspace.getTempTurtles()
+				: new ArrayList(currWorkspace.getAllTurtles().values());
 		
 		double response = 0;
 		for (Turtle turtle : turtles) {
