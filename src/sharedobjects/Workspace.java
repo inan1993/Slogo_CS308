@@ -88,4 +88,8 @@ public class Workspace {
 		turtleContainer.tellDuvall2Dance();
 	}
 
+	public double executeOnAllTurtles(ITurtleLambda lambda) {
+		return turtleContainer.executeOnAllTurtles(lambda);
+	}
+
 }

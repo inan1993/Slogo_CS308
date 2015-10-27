@@ -1,6 +1,6 @@
 package sharedobjects;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -114,5 +114,23 @@ public class TurtleContainer extends Observable {
         setChanged();
         notifyObservers("dancingDuvall");
     }
+
+	/**
+	 * @param lambda
+	 * @return
+	 */
+	public double executeOnAllTurtles(ITurtleLambda lambda) {
+		List<Turtle> turtles = (getTempTurtles().size() > 0)
+				? getTempTurtles()
+				: new ArrayList<Turtle>(getAllTurtles().values());
+
+		double response = 0;
+		for (Turtle turtle : turtles) {
+			response = lambda.run(turtle);
+		}
+		setChanged();
+        notifyObservers("turtle");
+		return response;
+	}
 
 }
