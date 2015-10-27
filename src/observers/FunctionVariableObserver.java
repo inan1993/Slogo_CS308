@@ -19,21 +19,23 @@ public class FunctionVariableObserver implements Observer{
 		this.myVariableList = variableList;
 	}
 
+
 	@Override
 	public void update (Observable o, Object arg) {
 		if(arg.equals("Function")){
+			myFunctionList.clear();
 			List<String> s = ((Functions) o).getAllFunctionsAsString();
-			for (String a : s){
-				myFunctionList.setMessage(a);
-			}
+			for (String a : s)
+				myFunctionList.setMessage(a); 
 		}
 		else {
 			//Variable
+			myVariableList.clear();
 			List<String> s = ((Variables) o).getAllVariables();
-			for (String a : s){
+			for (String a : s)
 				myVariableList.setMessage(a); 
 
-			}
 		}
 	}
 }
+

@@ -17,7 +17,7 @@ import GUI.dropdown.PenColorDropdown;
 import GUI.slider.LineSlider;
 import GUI.slider.OpacitySlider;
 import GUI.textBox.CommandPromptDisplayBox;
-import GUI.textBox.MessageDisplayBox;
+import GUI.textBox.MessageDisplayBoxObserver;
 import GUI.turtlepane.BackgroundRectangle;
 import GUI.turtlepane.CanvasObserver;
 import GUI.turtlepane.TurtleGroupObserver;
@@ -51,7 +51,7 @@ public class SlogoView {
 	private Scene scene;
 
 	private CommandPromptDisplayBox commandBox; 
-	private MessageDisplayBox messageBox;
+	private MessageDisplayBoxObserver messageBox;
 	private VariableListBox variableDisplayBox;
 	private CommandHistoryBox historyDisplayBox;
 	private FunctionListBox functionDisplayBox;
@@ -78,7 +78,7 @@ public class SlogoView {
 
 		myResource = ResourceBundle.getBundle(DEFAULT_RESOURCE_VIEW);
 		commandBox = new CommandPromptDisplayBox();
-		messageBox = new MessageDisplayBox();
+		messageBox = new MessageDisplayBoxObserver();
 		variableDisplayBox = new VariableListBox(commandBox);
 		historyDisplayBox = new CommandHistoryBox(commandBox);
 		functionDisplayBox = new FunctionListBox(commandBox);
