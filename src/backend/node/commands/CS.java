@@ -19,7 +19,7 @@ public class CS extends ZeroArgumentNode {
 
 	@Override
 	public Response run(ManipulateController sharedHandle) {
-		sharedHandle.executeOnAllActiveTurtles((Turtle t) -> {
+		sharedHandle.executeOnAllTurtles((Turtle t) -> {
 			t.setPosition(new double[]{0,0});
 			t.setHeading(90);
 			return 0;

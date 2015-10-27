@@ -11,11 +11,11 @@ import responses.Success;
 
 public class Workspace {
 	private DisplayProperties displayProp;
-	private Variables vars;	
+	private Variables vars;
 	private Functions funcs;
 	private Response response;
 	private TurtleContainer turtleContainer;
-	
+
 	public Workspace() {
 		displayProp = new DisplayProperties();
 		vars = new Variables();
@@ -39,15 +39,15 @@ public class Workspace {
 	public TurtleContainer getTurtleContainer() {
 		return turtleContainer;
 	}
-	
+
 	public DisplayProperties getDisplayProp() {
 		return displayProp;
 	}
-	
+
 	public void setDisplayProp(DisplayProperties displayProp) {
 		this.displayProp = displayProp;
 	}
-	
+
 	public List<Observable> getObservables() {
 		List<Observable> observables = new LinkedList<Observable>();
 		observables.add(turtleContainer);
@@ -60,7 +60,7 @@ public class Workspace {
 
 	public void startWorkspace() {
 		turtleContainer.notifyObservers("turtle");
-		
+
 	}
 
 	/**
@@ -74,14 +74,14 @@ public class Workspace {
 	public double executeOnAllActiveTurtles(ITurtleLambda lambda) {
 		return turtleContainer.executeOnAllActiveTurtles(lambda);
 	}
-	
+
 	public double executeOnCurrentTurtle(ITurtleLambda lambda) {
 		return turtleContainer.executeOnCurrentTurtle(lambda);
 	}
 
 	public void setTempTurtles(List<Turtle> turtles) {
 		turtleContainer.setTempTurtles(turtles);
-		
+
 	}
 
 	public void tellDuvall2Dance() {
