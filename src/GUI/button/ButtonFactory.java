@@ -106,7 +106,7 @@ public class ButtonFactory {
             
         }catch(Exception e){
             e.printStackTrace();
-            myMessageBox.setMessage(e.toString());
+            myMessageBox.setMessage("Error: " + e.getMessage());
 //            myMessageBox.setMessage(e.getStackTrace().toString());
         }
     }

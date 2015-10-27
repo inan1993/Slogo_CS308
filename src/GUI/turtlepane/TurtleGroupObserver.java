@@ -43,7 +43,7 @@ public class TurtleGroupObserver extends Group implements Observer{
 	public void changeOpacity(double value){
 		this.setOpacity(value);
 
-	}
+    }
 
 	private void drawTurtle(Turtle turtle) {
 		myTurtleIDs.add(turtle.getID());

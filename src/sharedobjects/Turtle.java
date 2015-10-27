@@ -7,7 +7,6 @@ public class Turtle {
 	private double[] position;
 	private double[] oldPosition;
 	private double heading;
-	private boolean penDown;
 	private boolean showing;
 	private boolean active;
 	
@@ -16,7 +15,6 @@ public class Turtle {
 		position = new double[]{0.0,0.0};
 		oldPosition = new double[]{0.0,0.0};;
 		heading = 90;
-		penDown = true;
 		showing = true;
 		active = true;
 	}
@@ -49,18 +47,6 @@ public class Turtle {
 	
 	public double getHeading(){
 		return heading;
-	}
-	
-	public void penUp(){
-		penDown = false;
-	}
-	
-	public void penDown(){
-		penDown = true;
-	}
-	
-	public boolean isPenDown(){
-		return penDown;
 	}
 	
 	public void show(){

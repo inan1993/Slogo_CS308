@@ -10,7 +10,6 @@ import responses.Response;
 import responses.Success;
 
 public class Workspace {
-	List<Color> colorPalette;
 	private DisplayProperties displayProp;
 	private Variables vars;	
 	private Functions funcs;
@@ -48,7 +47,6 @@ public class Workspace {
 	public void setDisplayProp(DisplayProperties displayProp) {
 		this.displayProp = displayProp;
 	}
-
 	
 	public List<Observable> getObservables() {
 		List<Observable> observables = new LinkedList<Observable>();
@@ -63,6 +61,9 @@ public class Workspace {
 	public void startWorkspace() {
 		turtleContainer.notifyObservers("turtle");
 		displayProp.notifyObservers();
+		response.notifyObservers();
+		funcs.notifyObservers();
+		vars.notifyObservers();
 	}
 
 	/**

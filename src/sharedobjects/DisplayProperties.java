@@ -24,32 +24,34 @@ public class DisplayProperties extends Observable {
 	Color bgColor;
 	private int myPenColor;
 	private double penThickness;
-	private String penState;
+	private String lineType;
+	private Boolean penDown;
 
 	public DisplayProperties() {
-		//Defaults
+		// Defaults
 		myResource = ResourceBundle.getBundle(DEFAULT_GUI_RESOURCE);
-		myPenColor = 0; //Color.valueOf(myResource.getString("defaultPenColor"));
+		myPenColor = 0; // Color.valueOf(myResource.getString("defaultPenColor"));
 		penThickness = Integer.parseInt(myResource.getString("defaultLineThickness"));
-		penState = myResource.getString("defaultLineType");
+		setLineType(myResource.getString("defaultLineType"));
 		bgColor = Color.valueOf(myResource.getString("defaultBackgroundColor"));
 		colorPalette = new HashMap<Integer, Color>();
 		createDefaultPalette();
+		setPenDown(true);
 		this.setChanged();
 	}
 
 	public void setPenColor(int index) {
 		myPenColor = index;
-		this.setChanged();
+		penUpdate();
 	}
 
-	public double getPenColor() {
-		return myPenColor;
+	public Color getPenColor() { 
+		return colorPalette.get(myPenColor);
 	}
-	
+
 	public void setPenThickness(double t) {
 		penThickness = t;
-		this.setChanged();
+		penUpdate();
 	}
 
 	public double getPenThickness() {
@@ -57,12 +59,12 @@ public class DisplayProperties extends Observable {
 	}
 
 	public String getPenState() {
-		return penState;
+		return lineType;
 	}
 
 	public void setPenState(String state) {
-		this.penState = state;
-		this.setChanged();
+		this.lineType = state;
+		penUpdate();
 	}
 
 	public void setPenShape(int index) {
@@ -74,21 +76,27 @@ public class DisplayProperties extends Observable {
 		for (int i = 0; i < defColors.length; i++) {
 			colorPalette.put(i, Color.valueOf(defColors[i]));
 		}
+		paletteUpdate();
 	}
 
 	public void newPaletteColor(int index, double r, double g, double b) {
 		Color color = new Color(r, g, b, .99);
 		colorPalette.put(index, color);
-		this.setChanged();
+		paletteUpdate();
+	}
+	
+	public Map<Integer, Color> getPalette() {
+		return colorPalette;
 	}
 
-	public Color getPaletteColor(int index) {
-		return colorPalette.get(index - 1);
+	public Color getPaletteColor(double index) {
+		 Color t = colorPalette.get((int) index);
+		 return t;
 	}
 
 	public void setBgColor(int index) {
-		bgColor = colorPalette.get(index - 1);
-		this.setChanged();
+		bgColor = colorPalette.get(index);
+		bgChange();
 	}
 
 	public Color getBgColor() {
@@ -98,4 +106,40 @@ public class DisplayProperties extends Observable {
 	public double getShape() {
 		throw new WontImplementException();
 	}
+
+	private void penUpdate() {
+		this.setChanged();
+		notifyObservers("pen");
+	}
+
+	private void bgChange() {
+		this.setChanged();
+		notifyObservers("bg");
+	}
+
+	private void paletteUpdate() {
+		this.setChanged();
+		notifyObservers("palette");
+	}
+
+	public String getLineType() {
+		return lineType;
+	}
+
+	public void setLineType(String lineType) {
+		this.lineType = lineType;
+	}
+
+	public Boolean getPenDown() {
+		return penDown;
+	}
+
+	public void setPenDown(Boolean penDown) {
+		this.penDown = penDown;
+	}
+
+	public double getPenColorID() {
+		return myPenColor;
+	}
+
 }

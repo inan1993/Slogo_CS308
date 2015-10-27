@@ -11,29 +11,31 @@ import sharedobjects.Variables;
 
 public class FunctionVariableObserver implements Observer{
 
-    private FunctionListBox myFunctionList;
-    private VariableListBox myVariableList;
+	private FunctionListBox myFunctionList;
+	private VariableListBox myVariableList;
 
-    public FunctionVariableObserver (FunctionListBox functionList, VariableListBox variableList) {
-        this.myFunctionList = functionList;
-        this.myVariableList = variableList;
-    }
+	public FunctionVariableObserver (FunctionListBox functionList, VariableListBox variableList) {
+		this.myFunctionList = functionList;
+		this.myVariableList = variableList;
+	}
 
-    @Override
-    public void update (Observable o, Object arg) {
-        if(arg.equals("Function")){
-        	myFunctionList.clear();
-        	List<String> s = ((Functions) o).getAllFunctionsAsString();
-        	for (String a : s)
-        		myFunctionList.setMessage(a); 
-        }
-        else {
-        	//Variable
-        	myVariableList.clear();
-        	List<String> s = ((Variables) o).getAllVariables();
-        	for (String a : s)
-        		myVariableList.setMessage(a); 
 
-        }
-    }
+	@Override
+	public void update (Observable o, Object arg) {
+		if(arg.equals("Function")){
+			myFunctionList.clear();
+			List<String> s = ((Functions) o).getAllFunctionsAsString();
+			for (String a : s)
+				myFunctionList.setMessage(a); 
+		}
+		else {
+			//Variable
+			myVariableList.clear();
+			List<String> s = ((Variables) o).getAllVariables();
+			for (String a : s)
+				myVariableList.setMessage(a); 
+
+		}
+	}
 }
+

@@ -90,7 +90,7 @@ public class TurtleContainer extends Observable {
 
 	public int tellTurtles(int[] ids) {
 		Map<Integer, Turtle> allTurtles = getAllTurtles();
-		setActiveTurtles(Collections.<Turtle> emptyList());
+		getActiveTurtles().clear();
 		List<Turtle> nextActiveList = new LinkedList<Turtle>();
 		for (int id = 0; id < ids.length; id++) {
 			if (allTurtles.containsKey(ids[id])) {
