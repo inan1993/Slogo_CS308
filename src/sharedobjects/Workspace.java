@@ -5,8 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
-import backend.node.Node;
-import datatransferobjects.ParsedCommandsTransferObject;
 import javafx.scene.paint.Color;
 import responses.Response;
 import responses.Success;
@@ -16,8 +14,9 @@ public class Workspace {
 	List<Turtle> activeTurtles;
 	List<Turtle> tempTurtles;
 	List<Color> colorPalette;
-	ParsedCommands userInputsObservable = new ParsedCommands();
 	DisplayProperties displayProp;
+	Variables vars;
+	Functions funcs;
 	private Response response;
 
 	public Workspace() {
@@ -27,6 +26,8 @@ public class Workspace {
 		activeTurtles.add(allTurtles.get(1));
 		tempTurtles = new LinkedList<Turtle>();
 		displayProp = new DisplayProperties();
+		vars = new Variables();
+		funcs = new Functions();
 		response = new Success("");
 	}
 
@@ -56,44 +57,16 @@ public class Workspace {
 		return tempTurtles;
 	}
 
-	// ****Commands and Variables Manipulation*****//
-	public void addVariable(String v, Node n) {
-		userInputsObservable.addVariable(v, n);
-		ParsedCommandsTransferObject uito = new ParsedCommandsTransferObject(false, v + " = " + n.getDoubleValue());
-		userInputsObservable.notifyObservers(uito);
-	}
-
-	public Node getVariable(String v) {
-		return userInputsObservable.getVariable(v);
-	}
-
-	public void addCommand(String userInput, String c, Node n) {
-		userInputsObservable.addCommand(c, n);
-		ParsedCommandsTransferObject uito = new ParsedCommandsTransferObject(true, userInput);
-		userInputsObservable.notifyObservers(uito);
-	}
-
-	public void addCommand(String c, Node n) {
-		userInputsObservable.addCommand(c, n);
-	}
-
-	public Node getCommand(String c) {
-		return userInputsObservable.getCommand(c);
-	}
-
 	public List<Observable> getObservables() {
 		List<Observable> observables = new LinkedList<Observable>();
 		for (Turtle t : activeTurtles) {
 			System.out.println("here2");
 			observables.add((Observable) t);
 		}
-		observables.add(userInputsObservable);
 		observables.add(displayProp);
 		observables.add(response);
-		// observables.add(pen);
-		// observables.add(functions);
-		// observables.add(variables);
-		// observables.add(response);
+		observables.add(funcs);
+		observables.add(vars);
 		return observables;
 	}
 

@@ -45,8 +45,9 @@ public abstract class Node implements Cloneable {
 		return myChildren.size();
 	}
 
-	public void setName(String name) {
+	public Node setName(String name) {
 		this.name = name;
+		return this;
 	}
 
 	public Boolean hasChildren() {

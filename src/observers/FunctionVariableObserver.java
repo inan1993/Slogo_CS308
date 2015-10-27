@@ -7,12 +7,12 @@ import GUI.viewbox.FunctionListBox;
 import GUI.viewbox.VariableListBox;
 import datatransferobjects.ParsedCommandsTransferObject;
 
-public class ParsedCommandsObserver implements Observer{
+public class FunctionVariableObserver implements Observer{
 
     private FunctionListBox myFunctionList;
     private VariableListBox myVariableList;
 
-    public ParsedCommandsObserver (FunctionListBox functionList, VariableListBox variableList) {
+    public FunctionVariableObserver (FunctionListBox functionList, VariableListBox variableList) {
         this.myFunctionList = functionList;
         this.myVariableList = variableList;
     }

@@ -39,17 +39,22 @@ public class TurtleGroupObserver extends Group implements Observer{
         this.getChildren().removeAll();
     }
 
+    public void changeOpacity(double value){
+        this.setOpacity(value);
+
+    }
+    
     private void drawTurtle(Turtle turtle) {
         myTurtleIDs.add(turtle.getID());
         ImageView turtleImage = new ImageView(myTurtleImage);
         turtleImage.setX(turtle.getPosition()[0]+width/2.0-(myTurtleImage.getWidth()/2.0));
-        turtleImage.setY(turtle.getPosition()[1]+height/2.0-(myTurtleImage.getHeight()/2.0)); // need to change the hardcoded
+        turtleImage.setY(turtle.getPosition()[1]+height/2.0-(myTurtleImage.getHeight()/2.0));
         turtleImage.setVisible(turtle.isShowing());
         turtleImage.setRotate(90-turtle.getHeading());
-        //turtleImage.setOnMouseClicked(//make the turtle active);
         this.getChildren().add(turtleImage);
     }
 
+    
     @Override
     public void update (Observable o, Object arg) {
         Turtle turtleObservable = (Turtle) o;

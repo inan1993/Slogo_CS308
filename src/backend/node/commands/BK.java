@@ -17,7 +17,7 @@ public class BK extends OneArgumentNode {
 	@Override
 	public Response run(ManipulateController sharedHandle) {
 		int pixels = getAndRun(0, sharedHandle).getIntegerValue();
-			ITurtleLambda l = (Turtle t) -> {
+		ITurtleLambda l = (Turtle t) -> {
 			double[] currPosition = t.getPosition();
 			System.out.println("Current Position..." + currPosition[0] + ":" + currPosition[1]);
 			
@@ -31,11 +31,11 @@ public class BK extends OneArgumentNode {
 			double[] nextPos = new double[]{xBack, yBack};
 			t.setPosition(nextPos);
 			t.notifyObservers("turtle");
-			return 0;
+			return pixels;
 		};
 		
 		sharedHandle.executeOnAllActiveTurtles(l);
 		// return argument 1 value
-		return new Success(getAndRun(0, sharedHandle).getDoubleValue());
+		return new Success(pixels);
 	}
 }
