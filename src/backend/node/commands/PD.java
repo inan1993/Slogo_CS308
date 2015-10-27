@@ -21,6 +21,7 @@ public class PD extends ZeroArgumentNode {
 		ITurtleLambda l = (Turtle t) -> {
 			t.penDown();	
 			t.notifyObservers("turtle");
+			return 0;
 		};
 		mc.executeOnAllActiveTurtles(l);
 		// return 1

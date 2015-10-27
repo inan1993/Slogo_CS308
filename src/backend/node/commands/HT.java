@@ -23,6 +23,7 @@ public class HT extends ZeroArgumentNode {
 			t.hide();
 			
 			t.notifyObservers("turtle");
+			return 0;
 		};
 		mc.executeOnAllActiveTurtles(l);
 

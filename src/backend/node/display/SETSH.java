@@ -19,6 +19,7 @@ public class SETSH extends OneArgumentNode {
 		
 		IDisplayPropertiesLambda l = (DisplayProperties d) -> {
 			d.setPenShape(index);
+			return 0;
 		};
 
 		mc.executeDisplayProperties(l);

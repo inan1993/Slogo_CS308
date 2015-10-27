@@ -20,6 +20,7 @@ public class ST extends ZeroArgumentNode {
 		ITurtleLambda l = (Turtle t) -> {
 			t.show();
 			t.notifyObservers("turtle");
+			return 0;
 		};
 		mc.executeOnAllActiveTurtles(l);
 		// return 1

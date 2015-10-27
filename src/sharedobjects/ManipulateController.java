@@ -105,33 +105,26 @@ public class ManipulateController implements IWorkSpaceController {
 	}
 
 	// Execute on Observables
-	public void executeWorkspace(IWorkspaceLambda l) {
-		l.run(currWorkspace);
+	public double executeWorkspace(IWorkspaceLambda l) {
+		return l.run(currWorkspace);
 	}
 
-	public void executeDisplayProperties(IDisplayPropertiesLambda l) {
-		l.run(currWorkspace.displayProp);
+	public double executeDisplayProperties(IDisplayPropertiesLambda l) {
+		return l.run(currWorkspace.displayProp);
 	}
 
-	public void executeOnAllActiveTurtles(ITurtleLambda lambda) {
+	public double executeOnAllActiveTurtles(ITurtleLambda lambda) {
 		List<Turtle> turtles = (currWorkspace.getTempTurtles().size() > 0) ? currWorkspace.getTempTurtles()
 				: currWorkspace.getActiveTurtles();
-
+		
+		double response = 0;
 		for (Turtle turtle : turtles) {
-			lambda.run(turtle);
+			response = lambda.run(turtle);
 		}
+		return response;
 	}
-
+	
 	public void setReponse(Response s) {
 		currWorkspace.setCurrentResponse(s);
-	}
-
-	// Pull data from Observables
-	public double getDataFromWorkspace(IWorkspaceGetLambda l) {
-		return l.get(currWorkspace);
-	}
-
-	public double getDataFromDisplay(IDisplayPropertiesGetLambda l) {
-		return l.get(currWorkspace.displayProp);
 	}
 }

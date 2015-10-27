@@ -23,6 +23,7 @@ public class SETPALETTE extends FourArgumentNode {
 		
 		IDisplayPropertiesLambda l = (DisplayProperties d) -> {
 			d.newPaletteColor(index, r, g, b);
+			return 0;
 		};
 		
 		mc.executeDisplayProperties(l);

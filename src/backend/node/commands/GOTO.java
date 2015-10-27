@@ -23,6 +23,7 @@ public class GOTO extends TwoArgumentNode {
 		ITurtleLambda l = (Turtle t) -> {
 			t.setPosition(new double[]{x,y});
 			t.notifyObservers("turtle");
+			return 0;
 		};
 		sharedHandle.executeOnAllActiveTurtles(l);
 		return new Success(0);
