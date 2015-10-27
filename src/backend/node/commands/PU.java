@@ -21,6 +21,7 @@ public class PU extends ZeroArgumentNode {
 		ITurtleLambda l = (Turtle t) -> {
 			t.penUp();
 			t.notifyObservers("turtle");
+			return 0;
 		};
 		mc.executeOnAllActiveTurtles(l);
 

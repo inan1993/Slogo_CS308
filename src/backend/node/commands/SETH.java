@@ -20,6 +20,7 @@ public class SETH extends OneArgumentNode {
 		 ITurtleLambda l = (Turtle t) -> {
 			t.setHeading(newHeading);
 			t.notifyObservers("turtle");
+			return 0;
 		};
 		mc.executeOnAllActiveTurtles(l);
 	   

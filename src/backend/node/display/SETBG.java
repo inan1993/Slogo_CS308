@@ -18,6 +18,7 @@ public class SETBG extends OneArgumentNode {
 		int index = getAndRun(0, mc).getIntegerValue();
 		IDisplayPropertiesLambda l = (DisplayProperties p) -> {
 			p.setBgColor(index);
+			return 0;
 		};
 
 		mc.executeDisplayProperties(l);

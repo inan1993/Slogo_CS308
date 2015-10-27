@@ -26,6 +26,7 @@ public class FD extends OneArgumentNode {
 			double[] nextPos = new double[]{xBack, yBack};
 			t.setPosition(nextPos);
 			t.notifyObservers("turtle");
+			return 0;
 		};
 
 		mc.executeOnAllActiveTurtles(l);

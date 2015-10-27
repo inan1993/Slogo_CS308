@@ -21,6 +21,7 @@ public class CS extends ZeroArgumentNode {
 		ITurtleLambda l = (Turtle t) -> {
 			t.setPosition(new double[]{0,0});
 			t.notifyObservers("turtle");
+			return 0;
 		};
 
 		sharedHandle.executeOnAllActiveTurtles(l);

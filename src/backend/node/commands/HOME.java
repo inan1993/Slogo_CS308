@@ -18,6 +18,7 @@ public class HOME extends Command {
 		ITurtleLambda l = (Turtle t) -> {
 			t.setPosition(new double[]{0,0});
 			t.notifyObservers("turtle");
+			return 0;
 		};
 		mc.executeOnAllActiveTurtles(l);
 		return new Success(0);

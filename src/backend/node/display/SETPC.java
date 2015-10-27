@@ -19,6 +19,7 @@ public class SETPC extends OneArgumentNode {
 
 		IDisplayPropertiesLambda l = (DisplayProperties d) -> {
 			d.setPenColor(index);
+			return 0;
 		};
 
 		mc.executeDisplayProperties(l);

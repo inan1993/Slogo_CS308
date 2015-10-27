@@ -26,6 +26,8 @@ public enum SyntaxType {
 	HEADING,
 	ISPENDOWN,
 	ISSHOWING,
+	XCOR,
+	YCOR,
 //	#
 //	# Math Operations
 //	#
@@ -93,6 +95,6 @@ public enum SyntaxType {
 	GROUPSTART,
 	GROUPEND,
 	USERCOMMAND, 
-	GOTO,
+	GOTO, 
 }
 
