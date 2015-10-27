@@ -1,6 +1,8 @@
 package sharedobjects;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 
@@ -18,19 +20,23 @@ public class Functions extends Observable {
 	public Functions() {
 		commandMap = new HashMap<String, Node>();
 		descriptionMap = new HashMap<String, String>();
-		
-		this.setChanged();
+		update();
+	}
+	
+	private void update() {
+		setChanged();
+		notifyObservers("Function");
 	}
 	
 	public void setCommand(String stringName, Node n) {
 		setCommand("", stringName, n);
-		this.setChanged();
+		update();
 	}
 
 	public void setCommand(String userInput, String stringName, Node n) {
 		commandMap.put(stringName, n);
 		descriptionMap.put(stringName, userInput);
-		this.setChanged();
+		update();
 	}
 
 	public Node getCommand(String commandName) {
@@ -39,5 +45,17 @@ public class Functions extends Observable {
 	
 	public Node getCommandDesription(String commandName) {
 		return new Constant(0).setName(descriptionMap.get(commandName));
+	}
+	
+	public List<String> getAllFunctionsAsString() {
+		ArrayList<String> n = new ArrayList<String>();
+		for (Map.Entry<String, Node> entry : commandMap.entrySet()) {
+			String s = "";
+			s += entry.getKey();
+			s += " : ";
+			s += descriptionMap.get(entry.getKey());
+			n.add(s);
+		}
+		return n;
 	}
 }

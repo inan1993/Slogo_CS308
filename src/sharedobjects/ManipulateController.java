@@ -31,7 +31,6 @@ public class ManipulateController implements IWorkSpaceController {
 		currWorkspace.setTempTurtles(Collections.<Turtle> emptyList());
 	}
 
-	//
 	public int tellTurtles(int[] ids) {
 		Map<Integer, Turtle> allTurtles = currWorkspace.getAllTurtles();
 		currWorkspace.setActiveTurtles(Collections.<Turtle> emptyList());

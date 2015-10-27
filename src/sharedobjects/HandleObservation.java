@@ -14,8 +14,13 @@ public class HandleObservation {
     private static final Map<String, List<String>> observableMap = new HashMap<String,List<String>>() {{
         put("Turtle", new LinkedList<String>(Arrays.asList("TurtleGroupObserver","CanvasObserver","TurtleStateBoxObserver")));
         put("Success", new LinkedList<String>(Arrays.asList("MessageDisplayBox")));
-        put("ParsedCommands", new LinkedList<String>(Arrays.asList("ParsedCommandsObserver")));
+        put("ParsedCommands", new LinkedList<String>(Arrays.asList("")));
         put("UserInput", new LinkedList<String>(Arrays.asList("Parser")));
+        put("Variables", new LinkedList<String>(Arrays.asList("FunctionVariableObserver")));
+        put("Functions", new LinkedList<String>(Arrays.asList("FunctionVariableObserver")));
+        put("DisplayProperties", new LinkedList<String>(Arrays.asList("ParsedCommandsObserver")));
+
+        
     }};
 
     public HandleObservation() {}
