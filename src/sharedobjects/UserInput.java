@@ -28,5 +28,4 @@ public class UserInput extends Observable{
         this.currentLanguage = currentLanguage;
         this.setChanged();
     }
-
 }

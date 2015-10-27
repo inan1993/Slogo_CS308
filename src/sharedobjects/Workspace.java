@@ -65,7 +65,7 @@ public class Workspace {
 			System.out.println("here2");
 			observables.add((Observable) t);
 		}
-
+		
 		observables.add(displayProp);
 		observables.add(response);
 		observables.add(funcs);
