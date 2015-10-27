@@ -7,7 +7,7 @@ public interface IWorkSpaceController {
 	//Turtles
 	void setTempTurtles(int[] ids);
 	void clearTempTurtles();
-	void tellTurtles(int[] ids);
+	int tellTurtles(int[] ids);
 	
 	//Observables
 	double executeWorkspace(IWorkspaceLambda l);

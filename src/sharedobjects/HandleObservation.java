@@ -18,9 +18,7 @@ public class HandleObservation {
         put("UserInput", new LinkedList<String>(Arrays.asList("Parser")));
         put("Variables", new LinkedList<String>(Arrays.asList("FunctionVariableObserver")));
         put("Functions", new LinkedList<String>(Arrays.asList("FunctionVariableObserver")));
-        
-        
-        //put("DisplayProperties", new LinkedList<String>(Arrays.asList("ParsedCommandsObserver")));
+        put("DisplayProperties", new LinkedList<String>(Arrays.asList("ParsedCommandsObserver")));
 
         
     }};
