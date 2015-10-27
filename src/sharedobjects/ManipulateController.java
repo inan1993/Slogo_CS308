@@ -8,6 +8,7 @@ import backend.node.Node;
 import backend.node.types.Constant;
 import exceptions.NotImplementedException;
 import responses.Response;
+import responses.Success;
 
 public class ManipulateController implements IWorkSpaceController {
 
@@ -74,7 +75,7 @@ public class ManipulateController implements IWorkSpaceController {
 	@Override
 	public Response setVariable(String variableName, Node var) {
 		currWorkspace.addVariable(variableName, var);
-		return null;
+		return new Success(var.getDoubleValue());
 	}
 
 	@Override
