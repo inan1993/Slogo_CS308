@@ -114,6 +114,8 @@ public class CanvasObserver extends Canvas implements Observer {
 		} else if (((String) arg).equals("palette")) {
 			DisplayProperties t = (DisplayProperties) o;
 			setPalette(t.getPalette());
+		} else if (((String) arg).equals("clear")) {
+			clear();
 		}
 	}
 

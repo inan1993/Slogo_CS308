@@ -15,7 +15,7 @@ public class HandleObservation {
 		{
 			put("Turtle", new LinkedList<String>(
 					Arrays.asList("TurtleGroupObserver", "CanvasObserver", "TurtleStateBoxObserver")));
-			put("Success", new LinkedList<String>(Arrays.asList("MessageDisplayBox")));
+			put("Success", new LinkedList<String>(Arrays.asList("MessageDisplayBoxObserver")));
 			put("UserInput", new LinkedList<String>(Arrays.asList("Parser")));
 			put("Variables", new LinkedList<String>(Arrays.asList("FunctionVariableObserver")));
 			put("Functions", new LinkedList<String>(Arrays.asList("FunctionVariableObserver")));

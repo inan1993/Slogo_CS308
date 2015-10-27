@@ -35,7 +35,7 @@ public class TurtleStateBox extends TitledPane {
     }
 
     private String createTurtleInfoString(Turtle turtle){
-        double x = -turtle.getPosition()[0];
+        double x = turtle.getPosition()[0];
         double y = -turtle.getPosition()[1];
         return String.format(stringFormat, turtle.getID(), Math.abs(x)<0.5 ? 0:x, Math.abs(y)<0.5 ? 0:y, turtle.isShowing());
     }
