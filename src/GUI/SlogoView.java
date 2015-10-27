@@ -7,10 +7,8 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
-
 import GUI.button.AButton;
 import GUI.button.ButtonFactory;
-import GUI.checkbox.PenUpDownCheckBox;
 import GUI.dropdown.BackgroundColorDropdown;
 import GUI.dropdown.FileDropdown;
 import GUI.dropdown.LanguageListDropdown;
@@ -20,7 +18,7 @@ import GUI.slider.LineSlider;
 import GUI.slider.OpacitySlider;
 import GUI.textBox.CommandPromptDisplayBox;
 import GUI.textBox.MessageDisplayBoxObserver;
-import GUI.turtlepane.BackgroundRectangle;
+import GUI.turtlepane.BackgroundRectangleObserver;
 import GUI.turtlepane.CanvasObserver;
 import GUI.turtlepane.TurtleGroupObserver;
 import GUI.viewbox.CommandHistoryBox;
@@ -63,11 +61,10 @@ public class SlogoView {
 	// private List<Double> myTurtleIDs;
 	private CanvasObserver myTurtleCanvas;
 	private TurtleGroupObserver myTurtleGroup;
-	private BackgroundRectangle myBackgroundRectangle;
+	private BackgroundRectangleObserver myBackgroundRectangle;
 	private TurtleStateBox turtleStateBox;
 	private LineSlider lineSlider;
 	private OpacitySlider opacitySlider;
-	private PenUpDownCheckBox checkBox;
 
 	private UserInput myUserInputObservable;
 
@@ -191,7 +188,7 @@ public class SlogoView {
 		AnchorPane mainBox = new AnchorPane();
 		// TabPane mainBox = new TabPane();
 		Tab tab = new Tab();
-		myBackgroundRectangle = new BackgroundRectangle(Integer.parseInt(myResource.getString("canvasWidth")),
+		myBackgroundRectangle = new BackgroundRectangleObserver(Integer.parseInt(myResource.getString("canvasWidth")),
 				Integer.parseInt(myResource.getString("canvasHeight")));
 		// myTurtleCanvas = new
 		// CanvasObserver(Integer.parseInt(myResource.getString("canvasWidth")),
@@ -250,21 +247,6 @@ public class SlogoView {
 
 	}
 
-	// private Node checkBox(){
-	// checkBox = new PenUpDownCheckBox();
-	// checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
-	// @Override
-	// public void changed(ObservableValue ov, Boolean old_val, Boolean new_val)
-	// {
-	// messageBox.setMessage("Pen Down");
-	//
-	// myTurtleCanvas.penUpDown();
-	// }
-	// });
-	//
-	// return checkBox;
-	// }
-
 	private VBox rightBox() {
 		VBox result = new VBox();
 		result.getChildren().addAll(variableDisplayBox, historyDisplayBox, functionDisplayBox, turtleStateBox);
@@ -272,7 +254,8 @@ public class SlogoView {
 	}
 
 	public List<Observable> getObservables() {
-		List<Observable> a = new ArrayList<Observable>() {
+		@SuppressWarnings("serial")
+        List<Observable> a = new ArrayList<Observable>() {
 			{
 				add(myUserInputObservable);
 			}
