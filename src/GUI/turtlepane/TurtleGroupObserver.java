@@ -19,6 +19,7 @@ public class TurtleGroupObserver extends Group implements Observer{
 	private List<Integer> myTurtleIDs;
 	private Image myTurtleImage;
 	double width,height;
+	double inactiveOpacity;
 
 	public TurtleGroupObserver () {
 		super();
@@ -27,6 +28,7 @@ public class TurtleGroupObserver extends Group implements Observer{
 		this.myTurtleIDs = new ArrayList<Integer>();
 		width = Integer.parseInt(myResource.getString("canvasWidth"));
 		height = Integer.parseInt(myResource.getString("canvasHeight"));
+		inactiveOpacity = Double.parseDouble(myResource.getString("inactiveTurtleOpacity"));
 	}
 
 	public void setImage(Image newImage){
@@ -45,13 +47,16 @@ public class TurtleGroupObserver extends Group implements Observer{
 
     }
 
-	private void drawTurtle(Turtle turtle) {
+	private void drawTurtle(Turtle turtle, List<Turtle> activeTurtles) {
 		myTurtleIDs.add(turtle.getID());
 		ImageView turtleImage = new ImageView(myTurtleImage);
 		turtleImage.setX(turtle.getPosition()[0]+width/2.0-(myTurtleImage.getWidth()/2.0));
 		turtleImage.setY(turtle.getPosition()[1]+height/2.0-(myTurtleImage.getHeight()/2.0));
 		turtleImage.setVisible(turtle.isShowing());
 		turtleImage.setRotate(90-turtle.getHeading());
+		if(!activeTurtles.contains(turtle)){
+		    turtleImage.setOpacity(inactiveOpacity);
+		}
 		this.getChildren().add(turtleImage);
 	}
 
@@ -67,7 +72,7 @@ public class TurtleGroupObserver extends Group implements Observer{
 				}
 			}
 			System.out.println("WE GOT AN UPDATE FOO");
-			drawTurtle(t);
+			drawTurtle(t, turtleContainer.getActiveTurtles());
 		}
 	}
 }
