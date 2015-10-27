@@ -1,7 +1,6 @@
 package backend.node.commands;
 
-
-import backend.node.types.TwoArgumentNode;
+import backend.node.Node;
 import responses.Response;
 import responses.Success;
 import sharedobjects.ITurtleLambda;
@@ -12,7 +11,7 @@ import sharedobjects.Turtle;
  * @author loganrooper
  *
  */
-public class GOTO extends TwoArgumentNode {
+public class GOTO extends Node {
 
 	@Override
 	public Response run(ManipulateController sharedHandle) {

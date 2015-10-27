@@ -8,7 +8,6 @@ import sharedobjects.ManipulateController;
 
 /**
  * @author loganrooper
- *
  */
 public class PENDOWNP extends Command{
 

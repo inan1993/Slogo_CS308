@@ -1,19 +1,16 @@
 package backend.node.commands;
-import backend.node.types.ZeroArgumentNode;
+import backend.node.Node;
 import responses.Response;
 import responses.Success;
 import sharedobjects.DisplayProperties;
-import sharedobjects.IDisplayPropertiesLambda;
-import sharedobjects.ITurtleLambda;
 import sharedobjects.ManipulateController;
 import sharedobjects.Turtle;
-import sharedobjects.TurtleContainer;
 
 /**
  * @author loganrooper
  *
  */
-public class CS extends ZeroArgumentNode {
+public class CS extends Node {
 
 	@Override
 	public Response run(ManipulateController sharedHandle) {
