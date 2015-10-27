@@ -70,6 +70,7 @@ public class Parser implements Observer {
 	private static final String error_illegaToken = "Ilegal Input: Cannot find a matching token! ";
 	private static final String error_illegalUsage = " was used in illegal condition";
 	private static final String error_undefined = "Undefined command!  ";
+	private static final String error_dup = "Cannot define, it's a protected keyword of Slogo, ";
 	
 	public Parser(ManipulateController mc) {
 		//Call run to start.
@@ -466,7 +467,11 @@ public class Parser implements Observer {
 	
 	private void parseMakeCmd(Node root) throws SyntaxException{
 		int beginIndex=myIndex;
-		root.setName(mySyntaxList.get(myIndex).getValue());
+		String name = mySyntaxList.get(myIndex).getValue();
+		root.setName(name);
+		if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.USERCOMMAND){
+			throw new SyntaxException(error_dup + root.getName());
+		}
 		myIndex++;
 		try{
 			if(mySyntaxList.get(myIndex).getKey()!=SyntaxType.LISTSTART){
