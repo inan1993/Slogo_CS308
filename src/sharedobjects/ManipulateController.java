@@ -35,7 +35,7 @@ public class ManipulateController implements IWorkSpaceController {
 	}
 
 	//
-	public void tellTurtles(int[] ids) {
+	public int tellTurtles(int[] ids) {
 		Map<Integer, Turtle> allTurtles = currWorkspace.getAllTurtles();
 		currWorkspace.setActiveTurtles(Collections.<Turtle> emptyList());
 		List<Turtle> nextActiveList = new LinkedList<Turtle>();
@@ -50,6 +50,7 @@ public class ManipulateController implements IWorkSpaceController {
 			}
 		}
 		currWorkspace.setActiveTurtles(nextActiveList);
+		return ids[ids.length-1];
 	}
 
 	public double getHeading() {
