@@ -18,13 +18,12 @@ public class TurtleContainer extends Observable {
 		allTurtles = new HashMap<Integer, Turtle>();
 		activeTurtles = new LinkedList<Turtle>();
 		tempTurtles = new LinkedList<Turtle>();
-		addNewTurtle(1);
+		activeTurtles.add(addNewTurtle(1));
 	}
 
 	public Turtle addNewTurtle(int id) {
 		Turtle turt = new Turtle(id);
 		allTurtles.put(id, turt);
-		activeTurtles.add(turt);
 		currentTurtle = turt;
 		this.setChanged();
 		return turt;
@@ -96,9 +95,11 @@ public class TurtleContainer extends Observable {
 			if (allTurtles.containsKey(ids[id])) {
 				Turtle temp = allTurtles.get(ids[id]);
 				temp.activate();
+				
 				nextActiveList.add(temp);
 			} else {
 				Turtle temp = addNewTurtle(ids[id]);
+				activeTurtles.add(temp);
 				nextActiveList.add(temp);
 			}
 			currentTurtle = nextActiveList.get(id);
@@ -107,5 +108,9 @@ public class TurtleContainer extends Observable {
 		setChanged();
 		notifyObservers("turtle");
 		return ids[ids.length - 1];	
+	}
+	
+	public void tellDuvall2Dance(){
+		notifyObservers("dancingDuvall");
 	}
 }

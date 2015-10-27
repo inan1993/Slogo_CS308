@@ -56,4 +56,8 @@ public class ManipulateController implements IWorkSpaceController {
 	public double executeOnCurrentTurtle(ITurtleLambda lambda){
 		return currWorkspace.executeOnCurrentTurtle(lambda);
 	}
+	
+	public void tellDuvall2Dance(){
+		currWorkspace.tellDuvall2Dance();
+	}
 }

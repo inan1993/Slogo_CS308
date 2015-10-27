@@ -84,4 +84,9 @@ public class Workspace {
 		
 	}
 
+	public void tellDuvall2Dance() {
+		turtleContainer.tellDuvall2Dance();
+		
+	}
+
 }
