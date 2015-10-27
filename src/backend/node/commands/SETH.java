@@ -21,7 +21,6 @@ public class SETH extends OneArgumentNode {
 			Double delta = Math.abs(t.getHeading() - newHeading);
 			delta = Math.min(delta, 360 - delta);
 			t.setHeading(newHeading);
-			t.notifyObservers("turtle");
 			return delta;
 		};
 		Double delta = mc.executeOnAllActiveTurtles(l);

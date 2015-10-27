@@ -10,59 +10,49 @@ import responses.Response;
 import responses.Success;
 
 public class Workspace {
-	Map<Integer, Turtle> allTurtles;
-	List<Turtle> activeTurtles;
-	List<Turtle> tempTurtles;
 	List<Color> colorPalette;
-	DisplayProperties displayProp;
-	Variables vars;
-	Functions funcs;
+	private DisplayProperties displayProp;
+	private Variables vars;	
+	private Functions funcs;
 	private Response response;
-
+	private TurtleContainer turtleContainer;
+	
 	public Workspace() {
-		allTurtles = new HashMap<Integer, Turtle>();
-		allTurtles.put(1, new Turtle(1));
-		activeTurtles = new LinkedList<Turtle>();
-		activeTurtles.add(allTurtles.get(1));
-		tempTurtles = new LinkedList<Turtle>();
 		displayProp = new DisplayProperties();
 		vars = new Variables();
 		funcs = new Functions();
 		response = new Success("");
+		turtleContainer = new TurtleContainer();
 	}
 
-	public Turtle addNewTurtle(int id) {
-		Turtle turt = new Turtle(id);
-		allTurtles.put(id, turt);
-		return turt;
+	public Variables getVars() {
+		return vars;
 	}
 
-	public Map<Integer, Turtle> getAllTurtles() {
-		return allTurtles;
+	public Functions getFuncs() {
+		return funcs;
 	}
 
-	public List<Turtle> getActiveTurtles() {
-		return activeTurtles;
+	public Response getResponse() {
+		return response;
 	}
 
-	public void setActiveTurtles(List<Turtle> activeTurtles) {
-		this.activeTurtles = activeTurtles;
+	public TurtleContainer getTurtleContainer() {
+		return turtleContainer;
+	}
+	
+	public DisplayProperties getDisplayProp() {
+		return displayProp;
+	}
+	
+	public void setDisplayProp(DisplayProperties displayProp) {
+		this.displayProp = displayProp;
 	}
 
-	public void setTempTurtles(List<Turtle> tempTurtles) {
-		this.tempTurtles = tempTurtles;
-	}
-
-	public List<Turtle> getTempTurtles() {
-		return tempTurtles;
-	}
-
+	
 	public List<Observable> getObservables() {
 		List<Observable> observables = new LinkedList<Observable>();
-		for (Turtle t : activeTurtles) {
-			System.out.println("here2");
-			observables.add((Observable) t);
-		}
+		observables.add(turtleContainer);
 		observables.add(displayProp);
 		observables.add(response);
 		observables.add(funcs);
@@ -71,10 +61,8 @@ public class Workspace {
 	}
 
 	public void startWorkspace() {
-		Turtle firstTurtle = activeTurtles.get(0);
-		firstTurtle.notifyObservers("turtle");
+		turtleContainer.notifyObservers("turtle");
 		displayProp.notifyObservers();
-		System.out.println("here1");
 	}
 
 	/**
@@ -83,6 +71,19 @@ public class Workspace {
 	public void setCurrentResponse(Response s) {
 		response.updateValue(s.toString());
 		response.notifyObservers("Response");
+	}
+
+	public double executeOnAllActiveTurtles(ITurtleLambda lambda) {
+		return turtleContainer.executeOnAllActiveTurtles(lambda);
+	}
+	
+	public double executeOnCurrentTurtle(ITurtleLambda lambda) {
+		return turtleContainer.executeOnCurrentTurtle(lambda);
+	}
+
+	public void setTempTurtles(List<Turtle> turtles) {
+		turtleContainer.setTempTurtles(turtles);
+		
 	}
 
 }

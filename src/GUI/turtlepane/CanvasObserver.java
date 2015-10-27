@@ -9,6 +9,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import responses.Response;
 import sharedobjects.Turtle;
+import sharedobjects.TurtleContainer;
 
 public class CanvasObserver extends Canvas implements Observer {
 
@@ -88,8 +89,10 @@ public class CanvasObserver extends Canvas implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 //		if (((String) arg).equals("turtle")) {
-			Turtle t = (Turtle) o;
-			drawLine(t.getOldPosition(), t.getPosition(), t.isPenDown());
+			TurtleContainer turtleContainer = (TurtleContainer) o;
+			for(Turtle t: turtleContainer.getAllTurtles().values()){
+				drawLine(t.getOldPosition(), t.getPosition(), t.isPenDown());				
+			}
 //		}
 	}
 }

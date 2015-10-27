@@ -32,7 +32,6 @@ public class TOWARDS extends TwoArgumentNode {
 			delta = Math.min(delta, 360 - delta);
 			
 			t.setHeading(angle);
-			t.notifyObservers("turtle");
 			return delta;
 		};
 		

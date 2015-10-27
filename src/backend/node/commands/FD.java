@@ -24,7 +24,6 @@ public class FD extends OneArgumentNode {
 			double yBack = (currPosition[1] - yDiff);
 			double[] nextPos = new double[] { xBack, yBack };
 			t.setPosition(nextPos);
-			t.notifyObservers("turtle");
 			return pixels;
 		};
 

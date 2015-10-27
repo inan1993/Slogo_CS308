@@ -19,7 +19,6 @@ public class CS extends ZeroArgumentNode {
 	public Response run(ManipulateController sharedHandle) {
 		ITurtleLambda l = (Turtle t) -> {
 			t.setPosition(new double[]{0,0});
-			t.notifyObservers("turtle");
 			return 0;
 		};
 

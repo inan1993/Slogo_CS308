@@ -2,7 +2,7 @@ package sharedobjects;
 
 import java.util.Observable;
 
-public class Turtle extends Observable{
+public class Turtle {
 	private int ID;
 	private double[] position;
 	private double[] oldPosition;
@@ -12,19 +12,17 @@ public class Turtle extends Observable{
 	private boolean active;
 	
 	public Turtle(int id){
-		ID = id;
+		setID(id);
 		position = new double[]{0.0,0.0};
 		oldPosition = new double[]{0.0,0.0};;
 		heading = 90;
 		penDown = true;
 		showing = true;
 		active = true;
-		this.setChanged();
 	}
 
 	public void setID(int i){
 		ID = i;
-		this.setChanged();
 	}
 	
 	public int getID(){
@@ -35,7 +33,6 @@ public class Turtle extends Observable{
 	        oldPosition = position;
 	        position = p;
 		System.out.println("Changing the current Turtle's position to..." + p[0] + ":" + p[1]);
-		this.setChanged();
 	}
 	
 	public double[] getPosition(){
@@ -56,11 +53,9 @@ public class Turtle extends Observable{
 	
 	public void penUp(){
 		penDown = false;
-		this.setChanged();
 	}
 	
 	public void penDown(){
-		this.setChanged();
 		penDown = true;
 	}
 	
@@ -69,12 +64,10 @@ public class Turtle extends Observable{
 	}
 	
 	public void show(){
-		this.setChanged();
 		showing = true;
 	}
 	
 	public void hide(){
-		this.setChanged();
 		showing = false;
 	}
 	

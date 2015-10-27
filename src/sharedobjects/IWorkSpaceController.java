@@ -10,7 +10,6 @@ public interface IWorkSpaceController {
 	int tellTurtles(int[] ids);
 	
 	//Observables
-	double executeWorkspace(IWorkspaceLambda l);
 	double executeDisplayProperties(IDisplayPropertiesLambda l);
 	Node executeOnWorkspaceFunctions(IWorkspaceFunctionsLambda l);
 	Node executeOnWorkspaceVariables(IWorkspaceVariablesLambda l);

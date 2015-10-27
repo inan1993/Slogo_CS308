@@ -20,7 +20,6 @@ public class PD extends ZeroArgumentNode {
 	public Response run(ManipulateController mc) {
 		ITurtleLambda l = (Turtle t) -> {
 			t.penDown();	
-			t.notifyObservers("turtle");
 			return 0;
 		};
 		mc.executeOnAllActiveTurtles(l);
