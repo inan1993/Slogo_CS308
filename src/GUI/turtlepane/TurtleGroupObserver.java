@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
+
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -37,9 +38,6 @@ public class TurtleGroupObserver extends Group implements Observer{
     }
 
     public void clear(){
-        //        for(double id: myTurtleIDs){
-        //            this.getChildren().remove(id);
-        //        }
         this.getChildren().removeAll();
     }
 

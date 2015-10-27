@@ -6,8 +6,6 @@ import backend.node.types.ZeroArgumentNode;
 import responses.Response;
 import responses.Success;
 import sharedobjects.DisplayProperties;
-import sharedobjects.IDisplayPropertiesLambda;
-import sharedobjects.ITurtleLambda;
 import sharedobjects.ManipulateController;
 import sharedobjects.Turtle;
 
