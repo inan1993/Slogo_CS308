@@ -69,7 +69,7 @@ public class Parser implements Observer {
 	private static final String error_var = "Miss a variable in command ";
 	private static final String error_illegaToken = "Ilegal Input: Cannot find a matching token! ";
 	private static final String error_illegalUsage = " was used in illegal condition";
-	private static final String error_undefined = "Undefined command!";
+	private static final String error_undefined = "Undefined command!  ";
 	
 	public Parser(ManipulateController mc) {
 		//Call run to start.
@@ -436,7 +436,7 @@ public class Parser implements Observer {
 				});
 				
 				if(toCmd==null)
-					throw new SyntaxException(error_undefined);
+					throw new SyntaxException(error_undefined+mySyntaxList.get(myIndex-1).getValue());
 				int numOfArg=toCmd.getChildrenNum()-1;
 				parseExpression(root, numOfArg);
 			}

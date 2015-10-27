@@ -45,8 +45,8 @@ public class DisplayProperties extends Observable {
 		penUpdate();
 	}
 
-	public double getPenColor() {
-		return myPenColor;
+	public Color getPenColor() { 
+		return colorPalette.get(myPenColor);
 	}
 
 	public void setPenThickness(double t) {
@@ -84,13 +84,18 @@ public class DisplayProperties extends Observable {
 		colorPalette.put(index, color);
 		paletteUpdate();
 	}
+	
+	public Map<Integer, Color> getPalette() {
+		return colorPalette;
+	}
 
 	public Color getPaletteColor(double index) {
-		return colorPalette.get(index - 1);
+		 Color t = colorPalette.get((int) index);
+		 return t;
 	}
 
 	public void setBgColor(int index) {
-		bgColor = colorPalette.get(index - 1);
+		bgColor = colorPalette.get(index);
 		bgChange();
 	}
 
@@ -116,6 +121,11 @@ public class DisplayProperties extends Observable {
 		this.setChanged();
 		notifyObservers("palette");
 	}
+	
+	public void clear() {
+		this.setChanged();
+		notifyObservers("clear");
+	}
 
 	public String getLineType() {
 		return lineType;
@@ -131,6 +141,10 @@ public class DisplayProperties extends Observable {
 
 	public void setPenDown(Boolean penDown) {
 		this.penDown = penDown;
+	}
+
+	public double getPenColorID() {
+		return myPenColor;
 	}
 
 }

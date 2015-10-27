@@ -10,5 +10,7 @@ package exceptions;
 public class WontImplementException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
-    public WontImplementException(){}
+    public WontImplementException(){
+    	super("We chose not to implement this.");
+    }
 }

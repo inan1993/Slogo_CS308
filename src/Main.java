@@ -46,7 +46,7 @@ public class Main extends Application {
 
 			List<Observable> observables = new ArrayList<Observable>();
 			observables.addAll(currWorkspace.getObservables());
-			observables.add(slogoViewFrontEnd.getObservable());
+			observables.addAll(slogoViewFrontEnd.getObservables());
 			
 			List<Observer> observers = new ArrayList<Observer>();
 			observers.addAll(observerFactory.getObservers());

@@ -65,7 +65,7 @@ public class Workspace {
 			System.out.println("here2");
 			observables.add((Observable) t);
 		}
-
+		
 		observables.add(displayProp);
 		observables.add(response);
 		observables.add(funcs);
@@ -76,7 +76,6 @@ public class Workspace {
 	public void startWorkspace() {
 		Turtle firstTurtle = activeTurtles.get(0);
 		firstTurtle.notifyObservers("turtle");
-		displayProp.notifyObservers();
 		System.out.println("here1");
 	}
 

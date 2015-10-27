@@ -15,7 +15,7 @@ public class PC extends ZeroArgumentNode {
 	@Override
 	public Response run(ManipulateController mc) {
 		IDisplayPropertiesLambda l = (DisplayProperties p) -> {
-			return p.getPenColor();
+			return p.getPenColorID();
 		};
 
 		double result = mc.executeDisplayProperties(l);
