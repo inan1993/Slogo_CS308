@@ -58,22 +58,13 @@ public class ManipulateController implements IWorkSpaceController {
 	}
 
 	public double executeOnAllTurtles(ITurtleLambda lambda) {
-		List<Turtle> turtles = (currWorkspace.getTurtleContainer().getTempTurtles().size() > 0)
-				? currWorkspace.getTurtleContainer().getTempTurtles()
-				: new ArrayList(currWorkspace.getTurtleContainer().getAllTurtles().values());
-
-		double response = 0;
-		for (Turtle turtle : turtles) {
-			response = lambda.run(turtle);
-		}
-		return response;
+		return currWorkspace.executeOnAllTurtles(lambda);
 	}
 
 	public void setReponse(Response s) {
 		currWorkspace.setCurrentResponse(s);
 	}
 
-	@Override
 	public double executeOnAllActiveTurtles(ITurtleLambda lambda) {
 		return currWorkspace.executeOnAllActiveTurtles(lambda);
 	}
