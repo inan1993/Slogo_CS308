@@ -1,10 +1,6 @@
 package GUI;
 
 import java.awt.Dimension;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
@@ -33,8 +29,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
@@ -43,21 +37,18 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.FileChooser;
+import javafx.scene.paint.Color;
 import sharedobjects.UserInput;
 
 public class SlogoView {
-
 
 	private static final Dimension DEFAULT_SIZE = new Dimension(1200, 730);
 	//    private static final String DEFAULT_RESOURCE_PACKAGE = "resources.languages/";
 	private static final String DEFAULT_RESOURCE_VIEW = "GUI.view";
 	protected static ResourceBundle myResource;
-
 	private static final String DEFAULT_LANGUAGE = "English";
 
 	private Scene scene;
-
 
 	private CommandPromptDisplayBox commandBox; 
 	private MessageDisplayBox messageBox;
@@ -84,7 +75,6 @@ public class SlogoView {
 		myTurtleCanvas = canvas;
 		myTurtleGroup = turtleGroup;
 		//        myTurtleGroup = new TurtleGroupObserver(myTurtleImage, myTurtleIDs);
-
 
 		myResource = ResourceBundle.getBundle(DEFAULT_RESOURCE_VIEW);
 		commandBox = new CommandPromptDisplayBox();
@@ -113,7 +103,6 @@ public class SlogoView {
 		//myObservers.get(0).update(null, (Object)createDTO2());
 		scene = new Scene(root, DEFAULT_SIZE.width, DEFAULT_SIZE.height);
 	}
-
 
 	private Node menu() {
 		HBox result = new HBox();
@@ -206,13 +195,11 @@ public class SlogoView {
 		return tabPane;
 	}
 
-
 	private Node messageAndClearBoxes(){
 		HBox result = new HBox();
 		result.getChildren().addAll(messageBox,myButtons.get("ClearCommandButton"),imageOpacitySlider());
 		return result;
 	}
-
 
 	private Node commandAndEnterBoxes() {
 		HBox result = new HBox();
@@ -224,6 +211,7 @@ public class SlogoView {
 		HBox thicknessSlider = new HBox();
 		lineSlider = new LineSlider();
 		Label lineCaption = new Label(" Pen thickness: ");
+		lineCaption.setTextFill(Color.BLUE);
 		lineSlider.valueProperty().addListener(new ChangeListener<Number>() {
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
@@ -239,12 +227,11 @@ public class SlogoView {
 		HBox imageSlider = new HBox();
 		opacitySlider = new OpacitySlider();
 		Label opacityCaption = new Label(" Turtle opacity: ");
-		opacityCaption.setStyle("-fx-font-color: red;");
+		opacityCaption.setTextFill(Color.RED);
 		opacitySlider.valueProperty().addListener(new ChangeListener<Number>() {
 			@Override
 			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
 				opacityCaption.setText(" Turtle opacity: "+ String.format("%.2f  ", newValue));	
-				opacityCaption.setStyle("-fx-font-color: red;");
 				myTurtleGroup.changeOpacity(newValue.doubleValue());
 			}
 		});
@@ -252,7 +239,6 @@ public class SlogoView {
 		return imageSlider;
 
 	}
-
 
 	//	private Node checkBox(){
 	//		checkBox = new PenUpDownCheckBox();
@@ -274,11 +260,9 @@ public class SlogoView {
 		return result;
 	}
 
-
 	public Observable getObservable(){
 		return this.myUserInputObservable;
 	}
-
 
 	public TurtleGroupObserver getTurtlePaneGroup () {
 		return myTurtleGroup;
@@ -288,21 +272,17 @@ public class SlogoView {
 		return myTurtleCanvas;
 	}
 
-
 	public FunctionListBox getFunctionDisplayBox () {
 		return functionDisplayBox;
 	}
-
 
 	public VariableListBox getVariableDisplayBox () {
 		return variableDisplayBox;
 	}
 
-
 	public TurtleStateBox getTurtleStateBox () {
 		return turtleStateBox;
 	}
-
 
 	public void showError (Exception e) {
 		messageBox.setMessage(e.toString());

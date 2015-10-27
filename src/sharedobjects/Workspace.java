@@ -16,7 +16,9 @@ public class Workspace {
 	List<Turtle> activeTurtles;
 	List<Turtle> tempTurtles;
 	List<Color> colorPalette;
-	ParsedCommands userInputsObservable = new ParsedCommands();
+	ParsedCommands userInputsObservable = new ParsedCommands(); // need to change this to two different objects
+	//Variables userInputVariableObservable = new Variables();
+	//Functions userInputFunctionsObservable = new Functions();
 	DisplayProperties displayProp;
 	private Response response;
 
@@ -59,12 +61,16 @@ public class Workspace {
 	// ****Commands and Variables Manipulation*****//
 	public void addVariable(String v, Node n) {
 		userInputsObservable.addVariable(v, n);
+//		userInputsVariableObservable.addVariable(v,n);
 		ParsedCommandsTransferObject uito = new ParsedCommandsTransferObject(false, v + " = " + n.getDoubleValue());
 		userInputsObservable.notifyObservers(uito);
+//		userInputsVariableObservable.notifyObservers(uito);
 	}
 
 	public Node getVariable(String v) {
 		return userInputsObservable.getVariable(v);
+//		userInputsVariableObservable.getVariable(v);
+
 	}
 
 	public void addCommand(String userInput, String c, Node n) {
@@ -88,6 +94,7 @@ public class Workspace {
 			observables.add((Observable) t);
 		}
 		observables.add(userInputsObservable);
+//		observables.add(userInputsVariableObservable); for variable
 		observables.add(displayProp);
 		observables.add(response);
 		// observables.add(pen);
