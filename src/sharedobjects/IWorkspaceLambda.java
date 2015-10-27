@@ -1,8 +1,7 @@
 package sharedobjects;
 
 @FunctionalInterface
-public interface IPenLambda {
+public interface IWorkspaceLambda{
  //the abstract method	
- public void run(Pen p);
- 
+ public void run(Workspace t);
 }

@@ -2,6 +2,9 @@ package backend.node.display;
 
 import backend.node.types.OneArgumentNode;
 import responses.Response;
+import responses.Success;
+import sharedobjects.DisplayProperties;
+import sharedobjects.IDisplayPropertiesLambda;
 import sharedobjects.ManipulateController;
 
 /**
@@ -11,7 +14,14 @@ import sharedobjects.ManipulateController;
 public class SETPS extends OneArgumentNode {
 	@Override
 	public Response run(ManipulateController mc) {
-		// Call mc.setBG()
-		return null;
+		// Get index
+		Double size = getAndRun(0, mc).getDoubleValue();
+		
+		IDisplayPropertiesLambda l = (DisplayProperties d) -> {
+			d.setPenThickness(size);
+		};
+
+		mc.executeDisplayProperties(l);
+		return new Success(size);
 	}
 }

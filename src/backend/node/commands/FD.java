@@ -1,7 +1,6 @@
 package backend.node.commands;
 
 import backend.node.types.OneArgumentNode;
-import datatransferobjects.TurtleTransferObject;
 import responses.Response;
 import responses.Success;
 import sharedobjects.ITurtleLambda;
@@ -25,12 +24,11 @@ public class FD extends OneArgumentNode {
 			double xBack = (currPosition[0] + xDiff);
 			double yBack = (currPosition[1] - yDiff);
 			double[] nextPos = new double[]{xBack, yBack};
-			TurtleTransferObject dto = new TurtleTransferObject(false, t.getID(), false, t.isPenDown(), t.getPosition(), nextPos);
 			t.setPosition(nextPos);
-			t.notifyObservers(dto);
+			t.notifyObservers("turtle");
 		};
 
-		mc.execute(l);
+		mc.executeOnAllActiveTurtles(l);
 		
 		// return argument 1 value
 		return new Success(this.getAndRun(0, mc).getDoubleValue());

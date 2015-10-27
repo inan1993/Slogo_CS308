@@ -2,6 +2,9 @@ package backend.node.display;
 
 import backend.node.types.OneArgumentNode;
 import responses.Response;
+import responses.Success;
+import sharedobjects.DisplayProperties;
+import sharedobjects.IDisplayPropertiesLambda;
 import sharedobjects.ManipulateController;
 
 /**
@@ -11,7 +14,14 @@ import sharedobjects.ManipulateController;
 public class SETPC extends OneArgumentNode {
 	@Override
 	public Response run(ManipulateController mc) {
-		// Call mc.setBG()
-		return null;
+		// Get index
+		int index = getAndRun(0, mc).getIntegerValue();
+
+		IDisplayPropertiesLambda l = (DisplayProperties d) -> {
+			d.setPenColor(index);
+		};
+
+		mc.executeDisplayProperties(l);
+		return new Success(index);
 	}
 }

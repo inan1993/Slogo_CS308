@@ -4,7 +4,6 @@
 package backend.node.commands;
 
 import backend.node.types.ZeroArgumentNode;
-import datatransferobjects.TurtleTransferObject;
 import responses.Response;
 import responses.Success;
 import sharedobjects.ITurtleLambda;
@@ -21,11 +20,9 @@ public class PU extends ZeroArgumentNode {
 	public Response run(ManipulateController mc) {
 		ITurtleLambda l = (Turtle t) -> {
 			t.penUp();
-			TurtleTransferObject dto = new TurtleTransferObject(false, t.getID(), t.isShowing(), t.isPenDown(), t.getPosition(), t.getPosition());
-			
-			t.notifyObservers(dto);
+			t.notifyObservers("turtle");
 		};
-		mc.execute(l);
+		mc.executeOnAllActiveTurtles(l);
 
 		// return 1
 		return new Success(1);
