@@ -31,6 +31,7 @@ public class ObserverFactory {
         myObservers.add(new TurtleStateBoxObserver(slogoView.getTurtleStateBox()));
         //No need for wrapper observer class here- MessageDisplayBox is only used in GUI once.
         myObservers.add(slogoView.getMessageBox());
+        myObservers.add(slogoView.getRect());
     }
 
     public List<Observer> getObservers(){

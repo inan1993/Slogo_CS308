@@ -1,5 +1,7 @@
 package GUI.turtlepane;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
@@ -19,6 +21,7 @@ public class CanvasObserver extends Canvas implements Observer {
 	int myWidth, myHeight;
 	private Color myPenColor;
 	private boolean isDrawing;
+	private Map<Integer, Color> colorPalette;
 
 	public CanvasObserver() {
 		super();
@@ -28,11 +31,15 @@ public class CanvasObserver extends Canvas implements Observer {
 		this.setWidth(myWidth);
 		this.setHeight(myHeight);
 		setDrawing(true);
-
+		colorPalette = new HashMap<Integer, Color>();
 		myGC = this.getGraphicsContext2D();
 		myGC.setFill(Color.TRANSPARENT);
 		myGC.fillRect(0, 0, myWidth, myHeight);
 		setDefaultPenAndStroke();
+	}
+	
+	private void setPalette(Map<Integer, Color> colorPalette) {
+		this.colorPalette = colorPalette;
 	}
 
 	private void setDefaultPenAndStroke() {
@@ -100,12 +107,13 @@ public class CanvasObserver extends Canvas implements Observer {
 			drawLine(t.getOldPosition(), t.getPosition());
 		} else if (((String) arg).equals("pen")) {
 			DisplayProperties t = (DisplayProperties) o;
-			setPenColor(t.getPaletteColor(t.getPenColor()).toString());
+			setPenColor(t.getPaletteColor(t.getPenColorID()).toString());
 			setLineType(t.getLineType());
 			setPenWidth(t.getPenThickness());
 			setDrawing(t.getPenDown());
-		} else {
-			throw new FrontendException("Internal error.");
+		} else if (((String) arg).equals("palette")) {
+			DisplayProperties t = (DisplayProperties) o;
+			setPalette(t.getPalette());
 		}
 	}
 
