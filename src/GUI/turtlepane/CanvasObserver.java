@@ -116,7 +116,7 @@ public class CanvasObserver extends Canvas implements Observer {
       } else if (((String) arg).equals("pen")) {
           DisplayProperties t = (DisplayProperties) o;
           setPenColor(t.getPaletteColor(t.getPenColorID()).toString());
-          setLineType(t.getLineType());
+          setLineType(t.getPenState());
           setPenWidth(t.getPenThickness());
           setDrawing(t.getPenDown());
       } else if (((String) arg).equals("palette")) {

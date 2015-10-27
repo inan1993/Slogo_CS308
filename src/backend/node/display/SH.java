@@ -15,7 +15,7 @@ public class SH extends ZeroArgumentNode {
 	@Override
 	public Response run(ManipulateController mc) {
 		IDisplayPropertiesLambda l = (DisplayProperties p) -> {
-			return p.getShape();
+			return p.getPenShape();
 		};
 
 		double result = mc.executeDisplayProperties(l);

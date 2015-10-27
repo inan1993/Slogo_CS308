@@ -57,16 +57,16 @@ public class ManipulateController implements IWorkSpaceController {
 		return currWorkspace.executeOnAllActiveTurtles(lambda);
 	}
 
+	public double executeOnAllActiveTurtles(ITurtleLambda lambda) {
+		return currWorkspace.executeOnAllActiveTurtles(lambda);
+	}
+
 	public double executeOnAllTurtles(ITurtleLambda lambda) {
 		return currWorkspace.executeOnAllTurtles(lambda);
 	}
 
 	public void setReponse(Response s) {
 		currWorkspace.setCurrentResponse(s);
-	}
-
-	public double executeOnAllActiveTurtles(ITurtleLambda lambda) {
-		return currWorkspace.executeOnAllActiveTurtles(lambda);
 	}
 
 	public double executeOnCurrentTurtle(ITurtleLambda lambda) {
