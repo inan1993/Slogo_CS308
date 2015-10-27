@@ -24,6 +24,10 @@ public class Workspace {
 		turtleContainer = new TurtleContainer();
 	}
 
+	public void startWorkspace() {
+		turtleContainer.notifyObservers("turtle");
+	}
+	
 	public Variables getVars() {
 		return vars;
 	}
@@ -58,14 +62,6 @@ public class Workspace {
 		return observables;
 	}
 
-	public void startWorkspace() {
-		turtleContainer.notifyObservers("turtle");
-
-	}
-
-	/**
-	 * @param s
-	 */
 	public void setCurrentResponse(Response s) {
 		response.updateValue(s.toString());
 		response.notifyObservers("Response");
