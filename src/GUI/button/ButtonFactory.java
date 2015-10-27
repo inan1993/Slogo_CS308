@@ -127,7 +127,7 @@ public class ButtonFactory {
 		stage.show();
 
 		WebView browser = new WebView();
-		String url = getClass().getClassLoader().getResource("help.html").toExternalForm();  
+		String url = getClass().getClassLoader().getResource("help.html").toExternalForm();
 
 		WebEngine webEngine = browser.getEngine();
 		webEngine.load(url); 
