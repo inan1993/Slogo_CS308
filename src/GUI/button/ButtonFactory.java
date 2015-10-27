@@ -7,6 +7,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
+
 import GUI.textBox.CommandPromptDisplayBox;
 import GUI.textBox.MessageDisplayBox;
 import GUI.turtlepane.TurtleGroupObserver;
@@ -92,6 +93,8 @@ public class ButtonFactory {
             }
         }
     }
+            
+            
     private void enterButtonEvent(){
         myMessageBox.clear();
         String userInput = myCommandBox.getText();
