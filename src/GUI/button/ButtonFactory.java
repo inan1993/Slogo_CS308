@@ -17,7 +17,6 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
@@ -28,93 +27,94 @@ public class ButtonFactory {
 	private static final String DEFAULT_RESOURCE_BUTTON = "GUI.button.buttons";
 	protected static ResourceBundle myResource;
 
-	private Map<String, AButton> myButtons;
-	private CommandPromptDisplayBox myCommandBox; 
-	private MessageDisplayBoxObserver myMessageBox;
-	private CommandHistoryBox myHistoryDisplayBox;
-	private TurtleGroupObserver myTurtleGroup;
-	private UserInput myUserInputObservable;
-	private BorderPane root;
+    private Map<String, AButton> myButtons;
+    private CommandPromptDisplayBox myCommandBox; 
+    private MessageDisplayBoxObserver myMessageBox;
+    private CommandHistoryBox myHistoryDisplayBox;
+    private TurtleGroupObserver myTurtleGroup;
+    private UserInput myUserInputObservable;
+    
+    public ButtonFactory (CommandPromptDisplayBox commandBox, MessageDisplayBoxObserver messageBox, CommandHistoryBox historyDisplayBox, TurtleGroupObserver turtleGroup, UserInput userInputObservable) {
+        myResource = ResourceBundle.getBundle(DEFAULT_RESOURCE_BUTTON);
+        this.myCommandBox = commandBox;
+        this.myHistoryDisplayBox = historyDisplayBox;
+        this.myMessageBox = messageBox;
+        this.myTurtleGroup = turtleGroup;
+        this.myUserInputObservable = userInputObservable;
+        myButtons = new HashMap<String, AButton>();
+        createButtons();
+    }
+    
+    public void createButtons(){
+        String[] buttons = myResource.getString("buttons").split(",");
+        HashMap<String, EventHandler<ActionEvent>> buttonEventHandle = new HashMap<String, EventHandler<ActionEvent>>();
+        buttonEventHandle.put(buttons[0], event->helpButtonEvent());
+        buttonEventHandle.put(buttons[1], event->enterButtonEvent());
+        buttonEventHandle.put(buttons[2], event->clearButtonEvent());
+        buttonEventHandle.put(buttons[3], event->uploadButtonEvent());
+        for(String buttonClassName: buttons){
+            try {
+                Constructor<?> c =
+                        Class.forName("GUI.button."+buttonClassName)
+                        .getConstructor(EventHandler.class);
+//                AButton button = (AButton) c.newInstance(new EventHandler<ActionEvent>() {
+//                    @Override public void handle(ActionEvent e) {
+//                        help();
+//                    }
+//                });
+                AButton button = (AButton) c.newInstance(buttonEventHandle.get(buttonClassName));
+                myButtons.put(buttonClassName, button);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
+    
+    
+    public Map<String, AButton> getButtons(){
+        return myButtons;
+    }
+    
+    private void clearButtonEvent(){
+        myMessageBox.clear();
+        myCommandBox.clear();
+    }
+    private void uploadButtonEvent() {
+        FileChooser fileChooser = new FileChooser();
+        File selectedFile = fileChooser.showOpenDialog(null);
+        String fileName;
+        
+        if (selectedFile != null) {
+            fileName = selectedFile.getName();
+            myTurtleGroup.setImage(new Image(getClass().getClassLoader().getResourceAsStream(fileName)));
+            
+            //            myObservers.get(0).update(null, (Object)createDTO2());
+            myMessageBox.setMessage(fileName + " uploaded");//System.out.println("uploaded");
+        }
+        else {
+            if (selectedFile == null) {
+                myMessageBox.setMessage("Upload Cancelled");
+            }
+        }
+    }
+            
+            
+    private void enterButtonEvent(){
+        myMessageBox.clear();
+        String userInput = myCommandBox.getText();
+        myHistoryDisplayBox.setMessage(userInput);
+        myUserInputObservable.setUserInput(userInput);
+        UserInputTransferObject ut = new UserInputTransferObject(myUserInputObservable.getCurrentLanguage(), myUserInputObservable.getUserInput());
+        try{
+            myUserInputObservable.notifyObservers(ut);
+            
+        }catch(Exception e){
+            e.printStackTrace();
+            myMessageBox.setMessage("Error: " + e.getMessage());
+//            myMessageBox.setMessage(e.getStackTrace().toString());
+        }
+    }
 
-	public ButtonFactory (CommandPromptDisplayBox commandBox, MessageDisplayBoxObserver messageBox, CommandHistoryBox historyDisplayBox, TurtleGroupObserver turtleGroup, UserInput userInputObservable, BorderPane main) {
-		myResource = ResourceBundle.getBundle(DEFAULT_RESOURCE_BUTTON);
-		this.myCommandBox = commandBox;
-		this.myHistoryDisplayBox = historyDisplayBox;
-		this.myMessageBox = messageBox;
-		this.myTurtleGroup = turtleGroup;
-		this.myUserInputObservable = userInputObservable;
-		root = main;
-		myButtons = new HashMap<String, AButton>();
-		createButtons();
-	}
-
-	public void createButtons(){
-		String[] buttons = myResource.getString("buttons").split(",");
-		HashMap<String, EventHandler<ActionEvent>> buttonEventHandle = new HashMap<String, EventHandler<ActionEvent>>();
-		buttonEventHandle.put(buttons[0], event->helpButtonEvent());
-		buttonEventHandle.put(buttons[1], event->enterButtonEvent());
-		buttonEventHandle.put(buttons[2], event->clearButtonEvent());
-		buttonEventHandle.put(buttons[3], event->uploadButtonEvent());
-		for(String buttonClassName: buttons){
-			try {
-				Constructor<?> c =
-						Class.forName("GUI.button."+buttonClassName)
-						.getConstructor(EventHandler.class);
-				//                AButton button = (AButton) c.newInstance(new EventHandler<ActionEvent>() {
-				//                    @Override public void handle(ActionEvent e) {
-				//                        help();
-				//                    }
-				//                });
-				AButton button = (AButton) c.newInstance(buttonEventHandle.get(buttonClassName));
-				myButtons.put(buttonClassName, button);
-			}catch(Exception e){
-				e.printStackTrace();
-			}
-		}
-	}
-
-
-	public Map<String, AButton> getButtons(){
-		return myButtons;
-	}
-
-	private void clearButtonEvent(){
-		myMessageBox.clear();
-		myCommandBox.clear();
-	}
-	private void uploadButtonEvent() {
-		FileChooser fileChooser = new FileChooser();
-		File selectedFile = fileChooser.showOpenDialog(null);
-		String fileName;
-
-		if (selectedFile != null) {
-			fileName = selectedFile.getName();
-			myTurtleGroup.setImage(new Image(getClass().getClassLoader().getResourceAsStream(fileName)));
-
-			//            myObservers.get(0).update(null, (Object)createDTO2());
-			myMessageBox.setMessage(fileName + " uploaded");//System.out.println("uploaded");
-		}
-		else {
-			if (selectedFile == null) {
-				myMessageBox.setMessage("Upload Cancelled");
-			}
-		}
-	}
-
-
-	private void enterButtonEvent(){
-		myMessageBox.clear();
-		String userInput = myCommandBox.getText();
-		myHistoryDisplayBox.setMessage(userInput);
-		myUserInputObservable.setUserInput(userInput);
-		UserInputTransferObject ut = new UserInputTransferObject(myUserInputObservable.getCurrentLanguage(), myUserInputObservable.getUserInput());
-		try{
-			myUserInputObservable.notifyObservers(ut);
-
-		}catch(Exception e){
-			myMessageBox.setMessage("Error: " + e.getMessage());
-		}
-	}
 	private void helpButtonEvent() {
 		Group rootMain = new Group();
 		Stage stage = new Stage();

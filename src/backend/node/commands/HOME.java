@@ -19,7 +19,6 @@ public class HOME extends Command {
 			double[] curr = t.getPosition();
 			Double dist = Math.sqrt(Math.pow(curr[0] - 0, 2) + Math.pow(curr[1] - 0, 2));
 			t.setPosition(new double[]{0,0});
-			t.notifyObservers("turtle");
 			return dist;
 		};
 		double dist = mc.executeOnAllActiveTurtles(l);

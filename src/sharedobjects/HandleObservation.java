@@ -12,19 +12,21 @@ public class HandleObservation {
 
 	// map of Observable (String name) to their Observers (List<String name>)
 	private static final Map<String, List<String>> observableMap = new HashMap<String, List<String>>() {
-		{
-			put("Turtle", new LinkedList<String>(
+		/**
+         * 
+         */
+        private static final long serialVersionUID = 1L;
+
+        {
+			put("TurtleContainer", new LinkedList<String>(
 					Arrays.asList("TurtleGroupObserver", "CanvasObserver", "TurtleStateBoxObserver")));
-			put("Success", new LinkedList<String>(Arrays.asList("MessageDisplayBoxObserver")));
+			put("Success", new LinkedList<String>(Arrays.asList("MessageDisplayBox")));
 			put("UserInput", new LinkedList<String>(Arrays.asList("Parser")));
 			put("Variables", new LinkedList<String>(Arrays.asList("FunctionVariableObserver")));
 			put("Functions", new LinkedList<String>(Arrays.asList("FunctionVariableObserver")));
-			put("DisplayProperties", new LinkedList<String>(Arrays.asList("CanvasObserver", "BackgroundRectangle")));
+			put("DisplayProperties", new LinkedList<String>(Arrays.asList("CanvasObserver", "BackgroundRectangleObserver")));
 		}
 	};
-
-	public HandleObservation() {
-	}
 
 	public static void handleObservers(List<Observable> observablesOList, List<Observer> observersOList) {
 		for (Observable observableO : observablesOList) {
@@ -39,13 +41,13 @@ public class HandleObservation {
 				}
 			}
 		}
-	}
+    }
 
-	private static void linkObserverableObserver(Observable observableO, Observer observerO) {
-		// Perform Observer/Observable Linking
-		observableO.addObserver(observerO);
-		System.out.println(observerO.getClass().getSimpleName() + " : " + observableO.getClass().getSimpleName());
-		System.out.println("got to link");
-	}
+    private static void linkObserverableObserver(Observable observableO, Observer observerO) {
+        //Perform Observer/Observable Linking
+        observableO.addObserver(observerO);
+        System.out.println(observerO.getClass().getSimpleName() + " : " + observableO.getClass().getSimpleName());
+        System.out.println("got to link");
+    }
 
 }
