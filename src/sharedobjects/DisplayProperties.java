@@ -31,8 +31,8 @@ public class DisplayProperties extends Observable {
 		// Defaults
 		myResource = ResourceBundle.getBundle(DEFAULT_GUI_RESOURCE);
 		myPenColor = 0; // Color.valueOf(myResource.getString("defaultPenColor"));
-		penThickness = Integer.parseInt(myResource.getString("defaultLineThickness"));
-		setLineType(myResource.getString("defaultLineType"));
+		penThickness = Integer.parseInt(myResource.getString("defaultPenThickness"));
+		setLineType(myResource.getString("defaultPenState"));
 		bgColor = Color.valueOf(myResource.getString("defaultBackgroundColor"));
 		colorPalette = new HashMap<Integer, Color>();
 		createDefaultPalette();

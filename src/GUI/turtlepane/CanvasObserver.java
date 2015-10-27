@@ -44,8 +44,8 @@ public class CanvasObserver extends Canvas implements Observer {
 
 	private void setDefaultPenAndStroke() {
 		setPenColor(myResource.getString("defaultPenColor"));
-		setLineType(myResource.getString("defaultLineType"));
-		setPenWidth(Double.parseDouble(myResource.getString("defaultLineThickness")));
+		setLineType(myResource.getString("defaultPenState"));
+		setPenWidth(Double.parseDouble(myResource.getString("defaultPenThickness")));
 		myGC.setStroke(myPenColor);
 	}
 
