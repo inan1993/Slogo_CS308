@@ -89,6 +89,10 @@ public class CanvasObserver extends Canvas implements Observer {
 		myGC.setLineWidth(penWidth);
 	}
 
+	public void getPenWidth(){
+		myGC.getLineWidth();
+	}
+	
 	@Override
 	public void update(Observable o, Object arg) {
 		if (((String) arg).equals("turtle")) {

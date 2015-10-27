@@ -210,6 +210,7 @@ public class SlogoView {
 	private HBox lineThicknessSlider(){
 		HBox thicknessSlider = new HBox();
 		lineSlider = new LineSlider();
+		lineSlider.setValue(4);
 		Label lineCaption = new Label(" Pen thickness: ");
 		lineCaption.setTextFill(Color.BLUE);
 		lineSlider.valueProperty().addListener(new ChangeListener<Number>() {
