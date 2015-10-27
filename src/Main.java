@@ -2,7 +2,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
-
 import GUI.SlogoView;
 import backend.parser.Parser;
 import javafx.application.Application;

@@ -3,7 +3,6 @@ package backend.node.commands;
 import backend.node.types.Command;
 import responses.Response;
 import responses.Success;
-import sharedobjects.DisplayProperties;
 import sharedobjects.ManipulateController;
 import sharedobjects.Turtle;
 

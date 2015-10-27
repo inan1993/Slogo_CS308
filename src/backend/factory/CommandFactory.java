@@ -3,7 +3,6 @@ package backend.factory;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
-
 import backend.node.DUVALL;
 import backend.node.Node;
 import backend.node.commands.ASK;
@@ -74,7 +73,7 @@ import backend.node.types.Constant;
 import backend.parser.SyntaxType;
 
 public class CommandFactory {
-	private static HashMap<SyntaxType, Class> myRegisteredCommands = new HashMap<SyntaxType, Class>();
+	private static HashMap<SyntaxType, Class<?>> myRegisteredCommands = new HashMap<SyntaxType, Class<?>>();
 
 	static {
 		//// #
@@ -177,15 +176,14 @@ public class CommandFactory {
 		
 	}
 
-	public static void registerNode(SyntaxType type, Class nodeClass) {
+	public static void registerNode(SyntaxType type, Class<?> nodeClass) {
 		myRegisteredCommands.put(type, nodeClass);
 	}
 
 	public Node createNode(SyntaxType type) {
 		Node result = null;
-		int a = myRegisteredCommands.size();
-		Class nodeClass = (Class) myRegisteredCommands.get(type);
-		Constructor nodeConstructor = null;
+		Class<?> nodeClass = (Class<?>) myRegisteredCommands.get(type);
+		Constructor<?> nodeConstructor = null;
 		try {
 			nodeConstructor = nodeClass.getDeclaredConstructor(new Class[] {});
 			result = (Node) nodeConstructor.newInstance();
