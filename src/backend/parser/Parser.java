@@ -216,7 +216,7 @@ public class Parser implements Observer {
 			case VARIABLE:case PENDOWN:case PENUP: case SHOWTURTLE :case HIDETURTLE:
 			case HOME:case CLEARSCREEN:case XCOORDINATE:case YCOORDINATE:
 			case HEADING: case ISPENDOWN: case ISSHOWING: case PI: case GETPENCOLOR: 
-			case GETSHAPE: case STAMP: case CLEARSTAMP: case ID: case TURTLES: case DUVALL:
+			case GETSHAPE: case STAMP: case CLEARSTAMPS: case ID: case TURTLES: case DUVALL:
 				parseExpression(root,0);
 				break;
 			//with 1 argument
