@@ -1,8 +1,12 @@
 package GUI.textBox;
 
-import javafx.scene.control.TextArea;
+import java.util.Observable;
+import java.util.Observer;
 
-public class MessageDisplayBox extends TextArea {
+import javafx.scene.control.TextArea;
+import responses.Response;
+
+public class MessageDisplayBox extends TextArea implements Observer{
 
     public MessageDisplayBox () {
         super();
@@ -17,4 +21,10 @@ public class MessageDisplayBox extends TextArea {
         this.clear();
         this.setText(message);
     }
+
+	@Override
+	public void update(Observable o, Object arg) {
+		Response s = (Response) o;
+		this.setPromptText(s.toString());
+	}
 }

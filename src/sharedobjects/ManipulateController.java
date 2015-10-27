@@ -4,201 +4,81 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
 import backend.node.Node;
-import backend.node.types.Constant;
-import exceptions.NotImplementedException;
-import javafx.scene.paint.Color;
 import responses.Response;
 
-public class ManipulateController implements IWorkSpaceController{
+public class ManipulateController implements IWorkSpaceController {
+	private Workspace currWorkspace;
+	private List<Workspace> workspaceList = new LinkedList<Workspace>();
 
-        private Workspace currWorkspace;
-        private List<Workspace> workspaceList = new LinkedList<Workspace>();
-        
-        public ManipulateController(Workspace w) {
-                currWorkspace = w;
-                workspaceList.add(currWorkspace);
-        }
-        
-        public void setTempTurtles(int[] ids){
-        	Map<Integer, Turtle> allTurtles = currWorkspace.getAllTurtles();
-        	List<Turtle> tempTurtles = new LinkedList<Turtle>();
-        	for(int i = 0; i < ids.length; i++){
-        		if(allTurtles.containsKey(i)){
-        			tempTurtles.add(allTurtles.get(i));
-        		}
-        	}
-        	currWorkspace.setTempTurtles(tempTurtles);
-        }
-        
-        public void clearTempTurtles(){
-        	currWorkspace.setTempTurtles(Collections.<Turtle> emptyList());
-        }
-        
-        public void tellTurtles(int[] ids){
-        	Map<Integer, Turtle> allTurtles = currWorkspace.getAllTurtles();
-        	currWorkspace.setActiveTurtles(Collections.<Turtle> emptyList());
-        	List<Turtle> nextActiveList = new LinkedList<Turtle>();
-        	for(int id = 0; id < ids.length; id++){
-        		if(allTurtles.containsKey(id)){
-        			Turtle temp = allTurtles.get(id);
-        			temp.activate();
-        			nextActiveList.add(temp);
-        		}else {
-        			Turtle temp = currWorkspace.addNewTurtle(id);
-        			nextActiveList.add(temp);
-        		}
-        	}
-        	currWorkspace.setActiveTurtles(nextActiveList);
-        }
-        
-        public double getHeading(){
-        	return 0;
-        }
-        
-        public void addVariable(String v, Node n){
-    		currWorkspace.addVariable(v, n);
-    	}
+	public ManipulateController(Workspace w) {
+		currWorkspace = w;
+		workspaceList.add(currWorkspace);
+	}
 
-		@Override
-		public Response foward(int pixels) {
-			// TODO Auto-generated method stub
-			return null;
+	public void setTempTurtles(int[] ids) {
+		Map<Integer, Turtle> allTurtles = currWorkspace.getAllTurtles();
+		List<Turtle> tempTurtles = new LinkedList<Turtle>();
+		for (int i = 0; i < ids.length; i++) {
+			if (allTurtles.containsKey(i)) {
+				tempTurtles.add(allTurtles.get(i));
+			}
 		}
+		currWorkspace.setTempTurtles(tempTurtles);
+	}
 
-		@Override
-		public Response back(int pixels) {
-			// TODO Auto-generated method stub
-			return null;
+	public void clearTempTurtles() {
+		currWorkspace.setTempTurtles(Collections.<Turtle> emptyList());
+	}
+
+	//
+	public int tellTurtles(int[] ids) {
+		Map<Integer, Turtle> allTurtles = currWorkspace.getAllTurtles();
+		currWorkspace.setActiveTurtles(Collections.<Turtle> emptyList());
+		List<Turtle> nextActiveList = new LinkedList<Turtle>();
+		for (int id = 0; id < ids.length; id++) {
+			if (allTurtles.containsKey(ids[id])) {
+				Turtle temp = allTurtles.get(ids[id]);
+				temp.activate();
+				nextActiveList.add(temp);
+			} else {
+				Turtle temp = currWorkspace.addNewTurtle(ids[id]);
+				nextActiveList.add(temp);
+			}
 		}
+		currWorkspace.setActiveTurtles(nextActiveList);
+		return ids[ids.length-1];
+	}
 
-		@Override
-		public Response left(double degrees) {
-			// TODO Auto-generated method stub
-			return null;
-		}
+	// Execute on observables
+	public double executeWorkspace(IWorkspaceLambda l) {
+		return l.run(currWorkspace);
+	}
 
-		@Override
-		public Response right(double degrees) {
-			// TODO Auto-generated method stub
-			return null;
-		}
+	public double executeDisplayProperties(IDisplayPropertiesLambda l) {
+		return l.run(currWorkspace.displayProp);
+	}
+	
+	public Node executeOnWorkspaceFunctions(IWorkspaceFunctionsLambda l) {
+		return l.run(currWorkspace.funcs);
+	}
+	
+	public Node executeOnWorkspaceVariables(IWorkspaceVariablesLambda l) {
+		return l.run(currWorkspace.vars);
+	}
 
-		@Override
-		public Response setHeading(double degrees) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public Response towards(int x, int y) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public Response setXY(int x, int y) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public Response penDown() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public Response penUp() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public Response showTurtle() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public Response hideTurtle() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public Response home() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public Response clearScreen() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-        
-        @Override
-        public Response setCommand(String userInput, String stringName, Node n) {
-                currWorkspace.addCommand(userInput, stringName, n);
-                return null;
-        }
-
-        @Override
-        public Node getCommand(String commandName) {
-                return currWorkspace.getCommand(commandName);
-        }
-
-        @Override
-        public Response setVariable(String variableName, Node var) {
-                currWorkspace.addVariable(variableName, var);
-                return null;
-        }
-
-        @Override
-        public Node getVariable(String variableName) {
-                return currWorkspace.getVariable(variableName);
-        }
-
-		public void incrementVariable(String variableName) {
-			currWorkspace.addVariable(variableName, new Constant(currWorkspace.getVariable(variableName).getIntegerValue()+1));
-		}
+	public double executeOnAllActiveTurtles(ITurtleLambda lambda) {
+		List<Turtle> turtles = (currWorkspace.getTempTurtles().size() > 0) ? currWorkspace.getTempTurtles()
+				: currWorkspace.getActiveTurtles();
 		
-		public void incrementVariableByValue(String variableName, int value) {
-			currWorkspace.addVariable(variableName, new Constant(currWorkspace.getVariable(variableName).getIntegerValue()+value));
+		double response = 0;
+		for (Turtle turtle : turtles) {
+			response = lambda.run(turtle);
 		}
-		
-		public void decrementVariable(String variableName) {
-			currWorkspace.addVariable(variableName, new Constant(currWorkspace.getVariable(variableName).getIntegerValue()-1));
-		}
-
-
-		@Override
-		public Response setCommand(String stringName, Node n) {
-            currWorkspace.addCommand(stringName, n);
-			return null;
-		}
-
-		
-		//Execute
-		public void executeWorkspace(IWorkspaceLambda l) {
-			l.run(currWorkspace);
-		}
-		
-		public void executePen(IPenLambda l) {
-			//l.run(currWorkspace.getActivePen);
-			throw new NotImplementedException();
-		}
-
-        public void executeOnAllActiveTurtles(ITurtleLambda lambda){
-        	List<Turtle> turtles = (currWorkspace.getTempTurtles().size() > 0) ? 
-        			currWorkspace.getTempTurtles() : currWorkspace.getActiveTurtles();
-       
-        	for(Turtle turtle : turtles){
-        		lambda.run(turtle);
-        	}
-        }
-
+		return response;
+	}
+	
+	public void setReponse(Response s) {
+		currWorkspace.setCurrentResponse(s);
+	}
 }

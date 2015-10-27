@@ -8,16 +8,17 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
-public class HandleObservers {
+public class HandleObservation {
 
     //map of Observable (String name) to their Observers (List<String name>)
     private static final Map<String, List<String>> observableMap = new HashMap<String,List<String>>() {{
         put("Turtle", new LinkedList<String>(Arrays.asList("TurtleGroupObserver","CanvasObserver","TurtleStateBoxObserver")));
+        put("Success", new LinkedList<String>(Arrays.asList("MessageDisplayBox")));
         put("ParsedCommands", new LinkedList<String>(Arrays.asList("ParsedCommandsObserver")));
         put("UserInput", new LinkedList<String>(Arrays.asList("Parser")));
     }};
 
-    public HandleObservers() {}
+    public HandleObservation() {}
 
     public static void handleObservers(List<Observable> observablesOList, List<Observer> observersOList){
         for(Observable observableO: observablesOList){

@@ -1,7 +1,6 @@
 package backend.node.commands;
 
 import backend.node.types.OneArgumentNode;
-import datatransferobjects.TurtleTransferObject;
 import responses.Response;
 import responses.Success;
 import sharedobjects.ITurtleLambda;
@@ -19,14 +18,15 @@ public class SETH extends OneArgumentNode {
 		 //get headings
 		 double newHeading = getAndRun(0, mc).getDoubleValue();
 		 ITurtleLambda l = (Turtle t) -> {
+			Double delta = Math.abs(t.getHeading() - newHeading);
+			delta = Math.min(delta, 360 - delta);
 			t.setHeading(newHeading);
-			TurtleTransferObject dto = new TurtleTransferObject(false, t.getID(), t.isShowing(), t.isPenDown(), t.getPosition(), t.getPosition());
-				
-			t.notifyObservers(dto);
+			t.notifyObservers("turtle");
+			return delta;
 		};
-		mc.executeOnAllActiveTurtles(l);
+		Double delta = mc.executeOnAllActiveTurtles(l);
 	   
-		 //return the delta
-		 return new Success(1);
+		//return the delta
+		return new Success(delta);
 	}
 }

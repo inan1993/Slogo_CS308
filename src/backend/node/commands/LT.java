@@ -21,10 +21,11 @@ public class LT extends OneArgumentNode {
 			}
 			t.setHeading(currHeading);
 			System.out.println(currHeading);
+			return degrees;
 		};
 		sharedHandle.executeOnAllActiveTurtles(l);
 		
 		// return argument 1 value
-		return new Success(getAndRun(0, sharedHandle).toString());
+		return new Success(degrees);
 	}
 }
