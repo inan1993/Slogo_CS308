@@ -6,6 +6,7 @@ package backend.node.commands;
 import backend.node.types.ZeroArgumentNode;
 import responses.Response;
 import responses.Success;
+import sharedobjects.DisplayProperties;
 import sharedobjects.ITurtleLambda;
 import sharedobjects.ManipulateController;
 import sharedobjects.Turtle;
@@ -18,12 +19,11 @@ public class PU extends ZeroArgumentNode {
 
 	@Override
 	public Response run(ManipulateController mc) {
-		ITurtleLambda l = (Turtle t) -> {
-			t.penUp();
-			t.notifyObservers("turtle");
+		mc.executeDisplayProperties((DisplayProperties t) -> {
+			t.setPenDown(false);
+			t.notifyObservers("pen");
 			return 0;
-		};
-		mc.executeOnAllActiveTurtles(l);
+		});
 
 		// return 1
 		return new Success(0);
