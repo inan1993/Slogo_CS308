@@ -19,6 +19,7 @@ public class SETPS extends OneArgumentNode {
 		
 		IDisplayPropertiesLambda l = (DisplayProperties d) -> {
 			d.setPenThickness(size);
+			return 0;
 		};
 
 		mc.executeDisplayProperties(l);

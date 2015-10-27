@@ -30,6 +30,7 @@ public class TOWARDS extends TwoArgumentNode {
 			}
 			t.setHeading(angle);
 			t.notifyObservers("turtle");
+			return 0;
 		};
 		
 		mc.executeOnAllActiveTurtles(l);
