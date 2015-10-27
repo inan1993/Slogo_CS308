@@ -1,7 +1,5 @@
 package sharedobjects;
 
-import java.util.Observable;
-
 public class Turtle {
 	private int ID;
 	private double[] position;
