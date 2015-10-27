@@ -7,8 +7,8 @@ package exceptions;
  * @author loganrooper
  *
  */
-public class WontAddException extends RuntimeException {
+public class WontImplementException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
-    public WontAddException(){}
+    public WontImplementException(){}
 }

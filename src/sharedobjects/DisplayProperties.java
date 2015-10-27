@@ -9,7 +9,7 @@ import java.util.Observable;
 import java.util.ResourceBundle;
 
 import exceptions.NotImplementedException;
-import exceptions.WontAddException;
+import exceptions.WontImplementException;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
@@ -22,14 +22,14 @@ public class DisplayProperties extends Observable {
 	protected static ResourceBundle myResource;
 	Map<Integer, Color> colorPalette;
 	Color bgColor;
-	private Color myPenColor;
+	private int myPenColor;
 	private double penThickness;
 	private String penState;
 
 	public DisplayProperties() {
 		//Defaults
 		myResource = ResourceBundle.getBundle(DEFAULT_GUI_RESOURCE);
-		myPenColor = Color.valueOf(myResource.getString("defaultPenColor"));
+		myPenColor = 0; //Color.valueOf(myResource.getString("defaultPenColor"));
 		penThickness = Integer.parseInt(myResource.getString("defaultLineThickness"));
 		penState = myResource.getString("defaultLineType");
 		bgColor = Color.valueOf(myResource.getString("defaultBackgroundColor"));
@@ -39,15 +39,17 @@ public class DisplayProperties extends Observable {
 	}
 
 	public void setPenColor(int index) {
-		myPenColor = getPaletteColor(index);
+		myPenColor = index;
+		this.setChanged();
 	}
 
-	public Paint getPenColor() {
+	public double getPenColor() {
 		return myPenColor;
 	}
-
+	
 	public void setPenThickness(double t) {
 		penThickness = t;
+		this.setChanged();
 	}
 
 	public double getPenThickness() {
@@ -60,10 +62,11 @@ public class DisplayProperties extends Observable {
 
 	public void setPenState(String state) {
 		this.penState = state;
+		this.setChanged();
 	}
 
 	public void setPenShape(int index) {
-		throw new WontAddException();
+		throw new WontImplementException();
 	}
 
 	private void createDefaultPalette() {
@@ -90,5 +93,9 @@ public class DisplayProperties extends Observable {
 
 	public Color getBgColor() {
 		return bgColor;
+	}
+
+	public double getShape() {
+		throw new WontImplementException();
 	}
 }

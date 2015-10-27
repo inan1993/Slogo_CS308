@@ -103,7 +103,7 @@ public class ManipulateController implements IWorkSpaceController {
 		return null;
 	}
 
-	// Execute
+	// Execute on Observables
 	public void executeWorkspace(IWorkspaceLambda l) {
 		l.run(currWorkspace);
 	}
@@ -119,5 +119,18 @@ public class ManipulateController implements IWorkSpaceController {
 		for (Turtle turtle : turtles) {
 			lambda.run(turtle);
 		}
+	}
+
+	public void setReponse(Response s) {
+		currWorkspace.setCurrentResponse(s);
+	}
+
+	// Pull data from Observables
+	public double getDataFromWorkspace(IWorkspaceGetLambda l) {
+		return l.get(currWorkspace);
+	}
+
+	public double getDataFromDisplay(IDisplayPropertiesGetLambda l) {
+		return l.get(currWorkspace.displayProp);
 	}
 }
