@@ -12,7 +12,12 @@ public class HandleObservation {
 
 	// map of Observable (String name) to their Observers (List<String name>)
 	private static final Map<String, List<String>> observableMap = new HashMap<String, List<String>>() {
-		{
+		/**
+         * 
+         */
+        private static final long serialVersionUID = 1L;
+
+        {
 			put("TurtleContainer", new LinkedList<String>(
 					Arrays.asList("TurtleGroupObserver", "CanvasObserver", "TurtleStateBoxObserver")));
 			put("Success", new LinkedList<String>(Arrays.asList("MessageDisplayBox")));

@@ -7,10 +7,8 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
-
 import GUI.button.AButton;
 import GUI.button.ButtonFactory;
-import GUI.checkbox.PenUpDownCheckBox;
 import GUI.dropdown.BackgroundColorDropdown;
 import GUI.dropdown.FileDropdown;
 import GUI.dropdown.LanguageListDropdown;
@@ -67,7 +65,6 @@ public class SlogoView {
 	private TurtleStateBox turtleStateBox;
 	private LineSlider lineSlider;
 	private OpacitySlider opacitySlider;
-	private PenUpDownCheckBox checkBox;
 
 	private UserInput myUserInputObservable;
 
@@ -250,21 +247,6 @@ public class SlogoView {
 
 	}
 
-	// private Node checkBox(){
-	// checkBox = new PenUpDownCheckBox();
-	// checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
-	// @Override
-	// public void changed(ObservableValue ov, Boolean old_val, Boolean new_val)
-	// {
-	// messageBox.setMessage("Pen Down");
-	//
-	// myTurtleCanvas.penUpDown();
-	// }
-	// });
-	//
-	// return checkBox;
-	// }
-
 	private VBox rightBox() {
 		VBox result = new VBox();
 		result.getChildren().addAll(variableDisplayBox, historyDisplayBox, functionDisplayBox, turtleStateBox);
@@ -272,7 +254,8 @@ public class SlogoView {
 	}
 
 	public List<Observable> getObservables() {
-		List<Observable> a = new ArrayList<Observable>() {
+		@SuppressWarnings("serial")
+        List<Observable> a = new ArrayList<Observable>() {
 			{
 				add(myUserInputObservable);
 			}

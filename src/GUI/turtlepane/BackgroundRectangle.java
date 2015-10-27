@@ -6,11 +6,10 @@ import java.util.ResourceBundle;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import sharedobjects.DisplayProperties;
-import sharedobjects.Turtle;
 
 public class BackgroundRectangle extends Rectangle implements Observer{
 
-	private static final String TURTLE_RESOURCE_PACKAGE = "GUI.turtlepane/default";
+	private static final String TURTLE_RESOURCE_PACKAGE = "GUI.view";
 	protected static ResourceBundle myResource;
 
 	private Color myBackgroundColor;
@@ -22,7 +21,7 @@ public class BackgroundRectangle extends Rectangle implements Observer{
 	public BackgroundRectangle (int width, int height) {
 		super(width, height);
 		myResource = ResourceBundle.getBundle(TURTLE_RESOURCE_PACKAGE);
-		myBackgroundColor = Color.valueOf(myResource.getString("backgroundColors"));
+		myBackgroundColor = Color.valueOf(myResource.getString("defaultBackgroundColor"));
 		this.setFill(myBackgroundColor);
 	}
 

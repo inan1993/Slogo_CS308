@@ -5,14 +5,12 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
-
-import exceptions.FrontendException;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import sharedobjects.DisplayProperties;
-import sharedobjects.TurtleContainer;
 import sharedobjects.Turtle;
+import sharedobjects.TurtleContainer;
 
 public class CanvasObserver extends Canvas implements Observer {
 
