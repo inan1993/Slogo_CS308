@@ -16,11 +16,13 @@ public class HOME extends Command {
 	public Response run(ManipulateController mc) {
 		// get xy		
 		ITurtleLambda l = (Turtle t) -> {
+			double[] curr = t.getPosition();
+			Double dist = Math.sqrt(Math.pow(curr[0] - 0, 2) + Math.pow(curr[1] - 0, 2));
 			t.setPosition(new double[]{0,0});
 			t.notifyObservers("turtle");
-			return 0;
+			return dist;
 		};
-		mc.executeOnAllActiveTurtles(l);
-		return new Success(0);
+		double dist = mc.executeOnAllActiveTurtles(l);
+		return new Success(dist);
 	}
 }
