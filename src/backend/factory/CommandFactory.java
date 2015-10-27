@@ -39,10 +39,10 @@ public class CommandFactory {
 		//// #
 		//// # Turtle Queries
 		//// #
-		// XCOORDINATE,
-		// YCOORDINATE,
-		// HEADING,
-		// ISPENDOWN,
+		registerNode(SyntaxType.XCOORDINATE, XCOR.class);// XCOORDINATE,
+		registerNode(SyntaxType.YCOORDINATE, YCOR.class);// YCOORDINATE,
+		registerNode(SyntaxType.HEADING, HEADING.class);// HEADING,
+		registerNode(SyntaxType.ISPENDOWN, PENDOWNP.class);
 		// ISSHOWING,
 		//// #
 		//// # Math Operations

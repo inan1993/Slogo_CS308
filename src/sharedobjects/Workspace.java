@@ -60,10 +60,7 @@ public class Workspace {
 
 	public void startWorkspace() {
 		turtleContainer.notifyObservers("turtle");
-		displayProp.notifyObservers();
-		response.notifyObservers();
-		funcs.notifyObservers();
-		vars.notifyObservers();
+		
 	}
 
 	/**

@@ -121,6 +121,11 @@ public class DisplayProperties extends Observable {
 		this.setChanged();
 		notifyObservers("palette");
 	}
+	
+	public void clear() {
+		this.setChanged();
+		notifyObservers("clear");
+	}
 
 	public String getLineType() {
 		return lineType;

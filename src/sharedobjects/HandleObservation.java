@@ -10,19 +10,20 @@ import java.util.Observer;
 
 public class HandleObservation {
 
-    //map of Observable (String name) to their Observers (List<String name>)
-    private static final Map<String, List<String>> observableMap = new HashMap<String,List<String>>() {{
-        put("TurtleContainer", new LinkedList<String>(Arrays.asList("TurtleGroupObserver","CanvasObserver","TurtleStateBoxObserver")));
-        put("Success", new LinkedList<String>(Arrays.asList("MessageDisplayBox")));
-        put("UserInput", new LinkedList<String>(Arrays.asList("Parser")));
-        put("Variables", new LinkedList<String>(Arrays.asList("FunctionVariableObserver")));
-        put("Functions", new LinkedList<String>(Arrays.asList("FunctionVariableObserver")));
-        put("DisplayProperties", new LinkedList<String>(Arrays.asList("ParsedCommandsObserver")));
+	// map of Observable (String name) to their Observers (List<String name>)
+	private static final Map<String, List<String>> observableMap = new HashMap<String, List<String>>() {
+		{
+			put("TurtleContainer", new LinkedList<String>(
+					Arrays.asList("TurtleGroupObserver", "CanvasObserver", "TurtleStateBoxObserver")));
+			put("Success", new LinkedList<String>(Arrays.asList("MessageDisplayBox")));
+			put("UserInput", new LinkedList<String>(Arrays.asList("Parser")));
+			put("Variables", new LinkedList<String>(Arrays.asList("FunctionVariableObserver")));
+			put("Functions", new LinkedList<String>(Arrays.asList("FunctionVariableObserver")));
+			put("DisplayProperties", new LinkedList<String>(Arrays.asList("CanvasObserver", "BackgroundRectangle")));
+		}
+	};
 
-        
-    }};	
-    
-    public static void handleObservers(List<Observable> observablesOList, List<Observer> observersOList) {
+	public static void handleObservers(List<Observable> observablesOList, List<Observer> observersOList) {
 		for (Observable observableO : observablesOList) {
 			String observableName = observableO.getClass().getSimpleName();
 			List<String> observersSList = observableMap.get(observableName);

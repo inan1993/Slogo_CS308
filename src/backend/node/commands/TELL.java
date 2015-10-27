@@ -22,10 +22,10 @@ public class TELL extends OneArgumentNode {
 		// If only one argument then I'll create a range 0->x
 		int numChildren = getChildren().get(0).getChildrenNum();
 		int[] ids = new int[numChildren];
-		for(int i = 0; i < numChildren; i++){
+		for(int i =0; i < numChildren; i++){
 			ids[i] = getChildren().get(0).getAndRun(i, mc).getIntegerValue();
 		}
-		
+//		getAndRun(0,mc);
 		int id = mc.tellTurtles(ids);
 		return new Success(id);
 	}
