@@ -28,14 +28,17 @@ public class TOWARDS extends TwoArgumentNode {
 			if(angle >= 360){
                   angle = angle - 360;
 			}
+			Double delta = Math.abs(t.getHeading() - angle);
+			delta = Math.min(delta, 360 - delta);
+			
 			t.setHeading(angle);
 			t.notifyObservers("turtle");
-			return 0;
+			return delta;
 		};
 		
-		mc.executeOnAllActiveTurtles(l);
+		Double delta = mc.executeOnAllActiveTurtles(l);
 
 		// return the delta
-		return new Success(1);
+		return new Success(delta);
 	}
 }

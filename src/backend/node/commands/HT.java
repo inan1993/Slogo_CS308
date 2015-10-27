@@ -28,6 +28,6 @@ public class HT extends ZeroArgumentNode {
 		mc.executeOnAllActiveTurtles(l);
 
 		// return 1
-		return new Success(1);
+		return new Success(0);
 	}
 }
