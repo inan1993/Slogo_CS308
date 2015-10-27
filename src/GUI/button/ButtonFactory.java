@@ -13,10 +13,11 @@ import GUI.viewbox.CommandHistoryBox;
 import datatransferobjects.UserInputTransferObject;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.image.Image;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.Image;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
@@ -34,7 +35,7 @@ public class ButtonFactory {
     private TurtleGroupObserver myTurtleGroup;
     private UserInput myUserInputObservable;
     
-    public ButtonFactory (CommandPromptDisplayBox commandBox, MessageDisplayBoxObserver messageBox, CommandHistoryBox historyDisplayBox, TurtleGroupObserver turtleGroup, UserInput userInputObservable) {
+    public ButtonFactory (CommandPromptDisplayBox commandBox, MessageDisplayBoxObserver messageBox, CommandHistoryBox historyDisplayBox, TurtleGroupObserver turtleGroup, UserInput userInputObservable, BorderPane main) {
         myResource = ResourceBundle.getBundle(DEFAULT_RESOURCE_BUTTON);
         this.myCommandBox = commandBox;
         this.myHistoryDisplayBox = historyDisplayBox;

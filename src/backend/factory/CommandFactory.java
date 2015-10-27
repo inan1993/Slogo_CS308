@@ -36,7 +36,7 @@ public class CommandFactory {
 		registerNode(SyntaxType.CLEARSCREEN, CS.class);
 		registerNode(SyntaxType.XCOORDINATE, XCOR.class);
 		registerNode(SyntaxType.YCOORDINATE, YCOR.class);
-		
+
 		//// #
 		//// # Turtle Queries
 		//// #
@@ -44,6 +44,7 @@ public class CommandFactory {
 		registerNode(SyntaxType.YCOORDINATE, YCOR.class);// YCOORDINATE,
 		registerNode(SyntaxType.HEADING, HEADING.class);// HEADING,
 		registerNode(SyntaxType.ISPENDOWN, PENDOWNP.class);
+		registerNode(SyntaxType.ISSHOWING, SHOWINGP.class);
 		// ISSHOWING,
 		//// #
 		//// # Math Operations
@@ -93,7 +94,7 @@ public class CommandFactory {
 		registerNode(SyntaxType.GETPENCOLOR, PC.class);
 		registerNode(SyntaxType.GETSHAPE, SH.class);
 		registerNode(SyntaxType.STAMP, STAMP.class);
-		registerNode(SyntaxType.CLEARSTAMP, CLEARSTAMP.class);
+		registerNode(SyntaxType.CLEARSTAMPS, CLEARSTAMPS.class);
 		registerNode(SyntaxType.CLEARSCREEN, CS.class);
 		//// #
 		//// # Multiple Turtle Commands
