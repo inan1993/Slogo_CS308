@@ -76,7 +76,6 @@ public class Workspace {
 	public void startWorkspace() {
 		Turtle firstTurtle = activeTurtles.get(0);
 		firstTurtle.notifyObservers("turtle");
-		displayProp.notifyObservers();
 		System.out.println("here1");
 	}
 
