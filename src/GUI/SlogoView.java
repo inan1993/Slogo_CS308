@@ -88,12 +88,9 @@ public class SlogoView {
 		// myTurtleIDs = new ArrayList<Double>();
 		myUserInputObservable = new UserInput(DEFAULT_LANGUAGE);
 		BorderPane root = new BorderPane();
-		
 		ButtonFactory buttonFactory = new ButtonFactory(commandBox, messageBox, historyDisplayBox, myTurtleGroup,
 				myUserInputObservable, root);
 		myButtons = buttonFactory.getButtons();
-		
-		
 
 		root.setMaxSize(DEFAULT_SIZE.getWidth(), DEFAULT_SIZE.getHeight());
 
@@ -217,7 +214,8 @@ public class SlogoView {
 	private HBox lineThicknessSlider() {
 		HBox thicknessSlider = new HBox();
 		lineSlider = new LineSlider();
-		lineSlider.setValue(4);
+		lineSlider.setValue(getTurtlePaneCanvas().getPenWidth());
+
 		Label lineCaption = new Label(" Pen thickness: ");
 		lineCaption.setTextFill(Color.BLUE);
 		lineSlider.valueProperty().addListener(new ChangeListener<Number>() {
@@ -256,7 +254,7 @@ public class SlogoView {
 
 	public List<Observable> getObservables() {
 		@SuppressWarnings("serial")
-        List<Observable> a = new ArrayList<Observable>() {
+		List<Observable> a = new ArrayList<Observable>() {
 			{
 				add(myUserInputObservable);
 			}
