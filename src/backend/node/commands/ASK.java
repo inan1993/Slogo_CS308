@@ -1,7 +1,7 @@
 package backend.node.commands;
 
 import backend.node.Node;
-import backend.node.types.TwoArgumentNode;
+import backend.node.Node;
 import responses.Response;
 import sharedobjects.ManipulateController;
 
@@ -9,7 +9,7 @@ import sharedobjects.ManipulateController;
  * @author loganrooper
  *
  */
-public class ASK extends TwoArgumentNode {
+public class ASK extends Node {
 	@Override
 	public Response run(ManipulateController mc) {
 		// Run everything in the list

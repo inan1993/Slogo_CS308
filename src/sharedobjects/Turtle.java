@@ -13,7 +13,7 @@ public class Turtle {
 	public Turtle(int id){
 		setID(id);
 		position = new double[]{0.0,0.0};
-		oldPosition = new double[]{0.0,0.0};;
+		oldPosition = new double[]{0.0,0.0};
 		heading = 90;
 		showing = true;
 		active = true;

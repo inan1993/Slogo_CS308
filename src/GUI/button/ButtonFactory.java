@@ -58,11 +58,6 @@ public class ButtonFactory {
                 Constructor<?> c =
                         Class.forName("GUI.button."+buttonClassName)
                         .getConstructor(EventHandler.class);
-//                AButton button = (AButton) c.newInstance(new EventHandler<ActionEvent>() {
-//                    @Override public void handle(ActionEvent e) {
-//                        help();
-//                    }
-//                });
                 AButton button = (AButton) c.newInstance(buttonEventHandle.get(buttonClassName));
                 myButtons.put(buttonClassName, button);
             }catch(Exception e){
