@@ -11,7 +11,7 @@ public class DUVALL extends Node {
 	@Override
 	public Response run(ManipulateController mc) {
 		mc.tellDuvall2Dance();
-		return new Success("He be Dancin'");
+		return new Success("He be Dancin'");	
 	}
 
 }
