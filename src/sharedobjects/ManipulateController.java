@@ -32,21 +32,22 @@ public class ManipulateController implements IWorkSpaceController {
 	}
 
 	//
-	public void tellTurtles(int[] ids) {
+	public int tellTurtles(int[] ids) {
 		Map<Integer, Turtle> allTurtles = currWorkspace.getAllTurtles();
 		currWorkspace.setActiveTurtles(Collections.<Turtle> emptyList());
 		List<Turtle> nextActiveList = new LinkedList<Turtle>();
 		for (int id = 0; id < ids.length; id++) {
-			if (allTurtles.containsKey(id)) {
-				Turtle temp = allTurtles.get(id);
+			if (allTurtles.containsKey(ids[id])) {
+				Turtle temp = allTurtles.get(ids[id]);
 				temp.activate();
 				nextActiveList.add(temp);
 			} else {
-				Turtle temp = currWorkspace.addNewTurtle(id);
+				Turtle temp = currWorkspace.addNewTurtle(ids[id]);
 				nextActiveList.add(temp);
 			}
 		}
 		currWorkspace.setActiveTurtles(nextActiveList);
+		return ids[ids.length-1];
 	}
 
 	// Execute on observables
