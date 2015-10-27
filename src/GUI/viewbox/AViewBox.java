@@ -43,6 +43,10 @@ public abstract class AViewBox extends TitledPane{
 
 		});
 	}
+	
+	public void clear() {
+		listView.getItems().removeAll(listView.getItems());
+	}
 
 	abstract void setStyle();        
 	abstract void setSize();

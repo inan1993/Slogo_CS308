@@ -6,9 +6,9 @@ import java.util.Observer;
 import javafx.scene.control.TextArea;
 import responses.Response;
 
-public class MessageDisplayBox extends TextArea implements Observer{
+public class MessageDisplayBoxObserver extends TextArea implements Observer{
 
-    public MessageDisplayBox () {
+    public MessageDisplayBoxObserver () {
         super();
         this.setPromptText("Internal Message");
         this.setPrefSize(650, 20);
