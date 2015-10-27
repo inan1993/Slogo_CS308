@@ -7,7 +7,6 @@ public class Turtle extends Observable{
 	private double[] position;
 	private double[] oldPosition;
 	private double heading;
-	private boolean penDown;
 	private boolean showing;
 	private boolean active;
 	
@@ -16,7 +15,6 @@ public class Turtle extends Observable{
 		position = new double[]{0.0,0.0};
 		oldPosition = new double[]{0.0,0.0};;
 		heading = 90;
-		penDown = true;
 		showing = true;
 		active = true;
 		this.setChanged();
@@ -52,20 +50,6 @@ public class Turtle extends Observable{
 	
 	public double getHeading(){
 		return heading;
-	}
-	
-	public void penUp(){
-		penDown = false;
-		this.setChanged();
-	}
-	
-	public void penDown(){
-		this.setChanged();
-		penDown = true;
-	}
-	
-	public boolean isPenDown(){
-		return penDown;
 	}
 	
 	public void show(){

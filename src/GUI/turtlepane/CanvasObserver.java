@@ -1,13 +1,16 @@
 package GUI.turtlepane;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
 
+import exceptions.FrontendException;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import responses.Response;
+import sharedobjects.DisplayProperties;
 import sharedobjects.Turtle;
 
 public class CanvasObserver extends Canvas implements Observer {
@@ -16,8 +19,9 @@ public class CanvasObserver extends Canvas implements Observer {
 	private static final String DEFAULT_GUI_RESOURCE = "GUI.view";
 	protected static ResourceBundle myResource;
 	int myWidth, myHeight;
-
 	private Color myPenColor;
+	private boolean isDrawing;
+	private Map<Integer, Color> colorPalette;
 
 	public CanvasObserver() {
 		super();
@@ -26,11 +30,16 @@ public class CanvasObserver extends Canvas implements Observer {
 		myHeight = Integer.parseInt(myResource.getString("canvasHeight"));
 		this.setWidth(myWidth);
 		this.setHeight(myHeight);
-
+		setDrawing(true);
+		colorPalette = new HashMap<Integer, Color>();
 		myGC = this.getGraphicsContext2D();
 		myGC.setFill(Color.TRANSPARENT);
 		myGC.fillRect(0, 0, myWidth, myHeight);
 		setDefaultPenAndStroke();
+	}
+	
+	private void setPalette(Map<Integer, Color> colorPalette) {
+		this.colorPalette = colorPalette;
 	}
 
 	private void setDefaultPenAndStroke() {
@@ -49,20 +58,22 @@ public class CanvasObserver extends Canvas implements Observer {
 		myGC.setStroke(myPenColor);
 	}
 
-//<<<<<<< HEAD
-//	public void drawLine(double[] startLoc, double[] endLoc, boolean draw) {
-//		if (draw) {
-//			// myGC.setStroke(myPenColor);
-//			myGC.strokeLine(startLoc[0] + myWidth / 2.0, startLoc[1] + myHeight / 2.0, endLoc[0] + myWidth / 2.0,
-//					endLoc[1] + myHeight / 2.0);
-//		}
-//	}
-//=======
-    public void drawLine(double[]startLoc, double[] endLoc, boolean draw){
-        if(draw){
-            myGC.strokeLine(startLoc[0]+myWidth/2.0, startLoc[1]+myHeight/2.0, endLoc[0]+myWidth/2.0, endLoc[1]+myHeight/2.0); 
-        }
-    }
+	// <<<<<<< HEAD
+	// public void drawLine(double[] startLoc, double[] endLoc, boolean draw) {
+	// if (draw) {
+	// // myGC.setStroke(myPenColor);
+	// myGC.strokeLine(startLoc[0] + myWidth / 2.0, startLoc[1] + myHeight /
+	// 2.0, endLoc[0] + myWidth / 2.0,
+	// endLoc[1] + myHeight / 2.0);
+	// }
+	// }
+	// =======
+	public void drawLine(double[] startLoc, double[] endLoc) {
+		if (isDrawing()) {
+			myGC.strokeLine(startLoc[0] + myWidth / 2.0, startLoc[1] + myHeight / 2.0, endLoc[0] + myWidth / 2.0,
+					endLoc[1] + myHeight / 2.0);
+		}
+	}
 
 	public void penUpDown() {
 		System.out.println("check");
@@ -85,11 +96,32 @@ public class CanvasObserver extends Canvas implements Observer {
 		myGC.setLineWidth(penWidth);
 	}
 
+	public void getPenWidth(){
+		myGC.getLineWidth();
+	}
+	
 	@Override
 	public void update(Observable o, Object arg) {
-//		if (((String) arg).equals("turtle")) {
+		if (((String) arg).equals("turtle")) {
 			Turtle t = (Turtle) o;
-			drawLine(t.getOldPosition(), t.getPosition(), t.isPenDown());
-//		}
+			drawLine(t.getOldPosition(), t.getPosition());
+		} else if (((String) arg).equals("pen")) {
+			DisplayProperties t = (DisplayProperties) o;
+			setPenColor(t.getPaletteColor(t.getPenColorID()).toString());
+			setLineType(t.getLineType());
+			setPenWidth(t.getPenThickness());
+			setDrawing(t.getPenDown());
+		} else if (((String) arg).equals("palette")) {
+			DisplayProperties t = (DisplayProperties) o;
+			setPalette(t.getPalette());
+		}
+	}
+
+	public boolean isDrawing() {
+		return isDrawing;
+	}
+
+	public void setDrawing(boolean isDrawing) {
+		this.isDrawing = isDrawing;
 	}
 }

@@ -14,6 +14,7 @@ public class Workspace {
 	List<Turtle> activeTurtles;
 	List<Turtle> tempTurtles;
 	List<Color> colorPalette;
+
 	DisplayProperties displayProp;
 	Variables vars;
 	Functions funcs;
@@ -57,12 +58,14 @@ public class Workspace {
 		return tempTurtles;
 	}
 
+
 	public List<Observable> getObservables() {
 		List<Observable> observables = new LinkedList<Observable>();
 		for (Turtle t : activeTurtles) {
 			System.out.println("here2");
 			observables.add((Observable) t);
 		}
+
 		observables.add(displayProp);
 		observables.add(response);
 		observables.add(funcs);
@@ -73,7 +76,6 @@ public class Workspace {
 	public void startWorkspace() {
 		Turtle firstTurtle = activeTurtles.get(0);
 		firstTurtle.notifyObservers("turtle");
-		displayProp.notifyObservers();
 		System.out.println("here1");
 	}
 

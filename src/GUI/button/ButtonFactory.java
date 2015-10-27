@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 import GUI.textBox.CommandPromptDisplayBox;
-import GUI.textBox.MessageDisplayBox;
+import GUI.textBox.MessageDisplayBoxObserver;
 import GUI.turtlepane.TurtleGroupObserver;
 import GUI.viewbox.CommandHistoryBox;
 import datatransferobjects.UserInputTransferObject;
@@ -25,12 +25,12 @@ public class ButtonFactory {
 
     private Map<String, AButton> myButtons;
     private CommandPromptDisplayBox myCommandBox; 
-    private MessageDisplayBox myMessageBox;
+    private MessageDisplayBoxObserver myMessageBox;
     private CommandHistoryBox myHistoryDisplayBox;
     private TurtleGroupObserver myTurtleGroup;
     private UserInput myUserInputObservable;
     
-    public ButtonFactory (CommandPromptDisplayBox commandBox, MessageDisplayBox messageBox, CommandHistoryBox historyDisplayBox, TurtleGroupObserver turtleGroup, UserInput userInputObservable) {
+    public ButtonFactory (CommandPromptDisplayBox commandBox, MessageDisplayBoxObserver messageBox, CommandHistoryBox historyDisplayBox, TurtleGroupObserver turtleGroup, UserInput userInputObservable) {
         myResource = ResourceBundle.getBundle(DEFAULT_RESOURCE_BUTTON);
         this.myCommandBox = commandBox;
         this.myHistoryDisplayBox = historyDisplayBox;
@@ -105,8 +105,8 @@ public class ButtonFactory {
             myUserInputObservable.notifyObservers(ut);
             
         }catch(Exception e){
-            e.printStackTrace();
-            myMessageBox.setMessage(e.toString());
+            //e.printStackTrace();
+            myMessageBox.setMessage("Error: " + e.getMessage());
 //            myMessageBox.setMessage(e.getStackTrace().toString());
         }
     }
