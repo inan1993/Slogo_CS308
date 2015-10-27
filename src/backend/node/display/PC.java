@@ -2,6 +2,9 @@ package backend.node.display;
 
 import backend.node.types.ZeroArgumentNode;
 import responses.Response;
+import responses.Success;
+import sharedobjects.DisplayProperties;
+import sharedobjects.IDisplayPropertiesGetLambda;
 import sharedobjects.ManipulateController;
 
 /**
@@ -11,7 +14,11 @@ import sharedobjects.ManipulateController;
 public class PC extends ZeroArgumentNode {
 	@Override
 	public Response run(ManipulateController mc) {
-		//Call mc.getColorIndex()
-		return null;
+		IDisplayPropertiesGetLambda l = (DisplayProperties p) -> {
+			return p.getPenColor();
+		};
+
+		double result = mc.getDataFromDisplay(l);
+		return new Success(result);
 	}
 }

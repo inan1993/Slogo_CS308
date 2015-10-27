@@ -10,11 +10,8 @@ import sharedobjects.ManipulateController;
  *
  */
 public class XCOR extends Command{
-
 	@Override
 	public Response run(ManipulateController mc) {
-		//return new Success(mc.get);
-		return new Success(1);
+		return new Success(0);
 	}
-
 }

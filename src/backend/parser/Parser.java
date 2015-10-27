@@ -543,6 +543,9 @@ public class Parser implements Observer {
 		System.out.println("Wanning"+input);
 		String lang = dto.getLanguage();
 		Response s = parse(input, lang);
+		//Notify the frontend
+		myManiControl.setReponse(s);
+
 	}
 }
 
