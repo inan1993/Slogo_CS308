@@ -66,7 +66,6 @@ public class ButtonFactory {
         }
     }
     
-    
     public Map<String, AButton> getButtons(){
         return myButtons;
     }
@@ -103,11 +102,8 @@ public class ButtonFactory {
         UserInputTransferObject ut = new UserInputTransferObject(myUserInputObservable.getCurrentLanguage(), myUserInputObservable.getUserInput());
         try{
             myUserInputObservable.notifyObservers(ut);
-            
         }catch(Exception e){
-            e.printStackTrace();
             myMessageBox.setMessage("Error: " + e.getMessage());
-//            myMessageBox.setMessage(e.getStackTrace().toString());
         }
     }
 
