@@ -185,6 +185,6 @@ The back-end is also divided into two sections. One of the section looks after t
 Abhishek Upadhyaya Ghimire, Inan Tainwala
 
 #####Back End: 
-Logan Rooper, Wanning Jiang, Connor Usry
+Logan Rooper, Inan Tainwala, Wanning Jiang, Connor Usry
 
 
